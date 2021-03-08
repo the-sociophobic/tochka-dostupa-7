@@ -13,6 +13,7 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "capitalize": "^2.0.3",
     "date-fns": "^2.19.0",

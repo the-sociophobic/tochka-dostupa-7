@@ -12,7 +12,13 @@ import {
   initialState
 } from './Types'
 import Context from './Context'
+import { getUser } from '../../utils/API'
 
+
+const _setState = (_this: any, obj: any) => {
+  _this.setState(obj)
+  //TODO send async post
+}
 
 
 class Provider extends React.Component<{cookies: any}, StateType> {
@@ -21,14 +27,18 @@ class Provider extends React.Component<{cookies: any}, StateType> {
 
   state = {
     ...initialState,
-    setState: this.setState,
+    setState: (obj: any) => _setState(this, obj),
   }
 
-  componentDidMount = () => {
+  componentDidMount = () =>
+    this.checkUser()
+
+  checkUser = async () => {
     const { cookies } = this.props
 
     console.log(cookies)
   }
+
 
   render = () =>
     <CookiesProvider>
