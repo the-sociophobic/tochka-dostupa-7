@@ -3,7 +3,7 @@ import React from 'react'
 import {
   StateType,
   initialState
-} from './State'
+} from './Types'
 
 
 const Context = React.createContext<StateType>(initialState)

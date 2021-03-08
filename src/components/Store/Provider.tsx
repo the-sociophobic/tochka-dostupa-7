@@ -1,23 +1,42 @@
 import React from 'react'
 
 import _ from 'lodash'
+import {
+  CookiesProvider,
+  withCookies,
+} from 'react-cookie'
 
 import {
+  propTypes,
   StateType,
   initialState
-} from './State'
+} from './Types'
 import Context from './Context'
 
 
-class Provider extends React.Component<{}, StateType> {
 
-  state = initialState
+class Provider extends React.Component<{cookies: any}, StateType> {
+
+  static propTypes = propTypes
+
+  state = {
+    ...initialState,
+    setState: this.setState,
+  }
+
+  componentDidMount = () => {
+    const { cookies } = this.props
+
+    console.log(cookies)
+  }
 
   render = () =>
-    <Context.Provider value={this.state}>
-      {this.props.children}
-    </Context.Provider>
+    <CookiesProvider>
+      <Context.Provider value={this.state}>
+        {this.props.children}
+      </Context.Provider>
+    </CookiesProvider>
 }
 
 
-export default Provider
+export default withCookies(Provider)
