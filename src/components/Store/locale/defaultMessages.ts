@@ -4,6 +4,7 @@ const defaultMessages = {
     rus: ["Rus", "Rus"],
     eng: ["Eng", "Eng"],
   },
+  login: ["Вход", "Login"],
 
   Header: {
     program: ["", ""],
@@ -12,7 +13,7 @@ const defaultMessages = {
       open: ["", ""],
       educational: ["", ""],
     },
-    schedule: ["", ""],
+    schedule: ["Расписание", "Schedule"],
     festival: ["", ""],
     festivalLinks: {
       about: ["", ""],
@@ -21,7 +22,13 @@ const defaultMessages = {
       archive: ["", ""],
       contacts: ["", ""],
     },
-    login: ["", ""],
+  },
+
+  Login: {
+    main: {
+      h2: ["Личный кабинет", "Your Account"],
+
+    }
   }
 }
 

@@ -6,7 +6,7 @@ class Schedule extends React.Component<{}, {}> {
 
   render = () =>
     <div className="Schedule">
-
+      Schedule
     </div>
 }
 

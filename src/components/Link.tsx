@@ -13,6 +13,7 @@ type Props = {
   sameTab?: boolean
   children?: any
   onClick?: Function
+  disabled?: boolean
 }
 
 
@@ -21,33 +22,44 @@ const _Link : React.FunctionComponent<Props> = ({
   activeClassName,
   to,
   sameTab,
-  children
+  children,
+  onClick,
+  disabled,
 }) =>
-  to.includes('http') ?
-    <a
-      className={`Link ${className}`}
-      href={to}
-      target={sameTab ? "" : "_blank"}
-      rel="noopener noreferrer"
-    >
+  disabled ?
+    <span className={`Link Link--disabled ${className}`}>
       {children}
-    </a>
-  :
-    activeClassName ?
-      <NavLink
-        to={to}
-        className={`Link ${className}`}
-        activeClassName={`Link--active ${activeClassName}`}
-      >
-        {children}
-      </NavLink>
+    </span>
     :
-      <Link
-        to={to}
+    to.includes('http') ?
+      <a
         className={`Link ${className}`}
+        href={to}
+        target={sameTab ? "" : "_blank"}
+        rel="noopener noreferrer"
+        onClick={() => onClick?.()}
       >
         {children}
-      </Link>
+      </a>
+      :
+      activeClassName ?
+        <NavLink
+          exact
+          to={to}
+          className={`Link ${className}`}
+          activeClassName={`Link--active ${activeClassName}`}
+          onClick={() => onClick?.()}
+        >
+          {children}
+        </NavLink>
+        :
+        <Link
+          to={to}
+          className={`Link ${className}`}
+          onClick={() => onClick?.()}
+        >
+          {children}
+        </Link>
 
 
 export default _Link

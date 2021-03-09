@@ -20,19 +20,17 @@ class App extends React.Component {
         <Router>
           <Header />
           <div className="content">
-            <div className="container">
-              <Switch>
-                {routes.map(route =>
-                  <Route
-                    key={route.to}
-                    path={route.to}
-                    exact={route.to === "/"}
-                  >
-                    {route.Comp}
-                  </Route>
-                )}
-              </Switch>
-            </div>
+            <Switch>
+              {routes.map(route =>
+                <Route
+                  key={route.to}
+                  path={route.to}
+                  exact={route.exact}
+                >
+                  {route.Comp}
+                </Route>
+              )}
+            </Switch>
           </div>
         </Router>
       </div>

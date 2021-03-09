@@ -15,6 +15,33 @@
   font-weight: bold
 
   
+// COLORS
+$background: #F5ECEC
+$white: white
+$black: #474747
+$black-primary: #251616
+$black-action: #160808
+$line-primary: #000000
+$line-secondary: #E0DCDC
+
+$danger: #FF0000
+
+$button-disabled-fill: #C4C4C4
+$button-disabled-text: #8E8E8E
+
+$online-primary: #00FF19
+$online-secondary: #6CFF7B
+$offline: #FFC6C6
+
+
+$menu-transition: .2s
+$border: 1px solid $line-primary
+
+
+@function rem($px)
+  @return calc(#{$px} / 16 * 1rem)
+
+
 .desktop-only
   @include media-breakpoint-down(md)
     display: none !important
@@ -40,7 +67,8 @@
 .def-img
   background-repeat: no-repeat
   background-position: center
-  background-size: cover
+  // background-size: cover
+  background-size: contain
 
 .inherit-all
   font-family: inherit
@@ -49,38 +77,51 @@
   color: inherit
 
 .button
-  padding: 0
+  @extend .noselect
   cursor: pointer
   outline: none
   border: none
-  background-color: rgba(0, 0, 0, 0)
+  background-color: $white
+  color: $black-primary
+  border: $border
+  border-radius: rem(7)
+  &--navigation
+    @extend .button
+    border-color: rgba(0, 0, 0, 0)
+    border-radius: rem(12)
+    padding: rem(11) rem(16) rem(13)
+    border-color: rgba(0, 0, 0, 0)
+    &:hover
+      border-color: $line-primary
 
-@function rem($px)
-  @return calc(#{$px} / 16 * 1rem)
+.h1, .h2, .h3, .h4, .h5, .h6
+  font-weight: bold 
+.h1
+.h2
+  font-size: rem(32)
+  line-height: rem(40)
+  @include media-breakpoint-down(md)
+    font-size: rem(26)
+    line-height: rem(32)
+  @include media-breakpoint-down(xs)
+    font-size: rem(22)
+    line-height: rem(28)
+.h3
+.h4
+.h5
+.h6
 
 
-// COLORS
-$background: #F5ECEC
-$black: #474747
-$black-primary: #251616
-$black-action: #160808
-$line-primary: #000000
-$line-secondary: #E0DCDC
+.Link
+  color: $black-primary
+  &:hover
+    text-decoration: none
+    color: $black-primary
+  &--active
+    cursor: default
 
-$danger: #FF0000
-
-$button-disabled-fill: #C4C4C4
-$button-disabled-text: #8E8E8E
-
-$online-primary: #00FF19
-$online-secondary: #6CFF7B
-$offline: #FFC6C6
-
-
-$menu-transition: .2s
-$border: 1px solid $dark
-
-
+.FormattedMessage
+  @extend .inherit-all
 
 *
   font-family: 'Formular', sans-serif
@@ -95,13 +136,6 @@ $border: 1px solid $dark
   width: 100%
   height: 100%
 
-.Link
-  color: $black-primary
-  &:hover
-    text-decoration: none
-    color: $black-primary
-  &--active
-
 
 
 
@@ -115,7 +149,6 @@ $border: 1px solid $dark
     @extend .d-flex
     @extend .flex-row
     @extend .align-items-center
-    @extend .justify-content-between
     height: 100%
   &__logo,
   &__burger,
@@ -127,6 +160,8 @@ $border: 1px solid $dark
     @extend .d-flex
     @extend .flex-row
     @extend .align-items-center
+    @extend .mr-auto
+    @extend .mr-lg-0
     &__img
       height: 100%
       width: auto
@@ -137,16 +172,84 @@ $border: 1px solid $dark
       font-size: rem(20)
       @include media-breakpoint-down(md)
         font-size: rem(16.66666)
+  &__controls
+    @extend .d-flex
+    @extend .flex-row
+    margin-left: rem(32)
+    @include media-breakpoint-down(md)
+      margin-right: rem(60)
+    &__item
+      @extend .d-flex
+      @extend .flex-row
+      @extend .align-items-center
+      @extend .button
+      border: none
+      border-radius: rem(20)
+      height: rem(32)
+      margin-right: rem(8)
+      padding: 0 rem(10) 0 rem(6)
+      &:hover
+        background-color: $black-primary
+        color: $white
+      &--active
+        background-color: $black-action !important
+        color: $white
+      &__icon
+        width: rem(20)
+        height: rem(20)
+        margin-right: rem(4)
+      &:hover &__icon, &--active &__icon
+        path, circle, line, rect
+          stroke: $white
   &__burger
     width: rem(48)
+    height: rem(24)
+    @extend .d-lg-none
     @include media-breakpoint-down(md)
       width: rem(40)
+    @extend .def-img
+    background-image: url(./img/burger.svg)
+    cursor: pointer
   &__links
     @extend .flex-grow-1
     @extend .d-flex
     @extend .flex-row
     @extend .align-items-center
-    @extend .justify-content-between
+    @extend .justify-content-end
     @include media-breakpoint-down(md)
       display: none !important
+    &__item
+      @extend .button--navigation
+      font-weight: bold
+      margin-left: rem(8)
+      &--active
+        color: $white
+        background-color: $black-primary
+        &:hover
+          color: $white
+          cursor: default
 
+
+
+
+.Login
+  &__container
+    @extend .container
+    width: rem(694)
+    padding-top: rem(56)
+    @include media-breakpoint-down(md)
+      width: rem(593)
+      padding-top: rem(96)
+    @include media-breakpoint-down(xs)
+      width: rem(300)
+      padding-top: rem(60)
+  &__main
+    width: 100%
+    @extend .d-flex
+    @extend .flex-column
+    @extend .align-items-center
+    border-radius: rem(12)
+    background-color: $background
+    padding: rem(38) rem(60) rem(76)
+    &__h2
+      @extend .h2
