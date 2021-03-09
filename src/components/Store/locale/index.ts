@@ -13,10 +13,8 @@ type messagesStorageType = {
   }
 }
 
-const getMessage = (_this: messagesStorageType, id: string) => {
-  console.log(_this.context)
-  return _this.context.messages[id] || ""
-}
+const getMessage = (_this: messagesStorageType, id: string) =>
+  _this.context.messages[id] || ""
 
 
 export {
