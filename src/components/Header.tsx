@@ -1,6 +1,6 @@
 import React from 'react'
 
-import routes from '../utils/routes'
+// import routes from '../utils/routes'
 import logo from '../styles/img/logo.svg'
 import FormattedMessage from './FormattedMessage'
 import Link from './Link'

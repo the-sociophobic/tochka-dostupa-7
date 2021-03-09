@@ -1,6 +1,5 @@
 import React from 'react'
 
-import _ from 'lodash'
 import {
   CookiesProvider,
   withCookies,
@@ -12,7 +11,7 @@ import {
   initialState
 } from './Types'
 import Context from './Context'
-import { getUser } from '../../utils/API'
+// import { getUser } from '../../utils/API'
 import { messages } from './locale'
 
 
@@ -34,7 +33,7 @@ class Provider extends React.Component<{cookies: any}, StateType> {
   checkUser = async () => {
     const { cookies } = this.props
 
-    console.log(cookies)
+    // console.log(cookies)
   }
 
   stateAndSetters = () => ({
