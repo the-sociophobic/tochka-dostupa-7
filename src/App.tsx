@@ -24,10 +24,11 @@ class App extends React.Component {
               <Switch>
                 {routes.map(route =>
                   <Route
-                    path={route.link}
-                    exact={route.link === "/"}
+                    key={route.to}
+                    path={route.to}
+                    exact={route.to === "/"}
                   >
-                    {route.comp}
+                    {route.Comp}
                   </Route>
                 )}
               </Switch>

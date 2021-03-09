@@ -3,21 +3,23 @@ import {
   Cookies,
 } from 'react-cookie'
 
+import { messages } from './locale'
+
+
 const propTypes = {
   cookies: instanceOf(Cookies).isRequired
 }
 
 type StateType = {
   locale: string,
+  messages?: object,
   user?: string,
-
-  setState?: Function,
 }
 
 const initialState = {
   locale: "ru",
+  messages: messages["ru"],
 }
-
 
 export type {
   StateType,

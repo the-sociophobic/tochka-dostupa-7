@@ -5,22 +5,19 @@ import AdminHome from '../pages/AdminHome'
 
 
 type Route = {
-  label: string,
-  link: string;
-  comp: any;
+  to: string;
+  Comp: any;
 }
 
 
 const routes: Route[] = [
   {
-    label: "Home",
-    link: "/",
-    comp: <Home />
+    to: "/",
+    Comp: <Home />
   },
   {
-    label: "AdminHome",
-    link: "/admin",
-    comp: <AdminHome />
+    to: "/admin",
+    Comp: <AdminHome />
   },
 ]
 
