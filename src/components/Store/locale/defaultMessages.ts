@@ -1,6 +1,10 @@
 const defaultMessages = {
   AccessPoint: ["Точка Доступа", "Access Point"],
-  
+  locale: {
+    rus: ["Rus", "Rus"],
+    eng: ["Eng", "Eng"],
+  },
+
   Header: {
     program: ["", ""],
     programLinks: {
@@ -16,10 +20,6 @@ const defaultMessages = {
       accreditation: ["", ""],
       archive: ["", ""],
       contacts: ["", ""],
-    },
-    locale: {
-      rus: ["", ""],
-      eng: ["", ""],
     },
     login: ["", ""],
   }

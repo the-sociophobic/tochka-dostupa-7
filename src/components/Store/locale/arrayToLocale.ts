@@ -2,21 +2,21 @@ import _ from 'lodash'
 
 
 interface messagesType {
-  ru: object,
-  en: object,
-  [key: string]: object | undefined
+  [key: string]: {
+    [key: string]: string | undefined
+  }
 }
 
 const arrayToLocale = (obj: object): messagesType => {
   var result = {
-    ru: {},
-    en: {}
+    rus: {},
+    eng: {}
   }
 
   _.transform(obj,
     (res, value, key) => {
-      res.ru[key] = value[0]
-      res.en[key] = value[1]
+      res.rus[key] = value[0]
+      res.eng[key] = value[1]
     }, result)
 
   return result

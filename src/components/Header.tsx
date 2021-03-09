@@ -3,6 +3,7 @@ import React from 'react'
 // import routes from '../utils/routes'
 import logo from '../styles/img/logo.svg'
 import FormattedMessage from './FormattedMessage'
+import { Context } from './Store'
 import Link from './Link'
 
 
@@ -27,9 +28,12 @@ class Header extends React.Component<{}, State> {
     }
   }
 
+  static contextType = Context
+
   render = () =>
     <header className="Header">
       <div className="Header__container">
+        
         <Link
           to="/"
           className="Header__logo"
@@ -43,12 +47,7 @@ class Header extends React.Component<{}, State> {
             id="AccessPoint"
           />
         </Link>
-        <div
-          className="Header__burger"
-          onClick={() => this.setState({
-            opened: !this.state.opened
-          })}
-        />
+
         <div className={`Header__links ${this.state.opened && "Header__links--opened"}`}>
           {navLinks.map(route =>
             <Link
@@ -61,6 +60,28 @@ class Header extends React.Component<{}, State> {
             </Link>
           )}
         </div>
+
+        <div className="Header__controls">
+          <div
+            className="Header__controls__locale"
+            onClick={this.context.toggleLocale}
+          >
+            <FormattedMessage id={this.context.locale === "rus" ? "locale.eng" : "locale.rus"} />
+          </div>
+          <FormattedMessage
+            id="Header.login"
+            className="Header__controls__login"
+            onClick={() => {}}
+          />
+        </div>
+
+        <div
+          className="Header__burger"
+          onClick={() => this.setState({
+            opened: !this.state.opened
+          })}
+        />
+
       </div>
     </header>
 }

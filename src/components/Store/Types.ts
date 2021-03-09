@@ -3,8 +3,6 @@ import {
   Cookies,
 } from 'react-cookie'
 
-import { messages } from './locale'
-
 
 const propTypes = {
   cookies: instanceOf(Cookies).isRequired
@@ -17,8 +15,7 @@ type StateType = {
 }
 
 const initialState = {
-  locale: "ru",
-  messages: messages["ru"],
+  locale: "rus",
 }
 
 export type {

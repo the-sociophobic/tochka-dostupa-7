@@ -41,9 +41,12 @@ class Provider extends React.Component<{cookies: any}, StateType> {
     setState: (obj: any) => _setState(this, obj),
     setLocale: (_locale: string) =>
       this.setState({
-        locale: _locale,
-        messages: messages[_locale] || {},
+        locale: _locale
       }),
+    toggleLocale: () =>
+      this.setState({
+        locale: this.state.locale === "rus" ? "eng" : "rus"
+      })
   })
 
   render = () =>

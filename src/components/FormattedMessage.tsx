@@ -5,15 +5,26 @@ import { Context } from './Store'
 import { getMessage } from './Store/locale'
 
 
+type Props = {
+  id: string,
+  className?: string,
+  onClick?: Function,
+}
+
+
 class FormattedMessage extends
-  React.Component<{id: string, className?: string}, {}> {
+  React.Component<Props, {}> {
 
     static contextType = Context
 
     render = () =>
-      addNewLines(
-        getMessage(this, this.props.id)
-        , this.props.className)
+      <div
+        className={`FormattedMessage ${this.props.className}`}
+        onClick={() => this.props?.onClick?.()}
+      >
+        {addNewLines(
+          getMessage(this, this.props.id))}
+      </div>
   }
   
 
