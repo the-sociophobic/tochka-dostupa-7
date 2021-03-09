@@ -5,6 +5,8 @@ import logo from '../styles/img/logo.svg'
 import FormattedMessage from './FormattedMessage'
 import { Context } from './Store'
 import Link from './Link'
+import { ReactComponent as LocaleIcon } from '../styles/img/locale.svg'
+import { ReactComponent as UserLineIcon } from '../styles/img/user-line.svg'
 
 
 type State = {
@@ -37,6 +39,7 @@ class Header extends React.Component<{}, State> {
         <Link
           to="/"
           className="Header__logo"
+          activeClassName="Link--active"
         >
           <img
             className="Header__logo__img"
@@ -49,30 +52,32 @@ class Header extends React.Component<{}, State> {
         </Link>
 
         <div className={`Header__links ${this.state.opened && "Header__links--opened"}`}>
-          {navLinks.map(route =>
-            <Link
-              to={route.to}
-              key={route.to}
-              activeClassName="Link--active"
-              onClick={() => this.setState({ opened: false })}
-            >
-              <FormattedMessage id={route.messageId} />
-            </Link>
-          )}
+          <Link
+            to="/schedule"
+            className="Header__links__item"
+            activeClassName="Header__links__item--active"
+            onClick={() => this.setState({ opened: false })}
+          >
+            <FormattedMessage id="Header.schedule" />
+          </Link>
         </div>
 
         <div className="Header__controls">
-          <div
-            className="Header__controls__locale"
+          <button
+            className="Header__controls__item Header__controls__item--locale"
             onClick={this.context.toggleLocale}
           >
+            <LocaleIcon className="Header__controls__item__icon" />
             <FormattedMessage id={this.context.locale === "rus" ? "locale.eng" : "locale.rus"} />
-          </div>
-          <FormattedMessage
-            id="Header.login"
-            className="Header__controls__login"
-            onClick={() => {}}
-          />
+          </button>
+          <Link
+            to="/login"
+            className="Header__controls__item Header__controls__item--login"
+            activeClassName="Header__controls__item Header__controls__item--active"
+          >
+            <UserLineIcon className="Header__controls__item__icon" />
+            <FormattedMessage id="login" />
+          </Link>
         </div>
 
         <div

@@ -12,6 +12,7 @@ type StateType = {
   locale: string,
   messages?: object,
   user?: string,
+  sessionToken?: string,
 }
 
 const initialState = {

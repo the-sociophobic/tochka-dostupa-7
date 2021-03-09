@@ -18,13 +18,13 @@ const getMessage = (
   _this: objWithContextType,
   id: string,
 ): string =>
-    messages[_this.context.locale][id] || ""
+    messages[_this.context.locale][id] || "#no message found#"
 
 const getMessageAllLocales = (
   _this: objWithContextType,
   id: string,
 ): string[] =>
-    [messages["rus"][id] || "", messages["eng"][id] || ""]
+    [messages["rus"][id] || "#no message found#", messages["eng"][id] || "#no message found#"]
 
 
 export {
