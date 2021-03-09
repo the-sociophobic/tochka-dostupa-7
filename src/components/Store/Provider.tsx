@@ -13,6 +13,7 @@ import {
 } from './Types'
 import Context from './Context'
 import { getUser } from '../../utils/API'
+import { messages } from './locale'
 
 
 const _setState = (_this: any, obj: any) => {
@@ -25,10 +26,7 @@ class Provider extends React.Component<{cookies: any}, StateType> {
 
   static propTypes = propTypes
 
-  state = {
-    ...initialState,
-    setState: (obj: any) => _setState(this, obj),
-  }
+  state = initialState
 
   componentDidMount = () =>
     this.checkUser()
@@ -39,10 +37,19 @@ class Provider extends React.Component<{cookies: any}, StateType> {
     console.log(cookies)
   }
 
+  stateAndSetters = () => ({
+    ...this.state,
+    setState: (obj: any) => _setState(this, obj),
+    setLocale: (_locale: string) =>
+      this.setState({
+        locale: _locale,
+        messages: messages[_locale] || {},
+      }),
+  })
 
   render = () =>
     <CookiesProvider>
-      <Context.Provider value={this.state}>
+      <Context.Provider value={this.stateAndSetters()}>
         {this.props.children}
       </Context.Provider>
     </CookiesProvider>
