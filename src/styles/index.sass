@@ -14,10 +14,10 @@
 
   
 .desktop-only
-  @include media-breakpoint-down(lg)
+  @include media-breakpoint-down(md)
     display: none !important
 .mobile-only
-  @include media-breakpoint-up(xl)
+  @include media-breakpoint-up(lg)
     display: none !important
 
 .noselect
@@ -93,3 +93,35 @@ $border: 1px solid $dark
 .Header
   width: 100%
   height: rem(112)
+  @include media-breakpoint-down(md)
+    height: rem(72)
+  &__container
+    @extend .container
+    @extend .d-flex
+    @extend .flex-row
+    @extend .align-items-center
+    @extend .justify-content-between
+    height: 100%
+  &__logo,
+  &__burger,
+  &__links
+    height: rem(48)
+    @include media-breakpoint-down(md)
+      height: rem(40)
+  &__logo,
+  &__burger
+    width: auto
+  &__logo
+  &__burger
+    width: rem(48)
+    @include media-breakpoint-down(md)
+      width: rem(40)
+  &__links
+    @extend .flex-grow-1
+    @extend .d-flex
+    @extend .flex-row
+    @extend .align-items-center
+    @extend .justify-content-between
+    @include media-breakpoint-down(md)
+      display: none !important
+
