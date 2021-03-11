@@ -1,5 +1,7 @@
 import React from 'react'
 
+import _ from 'lodash'
+
 import { withRouter } from 'react-router-dom'
 import { RouteComponentProps } from 'react-router'
 
@@ -84,12 +86,17 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
               <FormattedMessage id={this.context.locale === "rus" ? "locale.eng" : "locale.rus"} />
             </button>
             <Link
-              to={this.context.user ? "/user/tickets" : "/login"}
-              className={`Header__controls__item Header__controls__item--login ${this.props.history.location.pathname.includes('/user/') && "Header__controls__item Header__controls__item--active"}`}
-              // activeClassName="Header__controls__item Header__controls__item--active"
+              to={!_.isEmpty(this.context.user) ? "/user/tickets" : "/login"}
+              className={`
+                Header__controls__item
+                Header__controls__item--login
+                ${(this.props.history.location.pathname.includes('/user/')
+                  || this.props.history.location.pathname.includes('/login'))
+                  && "Header__controls__item Header__controls__item--active"}
+              `}
             >
               <UserLineIcon className="Header__controls__item__icon" />
-              {this.context.user ?
+              {!_.isEmpty(this.context.user) ?
                 this.context.user.name
                 :
                 <FormattedMessage id="login" />
@@ -118,7 +125,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
             const path = this.props.history.location.pathname
 
             switch(true) {
-              case path.includes('/user/'):
+              case path.includes('/user/') && !_.isEmpty(this.context.user):
                 return <>
                   <Link
                     to="/user/tickets"
@@ -141,7 +148,10 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
                   >
                     <FormattedMessage id="Header.user.settings" />
                   </Link>
-                  <button className="Header__secondary__item Header__secondary__item--exit">
+                  <button
+                    className="Header__secondary__item Header__secondary__item--exit"
+                    onClick={() => this.context.logout()}
+                  >
                     <FormattedMessage id="Header.user.logout" />
                   </button>
                 </>

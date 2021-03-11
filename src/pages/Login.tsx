@@ -1,5 +1,7 @@
 import React from 'react'
 
+import _ from 'lodash'
+
 import { withRouter } from 'react-router-dom'
 import { RouteComponentProps } from 'react-router'
 
@@ -20,19 +22,22 @@ class Login extends React.Component<RouteComponentProps<PathParamsType>> {
   checkInterval:any
 
   checkIfLogged = () => {
-    if (this.checkInterval)
+    if (this.checkInterval) {
+      if (!_.isEmpty(this.context.user))
+        clearInterval(this.checkInterval)
       return
+    }
 
     let tries = 0
 
     this.checkInterval = setInterval(() => {
-      if (this.context.user || tries > 10) {
+      if (!_.isEmpty(this.context.user) || tries > 10) {
         clearInterval(this.checkInterval)
         this.props.history.push('/user/tickets')
       }
       this.context.checkUser()
       tries++
-    }, 300)
+    }, 500)
   }
 
   render = () =>
