@@ -3,13 +3,14 @@ import { instanceOf } from 'prop-types'
 
 type StateType = {
   locale: string,
+  user: object,
   messages?: object,
-  user?: object,
   sessionToken?: string,
 }
 
 const initialState = {
   locale: "rus",
+  user: {},
 }
 
 export type {
