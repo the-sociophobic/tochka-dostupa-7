@@ -33,7 +33,8 @@ class Login extends React.Component<RouteComponentProps<PathParamsType>> {
     this.checkInterval = setInterval(() => {
       if (!_.isEmpty(this.context.user) || tries > 10) {
         clearInterval(this.checkInterval)
-        this.props.history.push('/user/tickets')
+        if (this.props.history.location.pathname === '/login')
+          this.props.history.push('/user/tickets')
       }
       this.context.checkUser()
       tries++
