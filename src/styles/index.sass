@@ -41,6 +41,9 @@ $border: 1px solid $line-primary
 @function rem($px)
   @return calc(#{$px} / 16 * 1rem)
 
+@function get-breakpoints($key: "md")
+  @return map-get($container-max-widths, $key)
+
 
 .desktop-only
   @include media-breakpoint-down(md)
@@ -49,13 +52,19 @@ $border: 1px solid $line-primary
   @include media-breakpoint-up(lg)
     display: none !important
 
-.noselect
+.no-select
   -webkit-touch-callout: none  /* iOS Safari */
   -webkit-user-select: none    /* Safari */
   -khtml-user-select: none     /* Konqueror HTML */
   -moz-user-select: none       /* Firefox */
   -ms-user-select: none        /* Internet Explorer/Edge */
   user-select: none            /* Non-prefixed version, currently supported by Chrome and Opera */
+
+.no-scrollbar
+  -ms-overflow-style: none  /* Internet Explorer 10+ */
+  scrollbar-width: none  /* Firefox */
+  &::-webkit-scrollbar 
+    display: none  /* Safari and Chrome */
 
 .abs-cover
   position: absolute
@@ -76,8 +85,10 @@ $border: 1px solid $line-primary
   font-size: inherit
   color: inherit
 
+
+
 .button
-  @extend .noselect
+  @extend .no-select
   cursor: pointer
   outline: none
   border: none
@@ -85,6 +96,7 @@ $border: 1px solid $line-primary
   color: $black-primary
   border: $border
   border-radius: rem(7)
+  text-align: center
   &--navigation
     @extend .button
     border-color: rgba(0, 0, 0, 0)
@@ -93,6 +105,30 @@ $border: 1px solid $line-primary
     border-color: rgba(0, 0, 0, 0)
     &:hover
       border-color: $line-primary
+  &--main
+    @extend .button
+    color: $white !important
+    background-color: $black-primary
+    width: 100%
+    height: rem(56)
+    line-height: rem(24)
+    font-size: rem(18)
+    padding-top: rem(14)
+    @include media-breakpoint-down(md)
+      height: rem(48)
+      font-size: rem(16)
+      padding-top: rem(10)
+    @include media-breakpoint-down(xs)
+      height: rem(40)
+      line-height: rem(16)
+      font-size: rem(14)
+      padding-top: rem(11)
+    &:hover
+      background-color: $black-action
+    &--2
+      @extend .button--main
+
+
 
 .h1, .h2, .h3, .h4, .h5, .h6
   font-weight: bold 
@@ -100,12 +136,15 @@ $border: 1px solid $line-primary
 .h2
   font-size: rem(32)
   line-height: rem(40)
+  margin-bottom: rem(26)
   @include media-breakpoint-down(md)
     font-size: rem(26)
     line-height: rem(32)
+    margin-bottom: rem(21)
   @include media-breakpoint-down(xs)
     font-size: rem(22)
     line-height: rem(28)
+    margin-bottom: rem(18)
 .h3
 .h4
 .h5
@@ -119,6 +158,9 @@ $border: 1px solid $line-primary
     color: $black-primary
   &--active
     cursor: default
+  &--disabled
+    opacity: .5
+    cursor: not-allowed
 
 .FormattedMessage
   @extend .inherit-all
@@ -141,15 +183,21 @@ $border: 1px solid $line-primary
 
 .Header
   width: 100%
-  height: rem(112)
-  @include media-breakpoint-down(md)
-    height: rem(72)
+  &--fixed
+    position: fixed
+    top: -100%
+    left: 0
+    &--show
+      top: 0
   &__container
     @extend .container
     @extend .d-flex
     @extend .flex-row
     @extend .align-items-center
-    height: 100%
+    height: rem(112)
+    @include media-breakpoint-down(md)
+      height: rem(72)
+    // height: 100%
   &__logo,
   &__burger,
   &__links
@@ -161,7 +209,6 @@ $border: 1px solid $line-primary
     @extend .flex-row
     @extend .align-items-center
     @extend .mr-auto
-    @extend .mr-lg-0
     &__img
       height: 100%
       width: auto
@@ -173,7 +220,8 @@ $border: 1px solid $line-primary
       @include media-breakpoint-down(md)
         font-size: rem(16.66666)
   &__controls
-    @extend .d-flex
+    @extend .d-none
+    @extend .d-md-flex
     @extend .flex-row
     margin-left: rem(32)
     @include media-breakpoint-down(md)
@@ -211,11 +259,9 @@ $border: 1px solid $line-primary
     background-image: url(./img/burger.svg)
     cursor: pointer
   &__links
-    @extend .flex-grow-1
     @extend .d-flex
     @extend .flex-row
     @extend .align-items-center
-    @extend .justify-content-end
     @include media-breakpoint-down(md)
       display: none !important
     &__item
@@ -228,7 +274,83 @@ $border: 1px solid $line-primary
         &:hover
           color: $white
           cursor: default
-
+  &__secondary
+    width: 100%
+    height: rem(84)
+    border-top: $border
+    overflow-y: scroll
+    @extend .no-scrollbar
+    @include media-breakpoint-down(md)
+      height: rem(76)
+    @include media-breakpoint-down(xs)
+      height: rem(68)    
+    &__container
+      width: 100%
+      height: 100%
+      display: inline-block !important
+      padding-left: calc((100vw - #{get-breakpoints("xl")}) / 2)
+      padding-right: calc((100vw - #{get-breakpoints("xl")}) / 2)
+      @include media-breakpoint-down(lg)
+        padding-left: calc((100vw - #{get-breakpoints("lg")}) / 2)
+        padding-right: calc((100vw - #{get-breakpoints("lg")}) / 2)
+      @include media-breakpoint-down(md)
+        padding-left: calc((100vw - #{get-breakpoints("md")}) / 2)
+        padding-right: calc((100vw - #{get-breakpoints("md")}) / 2)
+      @include media-breakpoint-down(sm)
+        padding-left: calc((100vw - #{get-breakpoints("sm")}) / 2)
+        padding-right: calc((100vw - #{get-breakpoints("sm")}) / 2)
+      @include media-breakpoint-down(xs)
+        width: auto
+        padding-left: calc((100vw - #{get-breakpoints("xs")}) / 2)
+        padding-right: calc((100vw - #{get-breakpoints("xs")}) / 2)
+      &__inner
+        height: 100%
+        @extend .d-flex
+        @extend .flex-row
+        @extend .align-items-center
+    &__item
+      @extend .button--navigation
+      font-weight: bold
+      white-space: nowrap
+      margin-right: rem(31)
+      height: rem(40)
+      padding-top: rem(6)
+      font-size: rem(16)
+      @include media-breakpoint-down(lg)
+        margin-right: rem(24)
+      @include media-breakpoint-down(md)
+        font-size: rem(14)
+        line-height: rem(24)
+        margin-right: rem(20)
+      @include media-breakpoint-down(xs)
+        height: rem(32)
+        font-size: rem(12)
+        padding-top: rem(7)
+        line-height: rem(16)
+        border-radius: rem(8)
+        margin-right: rem(12)
+      &--active
+        color: $white
+        background-color: $black-primary
+        &:hover
+          color: $white
+          cursor: default
+      &--exit
+        background-color: rgba(255, 0, 0, .2)
+        width: rem(197)
+        margin-right: 0
+        &:hover
+          border-color: rgba(43, 28, 28, 0)
+        @include media-breakpoint-down(lg)
+          width: rem(140)
+        @include media-breakpoint-down(md)
+          width: rem(100)
+        @include media-breakpoint-down(sm)
+        @include media-breakpoint-down(xs)
+          width: rem(120)
+      &:not(&--exit)
+        @extend .flex-grow-1
+           
 
 
 
@@ -250,6 +372,19 @@ $border: 1px solid $line-primary
     @extend .align-items-center
     border-radius: rem(12)
     background-color: $background
-    padding: rem(38) rem(60) rem(76)
+    padding: rem(38) rem(87) rem(76)
+    @include media-breakpoint-down(md)
+      padding: rem(38) rem(60) rem(76)
+    @include media-breakpoint-down(xs)
+      padding: rem(42) rem(20) rem(52)
     &__h2
       @extend .h2
+    &__controls
+      width: rem(416)
+      @extend .d-flex
+      @include media-breakpoint-down(md)
+        width: rem(340)
+      @include media-breakpoint-down(xs)
+        width: 100%
+      &__button
+        @extend .button--main--2

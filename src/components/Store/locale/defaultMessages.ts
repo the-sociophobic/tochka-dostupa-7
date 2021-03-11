@@ -22,6 +22,13 @@ const defaultMessages = {
       archive: ["", ""],
       contacts: ["", ""],
     },
+
+    user: {
+      tickets: ["Мои события", "My events"],
+      settings: ["Настройки", "Settings"],
+      admin: ["Админка", "Admin"],
+      logout: ["Выход", "Log out"],
+    }
   },
 
   Login: {
