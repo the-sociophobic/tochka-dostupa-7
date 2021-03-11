@@ -1,18 +1,13 @@
 import React from 'react'
 
-import {
-  CookiesProvider,
-  withCookies,
-} from 'react-cookie'
+import Cookies from 'universal-cookie'
 
 import {
-  propTypes,
   StateType,
   initialState
 } from './Types'
 import Context from './Context'
-// import { getUser } from '../../utils/API'
-import { messages } from './locale'
+import { getUser } from '../../utils/API'
 
 
 const _setState = (_this: any, obj: any) => {
@@ -21,23 +16,36 @@ const _setState = (_this: any, obj: any) => {
 }
 
 
-class Provider extends React.Component<{cookies: any}, StateType> {
-
-  static propTypes = propTypes
+class Provider extends React.Component<{}, StateType> {
 
   state = initialState
+
+  cookies = new Cookies()
 
   componentDidMount = () =>
     this.checkUser()
 
   checkUser = async () => {
-    const { cookies } = this.props
+    const res = await getUser(this.cookies.get('sessionToken'))
 
-    // console.log(cookies)
+    console.log(res)
+    console.log(this.cookies)
+
+    if (res.newSessionToken)
+      this.cookies.set('sessionToken', res.newSessionToken)
+
+    this.setState({
+      sessionToken: this.cookies.get('sessionToken')
+    })
+
+    if (res.hasOwnProperty('user'))
+      this.setState({ user: res.user })
   }
 
   stateAndSetters = () => ({
     ...this.state,
+    cookies: this.cookies,
+    checkUser: this.checkUser,
     setState: (obj: any) => _setState(this, obj),
     setLocale: (_locale: string) =>
       this.setState({
@@ -50,12 +58,10 @@ class Provider extends React.Component<{cookies: any}, StateType> {
   })
 
   render = () =>
-    <CookiesProvider>
-      <Context.Provider value={this.stateAndSetters()}>
-        {this.props.children}
-      </Context.Provider>
-    </CookiesProvider>
+    <Context.Provider value={this.stateAndSetters()}>
+      {this.props.children}
+    </Context.Provider>
 }
 
 
-export default withCookies(Provider)
+export default Provider

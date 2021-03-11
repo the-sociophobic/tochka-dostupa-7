@@ -1,9 +1,13 @@
 import React from 'react'
 
 import Home from '../pages/Home'
-import Schedule from '../pages/Schedule'
-import AdminHome from '../pages/AdminHome'
 import Login from '../pages/Login'
+
+import Admin from '../pages/User/Admin'
+import Tickets from '../pages/User/Tickets'
+import Settings from '../pages/User/Settings'
+
+import Schedule from '../pages/Schedule'
 
 
 type Route = {
@@ -20,13 +24,23 @@ const routes: Route[] = [
     Comp: <Home />
   },
   {
-    to: "/admin",
-    Comp: <AdminHome />
-  },
-  {
     to: "/login",
     Comp: <Login />
   },
+  
+  {
+    to: "/user/tickets",
+    Comp: <Tickets />
+  },
+  {
+    to: "/user/settings",
+    Comp: <Settings />
+  },
+  {
+    to: "/user/admin",
+    Comp: <Admin />
+  },
+
   {
     to: "/schedule",
     Comp: <Schedule />

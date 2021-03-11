@@ -12,23 +12,23 @@ const APIlink = () =>
   isProd() ?
     "http://api.tochkadostupa.spb.ru"
     :
-    "http://localhost:3000"
+    "http://localhost:3070"
 
-const post = async (endpoint: string, data: any) =>
+const post = async (data: any) =>
   (await axios.post(
-    APIlink() + endpoint,
+    APIlink(),
     data,
   )).data
 
 
 const getUser = async (sessionToken: string) => {
-  const res = await post('/session', sessionToken)
+  const res = await post({ sessionToken: sessionToken })
 
   return res
 }
 
 const logout = async (sessionToken: string) => {
-  const res = await post('/logout', sessionToken)
+  const res = await post(sessionToken)
 
   return res
 }
