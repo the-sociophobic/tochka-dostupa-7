@@ -1,8 +1,8 @@
 import React from 'react'
 
 import _ from 'lodash'
-
 import Cookies from 'universal-cookie'
+import { deviceDetect } from 'react-device-detect'
 
 import {
   StateType,
@@ -28,9 +28,11 @@ class Provider extends React.Component<{}, StateType> {
     this.checkUser()
 
   checkUser = async () => {
-    const res = await post('/', { sessionToken: this.cookies.get('sessionToken') })
+    const res = await post('/', {
+      sessionToken: this.cookies.get('sessionToken'),
+      deviceInfo: JSON.stringify(deviceDetect())
+    })
 
-    console.log(res)
 
     if (res.newSessionToken)
       this.cookies.set('sessionToken', res.newSessionToken)
@@ -47,7 +49,10 @@ class Provider extends React.Component<{}, StateType> {
     if (_.isEmpty(this.state.user))
       return
       
-    const res = await post('/logout', { sessionToken: this.cookies.get('sessionToken') })
+    const res = await post('/logout', {
+      sessionToken: this.cookies.get('sessionToken'),
+      deviceInfo: JSON.stringify(deviceDetect())
+    })
 
     console.log(res)
 
