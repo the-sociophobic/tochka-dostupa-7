@@ -10,7 +10,7 @@ axios.defaults.withCredentials = true
 
 const APIlink = () =>
   isProd() ?
-    "http://api.tochkadostupa.spb.ru"
+    "https://api.tochkadostupa.spb.ru"
     :
     "http://localhost:3070"
 
