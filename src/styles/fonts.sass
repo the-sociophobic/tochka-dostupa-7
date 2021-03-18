@@ -20,8 +20,8 @@
 
 
 @mixin font-params($font-size, $line-height)
-  font-size: rem($font-size)
-  line-height: rem($line-height)
+  font-size: rem($font-size) !important
+  line-height: rem($line-height) !important
 
 
 .h1, .h2, .h3
@@ -82,7 +82,15 @@
       @include font-params(16, 24)
     @include media-breakpoint-down(xs)
       @include font-params(14, 20)
+  &--m
+    @include font-params(16, 24)
   &--s
     @include font-params(14, 20)
     @include media-breakpoint-down(md)
       @include font-params(12, 16)
+  &--xs
+    @include font-params(12, 16)
+    @include media-breakpoint-down(md)
+      @include font-params(10, 12)
+    @include media-breakpoint-down(xs)
+      @include font-params(10, 14)
