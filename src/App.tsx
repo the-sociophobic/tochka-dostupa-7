@@ -7,7 +7,9 @@ import {
 } from "react-router-dom"
 
 import { Provider } from './components/Store'
+import Helmet from './components/Helmet'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import routes from './utils/routes'
 
 import './styles/index.sass'
@@ -16,6 +18,7 @@ import './styles/index.sass'
 class App extends React.Component {
   render = () =>
     <Provider>
+      <Helmet />
       <div className="App">
         <Router>
           <Header />
@@ -32,6 +35,7 @@ class App extends React.Component {
               )}
             </Switch>
           </div>
+          <Footer />
         </Router>
       </div>
     </Provider>

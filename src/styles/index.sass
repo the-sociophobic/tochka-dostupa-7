@@ -1,5 +1,4 @@
 @import './vars.sass'
-@import './grid.sass'
 @import './fonts.sass'
 @import './elements.sass'
 @import './modificators.sass'
@@ -15,12 +14,20 @@
   box-sizing: border-box
   -webkit-font-smoothing: antialiased
 
+.container
+  // @extend .px-0
+
+.row
+  @include media-breakpoint-down(md)
+    @include row-cols(6)
+  @include media-breakpoint-down(sm)
+    @include row-cols(4)
+
+
 .App
   overflow: hidden
   width: 100%
   height: 100%
-
-
 
 
 .Header
@@ -199,6 +206,15 @@
         @extend .flex-grow-1
            
 
+
+.Footer
+  &__container
+    @extend .container
+  &__row
+    @extend .row
+    // .col-1
+    //   &:last-of-type
+    //     @extend .mr-n1
 
 
 .Login
