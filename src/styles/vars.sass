@@ -1,0 +1,30 @@
+$background: #F5ECEC
+$white: white
+$black: #474747
+$black-primary: #251616
+$black-action: #160808
+$line-primary: #000000
+$line-secondary: #E0DCDC
+
+$danger: #FF0000
+
+$button-disabled-fill: #C4C4C4
+$button-disabled-text: #8E8E8E
+
+$online-primary: #00FF19
+$online-secondary: #6CFF7B
+$offline: #FFC6C6
+
+
+$menu-transition: .2s
+$border: 1px solid $line-primary
+
+
+@function rem($px)
+  @return calc(#{$px} / 16 * 1rem)
+
+@function get-breakpoints($key: "md")
+  @return map-get($container-max-widths, $key)
+
+
+$spacers: ( xxs: rem(24), xs: rem(32), s: rem(48), m: rem(64), l: rem(96), xl: rem(128) )
