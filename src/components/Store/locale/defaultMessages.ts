@@ -1,5 +1,6 @@
 const defaultMessages = {
   AccessPoint: ["Точка Доступа", "Access Point"],
+  
   locale: {
     rus: ["Rus", "Rus"],
     eng: ["Eng", "Eng"],
