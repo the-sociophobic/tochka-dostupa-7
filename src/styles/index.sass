@@ -1,177 +1,11 @@
 @import './vars.sass'
-@import './grid.scss'
+@import './grid.sass'
+@import './fonts.sass'
+@import './elements.sass'
+@import './modificators.sass'
+
 @import '~bootstrap/scss/bootstrap.scss'
 
-@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@1,300&display=swap')
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap')
-
-
-@font-face
-  font-family: 'Formular'
-  src: url('./fonts/Formular/Formular.ttf') format('truetype')
-  font-weight: normal
-@font-face
-  font-family: 'Formular'
-  src: url('./fonts/Formular/Formular-Bold.ttf') format('truetype')
-  font-weight: bold
-
-
-.desktop-only
-  @include media-breakpoint-down(md)
-    display: none !important
-.mobile-only
-  @include media-breakpoint-up(lg)
-    display: none !important
-
-.no-select
-  -webkit-touch-callout: none  /* iOS Safari */
-  -webkit-user-select: none    /* Safari */
-  -khtml-user-select: none     /* Konqueror HTML */
-  -moz-user-select: none       /* Firefox */
-  -ms-user-select: none        /* Internet Explorer/Edge */
-  user-select: none            /* Non-prefixed version, currently supported by Chrome and Opera */
-
-.no-scrollbar
-  -ms-overflow-style: none  /* Internet Explorer 10+ */
-  scrollbar-width: none  /* Firefox */
-  &::-webkit-scrollbar 
-    display: none  /* Safari and Chrome */
-
-.abs-cover
-  position: absolute
-  width: 100%
-  height: 100%
-  top: 0
-  left: 0
-
-.def-img
-  background-repeat: no-repeat
-  background-position: center
-  // background-size: cover
-  background-size: contain
-
-.inherit-all
-  font-family: inherit
-  font-weight: inherit
-  font-size: inherit
-  color: inherit
-
-
-
-.button
-  @extend .no-select
-  cursor: pointer
-  outline: none
-  border: none
-  background-color: $white
-  color: $black-primary
-  border: $border
-  border-radius: rem(7)
-  text-align: center
-  &--navigation
-    @extend .button
-    border-color: rgba(0, 0, 0, 0)
-    border-radius: rem(12)
-    padding: rem(11) rem(16) rem(13)
-    border-color: rgba(0, 0, 0, 0)
-    &:hover
-      border-color: $line-primary
-  &--main
-    @extend .button
-    color: $white !important
-    background-color: $black-primary
-    width: 100%
-    height: rem(56)
-    line-height: rem(24)
-    font-size: rem(18)
-    padding-top: rem(14)
-    @include media-breakpoint-down(md)
-      height: rem(48)
-      font-size: rem(16)
-      padding-top: rem(10)
-    @include media-breakpoint-down(xs)
-      height: rem(40)
-      line-height: rem(16)
-      font-size: rem(14)
-      padding-top: rem(11)
-    &:hover
-      background-color: $black-action
-    &--2
-      @extend .button--main
-
-
-
-.h1, .h2, .h3, .h4, .h5, .h6
-  font-weight: bold 
-  &--underline
-    width: 100%
-    position: relative
-    margin-bottom: rem(16 + 28) !important
-    &::after
-      content: '' 
-      position: absolute
-      bottom: rem(-16)
-      left: 0
-      width: 100%
-      height: rem(1)
-      background-color: $black-primary
-.h1
-  font-size: rem(45)
-  line-height: rem(56)
-  @include media-breakpoint-down(lg)
-    font-size: rem(36)
-    line-height: rem(44)
-  @include media-breakpoint-down(xs)
-    font-size: rem(28)
-    line-height: rem(36)
-.h2
-  font-size: rem(32)
-  line-height: rem(40)
-  margin-bottom: rem(26)
-  @include media-breakpoint-down(md)
-    font-size: rem(26)
-    line-height: rem(32)
-    margin-bottom: rem(21)
-  @include media-breakpoint-down(xs)
-    font-size: rem(22)
-    line-height: rem(28)
-    margin-bottom: rem(18)
-.h3
-  font-size: rem(20)
-  line-height: rem(28)
-  @include media-breakpoint-down(lg)
-    font-size: rem(16)
-    line-height: rem(24)
-  @include media-breakpoint-down(xs)
-    font-size: rem(14)
-    line-height: rem(20)
-.h4
-.h5
-.h6
-
-.font-spectral
-  font-family: 'Spectral', sans-serif
-  font-weight: 300
-
-.pink-block
-  border-radius: rem(12)
-  background-color: $background
-
-
-
-.Link
-  color: $black-primary
-  &:hover
-    text-decoration: none
-    color: $black-primary
-  &--active
-    cursor: default
-  &--disabled
-    opacity: .5
-    cursor: not-allowed
-
-.FormattedMessage
-  @extend .inherit-all
 
 *
   font-family: 'Formular', sans-serif
@@ -244,6 +78,7 @@
       height: rem(32)
       margin-right: rem(8)
       padding: 0 rem(10) 0 rem(6)
+      transition: background-color $menu-transition, color $menu-transition
       &:hover
         background-color: $black-primary
         color: $white
@@ -254,6 +89,8 @@
         width: rem(20)
         height: rem(20)
         margin-right: rem(4)
+      path, circle, line, rect
+        transition: stroke $menu-transition
       &:hover &__icon, &--active &__icon
         path, circle, line, rect
           stroke: $white
@@ -279,6 +116,7 @@
       &--active
         color: $white
         background-color: $black-primary
+        transition: color $menu-transition
         &:hover
           color: $white
           cursor: default
@@ -347,6 +185,7 @@
         background-color: rgba(255, 0, 0, .2)
         width: rem(197)
         margin-right: 0
+        transition: border-color $menu-transition
         &:hover
           border-color: rgba(43, 28, 28, 0)
         @include media-breakpoint-down(lg)

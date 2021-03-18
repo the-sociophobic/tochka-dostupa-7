@@ -1,0 +1,88 @@
+@import '~bootstrap/scss/bootstrap.scss'
+
+@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@1,300&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap')
+
+
+@font-face
+  font-family: 'Formular'
+  src: url('./fonts/Formular/Formular.ttf') format('truetype')
+  font-weight: normal
+@font-face
+  font-family: 'Formular'
+  src: url('./fonts/Formular/Formular-Bold.ttf') format('truetype')
+  font-weight: bold
+
+
+.font-spectral
+  font-family: 'Spectral', sans-serif
+  font-weight: 300
+
+
+@mixin font-params($font-size, $line-height)
+  font-size: rem($font-size)
+  line-height: rem($line-height)
+
+
+.h1, .h2, .h3
+  font-weight: bold 
+  &--underline
+    width: 100%
+    position: relative
+    margin-bottom: rem(16 + 28) !important
+    &::after
+      content: '' 
+      position: absolute
+      bottom: rem(-16)
+      left: 0
+      width: 100%
+      height: rem(1)
+      background-color: $black-primary
+.h1
+  @include font-params(45, 56)
+  @include media-breakpoint-down(lg)
+    @include font-params(36, 44)
+  @include media-breakpoint-down(xs)
+    @include font-params(28, 36)
+  &--italic
+    @extend .font-spectral
+    fint-size: rem(51)
+    @include media-breakpoint-down(lg)
+      fint-size: rem(41)
+    @include media-breakpoint-down(xs)
+      fint-size: rem(31)
+
+.h2
+  @include font-params(32, 40)
+  margin-bottom: rem(26)
+  @include media-breakpoint-down(md)
+    @include font-params(26, 32)
+    margin-bottom: rem(21)
+  @include media-breakpoint-down(xs)
+    @include font-params(22, 28)
+    margin-bottom: rem(18)
+.h3
+  @include font-params(20, 28)
+  @include media-breakpoint-down(md)
+    @include font-params(16, 24)
+  @include media-breakpoint-down(xs)
+    @include font-params(14, 20)
+
+
+.p
+  &--xl
+    @include font-params(26, 32)
+    @include media-breakpoint-down(md)
+      @include font-params(20, 28)
+    @include media-breakpoint-down(xs)
+      @include font-params(18, 24)
+  &--l
+    @include font-params(20, 28)
+    @include media-breakpoint-down(md)
+      @include font-params(16, 24)
+    @include media-breakpoint-down(xs)
+      @include font-params(14, 20)
+  &--s
+    @include font-params(14, 20)
+    @include media-breakpoint-down(md)
+      @include font-params(12, 16)
