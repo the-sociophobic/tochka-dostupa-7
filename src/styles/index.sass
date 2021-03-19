@@ -205,29 +205,87 @@
   &__contacts,
   &__disclaimer
     @extend .row
-    border-top: $border
+    position: relative
+    &::before
+      content: ''
+      width: calc(100% - #{$grid-gutter-width})
+      height: rem(1)
+      background-color: $black
+      position: absolute
+      top: 0
+      left: $grid-gutter-width / 2
+  &__contacts,
+  &__disclaimer
+    margin-top: rem(48)
+    @include media-breakpoint-down(md)
+      margin-top: rem(25)
+    @include media-breakpoint-down(sm)
+      margin-top: rem(32)
   &__links
     padding-top: rem(40)
     @include media-breakpoint-down(md)
       padding-top: rem(27)
     @include media-breakpoint-down(sm)
       padding-top: rem(24)
+    &__home
+      @extend .d-flex
+      @extend .flex-row
+      @extend .flex-md-column
+      @extend .align-items-md-start
+      @extend .align-items-center
+      &__logo
+        width: rem(90)
+        height: rem(90)
+        margin-bottom: rem(16)
+        @include media-breakpoint-down(md)
+          width: rem(100)
+          height: rem(100)
+          margin-bottom: rem(20)
+        @include media-breakpoint-down(sm)
+          width: rem(48)
+          height: rem(48)
+          margin-right: rem(16)
+          margin-bottom: 0
+        @extend .def-img
+        background-image: url(./img/logo.svg)
+      &__title
+        display: inline-block
+        font-family: 'Montserrat', sans-serif
+        text-transform: lowercase
+        font-size: rem(20)
+        @include media-breakpoint-down(md)
+          font-size: rem(16.66666)        
     &__1
-      @extend .col-12
-      @extend .col-md-2
       @extend .col-lg-4
     &__2
-      @extend .col-12
-      @extend .col-md-2
       @extend .col-lg-3
+    &__divider
+      min-height: rem(20)
+      @extend .d-none
+      @extend .d-md-block
+      @extend .d-lg-none
     &__3
-      @extend .col-12
-      @extend .col-md-2
       @extend .col-lg-3
+    &__4
+      @extend .col-lg-2
+    &__1,
+    &__2,
+    &__divider,
+    &__3,
     &__4
       @extend .col-12
       @extend .col-md-2
-      @extend .col-lg-2
+      @include media-breakpoint-down(md)
+        margin-bottom: rem(32)
+        &:last-of-type
+          margin-bottom: 0
+    &__1,
+    &__2,
+    &__3,
+    &__4
+      @extend .d-flex
+      @extend .flex-column
+      @extend .align-items-start
 
   &__contacts
     padding-top: rem(32)
@@ -235,19 +293,36 @@
       padding-top: rem(19)
     @include media-breakpoint-down(sm)
       padding-top: rem(16)
-    &__1
+    &__1,
+    &__divider
       @extend .col-lg-4
+      @extend .col-md-4
+    &__divider
+      min-height: rem(20)
+      @extend .d-none
+      @extend .d-md-block
+      @extend .d-lg-none
     &__2,
     &__3
       @extend .col-lg-3
+      @extend .col-md-2
     &__4
       @extend .col-lg-2
+      @extend .col-md-2
+    &__1,
+    &__2
+      @include media-breakpoint-down(md)
+        margin-bottom: rem(24)
+      @include media-breakpoint-down(sm)
+        margin-bottom: rem(32)
     &__1,
     &__2,
     &__3,
     &__4
+      @extend .d-flex
+      @extend .flex-column
+      @extend .align-items-start
       @extend .col-12
-      @extend .col-md-3
       
   &__disclaimer
     padding-top: rem(16)
@@ -255,6 +330,37 @@
       padding-top: rem(14)
     @include media-breakpoint-down(sm)
       padding-top: rem(16)
+  
+  &__link
+    &--regular
+      @extend .p--m
+      text-decoration: underline !important
+      display: inline-block
+      @extend .mb-2
+      min-height: rem(24)
+    &--title
+      display: inline-block
+      text-transform: uppercase
+      color: $white
+      background-color: $line-primary
+      padding: 0 rem(10)
+      border-radius: rem(6)
+      margin-bottom: rem(16)
+      @include font-params(12, 24)
+      @include media-breakpoint-down(md)
+        margin-bottom: rem(18)
+        @include font-params(10, 24)
+      @include media-breakpoint-down(sm)
+        margin-bottom: rem(8)
+    &--email
+      @extend .mb-0
+      @include font-params(24, 32)
+      @include media-breakpoint-down(lg)
+        @include font-params(20, 28)
+      @include media-breakpoint-down(md)
+        @include font-params(20, 32)
+      @include media-breakpoint-down(sm)
+        @include font-params(20, 32)
 
 
 
