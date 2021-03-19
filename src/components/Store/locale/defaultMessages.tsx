@@ -48,6 +48,13 @@ const defaultMessages = {
     ],
   },
 
+  Home: {
+    info: [
+      "Международный Летний фестиваль искусств «Точка доступа» — крупнейший форум сайт-специфического и иммерсивного искусства в России, он проводится в Петербурге с 2015 года. «Точка доступа» всегда исследует новые территории театра и предлагает зрителю новый опыт восприятия и коммуникации с пространством. Резиденты и гости «Точки доступа» — российские и зарубежные режиссеры — осваивают локации, обычно ничего общего с театром не имеющие, и одновременно знакомят зрителей с прогрессивным, смелым и актуальным искусством.",
+      "The Access Point International Summer Festival of Arts is the largest forum of site-specific and immersive art in Russia; it has been held in St. Petersburg since 2015. The Access Point is always exploring new territories of the theater and offers the viewer a new experience of perception and communication with the space. Residents and guests of «Access Point» - Russian and foreign directors - explore locations that usually have nothing to do with the theater, and at the same time acquaint viewers with progressive, bold and contemporary art."
+    ],
+  },
+
   Program: {
     name: ['Программа', 'Program'],
     Main: {
