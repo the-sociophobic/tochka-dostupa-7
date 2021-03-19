@@ -12,6 +12,7 @@
   border: $border
   border-radius: rem(7)
   text-align: center
+  display: block
   &--navigation
     @extend .button
     border-color: rgba(0, 0, 0, 0)
@@ -21,29 +22,43 @@
     transition: border-color $menu-transition
     &:hover
       border-color: $line-primary
-  &--main
+  &--main,
+  &--secondary
     @extend .button
-    color: $white !important
-    background-color: $black-primary
     width: 100%
     height: rem(56)
     line-height: rem(24)
     font-size: rem(18)
     padding-top: rem(14)
+    border-radius: rem(12)
     @include media-breakpoint-down(md)
       height: rem(48)
       font-size: rem(16)
       padding-top: rem(10)
+      border-radius: rem(10)
     @include media-breakpoint-down(xs)
       height: rem(40)
       line-height: rem(16)
       font-size: rem(14)
       padding-top: rem(11)
+      border-radius: rem(8)
     transition: background-color $menu-transition
+  &--main
+    color: $white !important
+    background-color: $black-primary
     &:hover
       background-color: $black-action
     &--2
       @extend .button--main
+  &--secondary
+    @extend .button
+    transition: background-color $menu-transition, color $menu-transition
+    &:hover
+      color: $white !important
+      background-color: $black-primary
+      
+
+    
 
 
 .Link

@@ -24,10 +24,13 @@
 
 .Header
   width: 100%
+  background-color: $white
   &--fixed
+    z-index: 100
     position: fixed
     top: -100%
     left: 0
+    transition: top $menu-transition
     &--show
       top: 0
   &__container
@@ -120,6 +123,7 @@
           color: $white
           cursor: default
   &__secondary
+    @extend .d-none //TODO
     width: 100%
     height: rem(84)
     border-top: $border
@@ -199,6 +203,9 @@
 
 
 .Footer
+  margin-top: rem(128)
+  @include media-breakpoint-down(sm)
+    margin-top: rem(64)
   &__container
     @extend .container
   &__links,
@@ -436,3 +443,18 @@
         font-weight: 400
       &__device-info
         @extend .font-spectral
+
+
+
+
+
+.Home
+  &__cover
+    width: 100%
+    background-color: #FFDE00
+    @extend .mb-s
+    height: rem(684)
+    @include media-breakpoint-down(lg)
+      height: rem(512)
+    @include media-breakpoint-down(md)
+      height: rem(460)
