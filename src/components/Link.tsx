@@ -31,7 +31,7 @@ const _Link : React.FunctionComponent<Props> = ({
       {children}
     </span>
     :
-    to.includes('http') ?
+    to.match(/http*|tel:*|mailto:*/) ?
       <a
         className={`Link ${className}`}
         href={to}

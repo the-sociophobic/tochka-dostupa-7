@@ -7,6 +7,9 @@ const defaultMessages = {
   },
   login: ["Вход", "Login"],
 
+  online: ["Онлайн", "Online"],
+  offline: ["Оффлайн", "Offline"],
+
   Header: {
     schedule: ["Расписание", "Schedule"],
 
@@ -57,6 +60,7 @@ const defaultMessages = {
 
   Program: {
     name: ['Программа', 'Program'],
+    full: ['Вся программа', 'Full program'],
     Main: {
       name: ["Основная", "Main"],
     },

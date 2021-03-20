@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 import FormattedMessage from '../components/FormattedMessage'
 import ProgramPreview from '../components/ProgramPreview'
@@ -11,7 +11,7 @@ class Home extends React.Component<{}, {}> {
 
       <div className="Home__cover" />
 
-      <div className="container">        
+      <div className="container mb-s mb-md-l">        
         <div className="row mb-s">
           <FormattedMessage
             id='Home.info'
@@ -38,7 +38,10 @@ class Home extends React.Component<{}, {}> {
         </div>
       </div>
 
-      <ProgramPreview program='' />
+      <ProgramPreview program='main' />
+      <ProgramPreview program='open' />
+      <ProgramPreview program='educational' />
+      
     </div>
 }
 
