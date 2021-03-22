@@ -92,17 +92,6 @@ class ProgramPreview extends React.Component<Props, State> {
   getLocale = (array : string[]) =>
     array[this.context.locale === 'rus' ? 0 : 1]
 
-  itemSizeClass = () => {
-    switch (this.props.program) {
-      case 'main':
-        return 'ProgramPreview__item--l'
-      case 'open':
-        return 'ProgramPreview__item--m'
-      default:
-        return 'ProgramPreview__item--s'
-    }
-  }
-
   renderArrows = (className?: string) =>
     <div className={className}>
       <Left />
@@ -139,23 +128,24 @@ class ProgramPreview extends React.Component<Props, State> {
       <div className="ProgramPreview__items__scroll-container">
         <div className="ProgramPreview__items__container">
           {items.map(item =>
-            <div
+            <Link
+              to={item.link}
               className='ProgramPreview__item'
             >
-              <Link
-                to={item.link}
+              <div
+                // to={item.link}
                 className="ProgramPreview__item__name"
               >
                 {this.getLocale(item.name)}
-              </Link>
+              </div>
               <div className="ProgramPreview__item__makers">
                 {item.makers.map(maker =>
-                  <Link
-                    to={maker.link}
+                  <div
+                    // to={maker.link}
                     className="ProgramPreview__item__makers__item"
                   >
                     {this.getLocale(maker.name).split(' ')[0]}&nbsp;{this.getLocale(maker.name).split(' ')[1]}
-                  </Link>
+                  </div>
                 )
                 .reduce((a, b) => <>{a}, {b}</>)}
               </div>
@@ -173,7 +163,7 @@ class ProgramPreview extends React.Component<Props, State> {
                 src={item.cover}
                 className="ProgramPreview__item__cover"
               />
-            </div>
+            </Link>
           )}
         </div>
       </div>
