@@ -20,7 +20,13 @@ const post = async (path: string, data: any) =>
     data,
   )).data
 
+const get = async (path: string) =>
+  (await axios.get(
+    APIlink() + path,
+  )).data
+
 
 export {
   post,
+  get,
 }
