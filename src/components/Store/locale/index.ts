@@ -7,7 +7,7 @@ import flatten from '../../../utils/flatten'
 
 const messages = arrayToLocale(flatten(defaultMessages))
 
-type objWithContextType = {
+type objectWithContextType = {
   context: {
     messages: any,
     locale: string
@@ -15,16 +15,19 @@ type objWithContextType = {
 }
 
 const getMessage = (
-  _this: objWithContextType,
+  _this: objectWithContextType,
   id: string,
 ): string =>
     messages[_this.context.locale][id] || "#no message found#"
 
 const getMessageAllLocales = (
-  _this: objWithContextType,
+  _this: objectWithContextType,
   id: string,
 ): string[] =>
-    [messages["rus"][id] || "#no message found#", messages["eng"][id] || "#no message found#"]
+    [
+      messages["rus"][id] || "#no message found#",
+      messages["eng"][id] || "#no message found#"
+    ]
 
 
 export {
