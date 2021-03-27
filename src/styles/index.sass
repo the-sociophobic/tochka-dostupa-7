@@ -465,111 +465,113 @@
 
 
 
-.ProgramPreview
+.HorizontalShowcase
   background-color: $background
   padding: rem(56) 0 rem(120)
   @include media-breakpoint-down(md)
     padding: rem(62) 0 rem(96)
   @include media-breakpoint-down(md)
     padding: rem(46) 0 rem(64)
-  &__items__scroll-container
+  &__scroll
     width: 100%
     overflow-x: scroll
     @extend .no-scrollbar
-  &__items__container
-    @extend .d-inline-flex
-    @extend .flex-row
-    @extend .flex-nowrap
-    padding-left: calc((100vw - #{get-breakpoints('xl')} + #{$grid-gutter-width}) / 2)
-    padding-right: calc((100vw - #{get-breakpoints('xl')} + #{$grid-gutter-width}) / 2)
-    @include media-breakpoint-down(lg)
-      padding-left: calc((100vw - #{get-breakpoints('lg')} + #{$grid-gutter-width}) / 2)
-      padding-right: calc((100vw - #{get-breakpoints('lg')} + #{$grid-gutter-width}) / 2)
-    @include media-breakpoint-down(md)
-      padding-left: calc((100vw - #{get-breakpoints('md')} + #{$grid-gutter-width}) / 2)
-      padding-right: calc((100vw - #{get-breakpoints('md')} + #{$grid-gutter-width}) / 2)
-    @include media-breakpoint-down(sm)
-      padding-left: calc((100vw - #{get-breakpoints('sm')} + #{$grid-gutter-width}) / 2)
-      padding-right: calc((100vw - #{get-breakpoints('sm')} + #{$grid-gutter-width}) / 2)
-    @include media-breakpoint-down(xs)
-      padding-left: calc((100vw - #{get-breakpoints('xs')} + #{$grid-gutter-width}) / 2)
-      padding-right: calc((100vw - #{get-breakpoints('xs')} + #{$grid-gutter-width}) / 2)
+    &__container
+      @extend .d-inline-flex
+      @extend .flex-row
+      @extend .flex-nowrap
+      padding-left: calc((100vw - #{get-breakpoints('xl')} + #{$grid-gutter-width}) / 2)
+      padding-right: calc((100vw - #{get-breakpoints('xl')} + #{$grid-gutter-width}) / 2)
+      @include media-breakpoint-down(lg)
+        padding-left: calc((100vw - #{get-breakpoints('lg')} + #{$grid-gutter-width}) / 2)
+        padding-right: calc((100vw - #{get-breakpoints('lg')} + #{$grid-gutter-width}) / 2)
+      @include media-breakpoint-down(md)
+        padding-left: calc((100vw - #{get-breakpoints('md')} + #{$grid-gutter-width}) / 2)
+        padding-right: calc((100vw - #{get-breakpoints('md')} + #{$grid-gutter-width}) / 2)
+      @include media-breakpoint-down(sm)
+        padding-left: calc((100vw - #{get-breakpoints('sm')} + #{$grid-gutter-width}) / 2)
+        padding-right: calc((100vw - #{get-breakpoints('sm')} + #{$grid-gutter-width}) / 2)
+      @include media-breakpoint-down(xs)
+        padding-left: calc((100vw - #{get-breakpoints('xs')} + #{$grid-gutter-width}) / 2)
+        padding-right: calc((100vw - #{get-breakpoints('xs')} + #{$grid-gutter-width}) / 2)
   &__item
-    cursor: pointer
-    margin-right: $grid-gutter-width
-    @extend .d-flex
-    @extend .flex-column
-    @include media-breakpoint-down(md)
-      width: calc(#{get-breakpoints('md')} / 7 * 3 - #{$grid-gutter-width})
-    @include media-breakpoint-down(sm)
-      width: calc(#{get-breakpoints('sm')} / 5 * 4 - #{$grid-gutter-width})
-    @include media-breakpoint-down(xs)
-      width: calc(#{get-breakpoints('xs')} / 5 * 4 - #{$grid-gutter-width})
-    .ProgramPreview--main &
+    &--L
       @include media-breakpoint-up(lg)
         width: calc(#{get-breakpoints('lg')} / 13 * 6 - #{$grid-gutter-width})
       @include media-breakpoint-up(xl)
         width: calc(#{get-breakpoints('xl')} / 13 * 6 - #{$grid-gutter-width})
-    .ProgramPreview--open &
+    &--M
       @include media-breakpoint-up(lg)
         width: calc(#{get-breakpoints('lg')} / 13 * 4 - #{$grid-gutter-width})
       @include media-breakpoint-up(xl)
         width: calc(#{get-breakpoints('xl')} / 13 * 4 - #{$grid-gutter-width})
-    .ProgramPreview--educational &
+    &--S
       @include media-breakpoint-up(lg)
         width: calc(#{get-breakpoints('lg')} / 13 * 3 - #{$grid-gutter-width})
       @include media-breakpoint-up(xl)
         width: calc(#{get-breakpoints('xl')} / 13 * 3 - #{$grid-gutter-width})
-    &__name
-      font-weight: bold
-      margin-bottom: rem(7)
-      hyphens: auto
-      .ProgramPreview--main &
+
+.PlayCard
+  cursor: pointer
+  margin-right: $grid-gutter-width
+  @extend .d-flex
+  @extend .flex-column
+  @include media-breakpoint-down(md)
+    width: calc(#{get-breakpoints('md')} / 7 * 3 - #{$grid-gutter-width})
+  @include media-breakpoint-down(sm)
+    width: calc(#{get-breakpoints('sm')} / 5 * 4 - #{$grid-gutter-width})
+  @include media-breakpoint-down(xs)
+    width: calc(#{get-breakpoints('xs')} / 5 * 4 - #{$grid-gutter-width})
+  &__name
+    font-weight: bold
+    margin-bottom: rem(7)
+    hyphens: auto
+    .HorizontalShowcase__item--L &
+      @include media-breakpoint-up(lg)
+        @include font-params(24, 28)
+    @include font-params(20, 24)
+    @include media-breakpoint-down(md)
+      margin-bottom: rem(2)
+    @include media-breakpoint-down(sm)
+      @include font-params(16, 20)
+    .PlayCard:hover &
+      text-decoration: underline
+  &__makers
+    margin-bottom: rem(13)
+    @include media-breakpoint-down(sm)
+      margin-bottom: rem(14)
+    &__item
+      display: inline-block
+      @extend .font-spectral
+      @include font-params(22, 24)
+      .HorizontalShowcase__item--L &
         @include media-breakpoint-up(lg)
-          @include font-params(24, 28)
-      @include font-params(20, 24)
+          @include font-params(27, 28)
       @include media-breakpoint-down(md)
-        margin-bottom: rem(2)
+        @include font-params(23, 24)
       @include media-breakpoint-down(sm)
-        @include font-params(16, 20)
-      .ProgramPreview__item:hover &
+        @include font-params(19, 20)
+      .PlayCard:hover &
         text-decoration: underline
-    &__makers
-      margin-bottom: rem(13)
-      @include media-breakpoint-down(sm)
-        margin-bottom: rem(14)
-      &__item
-        display: inline-block
-        @extend .font-spectral
-        @include font-params(22, 24)
-        .ProgramPreview--main &
-          @include media-breakpoint-up(lg)
-            @include font-params(27, 28)
-        @include media-breakpoint-down(md)
-          @include font-params(23, 24)
-        @include media-breakpoint-down(sm)
-          @include font-params(19, 20)
-        .ProgramPreview__item:hover &
-          text-decoration: underline
-    &__short-desc
-      @extend .p--s
-      margin-bottom: rem(28)
-    &__buttons
-      @extend .d-flex
-      @extend .flex-row
-      @extend .mt-auto
-      margin-bottom: rem(16)
-      .button
-        margin-right: rem(6)
-        cursor: pointer !important
-    &__cover
-      width: 100%
-      overflow: hidden
+  &__short-desc
+    @extend .p--s
+    margin-bottom: rem(28)
+  &__buttons
+    @extend .d-flex
+    @extend .flex-row
+    @extend .mt-auto
+    margin-bottom: rem(16)
+    .button
+      margin-right: rem(6)
+      cursor: pointer !important
+  &__cover
+    width: 100%
+    overflow: hidden
+    border-radius: rem(12)
+    @include media-breakpoint-down(md)
+      border-radius: rem(10)
+    @include media-breakpoint-down(sm)
       border-radius: rem(12)
-      @include media-breakpoint-down(md)
-        border-radius: rem(10)
-      @include media-breakpoint-down(sm)
-        border-radius: rem(12)
 
 
 .Loading

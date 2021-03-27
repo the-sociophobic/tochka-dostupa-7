@@ -1,14 +1,18 @@
 import React from 'react'
 
 import FormattedMessage from '../components/FormattedMessage'
-import ProgramPreview from '../components/ProgramPreview'
+import HorizontalShowcase from '../components/HorizontalShowcase'
+import PlayCard from '../components/Views/Cards/PlayCard'
 import Link from '../components/Link'
+import { Context } from '../components/Store'
 
 
 class Home extends React.Component<{}, {}> {
+
+  static contextType = Context
+
   render = () =>
     <div className="Home">
-
       <div className="Home__cover" />
 
       <div className="container mb-s mb-md-l">        
@@ -37,10 +41,49 @@ class Home extends React.Component<{}, {}> {
           </div>
         </div>
       </div>
-
-      <ProgramPreview program='main' />
-      <ProgramPreview program='open' />
-      <ProgramPreview program='educational' />
+      
+      <HorizontalShowcase
+        L
+        title={
+          <>
+            <FormattedMessage id={`Program.Main.name`} /> <FormattedMessage id='Program.name' />
+          </>
+        }
+        Card={PlayCard}
+        items={this.context.plays}
+        bottomLink={{
+          to: 'program/main',
+          label: <FormattedMessage id='Program.full' />
+        }}
+      />
+      <HorizontalShowcase
+        M
+        title={
+          <>
+            <FormattedMessage id={`Program.Open.name`} /> <FormattedMessage id='Program.name' />
+          </>
+        }
+        Card={PlayCard}
+        items={this.context.plays}
+        bottomLink={{
+          to: 'program/open',
+          label: <FormattedMessage id='Program.full' />
+        }}
+      />
+      <HorizontalShowcase
+        S
+        title={
+          <>
+            <FormattedMessage id={`Program.Educational.name`} /> <FormattedMessage id='Program.name' />
+          </>
+        }
+        Card={PlayCard}
+        items={this.context.plays}
+        bottomLink={{
+          to: 'program/educational',
+          label: <FormattedMessage id='Program.full' />
+        }}
+      />
       
     </div>
 }
