@@ -34,6 +34,10 @@
     transition: top $menu-transition
     &--show
       top: 0
+  border-bottom: 1px solid rgba(0, 0, 0, 0)
+  transition: border-bottom $menu-transition-long
+  &--secondary
+    border-bottom: $border
   &__container
     @extend .container
     @extend .d-flex
@@ -140,17 +144,17 @@
           background-size: 60% 60%
   &__secondary
     position: absolute
-    top: rem(112)
+    top: rem(113)
     @include media-breakpoint-down(md)
-      top: rem(72)
+      top: rem(73)
     background-color: $white
     width: 100%
-    border-top: $border
     @extend .d-flex
     @extend .flex-column
     @extend .align-items-center
     @extend .justify-content-center
     height: 0
+    overflow-y: hidden
     transition: height $menu-transition
     &--show
       height: rem(84)
