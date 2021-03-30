@@ -9,6 +9,8 @@ import Settings from '../pages/User/Settings'
 
 import Schedule from '../pages/Schedule'
 
+import Archive from '../pages/Festival/Archive'
+
 
 type Route = {
   to: string
@@ -44,6 +46,11 @@ const routes: Route[] = [
   {
     to: "/schedule",
     Comp: <Schedule />
+  },
+
+  {
+    to: "/festival/archive",
+    Comp: <Archive />
   },
 ]
 

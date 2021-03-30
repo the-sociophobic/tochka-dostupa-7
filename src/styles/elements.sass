@@ -121,3 +121,59 @@
     // &--landscape
     //   width: auto
     //   height: 100%
+
+
+
+
+.Dropdown
+  @extend .d-flex
+  @extend .flex-column
+  @extend .align-items-start
+  border-top: $border
+  &:first-of-type
+    margin-top: rem(93)
+    @include media-breakpoint-down(lg)
+      margin-top: rem(103)
+    @include media-breakpoint-down(md)
+      margin-top: rem(63)
+    @include media-breakpoint-down(sm)
+      margin-top: rem(40)
+  &:last-of-type
+    border-bottom: $border
+  &__title
+    width: 100%
+    cursor: pointer
+    position: relative
+    display: inline-block
+    padding: rem(15) 0 rem(19)
+    @extend .d-flex
+    &__text
+      width: 100%
+      @extend .flex-grow-1
+      @extend .no-select
+      &::after
+        content: ''
+        position: absolute
+        right: rem(32)
+        top: 50%
+        width: rem(32)
+        height: rem(32)
+        @extend .def-img
+        background-image: url(./img/dropdown__arrow.svg)
+        transform: translateY(-50%) rotate(-90deg)
+        transition: transform $menu-transition
+        .Dropdown--opened &
+          transform: translateY(-50%) rotate(0deg)
+  &__content
+    width: 100%
+    transition: height $menu-transition
+    overflow: hidden
+    &__container
+      padding: rem(63) 0 rem(48)
+      @include media-breakpoint-down(md)
+        padding: rem(32) 0 rem(48)
+      @include media-breakpoint-down(sm)
+        padding: rem(21) 0 rem(31)
+      width: 100%
+      @extend .d-flex
+      @extend .flex-column

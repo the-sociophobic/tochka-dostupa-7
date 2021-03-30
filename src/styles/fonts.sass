@@ -39,7 +39,7 @@
 
 
 .h1, .h2, .h3
-  font-weight: bold 
+  font-weight: bold !important
   &--underline
     @extend .underline
 .h1
@@ -55,6 +55,10 @@
       font-size: rem(41)
     @include media-breakpoint-down(xs)
       font-size: rem(31)
+  &--xl
+    @include font-params(64, 64)
+    @include media-breakpoint-down(xs)
+      @include font-params(48, 48)
 
 .h2
   font-weight: bold !important
