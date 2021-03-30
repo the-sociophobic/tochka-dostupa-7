@@ -14,6 +14,7 @@
   border-radius: rem(7)
   text-align: center
   display: block
+  white-space: nowrap
   &--navigation
     @extend .button
     border-color: rgba(0, 0, 0, 0)
@@ -21,7 +22,8 @@
     padding: rem(11) rem(16) rem(13)
     border-color: rgba(0, 0, 0, 0)
     transition: border-color $menu-transition
-    &:hover
+    &:hover,
+    &--hover
       border-color: $line-primary
   &--main,
   &--secondary

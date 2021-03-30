@@ -9,15 +9,15 @@ import Link from './Link'
 const links = [
   {
     to: '/program/main',
-    messageId: 'Program.Main.name'
+    messageId: 'Program.pages.Main.name'
   },
   {
     to: '/program/open',
-    messageId: 'Program.Open.name'
+    messageId: 'Program.pages.Open.name'
   },
   {
     to: '/program/educational',
-    messageId: 'Program.Educational.name'
+    messageId: 'Program.pages.Educational.name'
   },
   {
     to: '/schedule',
@@ -26,27 +26,27 @@ const links = [
 
   {
     to: '/festival/about',
-    messageId: 'Festival.About.name'
+    messageId: 'Festival.pages.About.name'
   },
   {
     to: '/festival/Q&A',
-    messageId: 'Festival.QandA.name'
+    messageId: 'Festival.pages.QandA.name'
   },
   {
     to: '/festival/accreditation',
-    messageId: 'Festival.Accreditation.name'
+    messageId: 'Festival.pages.Accreditation.name'
   },
   {
     to: '/festival/projects',
-    messageId: 'Festival.Projects.name'
+    messageId: 'Festival.pages.Projects.name'
   },
   {
     to: '/festival/archive',
-    messageId: 'Festival.Archive.name'
+    messageId: 'Festival.pages.Archive.name'
   },
   {
     to: '/festival/contacts',
-    messageId: 'Festival.Contacts.name'
+    messageId: 'Festival.pages.Contacts.name'
   },
 
   {

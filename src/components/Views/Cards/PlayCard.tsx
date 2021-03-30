@@ -14,6 +14,7 @@ import FormattedMessage from '../../FormattedMessage'
 interface Props extends Play {
   onClick?(): void
   className?: string
+  linkDisabled?: boolean
 }
 
 

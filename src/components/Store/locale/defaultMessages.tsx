@@ -1,4 +1,8 @@
-const defaultMessages = {
+interface Messages {
+  [key: string]: (string | JSX.Element)[] | undefined | any
+}
+
+const defaultMessages: Messages = {
   AccessPoint: ["Точка Доступа", "Access Point"],
   
   locale: {
@@ -10,13 +14,20 @@ const defaultMessages = {
   online: ["Онлайн", "Online"],
   offline: ["Оффлайн", "Offline"],
 
-  Header: {
-    schedule: ["Расписание", "Schedule"],
+  Header: {},
 
-    user: {
-      tickets: ["Мои события", "My events"],
-      settings: ["Настройки", "Settings"],
-      admin: ["Админка", "Admin"],
+  User: {
+    
+    pages: {
+      Tickets: {
+        name: ["Мои события", "My events"],
+      },
+      Admin: {
+        name: ["Админка", "Admin"],
+      },
+      Settings: {
+        name: ["Настройки", "Settings"],
+      },
       logout: ["Выход", "Log out"],
     }
   },
@@ -61,38 +72,44 @@ const defaultMessages = {
   Program: {
     name: ['Программа', 'Program'],
     full: ['Вся программа', 'Full program'],
-    Main: {
-      name: ["Основная", "Main"],
-    },
-    Open: {
-      name: ["Свободная", "Open"],
-    },
-    Educational: {
-      name: ["Образовательная", "Educational"],
-    },
+
+    pages: {
+      Main: {
+        name: ["Основная", "Main"],
+      },
+      Open: {
+        name: ["Свободная", "Open"],
+      },
+      Educational: {
+        name: ["Образовательная", "Educational"],
+      },
+    }
   },
   Schedule: {
     name: ["Расписание", "Schedule"],
   },
   Festival: {
     name: ['Фестиваль', 'Festival'],
-    About: {
-      name: ["О Фестивале", "About"],
-    },
-    QandA: {
-      name: ["Вопрос-Ответ", "Q&A"],
-    },
-    Accreditation: {
-      name: ["Аккредитация", "Accreditation"],
-    },
-    Projects: {
-      name: ["Проекты Фестиваля", "Projects"],
-    },
-    Archive: {
-      name: ["Архив", "Archive"],
-    },
-    Contacts: {
-      name: ["Контакты", "Contacts"],
+
+    pages: {
+      About: {
+        name: ["О Фестивале", "About"],
+      },
+      QandA: {
+        name: ["Вопрос-Ответ", "Q&A"],
+      },
+      Accreditation: {
+        name: ["Аккредитация", "Accreditation"],
+      },
+      Projects: {
+        name: ["Проекты Фестиваля", "Projects"],
+      },
+      Archive: {
+        name: ["Архив", "Archive"],
+      },
+      Contacts: {
+        name: ["Контакты", "Contacts"],
+      },
     },
   },
 

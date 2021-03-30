@@ -8,6 +8,8 @@ import Loading from './Loading'
 import Login from '../Login'
 
 
+
+
 class Admin extends React.Component<{}, {}> {
   
   state = {
@@ -34,7 +36,7 @@ class Admin extends React.Component<{}, {}> {
       <div className="Admin">
         <div className="container">
 
-          <div className='row'>
+          {/* <div className='row'>
             <div className='col-3'>
               <button
                 className='button button--main'
@@ -43,31 +45,8 @@ class Admin extends React.Component<{}, {}> {
                 Выгрузить все данные
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className='row'>
-            <div className='col-12'>
-              <h2 className='h2'>
-                Спекты
-              </h2>
-            </div>
-          </div>
-          
-          <div className='row'>
-            <div className='col-12'>
-              <h2 className='h2'>
-                Участники
-              </h2>
-            </div>
-          </div>
-          
-          <div className='row'>
-            <div className='col-12'>
-              <h2 className='h2'>
-                Спонсоры
-              </h2>
-            </div>
-          </div>
 
         {this.state.loading && <Loading />}
       </div>

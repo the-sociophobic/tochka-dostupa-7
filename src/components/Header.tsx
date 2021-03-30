@@ -11,6 +11,9 @@ import { Context } from './Store'
 import Link from './Link'
 import { ReactComponent as LocaleIcon } from '../styles/img/locale.svg'
 import { ReactComponent as UserLineIcon } from '../styles/img/user-line.svg'
+import HorizontalShowcase from './HorizontalShowcase'
+import defaultMessages from './Store/locale/defaultMessages'
+import camelize from '../utils/camelize'
 
 
 type PathParamsType = {
@@ -22,18 +25,58 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
   state = {
     opened: false,
     scrollingUp: false,
+    secondaryLinks: [],
   }
 
   static contextType = Context
+
+  secondaryRef: any = React.createRef()
+  flushLinksTimeout: any = null
 
   prev:any
 
   componentDidMount() {
     this.prev = window.scrollY
     window.addEventListener('scroll', e => this.handleNavigation(e))
+    this.updateSecondaryLinks()
   }
+
   componentWillUnmount = () =>
     window.removeEventListener('scroll', e => this.handleNavigation(e))
+
+  componentDidUpdate = (prevProps: { location: Object }) =>
+    this.props.location !== prevProps.location &&
+      this.updateSecondaryLinks()
+
+
+  updateSecondaryLinks = (pathToShow?: string) =>
+    this.setState({
+      secondaryLinks: (path =>
+        path.match(/\/festival*|\/program|\/user*/) ?
+          // path.match(/\/user*/) && _.isEmpty(this.context.user) ?
+          path.match(/\/user*/) && false ?
+            []
+            :
+            Object.keys(defaultMessages[camelize(path.split('/')[1])].pages)
+              .filter(key => key !== 'Projects')
+              .map(key => ({
+                to: `/${path.split('/')[1].toLowerCase()}/${key.toLowerCase()}`,
+                id: `${camelize(path.split('/')[1])}.pages.${key}.name`
+              }))
+          :
+          []
+      )(pathToShow || this.props.history.location.pathname)
+    })
+
+  initFlushLinksTimeout = () =>
+    this.flushLinksTimeout = setTimeout(this.updateSecondaryLinks, 350)
+
+  breakFlushLinksTimeout = () => {
+    if (this.flushLinksTimeout !== null) {
+      clearTimeout(this.flushLinksTimeout)
+      this.flushLinksTimeout = null
+    }
+  }
 
   handleNavigation = (e: any) => {
     const window = e.currentTarget
@@ -57,6 +100,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
             activeClassName="Link--active"
           >
             <img
+              alt=''
               className="Header__logo__img"
               src={logo}
             />
@@ -67,14 +111,40 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           </Link>
 
           <div className={`Header__links ${this.state.opened && "Header__links--opened"}`}>
+            <div
+              className={`
+                Header__links__item Header__links__item--dropdown
+                ${(this.state.secondaryLinks.length === 3 || this.props.location.pathname.includes('program')) && 'button--navigation--hover'}
+              `}
+              onMouseEnter={() => {
+                this.breakFlushLinksTimeout()
+                this.updateSecondaryLinks('/program')
+              }}
+              onMouseLeave={this.initFlushLinksTimeout}
+            >
+              <FormattedMessage id="Program.name" />
+            </div>
             <Link
               to="/schedule"
               className="Header__links__item"
               activeClassName="Header__links__item--active"
               onClick={() => this.setState({ opened: false })}
             >
-              <FormattedMessage id="Header.schedule" />
+              <FormattedMessage id="Schedule.name" />
             </Link>
+            <div
+              className={`
+                Header__links__item Header__links__item--dropdown
+                ${(this.state.secondaryLinks.length === 5 || this.props.location.pathname.includes('festival')) && 'button--navigation--hover'}
+              `}
+              onMouseEnter={() => {
+                this.breakFlushLinksTimeout()
+                this.updateSecondaryLinks('/festival')
+              }}
+              onMouseLeave={this.initFlushLinksTimeout}
+            >
+              <FormattedMessage id="Festival.name" />
+            </div>
           </div>
 
           <div className="Header__controls">
@@ -118,49 +188,36 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
     </header>
 
   renderSecondary = () =>
-    <div className="Header__secondary">
-      <div className="Header__secondary__container">
-        <div className="Header__secondary__container__inner">
-          {(() => {
-            const path = this.props.history.location.pathname
-
-            switch(true) {
-              case path.includes('/user/') && !_.isEmpty(this.context.user):
-                return <>
-                  <Link
-                    to="/user/tickets"
-                    className="Header__secondary__item"
-                    activeClassName="Header__secondary__item--active"
-                  >
-                    <FormattedMessage id="Header.user.tickets" />
-                  </Link>
-                  <Link
-                    to="/user/admin"
-                    className="Header__secondary__item"
-                    activeClassName="Header__secondary__item--active"
-                  >
-                    <FormattedMessage id="Header.user.admin" />
-                  </Link>
-                  <Link
-                    to="/user/settings"
-                    className="Header__secondary__item"
-                    activeClassName="Header__secondary__item--active"
-                  >
-                    <FormattedMessage id="Header.user.settings" />
-                  </Link>
-                  <button
-                    className="Header__secondary__item Header__secondary__item--exit"
-                    onClick={() => this.context.logout()}
-                  >
-                    <FormattedMessage id="Header.user.logout" />
-                  </button>
-                </>
-              default:
-                return <></>
-            }
-          })()}
-        </div>
-      </div>
+    <div
+      ref={this.secondaryRef}
+      onMouseEnter={this.breakFlushLinksTimeout}
+      onMouseLeave={this.initFlushLinksTimeout}
+      className={`
+        Header__secondary
+        ${this.state.secondaryLinks.length > 0 && 'Header__secondary--show'}
+      `}
+    >
+      <HorizontalShowcase
+        items={this.state.secondaryLinks}
+        ItemComp={props =>
+          props.to === '/user/logout' ?
+            <button
+              className="Header__links__item Header__links__item--exit"
+              onClick={() => this.context.logout()}
+            >
+              <FormattedMessage id="User.pages.logout" />
+            </button>
+            :
+            <Link
+              to={props.to}
+              className="Header__links__item"
+              activeClassName="Header__links__item--active"
+              onClick={() => this.setState({ opened: false })}
+            >
+              <FormattedMessage id={props.id} />
+            </Link>
+        }
+      />
     </div>
 
   render = () =>
