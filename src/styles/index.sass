@@ -128,7 +128,10 @@
         &:hover
           color: $white
           cursor: default
+        &::after
+          background-image: url(./img/arrow-down-white.svg) !important
       &--dropdown
+        cursor: default
         position: relative
         padding-right: rem(45)
         &::after
@@ -140,8 +143,8 @@
           width: rem(24)
           height: rem(24)
           @extend .def-img
-          background-image: url(./img/arrow-down.svg)
           background-size: 60% 60%
+          background-image: url(./img/arrow-down.svg)            
   &__secondary
     position: absolute
     top: rem(113)
