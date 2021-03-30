@@ -12,21 +12,29 @@ import { Context } from './Store'
 
 type Props = {
   items: any[]
-  Card: React.FunctionComponent<any>
+  ItemComp: React.FunctionComponent<any>
+  className?: string
   title?: string | JSX.Element
+  arrows?: boolean
+  L?: boolean
+  M?: boolean
+  S?: boolean
   bottomLink?: {
     to: string
     label: string | JSX.Element
   }
-  L?: boolean
-  M?: boolean
-  S?: boolean
 }
 
 
 class HorizontalShowcase extends React.Component<Props, {}> {
 
   static contextType = Context
+
+  itemsRefs: React.RefObject<HTMLInputElement>[] | undefined =
+    this.props.arrows ?
+      this.props.items.map(item => React.createRef())
+      :
+      undefined
 
   renderArrows = (className?: string) =>
     <div className={className}>
@@ -35,30 +43,36 @@ class HorizontalShowcase extends React.Component<Props, {}> {
     </div>
 
   render = () =>
-    <div className='HorizontalShowcase'>
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <div className="d-flex flex-row underline">
-              <h2 className="h2 mr-auto">
-                {this.props.title}
-              </h2>
-              {this.renderArrows('d-none d-md-inline-block')}
+    <div className={`HorizontalShowcase `}>
+
+      {this.props.title &&
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <div className="d-flex flex-row underline">
+                <h2 className="h2 mr-auto">
+                  {this.props.title}
+                </h2>
+                {this.renderArrows('d-none d-md-inline-block')}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      }
 
-      <div className='row d-md-none'>
-        <div className='col-4'>
-          {this.renderArrows()}
+      {this.props.arrows &&
+        <div className='row d-md-none'>
+          <div className='col-4'>
+            {this.renderArrows()}
+          </div>
         </div>
-      </div>
+      }
 
       <div className="HorizontalShowcase__scroll">
         <div className="HorizontalShowcase__scroll__container">
-          {this.props.items.map(item =>
-            <this.props.Card
+          {this.props.items.map((item, index) =>
+            <this.props.ItemComp
+              ref={this?.itemsRefs?.[index]}
               className={`
                 HorizontalShowcase__item
                 ${this.props.L && 'HorizontalShowcase__item--L'}

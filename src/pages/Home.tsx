@@ -44,12 +44,13 @@ class Home extends React.Component<{}, {}> {
       
       <HorizontalShowcase
         L
+        arrows
         title={
           <>
             <FormattedMessage id={`Program.Main.name`} /> <FormattedMessage id='Program.name' />
           </>
         }
-        Card={PlayCard}
+        ItemComp={PlayCard}
         items={this.context.plays}
         bottomLink={{
           to: 'program/main',
@@ -58,12 +59,13 @@ class Home extends React.Component<{}, {}> {
       />
       <HorizontalShowcase
         M
+        arrows
         title={
           <>
             <FormattedMessage id={`Program.Open.name`} /> <FormattedMessage id='Program.name' />
           </>
         }
-        Card={PlayCard}
+        ItemComp={PlayCard}
         items={this.context.plays}
         bottomLink={{
           to: 'program/open',
@@ -72,12 +74,13 @@ class Home extends React.Component<{}, {}> {
       />
       <HorizontalShowcase
         S
+        arrows
         title={
           <>
             <FormattedMessage id={`Program.Educational.name`} /> <FormattedMessage id='Program.name' />
           </>
         }
-        Card={PlayCard}
+        ItemComp={PlayCard}
         items={this.context.plays}
         bottomLink={{
           to: 'program/educational',
