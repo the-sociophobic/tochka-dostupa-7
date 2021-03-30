@@ -45,6 +45,5 @@ const plays = [
   }))
 }))
 
-console.log(plays)
 
 export default plays

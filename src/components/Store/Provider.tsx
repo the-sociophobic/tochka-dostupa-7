@@ -28,15 +28,13 @@ class Provider extends React.Component<{}, StateType> {
     this.checkUser()
 
   checkUser = async () => {
-    console.log(this.cookies)
     const res = await post('/', {
       sessionToken: this.cookies.get('sessionToken'),
       deviceInfo: JSON.stringify(deviceDetect())
     })
 
-
     if (res.newSessionToken)
-      this.cookies.set('sessionToken', res.newSessionToken)
+      this.cookies.set('sessionToken', res.newSessionToken, { path: '/' })
 
     this.setState({
       sessionToken: this.cookies.get('sessionToken')
@@ -55,9 +53,7 @@ class Provider extends React.Component<{}, StateType> {
       deviceInfo: JSON.stringify(deviceDetect())
     })
 
-    console.log(res)
-
-    this.cookies.set('sessionToken', res.newSessionToken)
+    this.cookies.set('sessionToken', res.newSessionToken, { path: '/' })
 
     this.setState({
       sessionToken: this.cookies.get('sessionToken'),
