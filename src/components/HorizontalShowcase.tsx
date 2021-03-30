@@ -42,64 +42,69 @@ class HorizontalShowcase extends React.Component<Props, {}> {
       <Right />
     </div>
 
-  render = () =>
-    <div className={`HorizontalShowcase `}>
+  render = () => {
+    const { ItemComp } = this.props
 
-      {this.props.title &&
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="d-flex flex-row underline">
-                <h2 className="h2 mr-auto">
-                  {this.props.title}
-                </h2>
-                {this.renderArrows('d-none d-md-inline-block')}
+    return (
+      <div className={`HorizontalShowcase `}>
+
+        {this.props.title &&
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <div className="d-flex flex-row underline">
+                  <h2 className="h2 mr-auto">
+                    {this.props.title}
+                  </h2>
+                  {this.renderArrows('d-none d-md-inline-block')}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      }
+        }
 
-      {this.props.arrows &&
-        <div className='row d-md-none'>
-          <div className='col-4'>
-            {this.renderArrows()}
-          </div>
-        </div>
-      }
-
-      <div className="HorizontalShowcase__scroll">
-        <div className="HorizontalShowcase__scroll__container">
-          {this.props.items.map((item, index) =>
-            <this.props.ItemComp
-              ref={this?.itemsRefs?.[index]}
-              className={`
-                HorizontalShowcase__item
-                ${this.props.L && 'HorizontalShowcase__item--L'}
-                ${this.props.M && 'HorizontalShowcase__item--M'}
-                ${this.props.S && 'HorizontalShowcase__item--S'}
-              `}
-              {...item}
-            />
-          )}
-        </div>
-      </div>
-
-      {this.props.bottomLink &&
-        <div className="container mt-xxs mt-md-xs">
-          <div className="row">
-            <div className="col-4 col-md-6 col-lg-4 col-xl-3">
-              <Link
-                to={this.props.bottomLink.to}
-                className='button button--main'
-              >
-                {this.props.bottomLink.label}
-              </Link>
+        {this.props.arrows &&
+          <div className='row d-md-none'>
+            <div className='col-4'>
+              {this.renderArrows()}
             </div>
           </div>
+        }
+
+        <div className="HorizontalShowcase__scroll">
+          <div className="HorizontalShowcase__scroll__container">
+            {this.props.items.map((item, index) =>
+              <ItemComp
+                ref={this?.itemsRefs?.[index]}
+                className={`
+                  HorizontalShowcase__item
+                  ${this.props.L && 'HorizontalShowcase__item--L'}
+                  ${this.props.M && 'HorizontalShowcase__item--M'}
+                  ${this.props.S && 'HorizontalShowcase__item--S'}
+                `}
+                {...item}
+              />
+            )}
+          </div>
         </div>
-      }
-    </div>
+
+        {this.props.bottomLink &&
+          <div className="container mt-xxs mt-md-xs">
+            <div className="row">
+              <div className="col-4 col-md-6 col-lg-4 col-xl-3">
+                <Link
+                  to={this.props.bottomLink.to}
+                  className='button button--main'
+                >
+                  {this.props.bottomLink.label}
+                </Link>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    )
+  }
 }
 
 
