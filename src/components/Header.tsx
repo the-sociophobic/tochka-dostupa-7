@@ -53,8 +53,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
     this.setState({
       secondaryLinks: (path =>
         path.match(/\/festival*|\/program|\/user*/) ?
-          // path.match(/\/user*/) && _.isEmpty(this.context.user) ?
-          path.match(/\/user*/) && false ?
+          path.match(/\/user*/) && _.isEmpty(this.context.user) ?
             []
             :
             Object.keys(defaultMessages[camelize(path.split('/')[1])].pages)
@@ -114,7 +113,8 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
             <div
               className={`
                 Header__links__item Header__links__item--dropdown
-                ${(this.state.secondaryLinks.length === 3 || this.props.location.pathname.includes('program')) && 'button--navigation--hover'}
+                ${this.state.secondaryLinks.length === 3 && 'button--navigation--hover'}
+                ${this.props.location.pathname.includes('program') && 'Header__links__item--active'}
               `}
               onMouseEnter={() => {
                 this.breakFlushLinksTimeout()
@@ -135,7 +135,8 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
             <div
               className={`
                 Header__links__item Header__links__item--dropdown
-                ${(this.state.secondaryLinks.length === 5 || this.props.location.pathname.includes('festival')) && 'button--navigation--hover'}
+                ${this.state.secondaryLinks.length === 5 && 'button--navigation--hover'}
+                ${this.props.location.pathname.includes('festival') && 'Header__links__item--active'}
               `}
               onMouseEnter={() => {
                 this.breakFlushLinksTimeout()
@@ -203,7 +204,10 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           props.to === '/user/logout' ?
             <button
               className="Header__links__item Header__links__item--exit"
-              onClick={() => this.context.logout()}
+              onClick={() => {
+                this.context.logout()
+                this.props.history.push('/login')
+              }}
             >
               <FormattedMessage id="User.pages.logout" />
             </button>
@@ -211,7 +215,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
             <Link
               to={props.to}
               className="Header__links__item"
-              activeClassName="Header__links__item--active"
+              activeClassName='button--navigation--hover'
               onClick={() => this.setState({ opened: false })}
             >
               <FormattedMessage id={props.id} />
