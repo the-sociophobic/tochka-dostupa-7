@@ -90,7 +90,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
   }
 
   renderHeader = (className?: string) =>
-    <header className={`Header ${className}`}>
+    <header className={`Header ${className} ${this.state.secondaryLinks.length > 0 && 'Header--secondary'}`}>
       <div className="Header__main">
         <div className="Header__container">
           
