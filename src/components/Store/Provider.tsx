@@ -74,7 +74,12 @@ class Provider extends React.Component<{}, StateType> {
     toggleLocale: () =>
       this.setState({
         locale: this.state.locale === "rus" ? "eng" : "rus"
-      })
+      }),
+
+    openPopup: () =>
+      document.body.classList.add('overflow-hidden'),
+    closePopup: () =>
+      document.body.classList.remove('overflow-hidden'),
   })
 
   render = () =>

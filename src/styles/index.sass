@@ -23,6 +23,17 @@
   height: 100%
 
 
+.Header__link__item--hover--bottom
+  position: relative
+  &::before
+    content: ''
+    z-index: 10000
+    position: absolute
+    width: 100%
+    height: rem(42)
+    left: 0
+    top: 100%
+
 .Header
   width: 100%
   background-color: $white
@@ -81,25 +92,33 @@
       @extend .flex-row
       @extend .align-items-center
       @extend .button
-      border: none
+      border: 1px solid $white
       border-radius: rem(20)
       height: rem(32)
       margin-right: rem(8)
       padding: 0 rem(10) 0 rem(6)
       transition: background-color $menu-transition, color $menu-transition
-      &:hover
+      &:not(&--user):hover
         background-color: $black-primary
         color: $white
       &--active
         background-color: $black-action !important
         color: $white
+        border-color: $white !important
+      &--user
+        @extend .button--navigation
+        cursor: default
+        &--hover
+          // @extend .button--navigation--hover
+          border-color: $line-primary
+          @extend .Header__link__item--hover--bottom
       &__icon
         width: rem(20)
         height: rem(20)
         margin-right: rem(4)
       path, circle, line, rect
         transition: stroke $menu-transition
-      &:hover &__icon, &--active &__icon
+      &:not(&--user):hover &__icon, &--active &__icon
         path, circle, line, rect
           stroke: $white
   &__burger
@@ -121,6 +140,9 @@
       @extend .button--navigation
       font-weight: bold
       margin-left: rem(8)
+      &--hover
+        @extend .button--navigation--hover
+        @extend .Header__link__item--hover--bottom
       &--active
         color: $white
         background-color: $black-primary
@@ -188,6 +210,83 @@
             width: rem(100)
           @include media-breakpoint-down(xs)
             width: rem(120)
+  &--mobile
+    @extend .d-flex
+    @extend .flex-column
+    background-color: $black-primary
+    width: 100vw
+    height: 100vh
+    position: absolute
+    top: 0
+    right: 0
+    &__container
+      @extend .d-block
+      @extend .d-lg-none
+      position: fixed
+      z-index: 20000
+      top: 0
+      right: 0
+      height: 0
+      width: 0
+      overflow: hidden
+      border-bottom-left-radius: rem(1000)
+      transition: width $menu-transition, height $menu-transition, border-bottom-left-radius $menu-transition
+      &--opened
+        width: 100vw
+        height: 100vh
+        border-bottom-left-radius: rem(0)
+    .Header__burger
+      background-image: url(./img/Header__cross.svg)
+      width: rem(40)
+      height: rem(40)
+    .Header__logo
+      rect
+        fill: $white
+      path
+        fill: $black-primary
+      &__name
+        color: $white
+    .Header__controls__item
+      color: $white
+      background-color: $black-primary
+      border-color: $black-primary
+      path, circle, line, rect
+        stroke: $white
+    &__children
+      @extend .container
+      @extend .d-flex
+      @extend .flex-column
+      @extend .flex-grow-1
+      @extend .no-scrollbar
+      overflow-y: scroll
+      overflow-x: hidden
+      padding: rem(90) 0 rem(120)
+      @include media-breakpoint-down(sm)
+        padding: rem(40) 0 rem(120)
+      .Header__controls
+        @extend .d-flex
+        @extend .mr-0
+        @extend .justify-content-end
+      .Link,
+      .FormattedMessage
+        color: $white
+      .row
+        @extend .flex-nowrap
+        &:not(&:last-of-type)
+          margin-bottom: rem(19)
+          .Link
+            @extend .h1
+            @extend .d-inline-block
+            margin-right: rem(40)
+        &:last-of-type
+          @extend .mt-m
+          .Link
+            @extend .d-inline-block
+            margin-right: rem(20)
+            @include media-breakpoint-down(sm)
+              margin-right: rem(30)
+    .Header__secondary
+      @extend .d-none
            
 
 
