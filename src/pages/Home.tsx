@@ -28,7 +28,7 @@ class Home extends React.Component<{}, {}> {
               to='/festival/about'
               className="button--secondary mb-2"
             >
-              <FormattedMessage id='Festival.About.name'/>
+              <FormattedMessage id='Festival.pages.About.name'/>
             </Link>
           </div>
           <div className="col-4 col-md-3 col-xl-2">          
@@ -36,7 +36,7 @@ class Home extends React.Component<{}, {}> {
               to='/festival/archive'
               className="button--secondary mb-2"
             >
-              <FormattedMessage id='Festival.Archive.name'/>
+              <FormattedMessage id='Festival.pages.Archive.name'/>
             </Link>
           </div>
         </div>
@@ -47,7 +47,7 @@ class Home extends React.Component<{}, {}> {
         arrows
         title={
           <>
-            <FormattedMessage id={`Program.Main.name`} /> <FormattedMessage id='Program.name' />
+            <FormattedMessage id={`Program.pages.Main.name`} /> <FormattedMessage id='Program.name' />
           </>
         }
         ItemComp={PlayCard}
@@ -62,7 +62,7 @@ class Home extends React.Component<{}, {}> {
         arrows
         title={
           <>
-            <FormattedMessage id={`Program.Open.name`} /> <FormattedMessage id='Program.name' />
+            <FormattedMessage id={`Program.pages.Open.name`} /> <FormattedMessage id='Program.name' />
           </>
         }
         ItemComp={PlayCard}
@@ -77,7 +77,7 @@ class Home extends React.Component<{}, {}> {
         arrows
         title={
           <>
-            <FormattedMessage id={`Program.Educational.name`} /> <FormattedMessage id='Program.name' />
+            <FormattedMessage id={`Program.pages.Educational.name`} /> <FormattedMessage id='Program.name' />
           </>
         }
         ItemComp={PlayCard}
