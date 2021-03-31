@@ -12,7 +12,7 @@ import Link from './Link'
 import { ReactComponent as LocaleIcon } from '../styles/img/locale.svg'
 import { ReactComponent as UserLineIcon } from '../styles/img/user-line.svg'
 import HorizontalShowcase from './HorizontalShowcase'
-import getSubLinks from '../utils/getSubLinks'
+import { getSubLinks } from '../utils/routeUtils'
 
 
 type PathParamsType = {

@@ -2,7 +2,7 @@ import React from 'react'
 
 import FormattedMessage from './FormattedMessage'
 import Link from './Link'
-import getSubLinks from '../utils/getSubLinks'
+import { getSubLinks } from '../utils/routeUtils'
 
 
 const links = [
