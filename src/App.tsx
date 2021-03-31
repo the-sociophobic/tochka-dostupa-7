@@ -19,9 +19,9 @@ class App extends React.Component {
   
   render = () =>
     <Provider>
-      <Helmet />
       <div className="App">
         <Router>
+          <Helmet />
           <Header />
           <div className="content">
             <Switch>
