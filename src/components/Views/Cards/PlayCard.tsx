@@ -22,12 +22,14 @@ const PlayCard: React.FunctionComponent<Props> = (play: Props) =>
   <Link
     to={play.link}
     className={`PlayCard ${play.className}`}
+    disabled={play.linkDisabled}
+    onClick={() => play.onClick?.()}
   >
     <div className="PlayCard__name">
       <FormattedMessage message={play.name} />
     </div>
     <div className="PlayCard__makers">
-      {play.makers.map(maker =>
+      {play.persons.length > 0 && play.persons.map(maker =>
         <div
           className="PlayCard__makers__item"
         >
