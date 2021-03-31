@@ -23,10 +23,10 @@ interface Play {
 }
 
 type StateType = {
-  locale: string,
-  user: object,
-  messages?: object,
-  sessionToken?: string,
+  locale: string
+  user: object
+  messages?: object
+  sessionToken?: string
 
   plays: Play[]
 }
@@ -34,6 +34,7 @@ type StateType = {
 const initialState = {
   locale: "rus",
   user: {},
+
   plays: plays,
 }
 

@@ -16,6 +16,7 @@ import './styles/index.sass'
 
 
 class App extends React.Component {
+  
   render = () =>
     <Provider>
       <Helmet />

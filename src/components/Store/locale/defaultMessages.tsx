@@ -14,7 +14,10 @@ const defaultMessages: Messages = {
   online: ["Онлайн", "Online"],
   offline: ["Оффлайн", "Offline"],
 
-  Header: {},
+  Vkontakte: ['Вконтакте', 'Vkontakte'],
+  Facebook: ['Фейсбук', 'Facebook'],
+  Instagram: ['Инстаграм', 'Instagram'],
+  Youtube: ['Ютьюб', 'Youtube'],
 
   User: {
     

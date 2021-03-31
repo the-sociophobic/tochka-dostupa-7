@@ -1,79 +1,43 @@
 import React from 'react'
 
-import logo from '../styles/img/logo.svg'
 import FormattedMessage from './FormattedMessage'
-import { Context } from './Store'
 import Link from './Link'
+import getSubLinks from '../utils/getSubLinks'
 
 
 const links = [
-  {
-    to: '/program/main',
-    messageId: 'Program.pages.Main.name'
-  },
-  {
-    to: '/program/open',
-    messageId: 'Program.pages.Open.name'
-  },
-  {
-    to: '/program/educational',
-    messageId: 'Program.pages.Educational.name'
-  },
+  ...getSubLinks('/program'),
   {
     to: '/schedule',
-    messageId: 'Schedule.name'
+    id: 'Schedule.name'
   },
-
-  {
-    to: '/festival/about',
-    messageId: 'Festival.pages.About.name'
-  },
-  {
-    to: '/festival/Q&A',
-    messageId: 'Festival.pages.QandA.name'
-  },
-  {
-    to: '/festival/accreditation',
-    messageId: 'Festival.pages.Accreditation.name'
-  },
-  {
-    to: '/festival/projects',
-    messageId: 'Festival.pages.Projects.name'
-  },
-  {
-    to: '/festival/archive',
-    messageId: 'Festival.pages.Archive.name'
-  },
-  {
-    to: '/festival/contacts',
-    messageId: 'Festival.pages.Contacts.name'
-  },
+  ...getSubLinks('/festival'),
 
   {
     to: 'https://vk.com/tochkadostupa',
-    label: 'Vkontakte'
+    id: 'Vkontakte'
   },
   {
     to: 'https://www.facebook.com/tochkadostupa',
-    label: 'Facebook'
+    id: 'Facebook'
   },
   {
     to: 'https://www.instagram.com/tochkadostupaspb/',
-    label: 'Instagram'
+    id: 'Instagram'
   },
   {
     to: 'https://www.youtube.com/channel/UCcDBr-1T4dsTQO5xYmaalYg',
-    label: 'Youtube'
+    id: 'Youtube'
   },
 
   {
     to: '/privacy',
-    messageId: 'Privacy.name'
+    id: 'Privacy.name'
   },
 
   {
     to: '/details',
-    messageId: 'Details.name'
+    id: 'Details.name'
   },
 ]
 .map(link =>
@@ -81,11 +45,7 @@ const links = [
     to={link.to}
     className="Footer__link Footer__link--regular"
   >
-    {link.messageId ?
-      <FormattedMessage id={link.messageId} />
-      :
-      link.label
-    }
+    <FormattedMessage id={link.id} />
   </Link>)
 
 
