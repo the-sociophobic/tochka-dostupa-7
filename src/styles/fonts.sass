@@ -79,12 +79,18 @@
 
 
 .p
-  &--xl
+  &--xxl
     @include font-params(26, 32)
     @include media-breakpoint-down(md)
       @include font-params(20, 28)
     @include media-breakpoint-down(xs)
       @include font-params(18, 24)
+  &--xl
+    @include font-params(23, 28)
+    @include media-breakpoint-down(md)
+      @include font-params(19, 24)
+    @include media-breakpoint-down(xs)
+      @include font-params(16, 20)
   &--l
     @include font-params(20, 28)
     @include media-breakpoint-down(md)

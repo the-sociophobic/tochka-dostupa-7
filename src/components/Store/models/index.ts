@@ -14,7 +14,7 @@ import TelegramUser from './TelegramUser'
 import VkUser from './VkUser'
 import InstUser from './InstUser'
 
-import PlayCard from '../../Views/Cards/PlayCard'
+import SpektCard from '../../Views/Cards/SpektCard'
 import DefaultCard from '../../Views/Cards/DefaultCard'
 
 
@@ -23,7 +23,7 @@ const modelsDesc = [
     label: 'Спект',
     name: 'Play',
     model: Play,
-    Card: PlayCard,
+    Card: SpektCard,
   },
   {
     label: 'Показ Спекта',

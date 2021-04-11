@@ -10,6 +10,10 @@ import {
 } from './Types'
 import Context from './Context'
 import { post } from '../../utils/API'
+import {
+  createContentfulClient,
+  getContentfulItems
+} from '../../utils/contentful'
 
 
 const _setState = (_this: any, obj: any) => {
@@ -24,8 +28,12 @@ class Provider extends React.Component<{}, StateType> {
 
   cookies = new Cookies()
 
-  componentDidMount = () =>
+  contentfulClient: any
+
+  componentDidMount = () => {
     this.checkUser()
+    this.loadContentful()
+  }
 
   checkUser = async () => {
     const res = await post('/', {
@@ -61,6 +69,19 @@ class Provider extends React.Component<{}, StateType> {
     })
   }
 
+  loadContentful = async () => {
+    this.contentfulClient = createContentfulClient()
+
+    this.setState({
+      contentfulData: [
+        await getContentfulItems(this.contentfulClient),
+        await getContentfulItems(this.contentfulClient, {locale: 'en-US'})
+      ]
+    })
+
+    console.log(await getContentfulItems(this.contentfulClient))
+  }
+
   stateAndSetters = () => ({
     ...this.state,
     cookies: this.cookies,
@@ -80,6 +101,8 @@ class Provider extends React.Component<{}, StateType> {
       document.body.classList.add('overflow-hidden'),
     closePopup: () =>
       document.body.classList.remove('overflow-hidden'),
+
+    contentful: this.state.contentfulData?.[this.state.locale === "rus" ? 0 : 1],
   })
 
   render = () =>
