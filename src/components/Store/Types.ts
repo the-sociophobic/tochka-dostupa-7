@@ -1,19 +1,36 @@
 import { instanceOf } from 'prop-types'
 
 
-import plays from './hardcoded/plays'
-
-
 type Person = {
+  id: string
   link: string
   name: string[]
   surname: string[]
   username?: string
 }
 
-interface Play {
+type Festival = {
+  id: string
+  name: string
+  year: number
+  mainDesc: JSX.Element
+  facts: Fact[]
+  siteLink: string
+  bookletLink: string
+}
+
+type Fact = {
+  id: string
+  number: string
+  desc: JSX.Element
+}
+
+interface Spekt {
+  id: string
+  festival: Festival
   link: string
   name: string[]
+  eventCreators: string
   shortDesc: string[]
   cover: string
   persons: Person[]
@@ -22,13 +39,23 @@ interface Play {
   offline: boolean
 }
 
+type Program = {
+  name: string
+  programCurator?: Person
+  nameCurator?: string
+  statementShort?: JSX.Element
+  statementLong?: JSX.Element
+  spekts: Spekt[]
+  ogdescription?: string
+  ogimageVkimage?: string
+}
+
 type StateType = {
   locale: string
   user: object
   messages?: object
   sessionToken?: string
 
-  plays: Play[]
   shows: any[]
   festivals: any[]
   festivalplayrelations: any[]
@@ -43,13 +70,15 @@ type StateType = {
   telegramusers: any[]
   vkusers: any[]
   instusers: any[]
+
+  contentfulData: any[]
+  contentful: any
 }
 
 const initialState = {
   locale: "rus",
   user: {},
 
-  plays: plays,
   shows: [],
   festivals: [],
   festivalplayrelations: [],
@@ -64,11 +93,17 @@ const initialState = {
   telegramusers: [],
   vkusers: [],
   instusers: [],
+
+  contentfulData: [],
+  contentful: {},
 }
 
 
 export type {
-  Play,
+  Person,
+  Festival,
+  Spekt,
+  Program,
   StateType,
 }
 

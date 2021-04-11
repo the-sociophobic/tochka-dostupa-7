@@ -2,7 +2,7 @@ import React from 'react'
 
 import FormattedMessage from '../components/FormattedMessage'
 import HorizontalShowcase from '../components/HorizontalShowcase'
-import PlayCard from '../components/Views/Cards/PlayCard'
+import SpektCard from '../components/Views/Cards/SpektCard'
 import Link from '../components/Link'
 import { Context } from '../components/Store'
 
@@ -50,7 +50,7 @@ class Home extends React.Component<{}, {}> {
             <FormattedMessage id={`Program.pages.Main.name`} /> <FormattedMessage id='Program.name' />
           </>
         }
-        ItemComp={PlayCard}
+        ItemComp={SpektCard}
         items={this.context.plays}
         bottomLink={{
           to: 'program/main',
@@ -65,7 +65,7 @@ class Home extends React.Component<{}, {}> {
             <FormattedMessage id={`Program.pages.Open.name`} /> <FormattedMessage id='Program.name' />
           </>
         }
-        ItemComp={PlayCard}
+        ItemComp={SpektCard}
         items={this.context.plays}
         bottomLink={{
           to: 'program/open',
@@ -80,7 +80,7 @@ class Home extends React.Component<{}, {}> {
             <FormattedMessage id={`Program.pages.Educational.name`} /> <FormattedMessage id='Program.name' />
           </>
         }
-        ItemComp={PlayCard}
+        ItemComp={SpektCard}
         items={this.context.plays}
         bottomLink={{
           to: 'program/educational',

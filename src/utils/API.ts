@@ -3,9 +3,9 @@ import axios from 'axios'
 import isProd from './isProd'
 
 
-axios.defaults.headers.post['Accept'] = "*/*"
-axios.defaults.headers.post['Content-Type'] = "json"
-axios.defaults.withCredentials = true
+// axios.defaults.headers.post['Accept'] = "*/*"
+// axios.defaults.headers.post['Content-Type'] = "json"
+// axios.defaults.withCredentials = true
 
 
 const APIlink = () =>

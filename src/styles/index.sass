@@ -600,7 +600,7 @@
       @include media-breakpoint-up(xl)
         width: calc(#{get-breakpoints('xl')} / 13 * 3 - #{$grid-gutter-width})
 
-.PlayCard
+.SpektCard
   cursor: pointer
   margin-right: $grid-gutter-width
   @extend .d-flex
@@ -623,7 +623,7 @@
       margin-bottom: rem(2)
     @include media-breakpoint-down(sm)
       @include font-params(16, 20)
-    .PlayCard:hover &
+    .SpektCard:hover &
       text-decoration: underline
   &__makers
     margin-bottom: rem(13)
@@ -640,7 +640,7 @@
         @include font-params(23, 24)
       @include media-breakpoint-down(sm)
         @include font-params(19, 20)
-      .PlayCard:hover &
+      .SpektCard:hover &
         text-decoration: underline
   &__short-desc
     @extend .p--s
@@ -704,6 +704,32 @@
         margin-bottom: rem(26)
       @include media-breakpoint-down(sm)
         margin-bottom: rem(8)
+  &__links
+    @extend .d-flex
+    @extend .align-items-end
+    @extend .ml-0
+    @extend .ml-md-m
+    @include media-breakpoint-down(sm)
+      margin-top: rem(15)
+    &__item
+      margin-right: rem(30)
+      @extend .d-flex
+      @extend .align-items-end
+      &::after
+        content: ''
+        @extend .d-inline-block
+        width: rem(28)
+        height: rem(28)
+        @include media-breakpoint-down(md)
+          width: rem(24)
+          height: rem(24)
+        @include media-breakpoint-down(sm)
+          width: rem(20)
+          height: rem(20)
+        @extend .def-img
+        background-image: url(./img/arrow-up-right.svg)
+        margin-left: rem(8)
+
         
 
 .Editor

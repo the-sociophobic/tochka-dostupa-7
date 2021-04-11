@@ -109,6 +109,8 @@ const defaultMessages: Messages = {
       },
       Archive: {
         name: ["Архив", "Archive"],
+        site: ["Сайт", "Site"],
+        booklet: ["Буклет", "Booklet"],
       },
       Contacts: {
         name: ["Контакты", "Contacts"],
