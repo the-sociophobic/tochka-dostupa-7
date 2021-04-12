@@ -750,6 +750,8 @@
     @extend .flex-column
     @extend .flex-md-row
     border-bottom: $border
+    &:last-of-type
+      border-bottom: none
     padding-top: rem(18)
     padding-bottom: rem(18)
     @include media-breakpoint-down(sm)

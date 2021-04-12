@@ -35,8 +35,8 @@ class Spekt extends React.Component<{}, {}> {
               Ян Дюйвендак
             </div>
             <div className='d-flex flex-row'>
-              <Online />
-              <Offline />
+              <Online className='mr-1' />
+              <Offline className='mr-1' />
               <Age number={18} />
             </div>
           </div>
