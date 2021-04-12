@@ -33,7 +33,8 @@ interface Spekt {
   eventCreators: string
   shortDesc: string[]
   cover: string
-  persons: Person[]
+  // persons: Person[]
+  persons: string
   age: number
   online: boolean
   offline: boolean

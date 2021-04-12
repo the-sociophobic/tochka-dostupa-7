@@ -164,6 +164,8 @@
         transition: transform $menu-transition
         .Dropdown--opened &
           transform: translateY(-50%) rotate(0deg)
+        .Dropdown--opened.Dropdown--spekt &
+          transform: translateY(-50%) rotate(45deg)
   &__content
     width: 100%
     transition: height $menu-transition
@@ -177,3 +179,15 @@
       width: 100%
       @extend .d-flex
       @extend .flex-column
+  &--spekt
+    border: $border
+    border-radius: rem(12)
+    @include media-breakpoint-down(sm)
+      border-radius: rem(8)
+    .Dropdown__title__text::after
+      right: 0
+      background-image: url(./img/plus.svg)
+      @include media-breakpoint-down(sm)
+        width: rem(24)
+        height: rem(24)
+      transform: translateY(-50%) rotate(0deg)

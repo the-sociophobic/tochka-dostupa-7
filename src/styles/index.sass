@@ -180,6 +180,7 @@
     @extend .justify-content-center
     height: 0
     overflow-y: hidden
+    z-index: 100
     transition: height $menu-transition
     &--show
       height: rem(84)
@@ -739,3 +740,38 @@
   position: fixed
   top: 0
   left: 0
+
+
+
+
+.Spekt
+  &__show
+    @extend .d-flex
+    @extend .flex-column
+    @extend .flex-md-row
+    border-bottom: $border
+    padding-top: rem(18)
+    padding-bottom: rem(18)
+    @include media-breakpoint-down(sm)
+      padding-top: rem(17)
+      padding-bottom: rem(23)
+    &__date-time
+      @extend .pr-md-1
+      width: 50%
+      @include media-breakpoint-down(sm)
+        margin-bottom: rem(11)
+    &__line
+      @extend .pl-md-1
+      width: 20%
+      @include media-breakpoint-down(sm)
+        margin-bottom: rem(13)
+    &__buy
+      width: 30%
+      text-align: right
+      @include media-breakpoint-down(sm)
+        text-align: left
+    &__date-time,
+    &__line,
+    &__buy
+      @include media-breakpoint-down(sm)
+        width: 100%

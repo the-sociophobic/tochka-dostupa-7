@@ -20,26 +20,31 @@ interface Props extends Spekt {
 
 const SpektCard: React.FunctionComponent<Props> = (spekt: Props) =>
   <Link
-    to={spekt.link}
+    // to={spekt.link}
+    to='/spekt'
     className={`SpektCard ${spekt.className}`}
     disabled={spekt.linkDisabled}
     onClick={() => spekt.onClick?.()}
   >
     <div className="SpektCard__name">
-      <FormattedMessage message={spekt.name} />
+      {/* <FormattedMessage message={spekt.name} /> */}
+      {spekt.name}
     </div>
     <div className="SpektCard__makers">
-      {spekt?.persons?.length > 0 && spekt.persons.map(maker =>
+      {/* {spekt?.persons?.length > 0 && spekt.persons.map(maker => */}
+      {spekt?.persons?.split(', ').map(maker =>
         <div
           className="SpektCard__makers__item"
         >
-          <FormattedMessage message={maker.name} />&nbsp;<FormattedMessage message={maker.surname} />
+          {/* <FormattedMessage message={maker.name} />&nbsp;<FormattedMessage message={maker.surname} /> */}
+          {maker}
         </div>
       )
       .reduce((a, b) => <>{a}, {b}</>)}
     </div>
     <div className="SpektCard__short-desc">
-      <FormattedMessage message={spekt.shortDesc} />
+      {/* <FormattedMessage message={spekt.shortDesc} /> */}
+      {spekt.shortDesc}
     </div>
 
     <div className="SpektCard__buttons">
