@@ -26,7 +26,7 @@ const _Link : React.FunctionComponent<Props> = ({
   onClick,
   disabled,
 }) =>
-  disabled ?
+  disabled || !to ?
     <span
       className={`Link Link--disabled ${className}`}
       onClick={() => onClick?.()}

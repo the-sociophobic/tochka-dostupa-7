@@ -11,7 +11,7 @@ import { Context } from './Store'
 
 
 type Props = {
-  items: any[]
+  items: any[] | undefined
   ItemComp: React.FunctionComponent<any>
   className?: string
   title?: string | JSX.Element
@@ -31,7 +31,7 @@ class HorizontalShowcase extends React.Component<Props, {}> {
   static contextType = Context
 
   itemsRefs: React.RefObject<HTMLInputElement>[] | undefined =
-    this.props.arrows ?
+    this.props.arrows && this.props.items ?
       this.props.items.map(item => React.createRef())
       :
       undefined
@@ -73,7 +73,7 @@ class HorizontalShowcase extends React.Component<Props, {}> {
 
         <div className="HorizontalShowcase__scroll">
           <div className="HorizontalShowcase__scroll__container">
-            {this.props.items.map((item, index) =>
+            {this.props.items?.map((item, index) =>
               <ItemComp
                 ref={this?.itemsRefs?.[index]}
                 className={`
