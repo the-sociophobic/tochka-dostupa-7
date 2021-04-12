@@ -109,7 +109,7 @@ class Archive extends React.Component<{}, {}> {
                 </div>
                 <div className='row'>
                   {festival?.facts?.map(fact =>
-                    <div className='col-4 col-md-3 col-lg-4'>
+                    <div className='col-4 col-md-3 col-lg-4 mb-xs mb-md-0'>
                       <div className='Archive__pink-block'>
                         <div className='Archive__pink-block__number'>
                           {fact.number}

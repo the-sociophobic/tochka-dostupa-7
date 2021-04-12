@@ -51,7 +51,7 @@ class Home extends React.Component<{}, {}> {
           </>
         }
         ItemComp={SpektCard}
-        items={this.context.plays}
+        items={this.context?.contentful?.spekts}
         bottomLink={{
           to: 'program/main',
           label: <FormattedMessage id='Program.full' />
@@ -66,7 +66,7 @@ class Home extends React.Component<{}, {}> {
           </>
         }
         ItemComp={SpektCard}
-        items={this.context.plays}
+        items={this.context?.contentful?.spekts}
         bottomLink={{
           to: 'program/open',
           label: <FormattedMessage id='Program.full' />
@@ -81,7 +81,7 @@ class Home extends React.Component<{}, {}> {
           </>
         }
         ItemComp={SpektCard}
-        items={this.context.plays}
+        items={this.context?.contentful?.spekts}
         bottomLink={{
           to: 'program/educational',
           label: <FormattedMessage id='Program.full' />

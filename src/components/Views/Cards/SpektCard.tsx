@@ -29,7 +29,7 @@ const SpektCard: React.FunctionComponent<Props> = (spekt: Props) =>
       <FormattedMessage message={spekt.name} />
     </div>
     <div className="SpektCard__makers">
-      {spekt.persons.length > 0 && spekt.persons.map(maker =>
+      {spekt?.persons?.length > 0 && spekt.persons.map(maker =>
         <div
           className="SpektCard__makers__item"
         >
