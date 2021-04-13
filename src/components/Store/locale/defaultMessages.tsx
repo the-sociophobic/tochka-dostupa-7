@@ -132,6 +132,16 @@ const defaultMessages: Messages = {
       h2: ["Личный кабинет", "Your Account"],
 
     }
+  },
+
+  Spekt: {
+    length: ['Продолжительность', 'Length'],
+    stage: ['Локация / платформа', 'Stage / location'],
+    sponsor: ['При поддержке', 'Sponsor'],
+    howToOnline: ['Как это будет онлайн?', 'Tickets'],
+    howToOffline: ['Как это будет офлайн?', 'Tickets'],
+    instructions: ['Инструкция для зрителей', 'Instructions'],
+    buy: ['Купить билет', 'Tickets'],
   }
 }
 

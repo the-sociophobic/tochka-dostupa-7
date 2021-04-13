@@ -6,7 +6,7 @@ import { Helmet as Helmet_ } from 'react-helmet'
 
 import { Context } from './Store'
 import { getMessage } from './Store/locale'
-
+import { Spekt } from './Store/Types'
 import { pathToIds } from '../utils/routeUtils'
 
 
@@ -28,10 +28,17 @@ class Helmet extends React.Component<RouteComponentProps<PathParamsType>> {
       <Helmet_>
         <title>
           {getMessage(this, 'AccessPoint')} VII {
-            subTitles.length > 0 ?
-              subTitles.reduce((a, b) => a + b)
+            this.props.location.pathname.match(/\/spekt\/*/) ?
+              ' / ' + (this?.context?.contentful?.spekts
+                ?.find((spekt: Spekt) =>
+                  spekt.link === this.props.location.pathname.replace('/spekt/', ''))
+                ?.name
+                || (this?.context?.contentful ? 404 : ''))
               :
-              ''
+              subTitles.length > 0 ?
+                subTitles.reduce((a, b) => a + b)
+                :
+                ''
           }
         </title>
       </Helmet_>

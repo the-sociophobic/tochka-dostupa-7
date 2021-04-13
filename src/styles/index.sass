@@ -745,6 +745,13 @@
 
 
 .Spekt
+  &__cover-container
+    overflow: hidden
+    border-radius: rem(12)
+    @include media-breakpoint-down(md)
+      border-radius: rem(10)
+    @include media-breakpoint-down(sm)
+      border-radius: rem(8)
   &__show
     @extend .d-flex
     @extend .flex-column
