@@ -79,7 +79,7 @@ class Provider extends React.Component<{}, StateType> {
       ]
     })
 
-    console.log(await getContentfulItems(this.contentfulClient))
+    console.log(this.state.contentfulData[0])
   }
 
   stateAndSetters = () => ({

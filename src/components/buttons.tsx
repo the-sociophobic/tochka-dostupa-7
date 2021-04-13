@@ -38,12 +38,14 @@ const Offline : React.FunctionComponent<{
   </button>
 
 const Age : React.FunctionComponent<{
-  number: number | string,
+  number?: number | string,
+  text?: string | number
   className?: string,
   onClick?: Function,
   disabled?: boolean,
 }> = ({
   number,
+  text,
   className,
   onClick,
   disabled,
@@ -53,7 +55,30 @@ const Age : React.FunctionComponent<{
     onClick={() => !disabled && onClick?.()}
     disabled={disabled}
   >
-    {number}+
+    {text ?
+      text
+      :
+      number + '+'
+    }
+  </button>
+
+const Program : React.FunctionComponent<{
+  text?: string
+  className?: string,
+  onClick?: Function,
+  disabled?: boolean,
+}> = ({
+  text,
+  className,
+  onClick,
+  disabled,
+}) =>
+  <button
+    className={`button button--program ${className}`}
+    onClick={() => !disabled && onClick?.()}
+    disabled={disabled}
+  >
+    {text}
   </button>
 
 const Left : React.FunctionComponent<{
@@ -91,6 +116,7 @@ export {
   Online,
   Offline,
   Age,
+  Program,
   Left,
   Right,
 }

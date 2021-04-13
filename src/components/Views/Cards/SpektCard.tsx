@@ -21,11 +21,12 @@ interface Props extends Spekt {
 const SpektCard: React.FunctionComponent<Props> = (spekt: Props) =>
   <Link
     // to={spekt.link}
-    to='/spekt'
+    to={`/spekt/${spekt.link}`}
     className={`SpektCard ${spekt.className}`}
     disabled={spekt.linkDisabled}
     onClick={() => spekt.onClick?.()}
   >
+    {(() => console.log(spekt.link))()}
     <div className="SpektCard__name">
       {/* <FormattedMessage message={spekt.name} /> */}
       {spekt.name}
@@ -50,11 +51,11 @@ const SpektCard: React.FunctionComponent<Props> = (spekt: Props) =>
     <div className="SpektCard__buttons">
       {spekt.offline && <Offline />}
       {spekt.online && <Online />}
-      {spekt.age && <Age number={spekt.age} />}
+      {spekt.age && <Age text={spekt.age} />}
     </div>
 
     <Img
-      src={spekt.cover}
+      src={spekt?.cover?.file?.url}
       className="SpektCard__cover"
     />
   </Link>

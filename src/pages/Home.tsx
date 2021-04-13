@@ -5,6 +5,7 @@ import HorizontalShowcase from '../components/HorizontalShowcase'
 import SpektCard from '../components/Views/Cards/SpektCard'
 import Link from '../components/Link'
 import { Context } from '../components/Store'
+import { Spekt } from '../components/Store/Types'
 
 
 class Home extends React.Component<{}, {}> {
@@ -41,7 +42,7 @@ class Home extends React.Component<{}, {}> {
           </div>
         </div>
       </div>
-      
+      {(() => console.log(this.context?.contentful?.spekts))()}
       <HorizontalShowcase
         L
         arrows
@@ -51,7 +52,9 @@ class Home extends React.Component<{}, {}> {
           </>
         }
         ItemComp={SpektCard}
-        items={this.context?.contentful?.spekts}
+        items={this.context?.contentful?.spekts
+          ?.filter((spekt: Spekt) =>
+            spekt?.festival?.id === '1eHNqsKS7e2QSVlvmtGEc1' && spekt?.program?.id === '7fOwCkT7nOXh3C81toLoSs')}
         bottomLink={{
           to: 'program/main',
           label: <FormattedMessage id='Program.full' />
@@ -66,7 +69,9 @@ class Home extends React.Component<{}, {}> {
           </>
         }
         ItemComp={SpektCard}
-        items={this.context?.contentful?.spekts}
+        items={this.context?.contentful?.spekts
+          ?.filter((spekt: Spekt) =>
+            spekt?.festival?.id === '1eHNqsKS7e2QSVlvmtGEc1' && spekt?.program?.id === '4qgsLo90by1TfShZwdyNhw')}
         bottomLink={{
           to: 'program/open',
           label: <FormattedMessage id='Program.full' />
@@ -81,7 +86,9 @@ class Home extends React.Component<{}, {}> {
           </>
         }
         ItemComp={SpektCard}
-        items={this.context?.contentful?.spekts}
+        items={this.context?.contentful?.spekts
+          ?.filter((spekt: Spekt) =>
+            spekt?.festival?.id === '1eHNqsKS7e2QSVlvmtGEc1' && spekt?.program?.id === '6OfzgvjCzzT1xhlwDH2AfQ')}
         bottomLink={{
           to: 'program/educational',
           label: <FormattedMessage id='Program.full' />
