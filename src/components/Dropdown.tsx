@@ -7,6 +7,7 @@ type Props = {
   title: string | JSX.Element
   className?: string
   initialOpen?: boolean
+  spekt?: boolean
 }
 
 
@@ -36,12 +37,16 @@ class Dropdown extends React.Component<Props, {}> {
     <div className={`
       Dropdown
       ${this.state.opened && "Dropdown--opened"}
+      ${this.props.spekt && 'Dropdown--spekt'}
       ${this.props.className}
     `}>
-      <div className='Dropdown__title'>
+      <div
+        className='Dropdown__title'
+        onClick={() => this.props.spekt && this.toggleOpened()}
+      >
         <div
           className="Dropdown__title__text"
-          onClick={() => this.toggleOpened()}
+          onClick={() => !this.props.spekt && this.toggleOpened()}
         >
           {this.props.title}
         </div>
