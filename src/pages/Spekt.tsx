@@ -124,7 +124,8 @@ class Spekt extends React.Component<RouteComponentProps<PathParamsType>, {}> {
               </div>
 
               <Dropdown
-                className='Dropdown--spekt mb-2 mb-md-3 px-3 px-md-4'
+                spekt
+                className='mb-2 mb-md-3'
                 title={
                   <FormattedMessage
                     id='Spekt.buy'
@@ -170,7 +171,8 @@ class Spekt extends React.Component<RouteComponentProps<PathParamsType>, {}> {
                     ""
                     :
                     <Dropdown
-                      className='Dropdown--spekt mb-2 mb-md-3 px-3 px-md-4'
+                      spekt
+                      className='mb-2 mb-md-3'
                       title={
                         <FormattedMessage
                           id={`Spekt.${dropdown}`}

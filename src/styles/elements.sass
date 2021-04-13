@@ -187,10 +187,30 @@
     border-radius: rem(12)
     @include media-breakpoint-down(sm)
       border-radius: rem(8)
-    .Dropdown__title__text::after
-      right: 0
-      background-image: url(./img/plus.svg)
+    .Dropdown__content
+      padding: rem(0) rem(24) rem(0)
+      @include media-breakpoint-down(md)
+        padding: rem(0) rem(21) rem(0)
       @include media-breakpoint-down(sm)
-        width: rem(24)
-        height: rem(24)
-      transform: translateY(-50%) rotate(0deg)
+        padding: rem(05) rem(16) rem(0)
+      &__container
+        padding: rem(7) rem(0) rem(41)
+        @include media-breakpoint-down(md)
+          padding: rem(6) rem(0) rem(42)
+        @include media-breakpoint-down(sm)
+          padding: rem(25) rem(0) rem(43)
+    .Dropdown__title
+      padding: rem(23) rem(24) rem(29)
+      @include media-breakpoint-down(md)
+        padding: rem(23) rem(21) rem(27)
+      @include media-breakpoint-down(sm)
+        padding: rem(13) rem(16) rem(15)
+    .Dropdown__title__text
+      position: relative
+      &::after
+        right: 0
+        background-image: url(./img/plus.svg)
+        @include media-breakpoint-down(sm)
+          width: rem(24)
+          height: rem(24)
+        transform: translateY(-50%) rotate(0deg)
