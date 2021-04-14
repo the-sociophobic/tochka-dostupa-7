@@ -30,16 +30,35 @@ interface Spekt {
   festival: Festival
   program: Program
   link: string
-  name: string[]
+  name: string
   eventCreators: string
-  shortDesc: string[]
+  shortDesc: string
   cover: File
   // persons: Person[]
   persons: string
-  age: number
+  age?: string | number
   online: boolean
   offline: boolean
   sponsors: Sponsor
+
+  ticketsAndSchedule: {
+    tickets: Place[]
+  }
+}
+
+type Place = {
+  venue: string
+  venueEn: string
+  address: string
+  addressEn: string
+  online: boolean
+  tickets: Show[]
+}
+
+interface Show {
+  datetime: string
+  online?: boolean | undefined
+  offline?: boolean | undefined
 }
 
 type Program = {
@@ -129,6 +148,8 @@ export type {
   Person,
   Festival,
   Spekt,
+  Place,
+  Show,
   Program,
   Sponsor,
   File,
