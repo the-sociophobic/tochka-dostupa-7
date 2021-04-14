@@ -784,3 +784,69 @@
     &__buy
       @include media-breakpoint-down(sm)
         width: 100%
+
+
+
+.Schedule
+  &__filter
+    @extend .d-flex
+    @extend .flex-column
+    position: sticky
+    top: 0
+    &__p
+      @extend .p
+      @extend .p--s
+      margin-bottom: rem(11)
+      @include media-breakpoint-down(md)
+        margin-bottom: rem(8)
+    &__button
+      margin-right: rem(10)
+      margin-bottom: rem(12)
+      padding: rem(4) rem(16) rem(8)
+      text-transform: lowercase
+      cursor: pointer !important
+      border-radius: rem(100)
+      @include font-params(20, 28)
+      @include media-breakpoint-down(md)
+        @include font-params(16, 24)
+        margin-bottom: rem(8)
+      @include media-breakpoint-down(xs)
+        @include font-params(14, 20)
+  &__day
+    @extend .d-flex
+    @extend .flex-column
+    @extend .mb-m
+    @extend .mb-md-l
+    border-bottom: 1px solid $line-primary
+    &__show
+      @extend .row
+      @extend .d-flex
+      @extend .flex-column
+      @extend .flex-md-row
+      @extend .py-xs
+      &:not(&:last-of-type)
+        position: relative
+        &::after
+          content: ''
+          position: absolute
+          bottom: 0
+          left: $grid-gutter-width / 2
+          width: calc(100% - #{$grid-gutter-width})
+          height: rem(1)
+          background-color: $line-secondary
+      &__button
+        @extend .button
+        @extend .button--main
+        @extend .pt-0
+        width: 100%
+        height: rem(48)
+        float: right
+        @include font-params(18, 24)
+        @include media-breakpoint-down(md)
+          @include font-params(16, 24)
+          width: 75%
+        @include media-breakpoint-down(sm)
+          @include font-params(14, 16)
+          width: 100%
+          height: rem(40)
+
