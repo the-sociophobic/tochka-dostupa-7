@@ -812,6 +812,49 @@
         margin-bottom: rem(8)
       @include media-breakpoint-down(xs)
         @include font-params(14, 20)
+  &__mobile-filter-container
+    border: $border
+    border-radius: rem(10)
+    background-color: $white
+    padding: rem(26) rem(24) rem(38)
+    @include media-breakpoint-down(xs)
+      padding: rem(22) rem(20) rem(38)
+  &__load-prev
+    color: rgba(0, 0, 0, .6)
+    cursor: pointer
+    @extend .w-100
+    @extend .p
+    @extend .p--l
+    @extend .d-flex
+    @extend .flex-row
+    @extend .justify-content-center
+    border-top: 1px solid $button-disabled-fill
+    border-bottom: 1px solid $button-disabled-fill
+    padding: rem(15) 0 rem(16)
+    margin-bottom: rem(96)
+    @include media-breakpoint-down(lg)
+      padding: rem(10) 0 rem(12)
+      margin-bottom: rem(108)
+    @include media-breakpoint-down(md)
+      padding: rem(13) 0 rem(13)
+      margin-bottom: rem(58)
+    @include media-breakpoint-down(sm)
+      padding: rem(8) 0 rem(10)
+      margin-bottom: rem(42)
+    &::after
+      content: ''
+      width: rem(28)
+      height: rem(28)
+      @extend .def-img
+      background-image: url(./img/arrow-up-gray.svg)
+      @include media-breakpoint-down(md)
+        width: rem(24)
+        height: rem(24)
+      @include media-breakpoint-down(sm)
+        width: rem(20)
+        height: rem(20)
+    .FormattedMessage
+      position: relative
   &__day
     @extend .d-flex
     @extend .flex-column

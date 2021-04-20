@@ -5,6 +5,10 @@ import eachWeekOfInterval from 'date-fns/eachWeekOfInterval'
 import setDate from 'date-fns/setDate'
 import addDays from 'date-fns/addDays'
 import addMonths from 'date-fns/addMonths'
+import isToday from 'date-fns/isToday'
+import isSameDay from 'date-fns/isSameDay'
+import isSameMonth from 'date-fns/isSameMonth'
+import compareAsc from 'date-fns/compareAsc'
 import { ru, enUS } from 'date-fns/locale'
 
 import FormattedMessage from './FormattedMessage'
@@ -182,7 +186,6 @@ class DatePicker extends React.Component<Props, State> {
 
     switch (this.state.current) {
       case 'day':
-        console.log(currentMonthDayString)
         const currentMonthDayStringParsed = this.inputStringToDateReadableString(currentMonthDayString)
         const currentMonthFirstDate = setDate(new Date(currentMonthDayStringParsed), 1)
 
@@ -191,26 +194,47 @@ class DatePicker extends React.Component<Props, State> {
             end: addMonths(currentMonthFirstDate, 1)
           })
           .map((weekFirstDay: Date) =>
-            Array.apply(null, Array(7)).map((value, index) =>
-              <div
-                className='DatePicker__calendar__body__day'
-                onClick={() => {
-                  this.setStateAndPropsDate(
-                    this.state.currentFocused,
-                    format(addDays(weekFirstDay, index), 'ddMMyyyy')
-                  )
-                  if (this.state.currentFocused === 'A') {
-                    this.inputBRef?.current?.focus()
-                    this.setState({ currentFocused: 'B' })
-                  } else
-                    this.setState({
-                      currentFocused: undefined,
-                      opened: false
-                    })
-                }}
-              >
-                {format(addDays(weekFirstDay, index), 'd')}
-              </div>
+            Array.apply(null, Array(7)).map((value, index) => {
+              const thisDay = addDays(weekFirstDay, index)
+              const dateA = new Date(this.props.dateA)
+              const dateB = new Date(this.props.dateB)
+              const selectedDate = this.state.currentFocused === 'A' ? dateA : dateB
+              const disabled = this.state.currentFocused === 'B'
+                && !Number.isNaN(dateA.getTime())
+                && compareAsc(dateA, thisDay) > 0
+
+              return (
+                <div
+                  className={`
+                    DatePicker__calendar__body__day
+                    ${isSameDay(thisDay, selectedDate) && 'DatePicker__calendar__body__day--active'}
+                    ${!isSameMonth(thisDay, currentMonthFirstDate)
+                        && 'DatePicker__calendar__body__day--another-month'}
+                    ${isToday(thisDay) && 'DatePicker__calendar__body__day--today'}
+                    ${disabled && 'DatePicker__calendar__body__day--disabled'}
+                  `}
+                  onClick={() => {
+                    if (disabled)
+                      return
+
+                    this.setStateAndPropsDate(
+                      this.state.currentFocused,
+                      format(thisDay, 'ddMMyyyy')
+                    )
+                    if (this.state.currentFocused === 'A') {
+                      this.inputBRef?.current?.focus()
+                      this.setState({ currentFocused: 'B' })
+                    } else
+                      this.setState({
+                        currentFocused: undefined,
+                        opened: false
+                      })
+                  }}
+                >
+                  {format(thisDay, 'd')}
+                </div>
+              )
+            }
           ))
       case 'month':
         return Array.apply(null, Array(12)).map((value, index) =>
