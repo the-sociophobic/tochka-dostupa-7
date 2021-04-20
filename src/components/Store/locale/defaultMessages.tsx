@@ -155,6 +155,12 @@ const defaultMessages: Messages = {
     howToOffline: ['Как это будет офлайн?', 'Tickets'],
     instructions: ['Инструкция для зрителей', 'Instructions'],
     buy: ['Купить билет', 'Tickets'],
+  },
+
+  DatePicker: {
+    day: ['день', 'day'],
+    month: ['месяц', 'month'],
+    year: ['год', 'year'],
   }
 }
 
