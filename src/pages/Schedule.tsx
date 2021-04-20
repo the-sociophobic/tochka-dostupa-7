@@ -19,6 +19,7 @@ import {
   Program as ProgramType,
 } from '../components/Store/Types'
 import { getMessage } from '../components/Store/locale'
+import DatePicker from '../components/DatePicker'
 
 
 type State = {
@@ -27,8 +28,8 @@ type State = {
   educational: boolean
   online: boolean
   offline: boolean
-  from: number | undefined
-  to: number | undefined
+  from: string
+  to: string
   showFilter: boolean
   [key: string]: any
 }
@@ -52,8 +53,8 @@ class Schedule extends React.Component<{}, State> {
     educational: false,
     online: false,
     offline: false,
-    from: undefined,
-    to: undefined,
+    from: '',
+    to: '',
     showFilter: false,
   }
 
@@ -102,6 +103,12 @@ class Schedule extends React.Component<{}, State> {
       <FormattedMessage
         id='Schedule.dates'
         className='Schedule__filter__p'
+      />
+      <DatePicker
+        dateA={this.state.from}
+        dateB={this.state.to}
+        setDateA={(value: string) => this.setState({ from: value })}
+        setDateB={(value: string) => this.setState({ to: value })}
       />
     </div>
 
