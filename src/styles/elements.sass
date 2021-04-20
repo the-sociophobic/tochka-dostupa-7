@@ -224,6 +224,8 @@
 
 
 .DatePicker
+  @include media-breakpoint-up(lg)
+    margin-bottom: rem(270)
   &__inputs
     position: relative
     @extend .d-inline-flex
@@ -260,6 +262,8 @@
     @extend .flex-column
     border: $border
     border-radius: rem(10)
+    background-color: $white
+    z-index: 2000
     &__header
       @extend .d-flex
       @extend .flex-row
@@ -293,7 +297,17 @@
         &:hover
           box-shadow: inset 0 0 0 1px $line-primary
         &--active
-          @extend .button--main
+          color: $white
+          background-color: $black !important
+        &--today
+          background-color: $online-secondary
+        &--another-month
+          opacity: .5
+        &--disabled
+          cursor: not-allowed
+          color: rgba(0, 0, 0, .5)
+          &:hover
+            box-shadow: none !important
       &__year,
       &__month
         width: 34%

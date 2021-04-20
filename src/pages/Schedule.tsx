@@ -2,6 +2,8 @@ import React from 'react'
 
 import capitalize from 'capitalize'
 import { format } from 'date-fns'
+import isWithinInterval from 'date-fns/isWithinInterval'
+import compareAsc from 'date-fns/compareAsc'
 import { ru, enUS } from 'date-fns/locale'
 
 import FormattedMessage from '../components/FormattedMessage'
@@ -32,6 +34,7 @@ type State = {
   to: string
   showFilter: boolean
   [key: string]: any
+  loadPrev: boolean
 }
 
 interface MappedShow extends Show {
@@ -56,6 +59,7 @@ class Schedule extends React.Component<{}, State> {
     from: '',
     to: '',
     showFilter: false,
+    loadPrev: false,
   }
 
   static contextType = Context
@@ -134,6 +138,10 @@ class Schedule extends React.Component<{}, State> {
       .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
         [...(a || []), ...(b || [])])
       .filter((show: MappedShow) =>
+        this.state.loadPrev ||
+          compareAsc(show.dateObj, new Date('05-05-2021')) > 0
+      )
+      .filter((show: MappedShow) =>
         (!this.state.online && !this.state.offline) || (
           (this.state.online && show.online)
           || (this.state.offline && show.offline)
@@ -146,6 +154,17 @@ class Schedule extends React.Component<{}, State> {
           || (this.state.educational && show?.program?.id === '6OfzgvjCzzT1xhlwDH2AfQ')
         )
       )
+      .filter((show: MappedShow) => {
+        const fromDate = new Date(this.state.from)
+        const toDate = new Date(this.state.to)
+
+        if (Number.isNaN(fromDate.getTime()) || Number.isNaN(toDate.getTime()))
+          return true
+
+        return isWithinInterval(
+          show.dateObj,
+          { start: fromDate, end: toDate })
+      })
       .forEach((show: MappedShow) => {
         const day = show.datetime.split('T')[0]
         days.hasOwnProperty(day) ?
@@ -214,14 +233,14 @@ class Schedule extends React.Component<{}, State> {
 
   render = () =>
     <div className="container mt-s mt-md-m mt-lg-l mb-m mb-md-l mb-lg-xl">
-      <div className='row d-flex d-lg-none'>
+      <div className='row d-flex d-lg-none mb-xs mb-md-s position-relative'>
         <div className='col-4'>
           <FormattedMessage
             id='Schedule.name'
             className='h1 mb-s mb-md-m mb-lg-xl'
           />
         </div>
-        <div className='col-4 col-md-2'>
+        <div className='col-4 col-md-2 position-static'>
           <button
             className={`button pt-1 w-100 ${this.state.showFilter ? 'button--main' : 'button--secondary'}`}
             onClick={() => this.toggleAttrib('showFilter')}
@@ -230,8 +249,26 @@ class Schedule extends React.Component<{}, State> {
               id={this.state.showFilter ? 'Schedule.apply' : 'Schedule.filter'}
             />
           </button>
+          {this.state.showFilter &&
+              <div
+                className='position-absolute container d-block d-lg-none'
+                style={{
+                  width: '100vw',
+                  left: 0,
+                  top: '56px',
+                  zIndex: 1000,
+                }}
+              >
+                <div className='row d-flex flex-row justify-content-end'>
+                  <div className='col-4'>
+                    <div className='Schedule__mobile-filter-container'>
+                      {this.renderFilter()}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
         </div>
-
       </div>
       <div className='row'>
         <div className='col-4 col-md-6 col-lg-4 d-none d-lg-flex flex-column'>
@@ -242,6 +279,13 @@ class Schedule extends React.Component<{}, State> {
           {this.renderFilter()}
         </div>
         <div className='col-4 col-md-6 col-lg-8'>
+          {!this.state.loadPrev &&
+            <div
+              className='Schedule__load-prev'
+              onClick={() => this.setState({ loadPrev: true })}
+            >
+              <FormattedMessage id='Schedule.loadPrev' />
+            </div>}
           {this.renderDays()}
         </div>
       </div>
