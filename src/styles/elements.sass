@@ -316,3 +316,118 @@
         // height: rem(26)
         // line-height: rem(26)
         text-align: center
+
+
+@mixin avatar-params($size, $margin)
+  .CuratorsAvatars__item
+    width: $size
+    height: $size
+    &:not(&:last-of-type)
+      margin-right: $margin
+
+.CuratorsAvatars
+  @extend .d-flex
+  @extend .flex-row
+  &--S
+    @include avatar-params(rem(80), rem(-28))
+  &--M
+    @include avatar-params(rem(140), rem(-32))
+  &--L
+    @include avatar-params(rem(192), rem(-27))
+  &__item
+    position: relative
+    border-radius: rem(200)
+    overflow: hidden
+    &__avatar
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+
+
+  
+.TextDropdown
+  @extend .row
+  @extend .d-flex
+  @extend .flex-column
+  @extend .flex-lg-row
+  @extend .flex-md-column
+  @extend .flex-xl-row
+  padding: rem(41) 0 rem(40)
+  @include media-breakpoint-down(md)
+    padding: rem(27) 0 rem(31)
+  @include media-breakpoint-down(sm)
+    padding: rem(29) 0 rem(26)
+  position: relative
+  &::before,
+  &::after
+    content: ''
+    position: absolute
+    left: rem(12)
+    width: calc(100% - #{$grid-gutter-width})
+    height: rem(1)
+    background-color: $black
+  &::before
+    top: 0
+  &::after
+    bottom: 0
+  &__content
+    @extend .col-4
+    @extend .col-md-6
+    @extend .col-lg-8
+    position: relative
+    padding-bottom: rem(49)
+    @include media-breakpoint-down(md)
+      padding-bottom: rem(43)
+    @include media-breakpoint-down(sm)
+      padding-bottom: rem(36)
+    &__container
+      width: calc(100% - #{$grid-gutter-width})
+      position: relative
+      overflow: hidden
+      transition: height $menu-transition
+      &__preview,
+      &__full
+        position: absolute
+        top: 0
+        left: 0
+      &__preview
+        @extend .p
+        @extend .p--xxl
+        background-color: $white
+        opacity: 1
+        transition: opacity $menu-transition
+        .TextDropdown--opened &
+          opacity: 0
+      &__full
+        @extend .p
+        @extend .p--l
+  &__toggle
+    position: absolute
+    bottom: 0
+    left: $grid-gutter-width / 2
+    cursor: pointer
+    @extend .p
+    @extend .p--l
+    &::after
+      content: ''
+      position: absolute
+      @extend .def-img
+      background-image: url(./img/arrow-right-inline.svg)
+      width: rem(28)
+      height: rem(28)
+      right: rem(-36)
+      @include media-breakpoint-down(md)
+        width: rem(24)
+        height: rem(24)
+        right: rem(-32)
+      @include media-breakpoint-down(sm)
+        width: rem(20)
+        height: rem(20)
+        right: rem(-28)
+  &__additional-content
+    @extend .col-4
+    @extend .col-md-6
+    @extend .col-lg-4
+

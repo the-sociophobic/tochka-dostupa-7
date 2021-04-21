@@ -13,6 +13,10 @@ import Archive from '../pages/Festival/Archive'
 
 import Spekt from '../pages/Spekt'
 
+import Main from '../pages/Program/Main'
+import Open from '../pages/Program/Open'
+import Educational from '../pages/Program/Educational'
+
 
 type Route = {
   to: string
@@ -58,6 +62,19 @@ const routes: Route[] = [
   {
     to: '/spekt',
     Comp: <Spekt />
+  },
+
+  {
+    to: '/program/main',
+    Comp: <Main />
+  },
+  {
+    to: '/program/open',
+    Comp: <Open />
+  },
+  {
+    to: '/program/educational',
+    Comp: <Educational />
   },
 ]
 

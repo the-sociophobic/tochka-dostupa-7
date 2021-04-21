@@ -4,9 +4,10 @@ import { instanceOf } from 'prop-types'
 type Person = {
   id: string
   link: string
-  name: string[]
-  surname: string[]
+  name: string
+  surname: string
   username?: string
+  avatar?: File 
 }
 
 type Festival = {

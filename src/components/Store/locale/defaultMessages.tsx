@@ -86,7 +86,10 @@ const defaultMessages: Messages = {
       Educational: {
         name: ["Образовательная", "Educational"],
       },
-    }
+    },
+
+    readText: ["Читать текст", "Read text"],
+    hideText: ["Свернуть", "Hide"],
   },
   Schedule: {
     name: ["Расписание", "Schedule"],
