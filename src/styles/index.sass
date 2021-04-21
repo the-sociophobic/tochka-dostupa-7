@@ -893,3 +893,18 @@
           width: 100%
           height: rem(40)
 
+
+
+.Program
+  margin-top: rem(76)
+  &__SpektCard-delimeter
+    @include media-breakpoint-up(md)
+      &:nth-of-type(3n - 2)
+        border-right: 1px solid $line-secondary
+    @include media-breakpoint-up(lg)
+      &:nth-of-type(3n - 1)
+        border-right: 1px solid $line-secondary
+    &:last-of-type
+      border-right: none
+
+      
