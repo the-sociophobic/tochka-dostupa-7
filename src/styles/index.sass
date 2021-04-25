@@ -555,12 +555,14 @@
 
 .HorizontalShowcase
   width: 100%
-  background-color: $background
-  padding: rem(56) 0 rem(120)
-  @include media-breakpoint-down(md)
-    padding: rem(62) 0 rem(96)
-  @include media-breakpoint-down(md)
-    padding: rem(46) 0 rem(64)
+  background-color: $white
+  &--Home
+    background-color: $background
+    padding: rem(56) 0 rem(120)
+    @include media-breakpoint-down(md)
+      padding: rem(62) 0 rem(96)
+    @include media-breakpoint-down(md)
+      padding: rem(46) 0 rem(64)
   &__scroll
     width: 100%
     overflow-x: scroll
@@ -585,6 +587,16 @@
         padding-left: calc((100vw - #{get-breakpoints('xs')} + #{$grid-gutter-width}) / 2)
         padding-right: calc((100vw - #{get-breakpoints('xs')} + #{$grid-gutter-width}) / 2)
   &__item
+    &--XL
+      width: calc(#{get-breakpoints('xs')} / 4 * 3 - #{$grid-gutter-width})
+      @include media-breakpoint-up(sm)
+        width: calc(#{get-breakpoints('sm')} / 4 * 3 - #{$grid-gutter-width})
+      @include media-breakpoint-up(md)
+        width: calc(#{get-breakpoints('md')} / 6 * 5 - #{$grid-gutter-width})
+      @include media-breakpoint-up(lg)
+        width: calc(#{get-breakpoints('lg')} / 12 * 10 - #{$grid-gutter-width})
+      @include media-breakpoint-up(xl)
+        width: calc(#{get-breakpoints('xl')} / 12 * 10 - #{$grid-gutter-width})
     &--L
       @include media-breakpoint-up(lg)
         width: calc(#{get-breakpoints('lg')} / 13 * 6 - #{$grid-gutter-width})
@@ -655,13 +667,40 @@
       margin-right: rem(6)
       cursor: pointer !important
   &__cover
-    width: 100%
     overflow: hidden
+    width: 100%
     border-radius: rem(12)
     @include media-breakpoint-down(md)
       border-radius: rem(10)
     @include media-breakpoint-down(sm)
       border-radius: rem(12)
+  .HorizontalShowcase__item--L &__cover,
+  .HorizontalShowcase__item--M &__cover,
+  .HorizontalShowcase__item--S &__cover
+    height: rem(279)
+    @include media-breakpoint-down(lg)
+      height: rem(232)
+    @include media-breakpoint-down(md)
+      height: rem(176)
+    @include media-breakpoint-down(sm)
+      height: rem(260)
+    @include media-breakpoint-down(xs)
+      height: calc(((100vw - #{$grid-gutter-width} * 5) / 5 * 4 + #{$grid-gutter-width} * 3) / 236 * 144)
+  .HorizontalShowcase__item--L &__cover
+    height: rem(356)
+    @include media-breakpoint-down(lg)
+      height: rem(260)
+  &--Program
+    @extend .mr-0
+    @extend .w-100
+    .SpektCard__cover
+      height: rem(252)
+      @include media-breakpoint-down(lg)
+        height: rem(185)
+      @include media-breakpoint-down(md)
+        height: rem(212)
+      @include media-breakpoint-down(sm)
+        height: rem(184)
 
 
 .Loading
@@ -714,22 +753,8 @@
       margin-top: rem(15)
     &__item
       margin-right: rem(30)
-      @extend .d-flex
-      @extend .align-items-end
-      &::after
-        content: ''
-        @extend .d-inline-block
-        width: rem(28)
-        height: rem(28)
-        @include media-breakpoint-down(md)
-          width: rem(24)
-          height: rem(24)
-        @include media-breakpoint-down(sm)
-          width: rem(20)
-          height: rem(20)
-        @extend .def-img
-        background-image: url(./img/arrow-up-right.svg)
-        margin-left: rem(8)
+      @extend .p--arrow
+      @extend .p--arrow--up-right
 
         
 
@@ -896,7 +921,7 @@
 
 
 .Program
-  margin-top: rem(76)
+  @extend .opened-header
   &__SpektCard-delimeter
     @include media-breakpoint-up(md)
       &:nth-of-type(3n - 2)
@@ -908,3 +933,45 @@
       border-right: none
 
       
+.About
+  @extend .opened-header
+  &__Img
+    border-radius: rem(12)
+    overflow: hidden
+    height: calc(((#{get-breakpoints('xs')} - #{$grid-gutter-width} * 5) / 4 * 3.3 + #{$grid-gutter-width} * 3) / 260 * 156)
+    @include media-breakpoint-up(sm)
+      height: calc(((#{get-breakpoints('sm')} - #{$grid-gutter-width} * 7) / 6 * 5 + #{$grid-gutter-width} * 4) / 260 * 156)
+    @include media-breakpoint-up(md)
+      height: rem(360)
+    @include media-breakpoint-up(lg)
+      height: rem(464)
+    @include media-breakpoint-up(xl)
+      height: rem(632)
+  &__person
+    @extend .col-2
+    @extend .col-lg-3
+    @extend .mb-xs
+    @extend .mb-md-l
+    &__avatar
+      @extend .mb-xxs
+      @extend .mb-md-xs
+      border-radius: 100%
+      overflow: hidden
+      position: relative
+      width: calc(100% - #{$grid-gutter-width})
+      padding-top: calc(100% - #{$grid-gutter-width})
+      @include media-breakpoint-up(md)
+        width: calc(100% - #{$grid-gutter-width} * 1.5)
+        padding-top: calc(100% - #{$grid-gutter-width} * 1.5)
+      @include media-breakpoint-up(xl)
+        width: calc((100% - #{$grid-gutter-width} * 2) / 3 * 2 + #{$grid-gutter-width})
+        padding-top: calc((100% - #{$grid-gutter-width} * 2) / 3 * 2 + #{$grid-gutter-width})
+      .Img
+        @extend .abs-cover
+    &__name
+      @extend .p
+      @extend .p--l
+    &__title
+      @extend .p
+      @extend .p--xl
+      @extend .font-spectral

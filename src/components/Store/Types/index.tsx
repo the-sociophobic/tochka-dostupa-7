@@ -10,7 +10,8 @@ interface Person extends ContentfulItem {
   name: string
   surname: string
   username?: string
-  avatar?: File 
+  avatar?: File
+  title?: string
 }
 
 interface Festival extends ContentfulItem {

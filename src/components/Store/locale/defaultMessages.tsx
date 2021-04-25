@@ -123,6 +123,9 @@ const defaultMessages: Messages = {
       Projects: {
         name: ["Проекты Фестиваля", "Projects"],
       },
+      Reviews: {
+        name: ["Отзывы и публикации", "Reviews & publications"],
+      },
       Archive: {
         name: ["Архив", "Archive"],
         site: ["Сайт", "Site"],

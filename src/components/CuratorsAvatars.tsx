@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Person } from './Store/Types'
+import Img from './Img'
 
 
 type Props = {
@@ -26,10 +27,9 @@ class CuratorsAvatars extends React.Component<Props, {}> {
         ?.slice(0, 2)
         ?.map((curator: Person) =>
           <div className='CuratorsAvatars__item'>
-            <img
+            <Img
               className='CuratorsAvatars__item__avatar'
-              src={curator?.avatar?.file?.url}
-              alt={curator?.avatar?.file?.fileName}
+              file={curator?.avatar}
             />
           </div>
         )}

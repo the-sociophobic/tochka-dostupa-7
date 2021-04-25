@@ -9,7 +9,11 @@ import Settings from '../pages/User/Settings'
 
 import Schedule from '../pages/Schedule'
 
+import About from '../pages/Festival/About'
+import QandA from '../pages/Festival/QandA'
+import Accreditation from '../pages/Festival/Accreditation'
 import Archive from '../pages/Festival/Archive'
+import Contacts from '../pages/Festival/Contacts'
 
 import Spekt from '../pages/Spekt'
 
@@ -55,8 +59,24 @@ const routes: Route[] = [
   },
 
   {
+    to: "/festival/about",
+    Comp: <About />
+  },
+  {
+    to: "/festival/Q&A",
+    Comp: <QandA />
+  },
+  {
+    to: "/festival/accreditation",
+    Comp: <Accreditation />
+  },
+  {
     to: "/festival/archive",
     Comp: <Archive />
+  },
+  {
+    to: "/festival/contacts",
+    Comp: <Contacts />
   },
 
   {
