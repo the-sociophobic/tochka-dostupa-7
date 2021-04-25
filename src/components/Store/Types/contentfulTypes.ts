@@ -7,6 +7,7 @@ interface ContentfulItem {
 
 interface File extends ContentfulItem {
   id: string
+  title: string
   file: {
     contentType: string
     details: {
