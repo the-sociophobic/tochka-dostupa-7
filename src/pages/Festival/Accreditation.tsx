@@ -53,7 +53,7 @@ class Accreditation extends React.Component<{}, {}> {
                     to={material.file.url}
                     className='p p--l p--arrow p--arrow--right mb-1 mb-md-2 mb-lg-3'
                   >
-                    {material.file.fileName}
+                    {material?.title}
                   </Link>
               )}
             </div>

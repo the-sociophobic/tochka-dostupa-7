@@ -39,7 +39,9 @@
 
 
 .h1, .h2, .h3
-  &:not(&.font-spectral)
+  font-weight: normal
+  &:not(&.font-spectral),
+  &:not(&.font-weight-normal)
     font-weight: bold !important
   &--underline
     @extend .underline
@@ -62,7 +64,6 @@
       @include font-params(48, 48)
 
 .h2
-  font-weight: bold !important
   @include font-params(32, 40)
   margin-bottom: rem(26)
   @include media-breakpoint-down(md)
@@ -80,6 +81,14 @@
 
 
 .p
+  &--xxxl
+    @include font-params(32, 40)
+    @include media-breakpoint-down(lg)
+      @include font-params(28, 40)
+    @include media-breakpoint-down(md)
+      @include font-params(26, 32)
+    @include media-breakpoint-down(xs)
+      @include font-params(18, 24)
   &--xxl
     @include font-params(26, 32)
     @include media-breakpoint-down(md)
