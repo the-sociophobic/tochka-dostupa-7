@@ -12,6 +12,8 @@ interface Person extends ContentfulItem {
   username?: string
   avatar?: File
   title?: string
+  email?: string
+  phone?: string
 }
 
 interface Festival extends ContentfulItem {
