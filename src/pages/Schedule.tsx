@@ -19,7 +19,7 @@ import {
   Place,
   Show,
   Program as ProgramType,
-} from '../components/Store/Types'
+} from '../components/Store/Types/index'
 import { getMessage } from '../components/Store/locale'
 import DatePicker from '../components/DatePicker'
 
@@ -41,6 +41,7 @@ interface MappedShow extends Show {
   name: string
   persons: string
   dateObj: any
+  datetime: string
   program: ProgramType | undefined
   online?: boolean | undefined
   offline?: boolean | undefined
@@ -129,6 +130,7 @@ class Schedule extends React.Component<{}, State> {
                 name: spekt.name,
                 persons: spekt.persons,
                 dateObj: new Date(show.datetime),
+                datetime: show.datetime,
                 program: spekt.program,
                 offline: show.offline || !show.online
               })))
@@ -137,6 +139,9 @@ class Schedule extends React.Component<{}, State> {
       )
       .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
         [...(a || []), ...(b || [])])
+      .filter((show: MappedShow) =>
+        show.datetime.length > 0
+      )
       .filter((show: MappedShow) =>
         this.state.loadPrev ||
           compareAsc(show.dateObj, new Date('05-05-2021')) > 0
@@ -167,6 +172,7 @@ class Schedule extends React.Component<{}, State> {
       })
       .forEach((show: MappedShow) => {
         const day = show.datetime.split('T')[0]
+        
         days.hasOwnProperty(day) ?
           days[day]?.push(show)
           :
