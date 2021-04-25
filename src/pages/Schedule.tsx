@@ -19,7 +19,7 @@ import {
   Place,
   Show,
   Program as ProgramType,
-} from '../components/Store/Types/index'
+} from '../components/Store/Types'
 import { getMessage } from '../components/Store/locale'
 import DatePicker from '../components/DatePicker'
 

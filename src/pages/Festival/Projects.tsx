@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-class Accreditation extends React.Component<{}, {}> {
+class Projects extends React.Component<{}, {}> {
   
 
   render = () =>
@@ -20,4 +20,4 @@ class Accreditation extends React.Component<{}, {}> {
 }
 
 
-export default Accreditation
+export default Projects

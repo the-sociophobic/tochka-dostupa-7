@@ -76,7 +76,8 @@ const Footer : React.FunctionComponent = ({}) =>
             id='Festival.name'
             className='Footer__link Footer__link--title'
           />
-          {links.slice(4, 10)}
+          {links.slice(4, 8)}
+          {links.slice(9, 11)}
         </div>
         <div className="Footer__links__divider" />
         <div className="Footer__links__4">
@@ -84,7 +85,7 @@ const Footer : React.FunctionComponent = ({}) =>
             id='Footer.media'
             className='Footer__link Footer__link--title'
           />
-          {links.slice(10, 14)}
+          {links.slice(11, 15)}
         </div>
       </div>
       <div className="Footer__contacts">

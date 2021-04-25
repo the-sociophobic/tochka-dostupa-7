@@ -16,6 +16,7 @@ type Props = {
   className?: string
   title?: string | JSX.Element
   arrows?: boolean
+  XL?: boolean
   L?: boolean
   M?: boolean
   S?: boolean
@@ -46,7 +47,7 @@ class HorizontalShowcase extends React.Component<Props, {}> {
     const { ItemComp } = this.props
 
     return (
-      <div className={`HorizontalShowcase `}>
+      <div className={`HorizontalShowcase ${this.props.className}`}>
 
         {this.props.title &&
           <div className="container">
@@ -78,6 +79,7 @@ class HorizontalShowcase extends React.Component<Props, {}> {
                 ref={this?.itemsRefs?.[index]}
                 className={`
                   HorizontalShowcase__item
+                  ${this.props.XL && 'HorizontalShowcase__item--XL'}
                   ${this.props.L && 'HorizontalShowcase__item--L'}
                   ${this.props.M && 'HorizontalShowcase__item--M'}
                   ${this.props.S && 'HorizontalShowcase__item--S'}

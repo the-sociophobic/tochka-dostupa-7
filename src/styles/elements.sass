@@ -89,6 +89,10 @@
     box-shadow: inset 0 0 0 1px $button-disabled-fill
 
       
+.pink-block
+  border-radius: rem(12)
+  background-color: $background
+
 
     
 
@@ -110,10 +114,6 @@
   @extend .inherit-all
 
 
-.pink-block
-  border-radius: rem(12)
-  background-color: $background
-
 
 
 .Img
@@ -123,12 +123,12 @@
     opacity: 0
   &__img
     width: 100%
-    // &--portrait
-    //   width: 100%
-    //   height: auto
-    // &--landscape
-    //   width: auto
-    //   height: 100%
+    &--portrait
+      width: 100%
+      height: auto
+    &--landscape
+      width: auto
+      height: 100%
 
 
 
@@ -431,3 +431,5 @@
     @extend .col-md-6
     @extend .col-lg-4
 
+
+  

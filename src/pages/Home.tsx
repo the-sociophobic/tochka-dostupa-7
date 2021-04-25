@@ -43,6 +43,7 @@ class Home extends React.Component<{}, {}> {
         </div>
       </div>
       <HorizontalShowcase
+        className='HorizontalShowcase--Home'
         L
         arrows
         title={
@@ -60,6 +61,7 @@ class Home extends React.Component<{}, {}> {
         }}
       />
       <HorizontalShowcase
+        className='HorizontalShowcase--Home'
         M
         arrows
         title={
@@ -77,6 +79,7 @@ class Home extends React.Component<{}, {}> {
         }}
       />
       <HorizontalShowcase
+        className='HorizontalShowcase--Home'
         S
         arrows
         title={

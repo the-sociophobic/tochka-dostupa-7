@@ -2,10 +2,14 @@ import React from 'react'
 
 import ResizeObserver from 'resize-observer-polyfill'
 
+import { File } from './Store/Types/contentfulTypes'
+
 
 type Props = {
-  src: string
+  src?: string
   className?: string
+  file?: File | undefined
+  alt?: string
 }
 
 type State = {
@@ -45,8 +49,8 @@ class Img extends React.Component<Props, State> {
     >
       <img
         ref={this.imgRef}
-        alt=""
-        src={this.props.src}
+        alt={this.props.alt || this.props?.file?.file?.fileName || ''}
+        src={this.props.src || this.props?.file?.file?.url || ''}
         className={`Img__img Img__img--${this.state.portrait ? "portrait" : "landscape"}`}
         onLoad={this.setOrientation}
       />

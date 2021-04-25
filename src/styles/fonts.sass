@@ -110,3 +110,25 @@
       @include font-params(10, 12)
     @include media-breakpoint-down(xs)
       @include font-params(10, 14)
+  &--arrow
+    @extend .d-flex
+    @extend .align-items-end
+    &::after
+      content: ''
+      @extend .d-inline-block
+      width: rem(28)
+      height: rem(28)
+      @include media-breakpoint-down(md)
+        width: rem(24)
+        height: rem(24)
+      @include media-breakpoint-down(sm)
+        width: rem(20)
+        height: rem(20)
+      @extend .def-img
+      margin-left: rem(8)
+    &--right
+      &::after
+        background-image: url(./img/arrow-right.svg)
+    &--up-right
+      &::after
+        background-image: url(./img/arrow-up-right.svg)

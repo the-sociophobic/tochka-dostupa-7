@@ -26,7 +26,7 @@ const mobileHeaderLinks = [
       id: 'Schedule.name'
     },
     ...getSubLinks('/festival')
-      .filter(link => link.to !== '/festival/projects'),
+      .filter(link => !link.to.match(/\/festival\/projects|\/festival\/reviews/)),
     
     {
       to: 'https://vk.com/tochkadostupa',
@@ -92,7 +92,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           []
           :
           getSubLinks(path)
-            .filter(link => link.to !== '/festival/projects')
+            .filter(link => !link.to.match(/\/festival\/projects|\/festival\/reviews/))
       )(pathToShow || this.props.history.location.pathname)
     })
 
