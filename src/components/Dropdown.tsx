@@ -2,6 +2,8 @@ import React from 'react'
 
 import ResizeObserver from 'resize-observer-polyfill'
 
+import { ReactComponent as Plus } from '../styles/img/plus.svg'
+
 
 type Props = {
   title: string | JSX.Element
@@ -49,6 +51,8 @@ class Dropdown extends React.Component<Props, {}> {
           onClick={() => !this.props.spekt && this.toggleOpened()}
         >
           {this.props.title}
+          {this.props.spekt &&
+            <Plus className='Dropdown__title__text__Plus' />}
         </div>
       </div>
       <div

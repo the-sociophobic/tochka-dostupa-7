@@ -105,11 +105,11 @@ const Footer : React.FunctionComponent = ({}) =>
         </div>
         <div className="Footer__contacts__divider" />
         <div className="Footer__contacts__3">
-          {links[14]}
+          {links[15]}
         </div>
         <div className="Footer__contacts__divider" />
         <div className="Footer__contacts__4">
-          {links[15]}
+          {links[16]}
         </div>
       </div>
       <div className="Footer__disclaimer">

@@ -975,3 +975,26 @@
       @extend .p
       @extend .p--xl
       @extend .font-spectral
+
+
+.QandA
+  @extend .opened-header
+  &__Link
+    @extend .h3
+    @include media-breakpoint-up(md)
+      margin-bottom: rem(16)
+    @include media-breakpoint-down(md)
+      margin-right: rem(40)
+    @include media-breakpoint-down(sm)
+      margin-right: rem(16)
+    &--active
+      position: relative
+      &::after
+        content: ''
+        position: absolute
+        left: 0
+        bottom: 0
+        width: 100%
+        height: rem(1)
+        background-color: $black
+      

@@ -76,9 +76,25 @@ interface Program extends ContentfulItem {
 }
 
 interface Sponsor extends ContentfulItem {
-  logo: File[]
   name: string
+  logo: File[]
 }
+
+interface QandAsection extends ContentfulItem {
+  name: string
+  url: string
+  items: QandAitem[]
+}
+
+interface QandAitem extends ContentfulItem {
+  title: string
+  text: string
+}
+
+
+
+
+
 
 type StateType = {
   locale: string
@@ -138,6 +154,8 @@ export type {
   Program,
   Sponsor,
   File,
+  QandAsection,
+  QandAitem,
   StateType,
 }
 

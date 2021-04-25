@@ -30,8 +30,10 @@ const pathToIds = (path: string) => {
   const sections = path
     .split('/')
     .filter(section => section.length > 0)
+  const QandAindex = sections.indexOf('q&a')
 
   return sections
+    .slice(0, QandAindex !== -1 ? (QandAindex + 1) : sections.length)
     .map((section, index) =>
       `${sections.slice(0, index + 1)
         .reduce((a, b) =>
