@@ -138,7 +138,7 @@
   @extend .flex-column
   @extend .align-items-start
   border-top: $border
-  &:first-of-type
+  .Archive &:first-of-type
     margin-top: rem(93)
     @include media-breakpoint-down(lg)
       margin-top: rem(103)
@@ -172,8 +172,6 @@
         transition: transform $menu-transition
         .Dropdown--opened &
           transform: translateY(-50%) rotate(0deg)
-        .Dropdown--opened.Dropdown--spekt &
-          transform: translateY(-50%) rotate(45deg)
   &__content
     width: 100%
     transition: height $menu-transition
@@ -210,15 +208,34 @@
         padding: rem(23) rem(21) rem(27)
       @include media-breakpoint-down(sm)
         padding: rem(13) rem(16) rem(15)
-    .Dropdown__title__text
-      position: relative
-      &::after
-        right: 0
-        background-image: url(./img/plus.svg)
-        @include media-breakpoint-down(sm)
-          width: rem(24)
-          height: rem(24)
-        transform: translateY(-50%) rotate(0deg)
+      &:hover
+        .Dropdown__title__text__Plus
+          background-color: black
+          line
+            stroke: $white
+      &__text
+        position: relative
+        &::after
+          @extend .d-none
+        &__Plus
+          position: absolute
+          top: 50%
+          right: 0
+          width: rem(32)
+          height: rem(32)
+          @include media-breakpoint-down(sm)
+            width: rem(24)
+            height: rem(24)
+          transform: translateY(-50%) rotate(0deg)
+          border-radius: rem(100)
+          .Dropdown--opened &            
+          transition: transform $menu-transition, background-color $menu-transition
+          line
+            transition: stroke $menu-transition
+  &--opened
+    .Dropdown__title__text__Plus
+      transform: translateY(-50%) rotate(45deg)
+
 
 
 
