@@ -26,7 +26,6 @@ const SpektCard: React.FunctionComponent<Props> = (spekt: Props) =>
     disabled={spekt.linkDisabled}
     onClick={() => spekt.onClick?.()}
   >
-    {(() => console.log(spekt.link))()}
     <div className="SpektCard__name">
       {/* <FormattedMessage message={spekt.name} /> */}
       {spekt.name}

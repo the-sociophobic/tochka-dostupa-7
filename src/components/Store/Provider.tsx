@@ -7,7 +7,7 @@ import { deviceDetect } from 'react-device-detect'
 import {
   StateType,
   initialState
-} from './Types'
+} from './Types/index'
 import Context from './Context'
 import { post } from '../../utils/API'
 import {

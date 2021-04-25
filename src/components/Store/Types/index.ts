@@ -1,7 +1,10 @@
-import { instanceOf } from 'prop-types'
+import {
+  ContentfulItem,
+  File
+} from './contentfulTypes'
 
 
-type Person = {
+interface Person extends ContentfulItem {
   id: string
   link: string
   name: string
@@ -10,7 +13,7 @@ type Person = {
   avatar?: File 
 }
 
-type Festival = {
+interface Festival extends ContentfulItem {
   id: string
   name: string
   year: number
@@ -20,14 +23,12 @@ type Festival = {
   bookletLink: string
 }
 
-type Fact = {
-  id: string
+interface Fact extends ContentfulItem {
   number: string
   desc: JSX.Element
 }
 
-interface Spekt {
-  id: string
+interface Spekt extends ContentfulItem {
   festival: Festival
   program: Program
   link: string
@@ -47,7 +48,7 @@ interface Spekt {
   }
 }
 
-type Place = {
+interface Place extends ContentfulItem {
   venue: string
   venueEn: string
   address: string
@@ -56,14 +57,13 @@ type Place = {
   tickets: Show[]
 }
 
-interface Show {
+interface Show extends ContentfulItem {
   datetime: string
   online?: boolean | undefined
   offline?: boolean | undefined
 }
 
-type Program = {
-  id: string
+interface Program extends ContentfulItem {
   name: string
   curators?: Person[]
   curatorTitle?: string
@@ -74,26 +74,9 @@ type Program = {
   ogimageVkimage?: string
 }
 
-type Sponsor = {
-  id: string
+interface Sponsor extends ContentfulItem {
   logo: File[]
   name: string
-}
-
-type File = {
-  id: string
-  file: {
-    contentType: string
-    details: {
-      size: number
-      image?: {
-        width: number
-        height: number
-      }
-    }
-    fileName: string
-    url: string
-  }
 }
 
 type StateType = {

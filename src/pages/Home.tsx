@@ -42,7 +42,6 @@ class Home extends React.Component<{}, {}> {
           </div>
         </div>
       </div>
-      {(() => console.log(this.context?.contentful?.spekts))()}
       <HorizontalShowcase
         L
         arrows
