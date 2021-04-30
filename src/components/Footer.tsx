@@ -40,7 +40,14 @@ const links = [
     id: 'Details.name'
   },
 ]
-.map(link =>
+const mappedLinks = [
+  ...links.slice(0, 7),
+  {
+    to: '/festival/about/projects',
+    id: 'Festival.pages.About.pages.Projects.name'
+  },
+  ...links.slice(7)
+].map(link =>
   <Link
     to={link.to}
     className="Footer__link Footer__link--regular"
@@ -67,17 +74,16 @@ const Footer : React.FunctionComponent = ({}) =>
             id='Program.name'
             className='Footer__link Footer__link--title'
           />
-          {links.slice(0, 3)}
+          {mappedLinks.slice(0, 3)}
           <div className="Footer__link Footer__link--regular" />
-          {links[3]}
+          {mappedLinks[3]}
         </div>
         <div className="Footer__links__3">
           <FormattedMessage
             id='Festival.name'
             className='Footer__link Footer__link--title'
           />
-          {links.slice(4, 8)}
-          {links.slice(9, 11)}
+          {mappedLinks.slice(4, 10)}
         </div>
         <div className="Footer__links__divider" />
         <div className="Footer__links__4">
@@ -85,7 +91,7 @@ const Footer : React.FunctionComponent = ({}) =>
             id='Footer.media'
             className='Footer__link Footer__link--title'
           />
-          {links.slice(11, 15)}
+          {mappedLinks.slice(11, 15)}
         </div>
       </div>
       <div className="Footer__contacts">
@@ -105,11 +111,11 @@ const Footer : React.FunctionComponent = ({}) =>
         </div>
         <div className="Footer__contacts__divider" />
         <div className="Footer__contacts__3">
-          {links[15]}
+          {mappedLinks[15]}
         </div>
         <div className="Footer__contacts__divider" />
         <div className="Footer__contacts__4">
-          {links[16]}
+          {mappedLinks[16]}
         </div>
       </div>
       <div className="Footer__disclaimer">

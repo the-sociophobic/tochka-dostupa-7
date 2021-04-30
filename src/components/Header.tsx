@@ -45,7 +45,7 @@ const mobileHeaderLinks = [
       id: 'Youtube'
     },
   ].map(link =>
-    <Link to={link.to} >
+    <Link {...link} >
       <FormattedMessage id={link.id} />
     </Link>)
 
@@ -259,6 +259,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
             :
             <Link
               to={props.to}
+              exact={props.exact}
               className="Header__links__item"
               activeClassName='button--navigation--hover'
             >

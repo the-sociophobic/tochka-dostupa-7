@@ -6,7 +6,8 @@ const getSubLinks = ( path: string ) =>
   Object.keys(defaultMessages[camelize(path.split('/')[1])].pages)
     .map(key => ({
       to: `/${path.split('/')[1].toLowerCase()}/${key === 'QandA' ? 'q&a' : key.toLowerCase()}`,
-      id: `${camelize(path.split('/')[1])}.pages.${key}.name`
+      id: `${camelize(path.split('/')[1])}.pages.${key}.name`,
+      exact: key.match(/QandA|About/) ? false : true,
     }))
 
 

@@ -33,16 +33,16 @@ class About extends React.Component<{}, {}> {
             </div>
             <div className='col-4 col-md-6 col-lg-12 col-xl-3'>
               <Link
-                to='/festival/projects'
+                to='/festival/about/projects'
                 className='p p--arrow p--arrow--right mb-xxs'
               >
-                <FormattedMessage id='Festival.pages.Projects.name' />
+                <FormattedMessage id='Festival.pages.About.pages.Projects.name' />
               </Link>
               <Link
-                to='/festival/reviews'
+                to='/festival/about/reviews'
                 className='p p--arrow p--arrow--right mb-s mb-md-l mb-xl-0'
               >
-                <FormattedMessage id='Festival.pages.Reviews.name' />
+                <FormattedMessage id='Festival.pages.About.pages.Reviews.name' />
               </Link>
             </div>
           </div>
