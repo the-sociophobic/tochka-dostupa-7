@@ -11,10 +11,10 @@ const createContentfulClient = () =>
     // basePath: '/locales'
   })
 
-const getContentfulItems = async (client: any, options?: object) => {
+const parseContentfulItems = async (items: any[]) => {
   let itemsByType: {[key: string]: any} = {};
 
-  (await client.getEntries(options)).items
+  items
     .forEach((item: any) => {
       const parsedItem: any = parseItem(item)
       const type = parsedItem.type + 's'
@@ -61,5 +61,5 @@ const parseContentfulText = (document: any) =>
 
 export {
   createContentfulClient,
-  getContentfulItems
+  parseContentfulItems
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import axios from 'axios'
 import _ from 'lodash'
 import Cookies from 'universal-cookie'
 import { deviceDetect } from 'react-device-detect'
@@ -10,10 +11,7 @@ import {
 } from './Types'
 import Context from './Context'
 import { post } from '../../utils/API'
-import {
-  createContentfulClient,
-  getContentfulItems
-} from '../../utils/contentful'
+import { parseContentfulItems } from '../../utils/contentful'
 
 
 const _setState = (_this: any, obj: any) => {
@@ -27,8 +25,6 @@ class Provider extends React.Component<{}, StateType> {
   state = initialState
 
   cookies = new Cookies()
-
-  contentfulClient: any
 
   componentDidMount = () => {
     this.checkUser()
@@ -70,15 +66,16 @@ class Provider extends React.Component<{}, StateType> {
   }
 
   loadContentful = async () => {
-    this.contentfulClient = createContentfulClient()
+    const contentfulData = (await axios.get('https://api.tochkadostupa.spb.ru/contentful')).data
 
     this.setState({
       contentfulData: [
-        await getContentfulItems(this.contentfulClient),
-        await getContentfulItems(this.contentfulClient, {locale: 'en-US'})
+        await parseContentfulItems(contentfulData.contentfulData[0]),
+        await parseContentfulItems(contentfulData.contentfulData[1])
       ]
     })
 
+    console.log(`contentful data last updated ${contentfulData.date}`)
     console.log(this.state.contentfulData[0])
   }
 
