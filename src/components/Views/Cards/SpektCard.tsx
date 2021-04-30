@@ -7,14 +7,20 @@ import {
   Offline,
   Age,
 } from '../../buttons'
-import { Spekt } from '../../Store/Types'
-import FormattedMessage from '../../FormattedMessage'
+import {
+  Person,
+  Spekt
+} from '../../Store/Types'
+import CuratorsAvatars from '../../CuratorsAvatars'
 
 
 interface Props extends Spekt {
   onClick?(): void
   className?: string
   linkDisabled?: boolean
+  avatarsL?: boolean
+  avatarsM?: boolean
+  avatarsS?: boolean
 }
 
 
@@ -27,23 +33,24 @@ const SpektCard: React.FunctionComponent<Props> = (spekt: Props) =>
     onClick={() => spekt.onClick?.()}
   >
     <div className="SpektCard__name">
-      {/* <FormattedMessage message={spekt.name} /> */}
       {spekt.name}
     </div>
     <div className="SpektCard__makers">
-      {/* {spekt?.persons?.length > 0 && spekt.persons.map(maker => */}
-      {spekt?.persons?.split(', ').map(maker =>
-        <div
-          className="SpektCard__makers__item"
-        >
-          {/* <FormattedMessage message={maker.name} />&nbsp;<FormattedMessage message={maker.surname} /> */}
-          {maker}
-        </div>
-      )
-      .reduce((a, b) => <>{a}, {b}</>)}
+      {(spekt?.personsObj
+        ?.map((person: Person) =>
+          <>{person.name}&nbsp;{person.surname}</>)
+      || spekt?.persons?.split(', '))
+        ?.map((maker: JSX.Element | string) =>
+          <div
+            className="SpektCard__makers__item"
+          >
+            {maker}
+          </div>
+        )
+        ?.reduce((a, b) => <>{a}, {b}</>
+      )}
     </div>
     <div className="SpektCard__short-desc">
-      {/* <FormattedMessage message={spekt.shortDesc} /> */}
       {spekt.shortDesc}
     </div>
 
@@ -53,10 +60,19 @@ const SpektCard: React.FunctionComponent<Props> = (spekt: Props) =>
       {spekt.age && <Age text={spekt.age} />}
     </div>
 
-    <Img
-      src={spekt?.cover?.file?.url}
-      className="SpektCard__cover"
-    />
+    {spekt?.personsObj ?
+      <CuratorsAvatars
+        L={spekt.avatarsL}
+        M={spekt.avatarsM ? true : !(spekt.avatarsL || spekt.avatarsS)}
+        S={spekt.avatarsS}
+        curators={spekt.personsObj}
+      />
+      :
+      <Img
+        src={spekt?.cover?.file?.url}
+        className="SpektCard__cover"
+      />
+    }
   </Link>
 
 

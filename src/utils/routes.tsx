@@ -9,6 +9,8 @@ import Settings from '../pages/User/Settings'
 
 import Schedule from '../pages/Schedule'
 
+import Projects from '../pages/Festival/Projects'
+import Reviews from '../pages/Festival/Reviews'
 import About from '../pages/Festival/About'
 import QandA from '../pages/Festival/QandA'
 import Accreditation from '../pages/Festival/Accreditation'
@@ -58,6 +60,14 @@ const routes: Route[] = [
     Comp: <Schedule />
   },
 
+  {
+    to: "/festival/about/projects",
+    Comp: <Projects />
+  },
+  {
+    to: "/festival/about/reviews",
+    Comp: <Reviews />
+  },
   {
     to: "/festival/about",
     Comp: <About />

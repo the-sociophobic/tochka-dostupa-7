@@ -39,12 +39,12 @@ interface Spekt extends ContentfulItem {
   eventCreators: string
   shortDesc: string
   cover: File
-  // persons: Person[]
   persons: string
+  personsObj?: Person[]
   age?: string | number
   online: boolean
   offline: boolean
-  sponsors: Sponsor
+  sponsors: Sponsor[]
 
   ticketsAndSchedule: {
     tickets: Place[]

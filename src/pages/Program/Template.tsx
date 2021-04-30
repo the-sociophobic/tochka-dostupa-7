@@ -67,6 +67,7 @@ class Template extends React.Component<{ programId: string }, {}> {
                 <div className='col-4 col-md-3 col-lg-4 Program__SpektCard-delimeter'>
                   <SpektCard
                     {...spekt}
+                    avatarsL={this.props.programId === '6OfzgvjCzzT1xhlwDH2AfQ'}
                     className='SpektCard--Program'
                   />
                 </div>

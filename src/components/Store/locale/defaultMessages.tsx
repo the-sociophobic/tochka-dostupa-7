@@ -113,18 +113,21 @@ const defaultMessages: Messages = {
     pages: {
       About: {
         name: ["О Фестивале", "About"],
+        
+        pages: {
+          Projects: {
+            name: ["Проекты Фестиваля", "Projects"],
+          },
+          Reviews: {
+            name: ["Отзывы и публикации", "Reviews & publications"],
+          },    
+        }
       },
       QandA: {
         name: ["Вопрос-Ответ", "Q&A"],
       },
       Accreditation: {
         name: ["Аккредитация", "Accreditation"],
-      },
-      Projects: {
-        name: ["Проекты Фестиваля", "Projects"],
-      },
-      Reviews: {
-        name: ["Отзывы и публикации", "Reviews & publications"],
       },
       Archive: {
         name: ["Архив", "Archive"],

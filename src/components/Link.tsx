@@ -14,6 +14,7 @@ type Props = {
   children?: any
   onClick?: Function
   disabled?: boolean
+  exact?: boolean
 }
 
 
@@ -25,6 +26,7 @@ const _Link : React.FunctionComponent<Props> = ({
   children,
   onClick,
   disabled,
+  exact,
 }) =>
   disabled || !to ?
     <span
@@ -47,7 +49,7 @@ const _Link : React.FunctionComponent<Props> = ({
       :
       activeClassName ?
         <NavLink
-          exact
+          exact={typeof exact !== 'undefined' ? exact : true}
           to={to}
           className={`Link ${className}`}
           activeClassName={`Link--active ${activeClassName}`}

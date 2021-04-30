@@ -10,6 +10,7 @@ class Reviews extends React.Component<{}, {}> {
   static contextType = Context
 
   render = () => {
+    console.log(this.context?.contentful)
     const page = this.context?.contentful?.festivalReviewss[0]
 
     return !page ? '' :
