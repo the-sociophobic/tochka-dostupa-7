@@ -27,7 +27,7 @@ class Home extends React.Component<{}, {}> {
           <div className="col-4 col-md-3 col-xl-2">
             <Link
               to='/festival/about'
-              className="button--secondary mb-2"
+              className="button--secondary mb-3 mb-md-0"
             >
               <FormattedMessage id='Festival.pages.About.name'/>
             </Link>
@@ -35,7 +35,7 @@ class Home extends React.Component<{}, {}> {
           <div className="col-4 col-md-3 col-xl-2">          
             <Link
               to='/festival/archive'
-              className="button--secondary mb-2"
+              className="button--secondary"
             >
               <FormattedMessage id='Festival.pages.Archive.name'/>
             </Link>

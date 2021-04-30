@@ -3,18 +3,16 @@ import React from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
 import FormattedMessage from './FormattedMessage'
+import Link from './Link'
+import { RichTextNode } from './Store/Types/contentfulTypes'
 
-type RichTextNode = {
-  props: {
-    children: (string | any)[]
-  }
-}
 
 type Props = {
   children: React.ReactElement<RichTextNode>[]
   className?: string
   initialOpen?: boolean
   additionalContent: JSX.Element
+  link: string
 }
 
 class TextDropdown extends React.Component<Props, {}> {
@@ -84,12 +82,13 @@ class TextDropdown extends React.Component<Props, {}> {
             {this.cropChildren()}
           </div>
         </div>
-        <div
+        <Link
           className='TextDropdown__toggle'
-          onClick={() => this.toggleOpened()}
+          // onClick={() => this.toggleOpened()}
+          to={this.props.link}
         >
           <FormattedMessage id={this.state.opened ? 'Program.hideText' : 'Program.readText'} />
-        </div>
+        </Link>
       </div>
       <div className='TextDropdown__additional-content'>
         {this.props.additionalContent}

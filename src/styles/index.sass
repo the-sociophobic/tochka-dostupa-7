@@ -98,6 +98,15 @@
       margin-right: rem(8)
       padding: 0 rem(10) 0 rem(6)
       transition: background-color $menu-transition, color $menu-transition
+      &, &.Link
+        @extend .d-flex
+        @extend .flex-row
+        @extend .align-items-center
+      @include media-breakpoint-down(lg)
+        &, &.Link
+          font-size: rem(12) !important
+          .FormattedMessage
+            font-size: rem(12) !important
       &:not(&--user):hover
         background-color: $black-primary
         color: $white
@@ -276,13 +285,13 @@
         @extend .flex-nowrap
         &:not(&:last-of-type)
           margin-bottom: rem(19)
-          .Link
+          .Link:not(.Header__controls__item)
             @extend .h1
             @extend .d-inline-block
             margin-right: rem(40)
         &:last-of-type
           @extend .mt-m
-          .Link
+          .Link:not(.Header__controls__item)
             @extend .d-inline-block
             margin-right: rem(20)
             @include media-breakpoint-down(sm)
@@ -628,6 +637,8 @@
     font-weight: bold
     margin-bottom: rem(7)
     hyphens: auto
+    @include media-breakpoint-up(lg)
+      padding-right: 17%
     .HorizontalShowcase__item--L &
       @include media-breakpoint-up(lg)
         @include font-params(24, 28)
@@ -693,6 +704,15 @@
   &--Program
     @extend .mr-0
     @extend .w-100
+    @extend .h-100
+    @extend .pt-xxs
+    @extend .pt-md-0
+    @extend .pb-xxs
+    @extend .pb-md-m
+    @include media-breakpoint-down(sm)
+      border-bottom: 1px solid $line-secondary
+      .Program__SpektCard-delimeter:last-of-type &
+        border-bottom: none
     .SpektCard__cover
       height: rem(252)
       @include media-breakpoint-down(lg)
@@ -700,7 +720,9 @@
       @include media-breakpoint-down(md)
         height: rem(212)
       @include media-breakpoint-down(sm)
-        height: rem(184)
+        height: calc(#{get-breakpoints('sm') / 300 * 184})
+      @include media-breakpoint-down(xs)
+        height: calc((100vw - #{$grid-gutter-width}) / 300 * 184)
 
 
 .Loading
@@ -902,6 +924,16 @@
           width: calc(100% - #{$grid-gutter-width})
           height: rem(1)
           background-color: $line-secondary
+      &__info
+        @extend .col-4
+        @extend .col-md-3
+        @extend .col-lg-6
+        @extend .d-flex
+        @extend .flex-column
+        cursor: pointer
+        &:hover
+          .h3, .p
+            text-decoration: underline
       &__button
         @extend .button
         @extend .button--main
@@ -923,6 +955,9 @@
 .Program
   @extend .opened-header
   &__SpektCard-delimeter
+    @extend .col-4
+    @extend .col-md-3
+    @extend .col-lg-4
     @include media-breakpoint-up(md)
       &:nth-of-type(3n - 2)
         border-right: 1px solid $line-secondary

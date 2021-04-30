@@ -9,13 +9,15 @@ type Props = {
   title: string | JSX.Element
   className?: string
   initialOpen?: boolean
+  opened?: boolean
+  toggleOpened?: Function
   spekt?: boolean
 }
 
 
 class Dropdown extends React.Component<Props, {}> {
   state = {
-    opened: this.props.initialOpen || false,
+    opened: this.props.initialOpen || this.props.opened || false,
     contentHeight: 0,
   }
 
@@ -27,51 +29,59 @@ class Dropdown extends React.Component<Props, {}> {
       .observe(this.contentRef.current)
   }
 
+  componentDidUpdate = (prevProps: any) =>
+    this.props.opened !== prevProps.opened &&
+      this.setState({opened: this.props.opened})
+
   updateContentHeight = () =>
     this.setState({
       contentHeight: this.contentRef?.current?.clientHeight
     })
 
   toggleOpened = () =>
-    this.setState({ opened: !this.state.opened })
+    this.props.toggleOpened ?
+      this.props.toggleOpened()
+      :
+      this.setState({ opened: !this.state.opened })
 
   render = () =>
-    <div className={`
-      Dropdown
-      ${this.state.opened && "Dropdown--opened"}
-      ${this.props.spekt && 'Dropdown--spekt'}
-      ${this.props.className}
-    `}>
-      <div
-        className='Dropdown__title'
-        onClick={() => this.props.spekt && this.toggleOpened()}
-      >
+    this.props.children &&
+      <div className={`
+        Dropdown
+        ${this.state.opened && "Dropdown--opened"}
+        ${this.props.spekt && 'Dropdown--spekt'}
+        ${this.props.className}
+      `}>
         <div
-          className="Dropdown__title__text"
-          onClick={() => !this.props.spekt && this.toggleOpened()}
+          className='Dropdown__title'
+          onClick={() => this.props.spekt && this.toggleOpened()}
         >
-          {this.props.title}
-          {this.props.spekt &&
-            <Plus className='Dropdown__title__text__Plus' />}
+          <div
+            className="Dropdown__title__text"
+            onClick={() => !this.props.spekt && this.toggleOpened()}
+          >
+            {this.props.title}
+            {this.props.spekt &&
+              <Plus className='Dropdown__title__text__Plus' />}
+          </div>
+        </div>
+        <div
+          className="Dropdown__content"
+          style={{
+            height: this.state.opened ?
+              this.state.contentHeight
+              :
+              0
+          }}
+        >
+          <div
+            className="Dropdown__content__container"
+            ref={this.contentRef}
+          >
+            {this.props.children}
+          </div>
         </div>
       </div>
-      <div
-        className="Dropdown__content"
-        style={{
-          height: this.state.opened ?
-            this.state.contentHeight
-            :
-            0
-        }}
-      >
-        <div
-          className="Dropdown__content__container"
-          ref={this.contentRef}
-        >
-          {this.props.children}
-        </div>
-      </div>
-    </div>
 }
 
 

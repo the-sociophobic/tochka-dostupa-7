@@ -89,7 +89,7 @@ const defaultMessages: Messages = {
     },
 
     readText: ["Читать текст", "Read text"],
-    hideText: ["Свернуть", "Hide"],
+    hideText: ["Назад", "Back"],
   },
   Schedule: {
     name: ["Расписание", "Schedule"],

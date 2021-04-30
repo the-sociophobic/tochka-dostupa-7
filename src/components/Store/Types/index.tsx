@@ -1,6 +1,7 @@
 import {
   ContentfulItem,
-  File
+  File,
+  RichTextNode
 } from './contentfulTypes'
 
 
@@ -61,16 +62,18 @@ interface Place extends ContentfulItem {
 }
 
 interface Show extends ContentfulItem {
+  link: string
   datetime: string
   online?: boolean | undefined
   offline?: boolean | undefined
 }
 
 interface Program extends ContentfulItem {
+  link: string
   name: string
   curators?: Person[]
   curatorTitle?: string
-  mainDesc: JSX.Element
+  mainDesc: React.ReactElement<RichTextNode>[]
   shortDesc: string
   spekts: Spekt[]
   ogdescription?: string

@@ -21,8 +21,16 @@ type PathParamsType = {
   param1: string
 }
 
+type State = {
+  currentOpened: number
+}
 
-class Spekt extends React.Component<RouteComponentProps<PathParamsType>, {}> {
+
+class Spekt extends React.Component<RouteComponentProps<PathParamsType>, State> {
+
+  state: State = {
+    currentOpened: 0
+  }
 
   static contextType = Context
 
@@ -57,7 +65,7 @@ class Spekt extends React.Component<RouteComponentProps<PathParamsType>, {}> {
               <h1 className='h1 mb-1'>
                 {spekt?.name}
               </h1>
-              <div className='h1 font-spectral mb-xs'>
+              <div className='h1 font-weight-normal font-spectral mb-xs'>
                 {spekt?.persons}
               </div>
               <div className='d-flex flex-row'>
@@ -131,7 +139,14 @@ class Spekt extends React.Component<RouteComponentProps<PathParamsType>, {}> {
                     id='Spekt.buy'
                     className='h3 mb-0'
                   />}
-                initialOpen={true}
+                opened={this.state.currentOpened === 0}
+                toggleOpened={() =>
+                  this.setState({
+                    currentOpened: this.state.currentOpened === 0 ?
+                      -1
+                      :
+                      0
+                  })}
               >
                 {[
                   {
@@ -178,7 +193,14 @@ class Spekt extends React.Component<RouteComponentProps<PathParamsType>, {}> {
                           id={`Spekt.${dropdown}`}
                           className='h3 mb-0'
                         />}
-                      initialOpen={index === 0}
+                      opened={this.state.currentOpened === index + 1}
+                      toggleOpened={() =>
+                        this.setState({
+                          currentOpened: this.state.currentOpened === index + 1 ?
+                            -1
+                            :
+                            index + 1
+                        })}
                     >
                       <div className='p p--l'>
                         {spekt[dropdown]}
