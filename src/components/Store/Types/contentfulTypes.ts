@@ -22,8 +22,15 @@ interface File extends ContentfulItem {
   }
 }
 
+type RichTextNode = {
+  props: {
+    children: (string | any)[]
+  }
+}
+
 
 export type {
   ContentfulItem,
-  File
+  File,
+  RichTextNode
 }

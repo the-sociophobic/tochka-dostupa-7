@@ -1,6 +1,7 @@
 import React from 'react'
 
 import FormattedMessage from './FormattedMessage'
+import { ReactComponent as ArrowRight } from '../styles/img/arrow-right.svg'
 
 
 const Online : React.FunctionComponent<{
@@ -94,7 +95,9 @@ const Left : React.FunctionComponent<{
     className={`button button--arrow button--arrow--left ${className}`}
     onClick={() => !disabled && onClick?.()}
     disabled={disabled}
-  />
+  >
+    <ArrowRight />
+  </button>
 
 const Right : React.FunctionComponent<{
   className?: string,
@@ -109,7 +112,9 @@ const Right : React.FunctionComponent<{
     className={`button button--arrow button--arrow--right ${className}`}
     onClick={() => !disabled && onClick?.()}
     disabled={disabled}
-  />
+  >
+    <ArrowRight />
+  </button>
 
 
 export {

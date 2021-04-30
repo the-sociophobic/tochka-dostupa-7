@@ -2,6 +2,8 @@ import React from 'react'
 
 import capitalize from 'capitalize'
 import { format } from 'date-fns'
+import isBefore from 'date-fns/isBefore'
+import endOfToday from 'date-fns/endOfToday'
 import isWithinInterval from 'date-fns/isWithinInterval'
 import compareAsc from 'date-fns/compareAsc'
 import { ru, enUS } from 'date-fns/locale'
@@ -22,6 +24,7 @@ import {
 } from '../components/Store/Types'
 import { getMessage } from '../components/Store/locale'
 import DatePicker from '../components/DatePicker'
+import Link from '../components/Link'
 
 
 type State = {
@@ -132,7 +135,8 @@ class Schedule extends React.Component<{}, State> {
                 dateObj: new Date(show.datetime),
                 datetime: show.datetime,
                 program: spekt.program,
-                offline: show.offline || !show.online
+                offline: show.offline || !show.online,
+                link: spekt.link,
               })))
           .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
             [...(a || []), ...(b || [])])
@@ -199,14 +203,17 @@ class Schedule extends React.Component<{}, State> {
                     {format(show.dateObj, 'HH:mm')} <FormattedMessage id='Schedule.msk' />
                   </p>
                 </div>
-                <div className='col-4 col-md-3 col-lg-6 d-flex flex-column'>
+                <Link
+                  to={`spekt/${show.link}`}
+                  className='Schedule__day__show__info'
+                >
                   <h3 className='h3 mb-0'>
                     {show.name}
                   </h3>
                   <p className='p p--xl font-spectral mb-xs'>
                     {show.persons}
                   </p>
-                  <div className='w-100 d-flex flex-row flex-wrap'>
+                  <div className='w-100 d-flex flex-row flex-wrap mb-xs mb-md-0'>
                     {show.program &&
                       <Program
                         text={show.program.name}
@@ -222,11 +229,12 @@ class Schedule extends React.Component<{}, State> {
                         className='mr-1'
                       />}
                   </div>
-                </div>
+                </Link>
                 <div className='col-4 col-md-2 col-lg-3'>
                   <button
                     className='Schedule__day__show__button'
                     // onClick
+                    disabled={isBefore(show.dateObj, endOfToday())}
                   >
                     <FormattedMessage id={show.online ? 'Schedule.register' : 'Schedule.buy'} />
                   </button>
@@ -243,7 +251,7 @@ class Schedule extends React.Component<{}, State> {
         <div className='col-4'>
           <FormattedMessage
             id='Schedule.name'
-            className='h1 mb-s mb-md-m mb-lg-xl'
+            className='h1 mb-s mb-md-m mb-lg-xl d-block'
           />
         </div>
         <div className='col-4 col-md-2 position-static'>
@@ -256,24 +264,24 @@ class Schedule extends React.Component<{}, State> {
             />
           </button>
           {this.state.showFilter &&
-              <div
-                className='position-absolute container d-block d-lg-none'
-                style={{
-                  width: '100vw',
-                  left: 0,
-                  top: '56px',
-                  zIndex: 1000,
-                }}
-              >
-                <div className='row d-flex flex-row justify-content-end'>
-                  <div className='col-4'>
-                    <div className='Schedule__mobile-filter-container'>
-                      {this.renderFilter()}
-                    </div>
+            <div
+              className='position-absolute container d-block d-lg-none'
+              style={{
+                width: '100vw',
+                left: 0,
+                top: '110%',
+                zIndex: 1000,
+              }}
+            >
+              <div className='row d-flex flex-row justify-content-end'>
+                <div className='col-4'>
+                  <div className='Schedule__mobile-filter-container'>
+                    {this.renderFilter()}
                   </div>
                 </div>
               </div>
-            }
+            </div>
+          }
         </div>
       </div>
       <div className='row'>

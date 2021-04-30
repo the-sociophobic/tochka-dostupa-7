@@ -39,7 +39,7 @@ class HorizontalShowcase extends React.Component<Props, {}> {
 
   renderArrows = (className?: string) =>
     <div className={className}>
-      <Left />
+      <Left className='mr-3' />
       <Right />
     </div>
 
@@ -57,18 +57,17 @@ class HorizontalShowcase extends React.Component<Props, {}> {
                   <h2 className="h2 mr-auto">
                     {this.props.title}
                   </h2>
-                  {this.renderArrows('d-none d-md-inline-block')}
+                  {this.props.arrows && this.renderArrows('d-none d-md-inline-flex flex-row')}
                 </div>
               </div>
             </div>
-          </div>
-        }
-
-        {this.props.arrows &&
-          <div className='row d-md-none'>
-            <div className='col-4'>
-              {this.renderArrows()}
-            </div>
+            {this.props.arrows &&
+              <div className='row d-md-none mb-s'>
+                <div className='col-4'>
+                  {this.renderArrows('d-flex flex-row')}
+                </div>
+              </div>
+            }
           </div>
         }
 

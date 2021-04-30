@@ -19,9 +19,7 @@ import Contacts from '../pages/Festival/Contacts'
 
 import Spekt from '../pages/Spekt'
 
-import Main from '../pages/Program/Main'
-import Open from '../pages/Program/Open'
-import Educational from '../pages/Program/Educational'
+import Template from '../pages/Program/Template'
 
 
 type Route = {
@@ -95,16 +93,31 @@ const routes: Route[] = [
   },
 
   {
+    exact: true,
     to: '/program/main',
-    Comp: <Main />
+    Comp: <Template programId='7fOwCkT7nOXh3C81toLoSs' />
   },
   {
+    exact: true,
     to: '/program/open',
-    Comp: <Open />
+    Comp: <Template programId='4qgsLo90by1TfShZwdyNhw' />
   },
   {
+    exact: true,
     to: '/program/educational',
-    Comp: <Educational />
+    Comp: <Template programId='6OfzgvjCzzT1xhlwDH2AfQ' />
+  },
+  {
+    to: '/program/main/text',
+    Comp: <Template text programId='7fOwCkT7nOXh3C81toLoSs' />
+  },
+  {
+    to: '/program/open/text',
+    Comp: <Template text programId='4qgsLo90by1TfShZwdyNhw' />
+  },
+  {
+    to: '/program/educational/text',
+    Comp: <Template text programId='6OfzgvjCzzT1xhlwDH2AfQ' />
   },
 ]
 

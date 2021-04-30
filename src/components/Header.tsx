@@ -309,7 +309,10 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
 
           <div className='row'>
             <div className='col-4 col-md-6 flex-nowrap px-4'>
-              {mobileHeaderLinks.slice(9)}
+              {mobileHeaderLinks.slice(9, 11)}
+              <br className='d-block d-md-none' />
+              <br className='d-block d-md-none' />
+              {mobileHeaderLinks.slice(11)}
             </div>
           </div>
         </div>
