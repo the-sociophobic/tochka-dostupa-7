@@ -11,7 +11,11 @@ import {
 } from './Types'
 import Context from './Context'
 import { post } from '../../utils/API'
-import { parseContentfulItems } from '../../utils/contentful'
+import {
+  parseContentfulItems,
+  createContentfulClient
+} from '../../utils/contentful'
+import isProd from '../../utils/isProd'
 
 
 const _setState = (_this: any, obj: any) => {
@@ -66,16 +70,28 @@ class Provider extends React.Component<{}, StateType> {
   }
 
   loadContentful = async () => {
-    const contentfulData = (await axios.get('https://api.tochkadostupa.spb.ru/contentful')).data
+    if (isProd()) {
+      const contentfulData = (await axios.get('https://api.tochkadostupa.spb.ru/contentful')).data
+  
+      this.setState({
+        contentfulData: [
+          await parseContentfulItems(contentfulData.contentfulData[0]),
+          await parseContentfulItems(contentfulData.contentfulData[1])
+        ]
+      })
 
-    this.setState({
-      contentfulData: [
-        await parseContentfulItems(contentfulData.contentfulData[0]),
-        await parseContentfulItems(contentfulData.contentfulData[1])
-      ]
-    })
+      console.log(`contentful data last updated ${contentfulData.date}`)
+    } else {
+      const client = createContentfulClient()
 
-    console.log(`contentful data last updated ${contentfulData.date}`)
+      this.setState({
+        contentfulData: [
+          await parseContentfulItems((await client.getEntries({ limit: 200, })).items),
+          await parseContentfulItems((await client.getEntries({ limit: 200, locale: 'en-US' })).items)
+        ]
+      })      
+    }
+
     console.log(this.state.contentfulData[0])
   }
 

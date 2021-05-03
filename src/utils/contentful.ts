@@ -12,6 +12,7 @@ const createContentfulClient = () =>
   })
 
 const parseContentfulItems = async (items: any[]) => {
+  console.log(items)
   let itemsByType: {[key: string]: any} = {};
 
   items
