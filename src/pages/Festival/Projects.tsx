@@ -22,6 +22,16 @@ class Projects extends React.Component<{}, {}> {
               </h1>
             </div>
           </div>
+          <div className='row mb-m mb-md-l d-flex flex-column flex-lg-row justify-content-between'>
+            <div className='col-4 col-md-6 col-lg-8 p p--l'>
+              {page.desc}
+            </div>
+            <div className='col-4 col-md-6 col-lg-3'>
+              <div className='p p--s'>
+                {page.partnersTitle}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
   }
