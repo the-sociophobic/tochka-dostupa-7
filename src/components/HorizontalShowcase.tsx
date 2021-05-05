@@ -12,10 +12,11 @@ import { Context } from './Store'
 
 type Props = {
   items: any[] | undefined
-  ItemComp: React.FunctionComponent<any>
+  ItemComp: React.FunctionComponent<any | {item: any, index?: number, className?: string}>
   className?: string
   title?: string | JSX.Element
   arrows?: boolean
+  XXL?: boolean
   XL?: boolean
   L?: boolean
   M?: boolean
@@ -76,8 +77,10 @@ class HorizontalShowcase extends React.Component<Props, {}> {
             {this.props.items?.map((item, index) =>
               <ItemComp
                 ref={this?.itemsRefs?.[index]}
+                index={index}
                 className={`
                   HorizontalShowcase__item
+                  ${this.props.XXL && 'HorizontalShowcase__item--XXL'}
                   ${this.props.XL && 'HorizontalShowcase__item--XL'}
                   ${this.props.L && 'HorizontalShowcase__item--L'}
                   ${this.props.M && 'HorizontalShowcase__item--M'}
