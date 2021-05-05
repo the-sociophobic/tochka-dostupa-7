@@ -597,6 +597,16 @@
         padding-left: calc((100vw - #{get-breakpoints('xs')} + #{$grid-gutter-width}) / 2)
         padding-right: calc((100vw - #{get-breakpoints('xs')} + #{$grid-gutter-width}) / 2)
   &__item
+    &--XXL
+      width: calc(#{get-breakpoints('xs')} / 5 * 4.5 - #{$grid-gutter-width})
+      @include media-breakpoint-up(sm)
+        width: calc(#{get-breakpoints('sm')} / 5 * 4.5 - #{$grid-gutter-width})
+      @include media-breakpoint-up(md)
+        width: calc(#{get-breakpoints('md')} / 6 * 5 - #{$grid-gutter-width})
+      @include media-breakpoint-up(lg)
+        width: calc(#{get-breakpoints('lg')} / 12 * 8 - #{$grid-gutter-width})
+      @include media-breakpoint-up(xl)
+        width: calc(#{get-breakpoints('xl')} / 13 * 9 - #{$grid-gutter-width})
     &--XL
       width: calc(#{get-breakpoints('xs')} / 4 * 3 - #{$grid-gutter-width})
       @include media-breakpoint-up(sm)

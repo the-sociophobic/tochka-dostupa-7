@@ -96,7 +96,20 @@ interface QandAitem extends ContentfulItem {
   text: string
 }
 
+interface Feedback extends ContentfulItem {
+  author: string
+  date: string
+  name: string
+  organization: string
+  url: string
+}
 
+interface FeedbackPreview extends ContentfulItem {
+  text: string
+  name: string
+  organization: string
+  year: number
+}
 
 
 
@@ -161,6 +174,9 @@ export type {
   File,
   QandAsection,
   QandAitem,
+  Feedback,
+  FeedbackPreview,
+
   StateType,
 }
 
