@@ -5,8 +5,9 @@ import { format } from 'date-fns'
 import isBefore from 'date-fns/isBefore'
 import endOfToday from 'date-fns/endOfToday'
 import isWithinInterval from 'date-fns/isWithinInterval'
-import compareAsc from 'date-fns/compareAsc'
 import { ru, enUS } from 'date-fns/locale'
+import ReactPDF, { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer'
+
 
 import FormattedMessage from '../components/FormattedMessage'
 import {
@@ -75,8 +76,14 @@ class Schedule extends React.Component<{}, State> {
 
   static contextType = Context
 
+  pdfRef: any = React.createRef()
+
   toggleAttrib = (attrib: string) =>
     this.setState({ [attrib]: !this.state[attrib] })
+
+  savePDF = () => {
+    
+  }
 
   renderFilter = (className?: string) =>
     <div className={`Schedule__filter ${className}`}>
@@ -126,7 +133,10 @@ class Schedule extends React.Component<{}, State> {
         setDateB={(value: string) => this.setState({ to: value })}
       />
 
-      <div className='p p--l p--arrow p--arrow--down mb-1 cursor-pointer'>
+      <div
+        onClick={this.savePDF}
+        className='p p--l p--arrow p--arrow--down mb-1 cursor-pointer'
+      >
         <FormattedMessage id='Schedule.download' />
       </div>
       <div className='p p--s mb-xxs mb-lg-xs color-button-disabled-text'>
@@ -265,16 +275,16 @@ class Schedule extends React.Component<{}, State> {
                         {show.program &&
                           <Program
                             text={show.program.name}
-                            className='mr-1'
+                            className='mr-2 mb-2'
                           />}
                         {show.offline &&
-                          <Offline className='mr-1' />}
+                          <Offline className='mr-2 mb-2' />}
                         {show.online &&
-                          <Online className='mr-1' />}
+                          <Online className='mr-2 mb-2' />}
                         {show.age &&
                           <Age
                             text={show.age}
-                            className='mr-1'
+                            className='mr-2 mb-2'
                           />}
                       </div>
                     </Link>

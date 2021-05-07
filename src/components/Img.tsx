@@ -10,6 +10,7 @@ type Props = {
   className?: string
   file?: File | undefined
   alt?: string
+  noCrop?: boolean
 }
 
 type State = {
@@ -51,7 +52,7 @@ class Img extends React.Component<Props, State> {
         ref={this.imgRef}
         alt={this.props.alt || this.props?.file?.file?.fileName || ''}
         src={this.props.src || this.props?.file?.file?.url || ''}
-        className={`Img__img Img__img--${this.state.portrait ? "portrait" : "landscape"}`}
+        className={`Img__img Img__img--${!this.props.noCrop && (this.state.portrait ? "portrait" : "landscape")}`}
         onLoad={this.setOrientation}
       />
     </div>

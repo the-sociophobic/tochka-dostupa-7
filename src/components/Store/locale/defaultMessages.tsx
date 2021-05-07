@@ -41,13 +41,13 @@ const defaultMessages: Messages = {
     address: [
       <>
         191023, Санкт-Петербург,<br />
-        Малая Садовая ул., д. 6,<br />
-        офис 30-1
+        Средняя Подьяческая ул., д. 2,<br />
+        офис 302
       </>,
       <>
         191023, Saint-Petersbourg,<br />
-        Malaya Sadovaya st., 6,<br />
-        office number 30-1
+        Srednyaya Pod'yacheskaya st., 2,<br />
+        office number 302
       </>
     ],
 
@@ -66,14 +66,16 @@ const defaultMessages: Messages = {
   },
 
   Home: {
-    info: [
-      "Международный Летний фестиваль искусств «Точка доступа» — крупнейший форум сайт-специфического и иммерсивного искусства в России, он проводится в Петербурге с 2015 года. «Точка доступа» всегда исследует новые территории театра и предлагает зрителю новый опыт восприятия и коммуникации с пространством. Резиденты и гости «Точки доступа» — российские и зарубежные режиссеры — осваивают локации, обычно ничего общего с театром не имеющие, и одновременно знакомят зрителей с прогрессивным, смелым и актуальным искусством.",
-      "The Access Point International Summer Festival of Arts is the largest forum of site-specific and immersive art in Russia; it has been held in St. Petersburg since 2015. The Access Point is always exploring new territories of the theater and offers the viewer a new experience of perception and communication with the space. Residents and guests of «Access Point» - Russian and foreign directors - explore locations that usually have nothing to do with the theater, and at the same time acquaint viewers with progressive, bold and contemporary art."
-    ],
+    subscribe: {
+      newsletter: ['рассылка', 'newsletter'],
+      desc: ['ненавязчиво расскажем о важном на фестивале и в современном театре', ''],
+      placeholder: ['Ваш email', 'Your email'],
+      submit: ['подписаться', 'subscribe'],
+    }
   },
 
   Program: {
-    name: ['Программа', 'Program'],
+    name: ['программа', 'program'],
     full: ['Вся программа', 'Full program'],
 
     pages: {
