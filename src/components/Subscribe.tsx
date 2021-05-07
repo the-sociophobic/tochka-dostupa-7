@@ -24,7 +24,7 @@ class Subscribe extends React.Component<{}, State> {
     // const instance = axios.create({})
 
     const res = await axios.post(
-      'http://api.tochkadostupa.spb.ru/subscribe',
+      'https://api.tochkadostupa.spb.ru/subscribe',
       this.state.input
     )
 
