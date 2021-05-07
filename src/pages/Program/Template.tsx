@@ -85,7 +85,9 @@ class Template extends React.Component<Props, {}> {
 
             <div className='row d-flex flex-row flex-wrap'>
               {this.context?.contentful?.spekts
-                ?.filter((spekt: Spekt) => spekt?.program?.id === program.id)
+                ?.filter((spekt: Spekt) =>
+                  spekt?.program?.id === program.id
+                  && spekt?.festival?.name?.includes?.('VII'))
                 ?.map((spekt: Spekt) =>
                   <div className='Program__SpektCard-delimeter'>
                     <SpektCard

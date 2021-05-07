@@ -119,7 +119,8 @@
       @include font-params(10, 12)
     @include media-breakpoint-down(xs)
       @include font-params(10, 14)
-  &--arrow
+  &--arrow,
+  &--cross
     @extend .d-flex
     @extend .align-items-end
     &::after
@@ -135,14 +136,24 @@
         height: rem(20)
       @extend .def-img
       margin-left: rem(8)
+  &--arrow
     &--right
       &::after
         background-image: url(./img/arrow-right.svg)
     &--up-right
       &::after
         background-image: url(./img/arrow-up-right.svg)
+    &--down
+      &::after
+        background-image: url(./img/arrow-right.svg)
+        transform: rotate(90deg)
+  &--cross
+    &::after
+      background-image: url(./img/cross.svg)
 
 
 
 .color-button-disabled-text
   color: $button-disabled-text
+.color-danger
+  color: $danger

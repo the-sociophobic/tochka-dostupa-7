@@ -719,7 +719,7 @@
     @extend .pt-xxs
     @extend .pt-md-0
     @extend .pb-xxs
-    @extend .pb-md-m
+    @extend .pb-md-0
     @include media-breakpoint-down(sm)
       border-bottom: 1px solid $line-secondary
       .Program__SpektCard-delimeter:last-of-type &
@@ -849,6 +849,7 @@
   &__filter
     @extend .d-flex
     @extend .flex-column
+    @extend .pb-lg-m
     position: sticky
     top: 0
     &__p
@@ -969,10 +970,15 @@
     @extend .col-4
     @extend .col-md-3
     @extend .col-lg-4
+    @extend .mb-0
+    @extend .mb-md-m
     @include media-breakpoint-up(md)
-      &:nth-of-type(3n - 2)
+      &:nth-of-type(2n - 1)
         border-right: 1px solid $line-secondary
     @include media-breakpoint-up(lg)
+      &:nth-of-type(2n - 1)
+        border-right: none
+      &:nth-of-type(3n - 2),
       &:nth-of-type(3n - 1)
         border-right: 1px solid $line-secondary
     &:last-of-type

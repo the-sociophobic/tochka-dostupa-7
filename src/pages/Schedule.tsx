@@ -27,7 +27,7 @@ import DatePicker from '../components/DatePicker'
 import Link from '../components/Link'
 
 
-type State = {
+type FilterState = {
   main: boolean
   open: boolean
   educational: boolean
@@ -35,9 +35,11 @@ type State = {
   offline: boolean
   from: string
   to: string
-  showFilter: boolean
   [key: string]: any
-  loadPrev: boolean
+}
+type State = FilterState & {
+  showFilter: boolean
+  showPrev: number
 }
 
 interface MappedShow extends Show {
@@ -51,19 +53,24 @@ interface MappedShow extends Show {
   age?: string | number
 }
 
+const filterInitialState: FilterState = {
+  main: false,
+  open: false,
+  educational: false,
+  online: false,
+  offline: false,
+  from: '',
+  to: '',
+}
+const loadAdditionalNumber = 10
+
 
 class Schedule extends React.Component<{}, State> {
   
   state: State = {
-    main: false,
-    open: false,
-    educational: false,
-    online: false,
-    offline: false,
-    from: '',
-    to: '',
+    ...filterInitialState,
     showFilter: false,
-    loadPrev: false,
+    showPrev: 0
   }
 
   static contextType = Context
@@ -118,6 +125,24 @@ class Schedule extends React.Component<{}, State> {
         setDateA={(value: string) => this.setState({ from: value })}
         setDateB={(value: string) => this.setState({ to: value })}
       />
+
+      <div className='p p--l p--arrow p--arrow--down mb-1 cursor-pointer'>
+        <FormattedMessage id='Schedule.download' />
+      </div>
+      <div className='p p--s mb-xxs mb-lg-xs color-button-disabled-text'>
+        <FormattedMessage id='Schedule.downloadDesc' />
+      </div>
+      {!Object.keys(filterInitialState)
+        .every(key => filterInitialState[key] === this.state[key])
+          &&
+            <div
+              className='p p--l color-danger p--cross cursor-pointer'
+              onClick={() => this.setState(filterInitialState)}
+            >
+              <FormattedMessage id='Schedule.cleanFilter' />
+            </div>
+      }
+
     </div>
 
   renderDays = () => {
@@ -145,10 +170,6 @@ class Schedule extends React.Component<{}, State> {
         [...(a || []), ...(b || [])])
       .filter((show: MappedShow) =>
         show.datetime.length > 0
-      )
-      .filter((show: MappedShow) =>
-        this.state.loadPrev ||
-          compareAsc(show.dateObj, new Date('05-05-2021')) > 0
       )
       .filter((show: MappedShow) =>
         (!this.state.online && !this.state.offline) || (
@@ -183,127 +204,150 @@ class Schedule extends React.Component<{}, State> {
           days[day] = [show]
       })
         
-    return Object.keys(days)
-      .sort((a: string, b: string) => a.localeCompare(b))
-      .map(dayKey =>
-        <div className='Schedule__day'>
-          <h2 className='h2 h2--underline pb-1 pb-md-2 mb-3'>
-            {format(
-              new Date(dayKey),
-              `d MMMM / ${dayKey.includes('2021') ? 'EEEE' : ' yyyy'}`,
-              { locale: this.context.locale === 'rus' ? ru : enUS }
-            )}
-          </h2>
-          {days[dayKey]
-            ?.sort((a: MappedShow, b: MappedShow) => a.datetime.localeCompare(b.datetime))
-            ?.map(show =>
-              <div className='Schedule__day__show'>
-                <div className='col-4 col-md-1 col-lg-3'>
-                  <p className='p p--l'>
-                    {format(show.dateObj, 'HH:mm')} <FormattedMessage id='Schedule.msk' />
-                  </p>
-                </div>
-                <Link
-                  to={`spekt/${show.link}`}
-                  className='Schedule__day__show__info'
-                >
-                  <h3 className='h3 mb-0'>
-                    {show.name}
-                  </h3>
-                  <p className='p p--xl font-spectral mb-xs'>
-                    {show.persons}
-                  </p>
-                  <div className='w-100 d-flex flex-row flex-wrap mb-xs mb-md-0'>
-                    {show.program &&
-                      <Program
-                        text={show.program.name}
-                        className='mr-1'
-                      />}
-                    {show.offline &&
-                      <Offline className='mr-1' />}
-                    {show.online &&
-                      <Online className='mr-1' />}
-                    {show.age &&
-                      <Age
-                        text={show.age}
-                        className='mr-1'
-                      />}
-                  </div>
-                </Link>
-                <div className='col-4 col-md-2 col-lg-3'>
-                  <button
-                    className='Schedule__day__show__button'
-                    // onClick
-                    disabled={isBefore(show.dateObj, endOfToday())}
-                  >
-                    <FormattedMessage id={show.online ? 'Schedule.register' : 'Schedule.buy'} />
-                  </button>
-                </div>
-              </div>)
-          }
-        </div>
-      )
+    days = Object.keys(days)
+      .sort()
+      .map((dayKey: string): {[key: string]: MappedShow[] | undefined} => ({[dayKey]: days[dayKey]}))
+      ?.reduce((a, b) => ({...a, ...b}))
+    
+    let indexOfCurrentFestivalFirstDay = -1
+    
+    Object.keys(days)
+      .forEach((dayKey, index) =>
+        (dayKey.localeCompare('2020-05-05') === 1 && indexOfCurrentFestivalFirstDay === -1)
+          && (indexOfCurrentFestivalFirstDay = index))
+
+    return (
+      <div className='col-4 col-md-6 col-lg-8'>
+        {indexOfCurrentFestivalFirstDay - this.state.showPrev * loadAdditionalNumber > 0 &&
+          <div
+            className='Schedule__load-prev'
+            onClick={() => this.setState({ showPrev: this.state.showPrev + 1 })}
+          >
+            <FormattedMessage id='Schedule.loadPrev' />
+          </div>
+        }
+        {Object.keys(days)
+          .slice(
+            Math.max(0,
+              indexOfCurrentFestivalFirstDay === -1 ?
+                Object.keys(days).length
+                :
+                indexOfCurrentFestivalFirstDay - this.state.showPrev * loadAdditionalNumber))
+          .map(dayKey =>
+            <div className='Schedule__day'>
+              <h2 className='h2 h2--underline pb-1 pb-md-2 mb-3'>
+                {format(
+                  new Date(dayKey),
+                  `d MMMM / ${dayKey.includes('2021') ? 'EEEE' : ' yyyy'}`,
+                  { locale: this.context.locale === 'rus' ? ru : enUS }
+                )}
+              </h2>
+              {days[dayKey]
+                ?.sort((a: MappedShow, b: MappedShow) => a.datetime.localeCompare(b.datetime))
+                ?.map(show =>
+                  <div className='Schedule__day__show'>
+                    <div className='col-4 col-md-1 col-lg-3'>
+                      <p className='p p--l'>
+                        {format(show.dateObj, 'HH:mm')} <FormattedMessage id='Schedule.msk' />
+                      </p>
+                    </div>
+                    <Link
+                      to={`spekt/${show.link}`}
+                      className='Schedule__day__show__info'
+                    >
+                      <h3 className='h3 mb-0'>
+                        {show.name}
+                      </h3>
+                      <p className='p p--xl font-spectral mb-xs'>
+                        {show.persons}
+                      </p>
+                      <div className='w-100 d-flex flex-row flex-wrap mb-xs mb-md-0'>
+                        {show.program &&
+                          <Program
+                            text={show.program.name}
+                            className='mr-1'
+                          />}
+                        {show.offline &&
+                          <Offline className='mr-1' />}
+                        {show.online &&
+                          <Online className='mr-1' />}
+                        {show.age &&
+                          <Age
+                            text={show.age}
+                            className='mr-1'
+                          />}
+                      </div>
+                    </Link>
+                    <div className='col-4 col-md-2 col-lg-3'>
+                      <button
+                        className='Schedule__day__show__button'
+                        // onClick
+                        disabled={isBefore(show.dateObj, endOfToday())}
+                      >
+                        <FormattedMessage id={show.online ? 'Schedule.register' : 'Schedule.buy'} />
+                      </button>
+                    </div>
+                  </div>)
+              }
+            </div>
+          )
+        }
+      </div>
+    )
   }
 
   render = () =>
-    <div className="container mt-s mt-md-m mt-lg-l mb-m mb-md-l mb-lg-xl">
-      <div className='row d-flex d-lg-none mb-xs mb-md-s position-relative'>
-        <div className='col-4'>
-          <FormattedMessage
-            id='Schedule.name'
-            className='h1 mb-s mb-md-m mb-lg-xl d-block'
-          />
-        </div>
-        <div className='col-4 col-md-2 position-static'>
-          <button
-            className={`button pt-1 w-100 ${this.state.showFilter ? 'button--main' : 'button--secondary'}`}
-            onClick={() => this.toggleAttrib('showFilter')}
-          >
+    !this.context?.contentful ? '' :
+      <div className="container mt-s mt-md-m mt-lg-l mb-m mb-md-l mb-lg-xl">
+        <div className='row d-flex d-lg-none mb-xs mb-md-s position-relative'>
+          <div className='col-4'>
             <FormattedMessage
-              id={this.state.showFilter ? 'Schedule.apply' : 'Schedule.filter'}
+              id='Schedule.name'
+              className='h1 mb-s mb-md-m mb-lg-xl d-block'
             />
-          </button>
-          {this.state.showFilter &&
-            <div
-              className='position-absolute container d-block d-lg-none'
-              style={{
-                width: '100vw',
-                left: 0,
-                top: '110%',
-                zIndex: 1000,
-              }}
+          </div>
+          <div className='col-4 col-md-2 position-static'>
+            <button
+              className={`button pt-1 w-100 ${this.state.showFilter ? 'button--main' : 'button--secondary'}`}
+              onClick={() => this.toggleAttrib('showFilter')}
             >
-              <div className='row d-flex flex-row justify-content-end'>
-                <div className='col-4'>
-                  <div className='Schedule__mobile-filter-container'>
-                    {this.renderFilter()}
+              <FormattedMessage
+                id={this.state.showFilter ? 'Schedule.apply' : 'Schedule.filter'}
+              />
+            </button>
+            {this.state.showFilter &&
+              <div
+                className='position-absolute container d-block d-lg-none'
+                style={{
+                  width: '100vw',
+                  left: 0,
+                  top: '110%',
+                  zIndex: 1000,
+                }}
+              >
+                <div className='row d-flex flex-row justify-content-end'>
+                  <div className='col-4'>
+                    <div className='Schedule__mobile-filter-container'>
+                      {this.renderFilter()}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          }
+            }
+          </div>
         </div>
-      </div>
-      <div className='row'>
-        <div className='col-4 col-md-6 col-lg-4 d-none d-lg-flex flex-column'>
-          <FormattedMessage
-            id='Schedule.name'
-            className='h1 mb-s mb-md-m mb-lg-xl'
-          />
-          {this.renderFilter()}
-        </div>
-        <div className='col-4 col-md-6 col-lg-8'>
-          {!this.state.loadPrev &&
-            <div
-              className='Schedule__load-prev'
-              onClick={() => this.setState({ loadPrev: true })}
-            >
-              <FormattedMessage id='Schedule.loadPrev' />
-            </div>}
+        <div className='row'>
+          <div className='col-4 col-md-6 col-lg-4 d-none d-lg-flex flex-column'>
+            <FormattedMessage
+              id='Schedule.name'
+              className='h1 mb-s mb-md-m mb-lg-xl'
+            />
+            {this.renderFilter()}
+          </div>
+
           {this.renderDays()}
         </div>
       </div>
-    </div>
 }
 
 

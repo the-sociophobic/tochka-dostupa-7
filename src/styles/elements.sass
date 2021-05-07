@@ -70,10 +70,14 @@
     @extend .button--secondary
   &--online,
   &--offline,
-  &--age,
   &--program,
   &--selectable
     letter-spacing: .08rem
+  &--online,
+  &--offline,
+  &--age,
+  &--program,
+  &--selectable
     cursor: default !important
     text-transform: uppercase
     padding: rem(4) rem(8)
@@ -286,8 +290,8 @@
 
 
 .DatePicker
-  @include media-breakpoint-up(lg)
-    margin-bottom: rem(270)
+  @extend .mb-s
+  @extend .mb-lg-s
   &__inputs
     position: relative
     @extend .d-inline-flex

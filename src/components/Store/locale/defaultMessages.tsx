@@ -84,12 +84,13 @@ const defaultMessages: Messages = {
         name: ["Свободная", "Open"],
       },
       Educational: {
-        name: ["Образовательная", "Educational"],
+        name: ["Просветительская", "Educational"],
       },
     },
 
     readText: ["Читать текст", "Read text"],
     hideText: ["Назад", "Back"],
+    startAt: ["Начало в", "Start at"],
   },
   Schedule: {
     name: ["Расписание", "Schedule"],

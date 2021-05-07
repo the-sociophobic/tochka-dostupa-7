@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { format } from 'date-fns'
+
 import Link from '../../Link'
 import Img from '../../Img'
 import {
@@ -12,6 +14,7 @@ import {
   Spekt
 } from '../../Store/Types'
 import CuratorsAvatars from '../../CuratorsAvatars'
+import FormattedMessage from '../../FormattedMessage'
 
 
 interface Props extends Spekt {
@@ -50,9 +53,22 @@ const SpektCard: React.FunctionComponent<Props> = (spekt: Props) =>
         ?.reduce((a, b) => <>{a}, {b}</>
       )}
     </div>
-    <div className="SpektCard__short-desc">
-      {spekt.shortDesc}
-    </div>
+    {spekt.shortDesc &&
+      <div className="SpektCard__short-desc">
+        {spekt.shortDesc}
+      </div>
+    }
+    {spekt?.personsObj &&
+      <div className='p p--s mb-xxs'>
+        {(() => {
+          const date = new Date(spekt.ticketsAndSchedule?.tickets?.[0]?.tickets?.[0]?.datetime || '')
+
+          return <>
+            {format(date, 'dd.MM')} / <FormattedMessage id='Program.startAt' /> {format(date, 'HH:mm')}
+          </>
+        })()}
+      </div>
+    }
 
     <div className="SpektCard__buttons">
       {spekt.offline && <Offline />}
