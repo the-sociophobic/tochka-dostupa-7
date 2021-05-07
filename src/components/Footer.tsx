@@ -91,7 +91,7 @@ const Footer : React.FunctionComponent = ({}) =>
             id='Footer.media'
             className='Footer__link Footer__link--title'
           />
-          {mappedLinks.slice(11, 15)}
+          {mappedLinks.slice(10, 14)}
         </div>
       </div>
       <div className="Footer__contacts">
@@ -111,11 +111,11 @@ const Footer : React.FunctionComponent = ({}) =>
         </div>
         <div className="Footer__contacts__divider" />
         <div className="Footer__contacts__3">
-          {mappedLinks[15]}
+          {mappedLinks[14]}
         </div>
         <div className="Footer__contacts__divider" />
         <div className="Footer__contacts__4">
-          {mappedLinks[16]}
+          {mappedLinks[15]}
         </div>
       </div>
       <div className="Footer__disclaimer">
