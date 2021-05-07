@@ -133,7 +133,7 @@ class Home extends React.Component<{}, {}> {
           </div>
           <div className='row mb-xxs mb-md-s mb-lg-m'>
             {page.partners0.map((partner: Sponsor) =>
-              <div className='col-1 col-md-3'>
+              <div className='col-4 col-md-3'>
                 <Img
                   file={partner.logo[0]}
                   className='w-100'
@@ -152,7 +152,7 @@ class Home extends React.Component<{}, {}> {
           </div>
           <div className='row mb-xxs mb-md-s mb-lg-m'>
             {page.partners1.map((partner: Sponsor) =>
-              <div className='col-1 col-md-2 col-lg-3'>
+              <div className='col-2 col-md-2 col-lg-2'>
                 <Img
                   file={partner.logo[0]}
                   className='w-100'
