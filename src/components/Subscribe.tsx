@@ -25,7 +25,7 @@ class Subscribe extends React.Component<{}, State> {
 
     const res = await axios.post(
       'https://api.tochkadostupa.spb.ru/subscribe',
-      this.state.input
+      { email: this.state.input }
     )
 
     console.log(res.data)
