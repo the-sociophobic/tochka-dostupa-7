@@ -71,7 +71,7 @@ class Provider extends React.Component<{}, StateType> {
 
   loadContentful = async () => {
     if (isProd()) {
-      const contentfulData = (await axios.get('https://api.tochkadostupa.spb.ru/contentful')).data
+      const contentfulData = (await axios.post('https://api.tochkadostupa.spb.ru/contentful', {})).data
   
       this.setState({
         contentfulData: [
@@ -95,6 +95,19 @@ class Provider extends React.Component<{}, StateType> {
     console.log(this.state.contentfulData[0])
   }
 
+  updateContentful = async () => {
+    const contentfulData = (await axios.post('https://api.tochkadostupa.spb.ru/contentful', { update: true })).data
+    
+    this.setState({
+      contentfulData: [
+        await parseContentfulItems(contentfulData.contentfulData[0]),
+        await parseContentfulItems(contentfulData.contentfulData[1])
+      ]
+    })
+
+    console.log(`contentful data last updated ${contentfulData.date}`)
+  }
+
   stateAndSetters = () => ({
     ...this.state,
     cookies: this.cookies,
@@ -116,6 +129,7 @@ class Provider extends React.Component<{}, StateType> {
       document.body.classList.remove('overflow-hidden'),
 
     contentful: this.state.contentfulData?.[this.state.locale === "rus" ? 0 : 1],
+    updateContentful: this.updateContentful,
   })
 
   render = () =>
