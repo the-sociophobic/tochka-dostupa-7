@@ -71,6 +71,10 @@ const defaultMessages: Messages = {
       desc: ['ненавязчиво расскажем о важном на фестивале и в современном театре', ''],
       placeholder: ['Ваш email', 'Your email'],
       submit: ['подписаться', 'subscribe'],
+      submitLoading: ['подписываем', 'subscribing'],
+      submitDone: ['готово!', 'done!'],
+      submitError: ['ошибка((', 'error(('],
+      // submitWrong: ['ошибка((', 'error(('],
     }
   },
 

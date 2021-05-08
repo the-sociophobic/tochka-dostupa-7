@@ -2,26 +2,37 @@ import React from 'react'
 
 import axios from 'axios'
 
-import FormattedMessage from '../components/FormattedMessage'
-import { Context } from '../components/Store'
-import { getMessage } from '../components/Store/locale'
+import FormattedMessage from './FormattedMessage'
+import { Context } from './Store'
+import { getMessage } from './Store/locale'
+import validateEmail from '../utils/validateEmail'
 
 
 type State = {
   input: string
+  buttonStatus: string
 }
 
 
 class Subscribe extends React.Component<{}, State> {
 
   state: State = {
-    input: 'артём хуй'
+    input: '',
+    buttonStatus: ''
   }
+
+  clearFieldsTimeout: any
 
   static contextType = Context
 
   post = async () => {
-    // const instance = axios.create({})
+    if (!validateEmail(this.state.input)) {
+      this.setState({ buttonStatus: 'Error' })
+      this.clearFieldsTimeout = setTimeout(() => this.setState({ buttonStatus: '' }), 2555)
+      return
+    }
+
+    this.setState({ buttonStatus: 'Loading' })
 
     const res = await axios.post(
       'https://api.tochkadostupa.spb.ru/subscribe',
@@ -29,6 +40,15 @@ class Subscribe extends React.Component<{}, State> {
     )
 
     console.log(res.data)
+    if (res.data?.result?.person_id) {
+      this.setState({ buttonStatus: 'Done' })
+      this.clearFieldsTimeout = setTimeout(() => this.setState({ input: '', buttonStatus: '' }), 2555)
+    } else {
+      this.setState({
+        buttonStatus: 'Error'
+      })
+      this.clearFieldsTimeout = setTimeout(() => this.setState({ buttonStatus: '' }), 2555)
+    }
   }
 
   render = () =>
@@ -75,7 +95,13 @@ class Subscribe extends React.Component<{}, State> {
             <input
               className='Subscribe__input mb-2 mb-md-0'
               value={this.state.input}
-              onChange={e => this.setState({ input: e.target.value })}
+              onChange={e => {
+                this.setState({
+                  input: e.target.value,
+                  buttonStatus: ''
+                })
+                clearTimeout(this.clearFieldsTimeout)
+              }}
               placeholder={getMessage(this, 'Home.subscribe.placeholder')}
             />
           </div>
@@ -83,8 +109,9 @@ class Subscribe extends React.Component<{}, State> {
             <button
               className='Subscribe__submit'
               onClick={this.post}
+              disabled={this.state.buttonStatus !== ''}
             >
-              <FormattedMessage id='Home.subscribe.submit' />
+              <FormattedMessage id={`Home.subscribe.submit${this.state.buttonStatus}`} />
             </button>
           </div>
         </div>
