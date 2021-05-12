@@ -7,7 +7,6 @@ import endOfToday from 'date-fns/endOfToday'
 import isWithinInterval from 'date-fns/isWithinInterval'
 import { ru, enUS } from 'date-fns/locale'
 // import ReactPDF, { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer'
-import _ from 'lodash'
 
 
 import FormattedMessage from '../components/FormattedMessage'

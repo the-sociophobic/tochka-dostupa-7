@@ -11,6 +11,11 @@ import {
 } from '../../components/Store/Types'
 
 
+interface FestivalWithPrograms extends Festival {
+  programs: Program[]
+}
+
+
 class Archive extends React.Component<{}, {}> {
 
   static contextType = Context
@@ -22,22 +27,13 @@ class Archive extends React.Component<{}, {}> {
           {spekt.name}
         </p>
         <p className='p p--xl font-spectral'>
-          {spekt.eventCreators}
+          {spekt.persons}
         </p>
       </div>
     )
 
-  renderPrograms = (festival: Festival) =>
-    this.context.contentful.programs
-      .map((program: Program) => ({
-        ...program,
-        spekts: program?.spekts
-          ?.filter((spekt: Spekt) =>
-            spekt?.festival?.id === festival.id)
-          || []
-      }))
-      .filter((program: Program) =>
-        program.spekts.length > 0)
+  renderPrograms = (festival: FestivalWithPrograms) =>
+    festival.programs
       .map((program: Program) => 
         <>
           <div className='row mb-xxs mb-md-xs'>
@@ -59,7 +55,49 @@ class Archive extends React.Component<{}, {}> {
       )
 
   render = () => {
-    const festivals = this.context?.contentful?.festivals || []
+    const spekts = this.context?.contentful?.spekts
+
+    if (!spekts)
+      return ''
+
+    const festivals = this.context?.contentful?.festivals
+      ?.map((festival: Festival) => ({
+        ...festival,
+        programs: (() => {
+          let festivalPrograms: Program[] = []
+
+          spekts
+            .filter((spekt: Spekt) =>
+              spekt?.festival?.id === festival.id)
+            .forEach((spekt: Spekt) => {
+              const programIndex = festivalPrograms
+                .findIndex((program: Program) =>
+                  program.id === spekt?.program?.id)
+
+              programIndex === -1 ?
+                festivalPrograms.push({
+                  ...spekt.program,
+                  spekts: [spekt]
+                })
+                :
+                festivalPrograms = [
+                  ...festivalPrograms.slice(0, programIndex),
+                  {
+                    ...spekt.program,
+                    spekts: [
+                      ...festivalPrograms[programIndex].spekts,
+                      spekt
+                    ]  
+                  },
+                  ...festivalPrograms.slice(programIndex + 1),
+                ]
+            })
+          
+          return festivalPrograms
+        })()
+      }))
+
+    console.log(festivals)
 
     return (
       <div className="Archive">
@@ -70,7 +108,7 @@ class Archive extends React.Component<{}, {}> {
           {festivals
             .filter((festival: Festival) => festival.year !== 2021)
             .sort((a: Festival, b: Festival) => a.year - b.year)
-            .map((festival: Festival, index: number) =>
+            .map((festival: FestivalWithPrograms, index: number) =>
               <Dropdown
                 initialOpen={index === 0}
                 title={
@@ -81,6 +119,7 @@ class Archive extends React.Component<{}, {}> {
                     <div className='Archive__links'>
                       {festival.siteLink &&
                         <Link
+                          // onClick={(e: any) => e?.stopPropagation()}
                           to={festival.siteLink}
                           className='Archive__links__item'
                         >
@@ -88,7 +127,8 @@ class Archive extends React.Component<{}, {}> {
                         </Link>
                       }
                       {festival.bookletLink &&
-                          <Link
+                        <Link
+                          // onClick={(e: any) => e?.stopPropagation()}
                           to={festival.bookletLink}
                           className='Archive__links__item'
                         >
@@ -99,11 +139,11 @@ class Archive extends React.Component<{}, {}> {
                   </div>
                 }
               >
-                <div className='row'>
-                  <div className='col-4 col-sm-6 mb-s mb-md-m'>
+                <div className='row d-flex flex-column flex-lg-row justify-content-between'>
+                  <div className='col-4 col-md-6 col-lg-5 mb-s mb-md-m p p--xxl'>
                     {festival.mainDesc}
                   </div>
-                  <div className='col-4 col-sm-6'>
+                  <div className='col-4 col-md-6'>
                     {this.renderPrograms(festival)}
                   </div>
                 </div>
