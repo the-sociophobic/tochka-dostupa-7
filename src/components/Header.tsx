@@ -13,6 +13,8 @@ import { ReactComponent as LocaleIcon } from '../styles/img/locale.svg'
 import { ReactComponent as UserLineIcon } from '../styles/img/user-line.svg'
 import HorizontalShowcase from './HorizontalShowcase'
 import { getSubLinks } from '../utils/routeUtils'
+import { getMessage } from './Store/locale'
+import camelize from '../utils/camelize'
 
 
 type PathParamsType = {
@@ -147,7 +149,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
               }}
               onMouseLeave={this.initHideSecondaryLinksTimeout}
             >
-              <FormattedMessage id="Program.name" />
+              {camelize(getMessage(this, 'Program.name'))}
             </div>
             <Link
               to="/schedule"

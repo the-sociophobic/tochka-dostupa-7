@@ -1,6 +1,7 @@
 import React from 'react'
 
 import _ from 'lodash'
+import ResizeObserver from 'resize-observer-polyfill'
 
 import Link from './Link'
 import {
@@ -31,6 +32,8 @@ type Props = {
 class HorizontalShowcase extends React.Component<Props, {}> {
 
   static contextType = Context
+
+  resizeObs: any
 
   itemsRefs: React.RefObject<HTMLInputElement>[] | undefined =
     this.props.arrows && this.props.items ?

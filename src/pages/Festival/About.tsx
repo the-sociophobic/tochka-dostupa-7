@@ -29,7 +29,9 @@ class About extends React.Component<{}, {}> {
           </div>
           <div className='row d-flex flex-column flex-lg-row justify-content-between'>
             <div className='col-4 col-md-6 col-lg-12 col-xl-8 mb-xs mb-md-s mb-xl-l'>
-              {page.desc}            
+              <div className='p p--xxl'>
+                {page.desc}            
+              </div>
             </div>
             <div className='col-4 col-md-6 col-lg-12 col-xl-3'>
               <Link

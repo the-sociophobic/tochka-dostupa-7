@@ -106,7 +106,7 @@ const defaultMessages: Messages = {
     dates: ['Даты', 'Dates'],
     download: ['Скачать расписание в pdf', 'Download schedule as pdf'],
     downloadDesc: ['Отфильтруйте только интересующие вас события и скачайте их в формате pdf', 'Filter events you are interested in and download as pdf'],
-    cleanFilter: ['Отчистить фильтр', 'Clear filter'],
+    cleanFilter: ['Очистить фильтр', 'Clear filter'],
     loadPrev: ['Загрузить предыдущие', 'Load older events'],
     apply: ['Применить', 'Apply'],
     msk: ['мск', 'moscow-time'],

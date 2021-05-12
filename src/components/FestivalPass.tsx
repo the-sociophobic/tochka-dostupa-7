@@ -7,7 +7,15 @@ class FestivalPass extends React.Component<{}, {}> {
 
   render = () =>
     <div className='FestivalPass'>
-      Фестиваль пасс должен быть тут, но Артём сказал пока не верстать
+      <div className='container'>
+        <div className='row'>
+          <div className='col'>
+            <div className='FestivalPass__h1'>
+              festival pass
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 }
 

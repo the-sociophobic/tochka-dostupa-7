@@ -83,12 +83,18 @@ class DatePicker extends React.Component<Props, State> {
     if (!Number.isNaN((new Date(this.inputStringToDateReadableString(value))).getTime()))
       this.props[`setDate${dateId}`](this.inputStringToDateReadableString(value))
     this.setState({ [`string${dateId}`]: value })
+
+    console.log('this.state.stringN:', this.state[`string${dateId}`])
   }
 
-  inputStringToDateString = (string: string) =>
-    string.length === 8 ?
+  inputStringToWrittenDateString = (string: string) => {
+    console.log('inputStringToWrittenDateString:', string)
+
+    return string.length === 8 ?
       `${string.slice(0, 2)}.${string.slice(2, 4)}.${string.slice(4)}`
-      : ''
+      :
+      ''
+  }
 
   inputStringToDateReadableString = (string: string) =>
     string.length === 8 ?
@@ -101,7 +107,6 @@ class DatePicker extends React.Component<Props, State> {
 
     const dateObj = new Date(propsDate)
 
-    // return format(dateObj, dateObj.getFullYear() === 2021 ? 'ddMM' : 'ddMMyy')
     return format(dateObj, 'ddMMyyyy')
   }
 
@@ -118,14 +123,16 @@ class DatePicker extends React.Component<Props, State> {
 
         this.setStateAndPropsDate(dateId, value)
       }}
-      value={this.inputStringToDateString(this.state[`string${dateId}`])}
+      value={this.inputStringToWrittenDateString(this.state[`string${dateId}`])}
       onFocus={() => this.setState({
         currentFocused: dateId,
         opened: true
       })}
       onBlur={() =>
         this.inputStringToDateReadableString(this.state[`string${dateId}`]) !== this.props[`date${dateId}`] &&
-          this.setState({ [`string${dateId}`]: this.propsDateToInputString(this.props[`date${dateId}`])})
+          this.setState({
+            [`string${dateId}`]: this.propsDateToInputString(this.props[`date${dateId}`])
+          })
       }
     />
 
@@ -262,7 +269,7 @@ class DatePicker extends React.Component<Props, State> {
                 currentMonthDayString.slice(0, 4) + (2011 + index)
               )
               this.setState({
-                current: 'month',
+                current: 'day',
               })
             }}
           >
