@@ -144,6 +144,14 @@
       &:hover
         &::after
           transform: translateX(5px)
+    &--left
+      &::after
+        background-image: url(./img/arrow-right.svg)
+        transition: transform $menu-transition
+        transform: translate(-7px) rotate(180deg)
+      &:hover
+        &::after
+          transform: translateX(-12px) rotate(180deg)
     &--up-right
       &::after
         background-image: url(./img/arrow-up-right.svg)

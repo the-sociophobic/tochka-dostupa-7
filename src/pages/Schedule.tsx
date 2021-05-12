@@ -43,6 +43,7 @@ type FilterState = {
 type State = FilterState & {
   showFilter: boolean
   showPrev: number
+  ready: boolean
 }
 
 interface MappedShow extends Show {
@@ -79,6 +80,7 @@ class Schedule extends React.Component<{}, State> {
     ...filterInitialState,
     showFilter: false,
     showPrev: 0,
+    ready: false,
   }
 
   componentDidMount = () =>
@@ -127,6 +129,8 @@ class Schedule extends React.Component<{}, State> {
       .sort()
       .map((dayKey: string): {[key: string]: MappedShow[] | undefined} => ({[dayKey]: this.mappedDays[dayKey]}))
       ?.reduce((a, b) => ({...a, ...b}), {})
+
+    this.setState({ ready: true })
   }
 
   toggleAttrib = (attrib: string) =>
@@ -207,7 +211,7 @@ class Schedule extends React.Component<{}, State> {
     </div>
 
   renderDays = () => {
-    if (_.isEmpty(this.mappedDays))
+    if (!this.state.ready)
       return ''
 
     let indexOfCurrentFestivalFirstDay = -1

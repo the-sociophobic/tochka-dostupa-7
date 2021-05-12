@@ -5,6 +5,7 @@ import eachWeekOfInterval from 'date-fns/eachWeekOfInterval'
 import setDate from 'date-fns/setDate'
 import addDays from 'date-fns/addDays'
 import addMonths from 'date-fns/addMonths'
+import addYears from 'date-fns/addYears'
 import isToday from 'date-fns/isToday'
 import isSameDay from 'date-fns/isSameDay'
 import isSameMonth from 'date-fns/isSameMonth'
@@ -70,7 +71,12 @@ class DatePicker extends React.Component<Props, State> {
       e.target === this.inputBRef.current ?
         this.setState({ currentFocused: 'B' })
         :
-        !(this.calendarRef?.current === e.target || this.calendarRef?.current?.contains(e.target))
+        !(this.calendarRef?.current === e.target
+          || this.calendarRef?.current?.contains(e.target)
+          // || Array.from(this.calendarRef?.current?.children)
+          //   ?.some((child: any) =>
+          //     child === e.target || child.contains(e.target))
+        )
           && this.setState({
             opened: false,
             currentFocused: undefined
@@ -82,18 +88,29 @@ class DatePicker extends React.Component<Props, State> {
 
     if (!Number.isNaN((new Date(this.inputStringToDateReadableString(value))).getTime()))
       this.props[`setDate${dateId}`](this.inputStringToDateReadableString(value))
+    if (value === '')
+      this.props[`setDate${dateId}`]('')
+
     this.setState({ [`string${dateId}`]: value })
 
     console.log('this.state.stringN:', this.state[`string${dateId}`])
   }
 
+
+  // PARSERS
   inputStringToWrittenDateString = (string: string) => {
     console.log('inputStringToWrittenDateString:', string)
 
-    return string.length === 8 ?
-      `${string.slice(0, 2)}.${string.slice(2, 4)}.${string.slice(4)}`
-      :
+    return string.length === 0 ?
       ''
+      :
+      string.length <= 2 ?
+        `${string.slice(0, 2)}`
+        :
+        string.length <= 4 ?
+          `${string.slice(0, 2)}.${string.slice(2, 4)}`
+          :
+          `${string.slice(0, 2)}.${string.slice(2, 4)}.${string.slice(4)}`
   }
 
   inputStringToDateReadableString = (string: string) =>
@@ -110,6 +127,8 @@ class DatePicker extends React.Component<Props, State> {
     return format(dateObj, 'ddMMyyyy')
   }
 
+
+  //ELEMENTS
   renderInput = (dateId: string): JSX.Element =>
     <input
       ref={this[`input${dateId}Ref`]}
@@ -119,7 +138,8 @@ class DatePicker extends React.Component<Props, State> {
           && 'DatePicker__inputs__item--focused'}`}
       onChange={e => {
         const value = (e.target as unknown as HTMLTextAreaElement).value
-          .replace(/!(0-9)/g, '')
+          .replace(/[^0-9]/g, '')
+          .slice(0, 8)
 
         this.setStateAndPropsDate(dateId, value)
       }}
@@ -140,7 +160,10 @@ class DatePicker extends React.Component<Props, State> {
     if (!this.state.opened)
       return ''
       
-    const selectedDate = new Date(this.props[`date${this.state.currentFocused}`])
+    const selectedDateStringName = `date${this.state.currentFocused}`
+    const selectedDateString = this.props[selectedDateStringName]
+    const selectedDate = new Date(selectedDateString)
+    const currentMonthDay = selectedDateString === '' ? new Date() : selectedDate
 
     return (
       <div
@@ -158,25 +181,57 @@ class DatePicker extends React.Component<Props, State> {
               :
               format(selectedDate, 'dd', { locale: this.context.locale === 'rus' ? ru : enUS })}
           </div>
-          <div
-            className={`DatePicker__calendar__header__month
-              ${this.state.current === 'month' && 'DatePicker__calendar__header__month--active'}`}
-            onClick={() => this.setState({ current: 'month' })}
-          >
-            {Number.isNaN(selectedDate.getTime()) ?
-              <FormattedMessage id='DatePicker.month' />
-              :
-              format(selectedDate, 'MMMM', { locale: this.context.locale === 'rus' ? ru : enUS })}
+          <div className='d-flex flex-column'>
+            <div
+              className={`DatePicker__calendar__header__month
+                ${this.state.current === 'month' && 'DatePicker__calendar__header__month--active'}`}
+              onClick={() => this.setState({ current: 'month' })}
+            >
+              {Number.isNaN(selectedDate.getTime()) ?
+                format(currentMonthDay, 'MMMM', { locale: this.context.locale === 'rus' ? ru : enUS })
+                :
+                format(selectedDate, 'MMMM', { locale: this.context.locale === 'rus' ? ru : enUS })}
+            </div>
+            <div className='d-flex flex-row w-100 justify-content-between'>
+              <div
+                className='p--arrow p--arrow--left cursor-pointer'
+                onClick={() => this.setStateAndPropsDate(
+                  this.state.currentFocused, format(addMonths(currentMonthDay, -1), 'ddMMyyyy')
+                )}
+              />
+              <div
+                className='p--arrow p--arrow--right cursor-pointer'
+                onClick={() => this.setStateAndPropsDate(
+                  this.state.currentFocused, format(addMonths(currentMonthDay, 1), 'ddMMyyyy')
+                )}
+              />
+            </div>
           </div>
-          <div
-            className={`DatePicker__calendar__header__year
-              ${this.state.current === 'year' && 'DatePicker__calendar__header__year--active'}`}
-            onClick={() => this.setState({ current: 'year' })}
-          >
-            {Number.isNaN(selectedDate.getTime()) ?
-              <FormattedMessage id='DatePicker.year' />
-              :
-              format(selectedDate, 'yyyy', { locale: this.context.locale === 'rus' ? ru : enUS })}
+          <div className='d-flex flex-column'>
+            <div
+              className={`DatePicker__calendar__header__year
+                ${this.state.current === 'year' && 'DatePicker__calendar__header__year--active'}`}
+              onClick={() => this.setState({ current: 'year' })}
+            >
+              {Number.isNaN(selectedDate.getTime()) ?
+                format(currentMonthDay, 'yyyy', { locale: this.context.locale === 'rus' ? ru : enUS })
+                :
+                format(selectedDate, 'yyyy', { locale: this.context.locale === 'rus' ? ru : enUS })}
+            </div>
+            <div className='d-flex flex-row w-100 justify-content-between'>
+              <div
+                className='p--arrow p--arrow--left cursor-pointer'
+                onClick={() => this.setStateAndPropsDate(
+                  this.state.currentFocused, format(addYears(currentMonthDay, -1), 'ddMMyyyy')
+                )}
+              />
+              <div
+                className='p--arrow p--arrow--right cursor-pointer'
+                onClick={() => this.setStateAndPropsDate(
+                  this.state.currentFocused, format(addYears(currentMonthDay, 1), 'ddMMyyyy')
+                )}
+              />
+            </div>
           </div>
         </div>
         <div className='DatePicker__calendar__body'>
@@ -250,7 +305,7 @@ class DatePicker extends React.Component<Props, State> {
             onClick={() => {
               this.setStateAndPropsDate(
                 this.state.currentFocused,
-                currentMonthDayString.slice(0, 2) + (1 + index) + currentMonthDayString.slice(4)
+                currentMonthDayString.slice(0, 2) + (1 + index < 10 ? '0' : '') + (1 + index) + currentMonthDayString.slice(4)
               )
               this.setState({
                 current: 'day',
@@ -277,6 +332,7 @@ class DatePicker extends React.Component<Props, State> {
           </div>)
     }
   }
+
 
   render = () =>
     <div className="DatePicker">
