@@ -70,7 +70,7 @@ class Provider extends React.Component<{}, StateType> {
   }
 
   loadContentful = async () => {
-    if (isProd()) {
+    if (isProd() || true) {
       const contentfulData = (await axios.post('https://api.tochkadostupa.spb.ru/contentful', {})).data
   
       this.setState({
@@ -93,6 +93,8 @@ class Provider extends React.Component<{}, StateType> {
     }
 
     console.log(this.state.contentfulData[0])
+
+    this.callInitializeCallbacks()
   }
 
   updateContentful = async () => {
@@ -106,7 +108,25 @@ class Provider extends React.Component<{}, StateType> {
     })
 
     console.log(`contentful data last updated ${contentfulData.date}`)
+
+    this.callInitializeCallbacks()
   }
+
+  registerInitializeCallback = (fn: Function) => {
+    this.state.contentfulData.length > 0 && fn()
+
+    this.setState({
+      initializeCallBacks: [
+        ...this.state.initializeCallBacks,
+        fn
+      ]
+    })
+  }
+  
+  callInitializeCallbacks = () =>
+    this.state.initializeCallBacks
+      .forEach((callback: Function) =>
+        callback())
 
   stateAndSetters = () => ({
     ...this.state,
@@ -130,6 +150,8 @@ class Provider extends React.Component<{}, StateType> {
 
     contentful: this.state.contentfulData?.[this.state.locale === "rus" ? 0 : 1],
     updateContentful: this.updateContentful,
+
+    registerInitializeCallback: this.registerInitializeCallback,
   })
 
   render = () =>

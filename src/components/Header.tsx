@@ -47,7 +47,10 @@ const mobileHeaderLinks = [
       id: 'Youtube'
     },
   ].map(link =>
-    <Link {...link} >
+    <Link
+      key={link.to}
+      {...link}
+    >
       <FormattedMessage id={link.id} />
     </Link>)
 

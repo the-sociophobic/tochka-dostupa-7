@@ -5,8 +5,9 @@ import { format } from 'date-fns'
 import isBefore from 'date-fns/isBefore'
 import endOfToday from 'date-fns/endOfToday'
 import isWithinInterval from 'date-fns/isWithinInterval'
-import { ru, enUS, ca } from 'date-fns/locale'
-import ReactPDF, { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer'
+import { ru, enUS } from 'date-fns/locale'
+// import ReactPDF, { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer'
+import _ from 'lodash'
 
 
 import FormattedMessage from '../components/FormattedMessage'
@@ -55,6 +56,10 @@ interface MappedShow extends Show {
   age?: string | number
 }
 
+type Days = {
+  [key: string]: MappedShow[] | undefined
+}
+
 const filterInitialState: FilterState = {
   main: false,
   open: false,
@@ -64,7 +69,8 @@ const filterInitialState: FilterState = {
   from: '',
   to: '',
 }
-const loadAdditionalNumber = 10
+const loadAdditionalNumber = 5
+const currentFestivalFirstDay = '2020-05-05'
 
 
 class Schedule extends React.Component<{}, State> {
@@ -75,9 +81,53 @@ class Schedule extends React.Component<{}, State> {
     showPrev: 0,
   }
 
+  componentDidMount = () =>
+    this.context.registerInitializeCallback(() => this.initializeMappedDays())
+
   static contextType = Context
 
   pdfRef: any = React.createRef()
+  mappedDays: Days = {}
+
+  initializeMappedDays = () => {
+    this.context?.contentful?.spekts
+      .map((spekt: Spekt): MappedShow[] | undefined =>
+        spekt?.ticketsAndSchedule?.tickets
+          .map((place: Place): MappedShow[] | undefined =>
+            place?.tickets
+              .map((show: Show): MappedShow => ({
+                ...show,
+                name: spekt.name,
+                persons: spekt.persons,
+                dateObj: new Date(show.datetime),
+                datetime: show.datetime,
+                program: spekt.program,
+                offline: show.offline || !show.online,
+                link: spekt.link,
+                age: spekt.age,
+              })))
+          .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
+            [...(a || []), ...(b || [])])
+      )
+      .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
+        [...(a || []), ...(b || [])])
+      .filter((show: MappedShow) =>
+        show.datetime.length > 0
+      )
+      .forEach((show: MappedShow) => {
+        const day = show.datetime.split('T')[0]
+        
+        this.mappedDays.hasOwnProperty(day) ?
+          this.mappedDays[day]?.push(show)
+          :
+          this.mappedDays[day] = [show]
+      })
+        
+    this.mappedDays = Object.keys(this.mappedDays)
+      .sort()
+      .map((dayKey: string): {[key: string]: MappedShow[] | undefined} => ({[dayKey]: this.mappedDays[dayKey]}))
+      ?.reduce((a, b) => ({...a, ...b}), {})
+  }
 
   toggleAttrib = (attrib: string) =>
     this.setState({ [attrib]: !this.state[attrib] })
@@ -100,6 +150,7 @@ class Schedule extends React.Component<{}, State> {
         {['main', 'open', 'educational']
           .map(program =>
             <Program
+              key={program}
               text={getMessage(this, `Program.pages.${capitalize(program)}.name`)}
               className={`Schedule__filter__button ${!this.state[program] && 'button--selectable'}`}
               onClick={() => this.toggleAttrib(program)}
@@ -156,96 +207,72 @@ class Schedule extends React.Component<{}, State> {
     </div>
 
   renderDays = () => {
-    let days: {[key: string]: MappedShow[] | undefined} = {}
-    
-    this.context?.contentful?.spekts
-      .map((spekt: Spekt): MappedShow[] | undefined =>
-        spekt?.ticketsAndSchedule?.tickets
-          .map((place: Place): MappedShow[] | undefined =>
-            place?.tickets
-              .map((show: Show): MappedShow => ({
-                ...show,
-                name: spekt.name,
-                persons: spekt.persons,
-                dateObj: new Date(show.datetime),
-                datetime: show.datetime,
-                program: spekt.program,
-                offline: show.offline || !show.online,
-                link: spekt.link,
-                age: spekt.age,
-              })))
-          .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
-            [...(a || []), ...(b || [])])
-      )
-      .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
-        [...(a || []), ...(b || [])])
-      .filter((show: MappedShow) =>
-        show.datetime.length > 0
-      )
-      .filter((show: MappedShow) =>
-        (!this.state.online && !this.state.offline) || (
-          (this.state.online && show.online)
-          || (this.state.offline && show.offline)
-        )
-      )
-      .filter((show: MappedShow) =>
-        (!this.state.main && !this.state.open && !this.state.educational) || (
-          (this.state.main && show?.program?.id === '7fOwCkT7nOXh3C81toLoSs')
-          || (this.state.open && show?.program?.id === '4qgsLo90by1TfShZwdyNhw')
-          || (this.state.educational && show?.program?.id === '6OfzgvjCzzT1xhlwDH2AfQ')
-        )
-      )
-      .filter((show: MappedShow) => {
-        const fromDate = new Date(this.state.from)
-        const toDate = new Date(this.state.to)
+    if (_.isEmpty(this.mappedDays))
+      return ''
 
-        if (Number.isNaN(fromDate.getTime()) || Number.isNaN(toDate.getTime()))
-          return true
-
-        return isWithinInterval(
-          show.dateObj,
-          { start: fromDate, end: toDate })
-      })
-      .forEach((show: MappedShow) => {
-        const day = show.datetime.split('T')[0]
-        
-        days.hasOwnProperty(day) ?
-          days[day]?.push(show)
-          :
-          days[day] = [show]
-      })
-        
-    days = Object.keys(days)
-      .sort()
-      .map((dayKey: string): {[key: string]: MappedShow[] | undefined} => ({[dayKey]: days[dayKey]}))
-      ?.reduce((a, b) => ({...a, ...b}), {})
-    
     let indexOfCurrentFestivalFirstDay = -1
-    
-    Object.keys(days)
+
+    Object.keys(this.mappedDays)
       .forEach((dayKey, index) =>
-        (dayKey.localeCompare('2020-05-05') === 1 && indexOfCurrentFestivalFirstDay === -1)
+        (dayKey.localeCompare(currentFestivalFirstDay) === 1 && indexOfCurrentFestivalFirstDay === -1)
           && (indexOfCurrentFestivalFirstDay = index))
+  
+    let filteredDays: Days = Object.keys(this.mappedDays)
+      .slice(
+        Math.max(0,
+          indexOfCurrentFestivalFirstDay === -1 || (this.state.from.length > 0 && this.state.to.length > 0) ?
+            0
+            :
+            indexOfCurrentFestivalFirstDay - this.state.showPrev * loadAdditionalNumber))
+      .map((dayKey: string): Days =>
+        ({ [dayKey]: 
+          (this.mappedDays[dayKey] || [])
+            .filter((show: MappedShow) =>
+              (!this.state.online && !this.state.offline) || (
+                (this.state.online && show.online)
+                || (this.state.offline && show.offline)
+              )
+            )
+            .filter((show: MappedShow) =>
+              (!this.state.main && !this.state.open && !this.state.educational) || (
+                (this.state.main && show?.program?.id === '7fOwCkT7nOXh3C81toLoSs')
+                || (this.state.open && show?.program?.id === '4qgsLo90by1TfShZwdyNhw')
+                || (this.state.educational && show?.program?.id === '6OfzgvjCzzT1xhlwDH2AfQ')
+              )
+            )
+            .filter((show: MappedShow) => {
+              const fromDate = new Date(this.state.from)
+              const toDate = new Date(this.state.to)
+
+              if (Number.isNaN(fromDate.getTime()) || Number.isNaN(toDate.getTime()))
+                return true
+
+              return isWithinInterval(
+                show.dateObj,
+                { start: fromDate, end: toDate })
+            })
+        })
+      )
+      .filter((day: Days) => (day[Object.keys(day)[0]]?.length || 0) > 0)
+      .reduce((a, b) => ({...a, ...b}), {})
 
     return (
       <div className='col-4 col-md-6 col-lg-8'>
-        {indexOfCurrentFestivalFirstDay - this.state.showPrev * loadAdditionalNumber > 0 &&
-          <div
-            className='Schedule__load-prev'
-            onClick={() => this.setState({ showPrev: this.state.showPrev + 1 })}
-          >
-            <FormattedMessage id='Schedule.loadPrev' />
-          </div>
+        {indexOfCurrentFestivalFirstDay - this.state.showPrev * loadAdditionalNumber > 0
+          && (this.state.from.length === 0 || this.state.to.length === 0) &&
+            <div
+              className='Schedule__load-prev'
+              onClick={() => this.setState({ showPrev: this.state.showPrev + 1 })}
+            >
+              <FormattedMessage id='Schedule.loadPrev' />
+            </div>
         }
-        {Object.keys(days)
-          .slice(
-            Math.max(0,
-              indexOfCurrentFestivalFirstDay === -1 ?
-                Object.keys(days).length
-                :
-                indexOfCurrentFestivalFirstDay - this.state.showPrev * loadAdditionalNumber))
-          .map(dayKey =>
-            <div className='Schedule__day'>
+        {Object.keys(filteredDays)
+          .map((dayKey: string) =>
+            <div
+              key={dayKey}
+              className='Schedule__day'
+            >
               <h2 className='h2 h2--underline pb-1 pb-md-2 mb-3'>
                 {format(
                   new Date(dayKey),
@@ -253,10 +280,13 @@ class Schedule extends React.Component<{}, State> {
                   { locale: this.context.locale === 'rus' ? ru : enUS }
                 )}
               </h2>
-              {days[dayKey]
+              {filteredDays[dayKey]
                 ?.sort((a: MappedShow, b: MappedShow) => a.datetime.localeCompare(b.datetime))
-                ?.map(show =>
-                  <div className='Schedule__day__show'>
+                ?.map((show: MappedShow, index: number) =>
+                  <div
+                    key={index}
+                    className='Schedule__day__show'
+                  >
                     <div className='col-4 col-md-1 col-lg-3'>
                       <p className='p p--l'>
                         {format(show.dateObj, 'HH:mm')} <FormattedMessage id='Schedule.msk' />
