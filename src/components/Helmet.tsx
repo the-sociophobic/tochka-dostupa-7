@@ -2,7 +2,7 @@ import React from 'react'
 
 import { withRouter } from 'react-router-dom'
 import { RouteComponentProps } from 'react-router'
-import { Helmet as Helmet_ } from 'react-helmet'
+import { Helmet as ReactHelmet } from 'react-helmet'
 
 import { Context } from './Store'
 import { getMessage } from './Store/locale'
@@ -25,7 +25,7 @@ class Helmet extends React.Component<RouteComponentProps<PathParamsType>> {
         ` / ${getMessage(this, section || '')}`)
 
     return (
-      <Helmet_>
+      <ReactHelmet>
         <title>
           {getMessage(this, 'AccessPoint')} VII {
             this.props.location.pathname.match(/\/spekt\/*/) ?
@@ -41,7 +41,7 @@ class Helmet extends React.Component<RouteComponentProps<PathParamsType>> {
                 ''
           }
         </title>
-      </Helmet_>
+      </ReactHelmet>
     )
   }
 }

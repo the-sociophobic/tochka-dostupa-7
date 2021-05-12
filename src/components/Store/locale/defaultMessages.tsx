@@ -41,12 +41,12 @@ const defaultMessages: Messages = {
     address: [
       <>
         191023, Санкт-Петербург,<br />
-        Средняя Подьяческая ул., д. 2,<br />
+        Средняя Подьяческая 2,<br />
         офис 302
       </>,
       <>
         191023, Saint-Petersbourg,<br />
-        Srednyaya Pod'yacheskaya st., 2,<br />
+        Srednyaya Pod'yacheskaya 2,<br />
         office number 302
       </>
     ],

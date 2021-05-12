@@ -1,5 +1,3 @@
-import React from 'react'
-
 import defaultMessages from './defaultMessages'
 import arrayToLocale from './arrayToLocale'
 import flatten from '../../../utils/flatten'

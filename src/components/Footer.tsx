@@ -49,6 +49,7 @@ const mappedLinks = [
   ...links.slice(7)
 ].map(link =>
   <Link
+    key={link.id}
     to={link.to}
     className="Footer__link Footer__link--regular"
   >

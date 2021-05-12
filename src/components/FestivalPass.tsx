@@ -1,6 +1,6 @@
 import React from 'react'
 
-import FormattedMessage from '../components/FormattedMessage'
+// import FormattedMessage from '../components/FormattedMessage'
 
 
 class FestivalPass extends React.Component<{}, {}> {

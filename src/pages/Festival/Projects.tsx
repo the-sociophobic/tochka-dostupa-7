@@ -1,7 +1,6 @@
 import React from 'react'
 
 
-import Link from '../../components/Link'
 import { Context } from '../../components/Store'
 import { Sponsor } from '../../components/Store/Types'
 
