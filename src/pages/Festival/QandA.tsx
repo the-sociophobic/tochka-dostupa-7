@@ -17,9 +17,16 @@ type PathParamsType = {
   param1: string,
 }
 
+type State = {
+  currentOpened: number
+}
 
-class QandA extends React.Component<RouteComponentProps<PathParamsType>, {}> {
+class QandA extends React.Component<RouteComponentProps<PathParamsType>, State> {
   
+  state: State = {
+    currentOpened: 0
+  }
+
   static contextType = Context
 
   getCurrentSection = () => {
@@ -74,12 +81,20 @@ class QandA extends React.Component<RouteComponentProps<PathParamsType>, {}> {
             </div>
             <div className='col-4 col-md-6 col-lg-8'>
               {currentSection?.items
-                ?.map((item: QandAitem) =>
+                ?.map((item: QandAitem, index: number) =>
                   <Dropdown
                     key={item.title}
                     spekt
                     title={<h3 className='h3 mb-0'>{item.title}</h3>}
                     className='mb-2 mb-md-3'
+                    opened={this.state.currentOpened === index}
+                    toggleOpened={() =>
+                      this.setState({
+                        currentOpened: this.state.currentOpened === index ?
+                          -1
+                          :
+                          index
+                      })}
                   >
                     {item.text}
                   </Dropdown>

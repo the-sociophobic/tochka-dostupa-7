@@ -24,7 +24,11 @@ class Home extends React.Component<{}, {}> {
 
         <div className="container mb-s mb-md-l">        
           <div className="row mb-s">
-            {page.shortDesc}
+            <div className='col-4 col-md-6 col-lg-10'>
+              <div className='p p--xxl'>
+                {page.shortDesc}
+              </div>
+            </div>
           </div>
           <div className="row">
             <div className="col-4 col-md-3 col-xl-2">
@@ -55,12 +59,7 @@ class Home extends React.Component<{}, {}> {
             </>
           }
           ItemComp={SpektCard}
-          items={
-            // this.context?.contentful?.spekts
-            //   ?.filter((spekt: Spekt) =>
-            //     spekt?.festival?.id === '1eHNqsKS7e2QSVlvmtGEc1' && spekt?.program?.id === '7fOwCkT7nOXh3C81toLoSs')
-            page.main
-          }
+          items={page.main}
           bottomLink={{
             to: 'program/main',
             label: <FormattedMessage id='Program.full' />
@@ -79,19 +78,14 @@ class Home extends React.Component<{}, {}> {
             </>
           }
           ItemComp={SpektCard}
-          items={
-            // this.context?.contentful?.spekts
-            //   ?.filter((spekt: Spekt) =>
-            //     spekt?.festival?.id === '1eHNqsKS7e2QSVlvmtGEc1' && spekt?.program?.id === '4qgsLo90by1TfShZwdyNhw')
-            page.open
-          }
+          items={page.open}
           bottomLink={{
             to: 'program/open',
             label: <FormattedMessage id='Program.full' />
           }}
         />
         <HorizontalShowcase
-          className='HorizontalShowcase--Home'
+          className='HorizontalShowcase--Home pb-m pb-md-l pb-lg-xl'
           S
           arrows
           title={
@@ -100,12 +94,7 @@ class Home extends React.Component<{}, {}> {
             </>
           }
           ItemComp={SpektCard}
-          items={
-            // this.context?.contentful?.spekts
-            //   ?.filter((spekt: Spekt) =>
-            //     spekt?.festival?.id === '1eHNqsKS7e2QSVlvmtGEc1' && spekt?.program?.id === '6OfzgvjCzzT1xhlwDH2AfQ')
-            page.educational
-          }
+          items={page.educational}
           bottomLink={{
             to: 'program/educational',
             label: <FormattedMessage id='Program.full' />

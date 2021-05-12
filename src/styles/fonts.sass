@@ -140,6 +140,10 @@
     &--right
       &::after
         background-image: url(./img/arrow-right.svg)
+        transition: transform $menu-transition
+      &:hover
+        &::after
+          transform: translateX(5px)
     &--up-right
       &::after
         background-image: url(./img/arrow-up-right.svg)

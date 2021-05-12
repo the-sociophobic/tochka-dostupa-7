@@ -5,7 +5,7 @@ import { format } from 'date-fns'
 import isBefore from 'date-fns/isBefore'
 import endOfToday from 'date-fns/endOfToday'
 import isWithinInterval from 'date-fns/isWithinInterval'
-import { ru, enUS } from 'date-fns/locale'
+import { ru, enUS, ca } from 'date-fns/locale'
 import ReactPDF, { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer'
 
 
@@ -26,6 +26,7 @@ import {
 import { getMessage } from '../components/Store/locale'
 import DatePicker from '../components/DatePicker'
 import Link from '../components/Link'
+import camelize from '../utils/camelize'
 
 
 type FilterState = {
@@ -71,7 +72,7 @@ class Schedule extends React.Component<{}, State> {
   state: State = {
     ...filterInitialState,
     showFilter: false,
-    showPrev: 0
+    showPrev: 0,
   }
 
   static contextType = Context
@@ -92,10 +93,9 @@ class Schedule extends React.Component<{}, State> {
         className='h3 mb-3 mb-lg-s'
       />
 
-      <FormattedMessage
-        id='Program.name'
-        className='Schedule__filter__p'
-      />
+      <div className='Schedule__filter__p'>
+        {camelize(getMessage(this, 'Program.name'))}
+      </div>
       <div className='w-100 d-flex flex-row flex-wrap mb-3 mb-lg-s'>
         {['main', 'open', 'educational']
           .map(program =>
@@ -172,6 +172,7 @@ class Schedule extends React.Component<{}, State> {
                 program: spekt.program,
                 offline: show.offline || !show.online,
                 link: spekt.link,
+                age: spekt.age,
               })))
           .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
             [...(a || []), ...(b || [])])
@@ -217,7 +218,7 @@ class Schedule extends React.Component<{}, State> {
     days = Object.keys(days)
       .sort()
       .map((dayKey: string): {[key: string]: MappedShow[] | undefined} => ({[dayKey]: days[dayKey]}))
-      ?.reduce((a, b) => ({...a, ...b}))
+      ?.reduce((a, b) => ({...a, ...b}), {})
     
     let indexOfCurrentFestivalFirstDay = -1
     
