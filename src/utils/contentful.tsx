@@ -1,5 +1,8 @@
+import React from 'react'
+
 import _ from 'lodash'
 import { createClient } from 'contentful'
+import { BLOCKS } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 
@@ -56,7 +59,19 @@ const parseField = (field: any): string | any => {
 }
 
 const parseContentfulText = (document: any) =>
-  documentToReactComponents(document)
+  documentToReactComponents(document, {
+    renderNode: {
+      [BLOCKS.PARAGRAPH]: (node, next) =>
+        <>
+          {next
+            ?.toString()
+            ?.split('\n')
+            ?.map(paragraph => <>{paragraph}</>)
+            ?.reduce((a, b) =>
+              <>{a}<br />{b}</>)}
+        </>
+    },
+  })
 
 
 export {

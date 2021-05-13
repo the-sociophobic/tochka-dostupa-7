@@ -129,6 +129,7 @@ class Spekt extends React.Component<RouteComponentProps<PathParamsType>, State> 
             <div className='col-4 col-md-6 col-lg-8'>
               <div className='p p--l mb-m mb-lg-l'>
                 {spekt.mainDesc}
+                {(() => console.log(spekt.mainDesc))()}
               </div>
 
               <Dropdown

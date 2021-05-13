@@ -13,6 +13,7 @@ type Props = {
   initialOpen?: boolean
   additionalContent: JSX.Element
   link: string
+  shortDesc: string
 }
 
 class TextDropdown extends React.Component<Props, {}> {
@@ -47,7 +48,7 @@ class TextDropdown extends React.Component<Props, {}> {
 
   cropChildren = () =>
     <>
-      {this.props?.children?.[0]?.props.children[0].slice(0, 355)}...
+      {this.props?.shortDesc}..
     </>
 
   toggleOpened = () =>
