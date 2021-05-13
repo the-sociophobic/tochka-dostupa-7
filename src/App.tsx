@@ -12,6 +12,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import routes from './utils/routes'
 import ScrollToTop from './components/ScrollToTop'
+import Loader from './components/Loader'
 
 import './styles/index.sass'
 
@@ -20,6 +21,7 @@ class App extends React.Component {
   
   render = () =>
     <Provider>
+      <Loader />
       <div className="App">
         <Router>
           <ScrollToTop>

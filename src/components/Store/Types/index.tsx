@@ -138,7 +138,7 @@ type StateType = {
   contentfulData: any[]
   contentful: any
 
-  initializeCallBacks: Function[]
+  // initializeCallBacks: Function[]
 }
 
 const initialState = {
@@ -163,7 +163,7 @@ const initialState = {
   contentfulData: [],
   contentful: {},
 
-  initializeCallBacks: []
+  // initializeCallBacks: []
 }
 
 

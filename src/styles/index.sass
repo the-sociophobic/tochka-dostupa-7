@@ -741,13 +741,62 @@
         height: calc((100vw - #{$grid-gutter-width}) / 300 * 184)
 
 
-.Loading
+.Loader
   position: fixed
   top: 0
   left: 0
   width: 100vw
   height: 100vh
-  background-color: rgba(255, 255, 255, .5)
+  z-index: 5000
+  background-color: $white
+  transition: opacity .9s
+  &--transparent
+    opacity: 0
+  &__squircles
+    position: absolute
+    top: 50%
+    left: 50%
+    width: rem(300)
+    height: rem(300)
+    animation: squircles-rotate 48s linear infinite
+    @keyframes squircles-rotate
+      0%
+        transform: translate(-50%, -50%)
+      100%
+        transform: translate(-50%, -50%) rotate(360deg)
+    &__item
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      width: rem(64)
+      height: rem(64)
+      border-radius: rem(12)
+      background-color: $online-primary
+      &--0
+      &--1,
+      &--2,
+      &--3,
+      &--4
+        animation: squircle-rotate-scale-opacity 4s linear infinite
+        @keyframes squircle-rotate-scale-opacity
+          0%
+            transform: translate(-50%, -50%)
+            opacity: .4
+          100%
+            transform: translate(-50%, -50%) rotate(60deg)
+            opacity: 0
+            width: rem(160)
+            height: rem(160)
+      &--1
+        animation-delay: -4s
+      &--2
+        animation-delay: -3s
+      &--3
+        animation-delay: -2s
+      &--4
+        animation-delay: -1s
+
 
 
 

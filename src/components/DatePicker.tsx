@@ -9,6 +9,7 @@ import addYears from 'date-fns/addYears'
 import isToday from 'date-fns/isToday'
 import isSameDay from 'date-fns/isSameDay'
 import isSameMonth from 'date-fns/isSameMonth'
+import isBefore from 'date-fns/isBefore'
 import compareAsc from 'date-fns/compareAsc'
 import { ru, enUS } from 'date-fns/locale'
 
@@ -83,7 +84,7 @@ class DatePicker extends React.Component<Props, State> {
           })
         
   setStateAndPropsDate = (dateId: string | undefined, value: string) => {
-    if (!dateId)
+    if (!dateId || (dateId === 'B' && !isBefore(new Date(this.props.dateA), new Date(this.inputStringToDateReadableString(value)))))
       return
 
     if (!Number.isNaN((new Date(this.inputStringToDateReadableString(value))).getTime()))
@@ -93,13 +94,13 @@ class DatePicker extends React.Component<Props, State> {
 
     this.setState({ [`string${dateId}`]: value })
 
-    console.log('this.state.stringN:', this.state[`string${dateId}`])
+    // console.log('this.state.stringN:', this.state[`string${dateId}`])
   }
 
 
   // PARSERS
   inputStringToWrittenDateString = (string: string) => {
-    console.log('inputStringToWrittenDateString:', string)
+    // console.log('inputStringToWrittenDateString:', string)
 
     return string.length === 0 ?
       ''
@@ -115,7 +116,7 @@ class DatePicker extends React.Component<Props, State> {
 
   inputStringToDateReadableString = (string: string) =>
     string.length === 8 ?
-      `${string.slice(2, 4)}-${string.slice(0, 2)}-${string.slice(4).length === 2 ? `20${string.slice(4)}` : string.slice(4)}`
+      `${string.slice(4).length === 2 ? `20${string.slice(4)}-${string.slice(2, 4)}-${string.slice(0, 2)}` : string.slice(4)}`
       : 'error'
 
   propsDateToInputString = (propsDate: string) => {
