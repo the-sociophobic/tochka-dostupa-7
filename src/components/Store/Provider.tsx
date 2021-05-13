@@ -29,6 +29,7 @@ class Provider extends React.Component<{}, StateType> {
   state = initialState
 
   cookies = new Cookies()
+  initializeCallBacks: Function[] = []
 
   componentDidMount = () => {
     this.checkUser()
@@ -113,20 +114,17 @@ class Provider extends React.Component<{}, StateType> {
   }
 
   registerInitializeCallback = (fn: Function) => {
+    this.initializeCallBacks.push(fn)
     this.state.contentfulData.length > 0 && fn()
-
-    this.setState({
-      initializeCallBacks: [
-        ...this.state.initializeCallBacks,
-        fn
-      ]
-    })
   }
   
   callInitializeCallbacks = () =>
-    this.state.initializeCallBacks
-      .forEach((callback: Function) =>
-        callback())
+    setTimeout(() =>
+      this.initializeCallBacks
+        .forEach((callback: Function) =>
+          callback())
+      , 100
+    )
 
   stateAndSetters = () => ({
     ...this.state,

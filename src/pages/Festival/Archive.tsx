@@ -97,8 +97,6 @@ class Archive extends React.Component<{}, {}> {
         })()
       }))
 
-    console.log(festivals)
-
     return (
       <div className="Archive">
         <div className='container'>
