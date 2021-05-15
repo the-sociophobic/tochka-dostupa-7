@@ -20,6 +20,7 @@ import Contacts from '../pages/Festival/Contacts'
 import Spekt from '../pages/Spekt'
 
 import Template from '../pages/Program/Template'
+import Error404 from '../components/Error404'
 
 
 type Route = {
@@ -118,6 +119,11 @@ const routes: Route[] = [
   {
     to: '/program/educational/text',
     Comp: <Template text programId='6OfzgvjCzzT1xhlwDH2AfQ' />
+  },
+
+  {
+    to: "/",
+    Comp: <Error404 />
   },
 ]
 
