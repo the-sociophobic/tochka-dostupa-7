@@ -19,6 +19,13 @@ const defaultMessages: Messages = {
   Instagram: ['Инстаграм', 'Instagram'],
   Youtube: ['Ютьюб', 'Youtube'],
 
+  Error404: {
+    line1: ['Ой, кажется', 'Wow, looks like'],
+    line2: ['такой страницы', 'this page'],
+    line3: ['не существует', `doesn't exist`],
+    return: ['Вернуться на главную', 'Back to homepage'],
+  },
+
   User: {
     
     pages: {

@@ -58,29 +58,11 @@
     @include media-breakpoint-down(md)
       height: rem(72)
     // height: 100%
-  &__logo,
   &__burger,
   &__links
     height: rem(48)
     @include media-breakpoint-down(md)
       height: rem(40)
-  &__logo
-    @extend .d-flex
-    @extend .flex-row
-    @extend .align-items-center
-    @extend .mr-auto
-    &__img
-      height: 100%
-      width: auto
-      margin-right: rem(10)
-    &__name
-      font-family: 'Montserrat', sans-serif
-      text-transform: lowercase
-      font-size: rem(20)
-      white-space: nowrap
-      font-weight: 800
-      @include media-breakpoint-down(md)
-        font-size: rem(16.66666)
   &__controls
     @extend .d-none
     @extend .d-md-flex
@@ -250,7 +232,7 @@
       background-image: url(./img/Header__cross.svg)
       width: rem(40)
       height: rem(40)
-    .Header__logo
+    .LogoWithText
       rect
         fill: $white
       path
@@ -1177,3 +1159,65 @@
     @include media-breakpoint-up(lg)
       @include font-params(120, 120)
 
+
+
+
+
+.LogoWithText
+  height: rem(48)
+  @include media-breakpoint-down(md)
+    height: rem(40)
+  @extend .d-flex
+  @extend .flex-row
+  @extend .align-items-center
+  &__img
+    height: 100%
+    width: auto
+    margin-right: rem(10)
+  &__name
+    font-family: 'Montserrat', sans-serif
+    text-transform: lowercase
+    font-size: rem(20)
+    white-space: nowrap
+    font-weight: 800
+    @include media-breakpoint-down(md)
+      font-size: rem(16.66666)
+
+
+
+.Error404
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  background-color: $background
+  z-index: 1000
+  @extend .d-flex
+  @extend .flex-column
+  @extend .align-items-center
+  @extend .justify-content-center
+  &__blur
+    &--0
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      @extend .d-flex
+      @extend .flex-row
+      @extend .justify-content-center
+      @extend .pt-3
+      @extend .pt-lg-xs
+      filter: blur(4px)
+    &--1,
+    &--2,
+    &--3
+      @extend .h1
+      @extend .text-center
+    &--1
+      filter: blur(6px)
+    &--2
+      filter: blur(4px)
+    &--3
+      filter: blur(2px)
+  &__text

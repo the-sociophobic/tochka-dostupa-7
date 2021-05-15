@@ -5,7 +5,7 @@ import _ from 'lodash'
 import { withRouter } from 'react-router-dom'
 import { RouteComponentProps } from 'react-router'
 
-import { ReactComponent as Logo } from '../styles/img/logo.svg'
+import LogoWithText from './LogoWithText'
 import FormattedMessage from './FormattedMessage'
 import { Context } from './Store'
 import Link from './Link'
@@ -129,14 +129,10 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           
           <Link
             to="/"
-            className="Header__logo"
+            className='mr-auto'
             activeClassName="Link--active"
           >
-            <Logo className="Header__logo__img" />
-            <FormattedMessage
-              className="Header__logo__name"
-              id="AccessPoint"
-            />
+            <LogoWithText />
           </Link>
 
           <div className={`Header__links ${this.state.opened && "Header__links--opened"}`}>
