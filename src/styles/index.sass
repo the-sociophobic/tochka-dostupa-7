@@ -738,14 +738,9 @@
     position: absolute
     top: 50%
     left: 50%
+    transform: translate(-50%, -50%)
     width: rem(300)
     height: rem(300)
-    animation: squircles-rotate 48s linear infinite
-    @keyframes squircles-rotate
-      0%
-        transform: translate(-50%, -50%)
-      100%
-        transform: translate(-50%, -50%) rotate(360deg)
     &__item
       position: absolute
       top: 50%
@@ -756,6 +751,12 @@
       border-radius: rem(12)
       background-color: $online-primary
       &--0
+        animation: squircles-rotate 12s linear infinite
+        @keyframes squircles-rotate
+          0%
+            transform: translate(-50%, -50%)
+          100%
+            transform: translate(-50%, -50%) rotate(-180deg)
       &--1,
       &--2,
       &--3,
@@ -763,21 +764,27 @@
         animation: squircle-rotate-scale-opacity 4s linear infinite
         @keyframes squircle-rotate-scale-opacity
           0%
-            transform: translate(-50%, -50%)
             opacity: .4
-          100%
-            transform: translate(-50%, -50%) rotate(60deg)
+          95%
             opacity: 0
             width: rem(160)
             height: rem(160)
+          99%
+            width: rem(64)
+            height: rem(64)
+            opacity: 0
       &--1
         animation-delay: -4s
+        transform: translate(-50%, -50%) rotate(60deg)
       &--2
         animation-delay: -3s
+        transform: translate(-50%, -50%) rotate(45deg)
       &--3
         animation-delay: -2s
+        transform: translate(-50%, -50%) rotate(30deg)
       &--4
         animation-delay: -1s
+        transform: translate(-50%, -50%) rotate(15deg)
 
 
 

@@ -12,8 +12,8 @@ class Loader extends React.Component {
 
   static contextType = Context
 
-  componentDidMount = () =>
-    this?.context?.registerInitializeCallback(() => this.hide())
+  // componentDidMount = () =>
+  //   this?.context?.registerInitializeCallback(() => this.hide())
 
   hide = () => {
     this.setState({ transparent: true })
