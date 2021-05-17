@@ -20,10 +20,10 @@ import './styles/index.sass'
 class App extends React.Component {
   
   render = () =>
-    <Provider>
+    <Router>
+      <Provider>
       <Loader />
-      <div className="App">
-        <Router>
+        <div className="App">
           <ScrollToTop>
             <Helmet />
             <Header />
@@ -42,9 +42,9 @@ class App extends React.Component {
             </div>
             <Footer />
           </ScrollToTop>
-        </Router>
-      </div>
-    </Provider>
+        </div>
+      </Provider>
+    </Router>
 }
 
 

@@ -74,7 +74,7 @@ class About extends React.Component<{}, {}> {
           </div>
           <div className='row d-flex flex-row flex-wrap'>
             {page.team
-              .sort((a: Person, b: Person) => Math.random() - .5)
+              // .sort((a: Person, b: Person) => Math.random() - .5)
               .map((person: Person) =>              
                 <div className='About__person'>
                   <div className='About__person__avatar'>

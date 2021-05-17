@@ -2,11 +2,17 @@ import React from 'react'
 
 import {
   Link,
-  NavLink
+  NavLink,
+  withRouter
 } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router'
 
 
-type Props = {
+type PathParamsType = {
+  param1: string,
+}
+
+type Props = RouteComponentProps<PathParamsType> & {
   className?: string
   activeClassName?: string
   to: string
@@ -27,6 +33,7 @@ const _Link : React.FunctionComponent<Props> = ({
   onClick,
   disabled,
   exact,
+  location
 }) =>
   disabled || !to ?
     <span
@@ -50,7 +57,7 @@ const _Link : React.FunctionComponent<Props> = ({
       activeClassName ?
         <NavLink
           exact={typeof exact !== 'undefined' ? exact : true}
-          to={to}
+          to={to + location.search}
           className={`Link ${className}`}
           activeClassName={`Link--active ${activeClassName}`}
           onClick={() => onClick?.()}
@@ -59,7 +66,7 @@ const _Link : React.FunctionComponent<Props> = ({
         </NavLink>
         :
         <Link
-          to={to}
+          to={to + location.search}
           className={`Link ${className}`}
           onClick={() => onClick?.()}
         >
@@ -67,4 +74,4 @@ const _Link : React.FunctionComponent<Props> = ({
         </Link>
 
 
-export default _Link
+export default withRouter(_Link)

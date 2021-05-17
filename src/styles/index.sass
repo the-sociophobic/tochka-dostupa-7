@@ -1231,8 +1231,14 @@
       @extend .text-center
     &--1
       filter: blur(6px)
+      @include media-breakpoint-down(md)
+        filter: blur(4px)
     &--2
       filter: blur(4px)
+      @include media-breakpoint-down(md)
+        filter: blur(2px)
     &--3
       filter: blur(2px)
+      @include media-breakpoint-down(md)
+        filter: blur(1px)
   &__text
