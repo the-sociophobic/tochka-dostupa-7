@@ -94,7 +94,7 @@ const defaultMessages: Messages = {
         name: ["Основная", "Main"],
       },
       Open: {
-        name: ["Свободная", "Open"],
+        name: ["Свободная", "Flow"],
       },
       Educational: {
         name: ["Просветительская", "Educational"],

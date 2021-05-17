@@ -9,7 +9,12 @@ import { RouteComponentProps } from 'react-router'
 
 import {
   StateType,
-  initialState
+  initialState,
+  Days,
+  Spekt,
+  Place,
+  Show,
+  MappedShow,
 } from './Types'
 import Context from './Context'
 import { post } from '../../utils/API'
@@ -40,6 +45,7 @@ class Provider extends React.Component<Props, StateType> {
 
   cookies = new Cookies()
   initializeCallBacks: Function[] = []
+  mappedDays: Days[] = []
 
   componentDidMount = () => {
     this.checkUser()
@@ -82,16 +88,7 @@ class Provider extends React.Component<Props, StateType> {
 
   loadContentful = async () => {
     if (isProd() || true) {
-      const contentfulData = (await axios.post('https://api.tochkadostupa.spb.ru/contentful', {})).data
-  
-      this.setState({
-        contentfulData: [
-          await parseContentfulItems(contentfulData.contentfulData[0]),
-          await parseContentfulItems(contentfulData.contentfulData[1])
-        ]
-      })
-
-      console.log(`contentful data last updated ${contentfulData.date}`)
+      await this.updateContentful(false)
     } else {
       const client = createContentfulClient()
 
@@ -108,19 +105,26 @@ class Provider extends React.Component<Props, StateType> {
     this.callInitializeCallbacks()
   }
 
-  updateContentful = async () => {
-    const contentfulData = (await axios.post('https://api.tochkadostupa.spb.ru/contentful', { update: true })).data
+  updateContentful = async (update: boolean = true) => {
+    const contentfulData = (await axios.post('https://api.tochkadostupa.spb.ru/contentful', { update: update })).data
+    const parsedContentfulData = [
+      await parseContentfulItems(contentfulData.contentfulData[0]),
+      await parseContentfulItems(contentfulData.contentfulData[1])
+    ]
     
     this.setState({
-      contentfulData: [
-        await parseContentfulItems(contentfulData.contentfulData[0]),
-        await parseContentfulItems(contentfulData.contentfulData[1])
-      ]
+      contentfulData: parsedContentfulData
     })
 
     console.log(`contentful data last updated ${contentfulData.date}`)
 
-    this.callInitializeCallbacks()
+    this.mappedDays = [
+      this.initializeMappedDays(parsedContentfulData[0].spekts),
+      this.initializeMappedDays(parsedContentfulData[1].spekts),
+    ]
+
+    update &&
+      this.callInitializeCallbacks()
   }
 
   registerInitializeCallback = (fn: Function) => {
@@ -135,6 +139,50 @@ class Provider extends React.Component<Props, StateType> {
           callback())
       , 100
     )
+
+  initializeMappedDays = (spekts: Spekt[]): Days => {
+    let mappedDays: Days = {}
+
+    spekts
+      ?.map((spekt: Spekt): MappedShow[] | undefined =>
+        spekt?.ticketsAndSchedule?.tickets
+          .map((place: Place): MappedShow[] | undefined =>
+            place?.tickets
+              .map((show: Show): MappedShow => ({
+                ...show,
+                name: spekt.name,
+                persons: spekt.persons,
+                dateObj: new Date(show.datetime),
+                datetime: show.datetime,
+                program: spekt.program,
+                offline: show.offline || !show.online,
+                link: spekt.link,
+                age: spekt.age,
+              })))
+          .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
+            [...(a || []), ...(b || [])])
+      )
+      ?.reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
+        [...(a || []), ...(b || [])])
+      ?.filter((show: MappedShow) =>
+        show.datetime.length > 0
+      )
+      ?.forEach((show: MappedShow) => {
+        const day = show.datetime.split('T')[0]
+        
+        mappedDays.hasOwnProperty(day) ?
+          mappedDays[day]?.push(show)
+          :
+          mappedDays[day] = [show]
+      })
+        
+    mappedDays = Object.keys(mappedDays)
+      .sort()
+      .map((dayKey: string): {[key: string]: MappedShow[] | undefined} => ({[dayKey]: mappedDays[dayKey]}))
+      ?.reduce((a, b) => ({...a, ...b}), {})
+
+    return mappedDays
+  }
 
   stateAndSetters = () => ({
     ...this.state,
@@ -164,6 +212,8 @@ class Provider extends React.Component<Props, StateType> {
     updateContentful: this.updateContentful,
 
     registerInitializeCallback: this.registerInitializeCallback,
+
+    mappedDays: this.mappedDays?.[this.state.locale === "rus" ? 0 : 1],
   })
 
   render = () =>
