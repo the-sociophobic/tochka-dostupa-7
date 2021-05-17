@@ -111,6 +111,20 @@ interface FeedbackPreview extends ContentfulItem {
   year: number
 }
 
+interface MappedShow extends Show {
+  name: string
+  persons: string
+  dateObj: any
+  datetime: string
+  program: Program | undefined
+  online?: boolean | undefined
+  offline?: boolean | undefined
+  age?: string | number
+}
+
+type Days = {
+  [key: string]: MappedShow[] | undefined
+}
 
 
 
@@ -180,6 +194,8 @@ export type {
   QandAitem,
   Feedback,
   FeedbackPreview,
+  MappedShow,
+  Days,
 
   StateType,
 }

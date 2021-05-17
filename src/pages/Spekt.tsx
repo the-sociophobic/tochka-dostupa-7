@@ -90,15 +90,17 @@ class Spekt extends React.Component<RouteComponentProps<PathParamsType>, State> 
           <div className='row mb-m mb-md-l mb-lg-xl'>
             <div className='col-4 col-md-6 col-lg-4'>
               <div className='row d-flex flex-row flex-lg-column'>
-                <div className='col-4 col-md-2 col-lg-12'>
-                  <FormattedMessage
-                    id='Spekt.length'
-                    className='p p--s'
-                  />
-                  <h3 className='h3 h3--l mb-s'>
-                    {spekt?.length}
-                  </h3>
-                </div>
+                {spekt?.length &&
+                  <div className='col-4 col-md-2 col-lg-12'>
+                    <FormattedMessage
+                      id='Spekt.length'
+                      className='p p--s'
+                    />
+                    <h3 className='h3 h3--l mb-s'>
+                      {spekt?.length}
+                    </h3>
+                  </div>
+                }
                 <div className='col-4 col-md-2 col-lg-12'>
                   <FormattedMessage
                     id='Spekt.stage'

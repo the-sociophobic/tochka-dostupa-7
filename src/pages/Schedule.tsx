@@ -18,10 +18,8 @@ import {
 } from '../components/buttons'
 import { Context } from '../components/Store'
 import {
-  Spekt,
-  Place,
-  Show,
-  Program as ProgramType,
+  MappedShow,
+  Days
 } from '../components/Store/Types'
 import { getMessage } from '../components/Store/locale'
 import DatePicker from '../components/DatePicker'
@@ -42,23 +40,8 @@ type FilterState = {
 type State = FilterState & {
   showFilter: boolean
   showPrev: number
-  ready: boolean
 }
 
-interface MappedShow extends Show {
-  name: string
-  persons: string
-  dateObj: any
-  datetime: string
-  program: ProgramType | undefined
-  online?: boolean | undefined
-  offline?: boolean | undefined
-  age?: string | number
-}
-
-type Days = {
-  [key: string]: MappedShow[] | undefined
-}
 
 const filterInitialState: FilterState = {
   main: false,
@@ -70,7 +53,7 @@ const filterInitialState: FilterState = {
   to: '',
 }
 const loadAdditionalNumber = 5
-const currentFestivalFirstDay = '2020-05-05'
+const currentFestivalFirstDay = '2021-01-01'
 
 
 class Schedule extends React.Component<{}, State> {
@@ -79,58 +62,11 @@ class Schedule extends React.Component<{}, State> {
     ...filterInitialState,
     showFilter: false,
     showPrev: 0,
-    ready: false,
   }
-
-  componentDidMount = () =>
-    this.context.registerInitializeCallback(() => this.initializeMappedDays())
 
   static contextType = Context
 
   pdfRef: any = React.createRef()
-  mappedDays: Days = {}
-
-  initializeMappedDays = () => {
-    this.context?.contentful?.spekts
-      .map((spekt: Spekt): MappedShow[] | undefined =>
-        spekt?.ticketsAndSchedule?.tickets
-          .map((place: Place): MappedShow[] | undefined =>
-            place?.tickets
-              .map((show: Show): MappedShow => ({
-                ...show,
-                name: spekt.name,
-                persons: spekt.persons,
-                dateObj: new Date(show.datetime),
-                datetime: show.datetime,
-                program: spekt.program,
-                offline: show.offline || !show.online,
-                link: spekt.link,
-                age: spekt.age,
-              })))
-          .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
-            [...(a || []), ...(b || [])])
-      )
-      .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
-        [...(a || []), ...(b || [])])
-      .filter((show: MappedShow) =>
-        show.datetime.length > 0
-      )
-      .forEach((show: MappedShow) => {
-        const day = show.datetime.split('T')[0]
-        
-        this.mappedDays.hasOwnProperty(day) ?
-          this.mappedDays[day]?.push(show)
-          :
-          this.mappedDays[day] = [show]
-      })
-        
-    this.mappedDays = Object.keys(this.mappedDays)
-      .sort()
-      .map((dayKey: string): {[key: string]: MappedShow[] | undefined} => ({[dayKey]: this.mappedDays[dayKey]}))
-      ?.reduce((a, b) => ({...a, ...b}), {})
-
-    this.setState({ ready: true })
-  }
 
   toggleAttrib = (attrib: string) =>
     this.setState({ [attrib]: !this.state[attrib] })
@@ -210,17 +146,14 @@ class Schedule extends React.Component<{}, State> {
     </div>
 
   renderDays = () => {
-    if (!this.state.ready)
-      return ''
-
     let indexOfCurrentFestivalFirstDay = -1
 
-    Object.keys(this.mappedDays)
+    Object.keys(this.context?.mappedDays)
       .forEach((dayKey, index) =>
         (dayKey.localeCompare(currentFestivalFirstDay) === 1 && indexOfCurrentFestivalFirstDay === -1)
           && (indexOfCurrentFestivalFirstDay = index))
   
-    let filteredDays: Days = Object.keys(this.mappedDays)
+    let filteredDays: Days = Object.keys(this.context?.mappedDays)
       .slice(
         Math.max(0,
           indexOfCurrentFestivalFirstDay === -1 || (this.state.from.length > 0 && this.state.to.length > 0) ?
@@ -229,7 +162,7 @@ class Schedule extends React.Component<{}, State> {
             indexOfCurrentFestivalFirstDay - this.state.showPrev * loadAdditionalNumber))
       .map((dayKey: string): Days =>
         ({ [dayKey]: 
-          (this.mappedDays[dayKey] || [])
+          (this.context?.mappedDays[dayKey] || [])
             .filter((show: MappedShow) =>
               (!this.state.online && !this.state.offline) || (
                 (this.state.online && show.online)
