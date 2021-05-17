@@ -12,8 +12,8 @@ class Loader extends React.Component {
 
   static contextType = Context
 
-  componentDidMount = () =>
-    this?.context?.registerInitializeCallback(() => this.hide())
+  // componentDidMount = () =>
+  //   this?.context?.registerInitializeCallback(() => this.hide())
 
   hide = () => {
     this.setState({ transparent: true })
@@ -34,6 +34,8 @@ class Loader extends React.Component {
         <div className='Loader__squircles__item Loader__squircles__item--2' />
         <div className='Loader__squircles__item Loader__squircles__item--3' />
         <div className='Loader__squircles__item Loader__squircles__item--4' />
+        <div className='Loader__squircles__item Loader__squircles__item--5' />
+        <div className='Loader__squircles__item Loader__squircles__item--6' />
       </div>
     </div>
 }
