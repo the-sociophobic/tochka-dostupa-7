@@ -760,12 +760,14 @@
       &--1,
       &--2,
       &--3,
-      &--4
-        animation: squircle-rotate-scale-opacity 4s linear infinite
+      &--4,
+      &--5,
+      &--6
+        animation: squircle-rotate-scale-opacity 6s linear infinite
         @keyframes squircle-rotate-scale-opacity
           0%
             opacity: .4
-          95%
+          60%
             opacity: 0
             width: rem(160)
             height: rem(160)
@@ -774,17 +776,23 @@
             height: rem(64)
             opacity: 0
       &--1
+        animation-delay: -5s
+        transform: translate(-50%, -50%) rotate(75deg)
+      &--2
         animation-delay: -4s
         transform: translate(-50%, -50%) rotate(60deg)
-      &--2
+      &--3
         animation-delay: -3s
         transform: translate(-50%, -50%) rotate(45deg)
-      &--3
+      &--4
         animation-delay: -2s
         transform: translate(-50%, -50%) rotate(30deg)
-      &--4
+      &--5
         animation-delay: -1s
         transform: translate(-50%, -50%) rotate(15deg)
+      &--6
+        animation-delay: 0
+        transform: translate(-50%, -50%) rotate(0deg)
 
 
 
