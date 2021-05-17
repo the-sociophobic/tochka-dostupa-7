@@ -4,6 +4,8 @@ import axios from 'axios'
 import _ from 'lodash'
 import Cookies from 'universal-cookie'
 import { deviceDetect } from 'react-device-detect'
+import { withRouter } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router'
 
 import {
   StateType,
@@ -18,15 +20,23 @@ import {
 import isProd from '../../utils/isProd'
 
 
+type Props = RouteComponentProps<{
+  param1: string,
+}>
+
+
 const _setState = (_this: any, obj: any) => {
   _this.setState(obj)
   //TODO send async post
 }
 
 
-class Provider extends React.Component<{}, StateType> {
+class Provider extends React.Component<Props, StateType> {
 
-  state = initialState
+  state = {
+    ...initialState,
+    locale: this.props.location.search.includes('en') ? 'eng' : 'rus'
+  }
 
   cookies = new Cookies()
   initializeCallBacks: Function[] = []
@@ -136,10 +146,14 @@ class Provider extends React.Component<{}, StateType> {
       this.setState({
         locale: _locale
       }),
-    toggleLocale: () =>
+    toggleLocale: () => {
+      this.props.history.push({
+        search: this.state.locale === 'rus' ? '?en' : ''
+      })
       this.setState({
         locale: this.state.locale === "rus" ? "eng" : "rus"
-      }),
+      })
+    },
 
     openPopup: () =>
       document.body.classList.add('overflow-hidden'),
@@ -159,4 +173,4 @@ class Provider extends React.Component<{}, StateType> {
 }
 
 
-export default Provider
+export default withRouter(Provider)
