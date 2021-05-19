@@ -70,6 +70,7 @@ interface Show extends ContentfulItem {
   datetime: string
   online?: boolean | undefined
   offline?: boolean | undefined
+  event_id: number
 }
 
 interface Program extends ContentfulItem {

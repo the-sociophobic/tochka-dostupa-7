@@ -28,7 +28,7 @@ class Template extends React.Component<Props, {}> {
       className='mb-s mb-md-l mb-lg-xl'
       shortDesc={program.shortDesc}
       additionalContent={
-        <div className='d-flex flex-column flex-md-row flex-lg-column flex-xl-row mt-s mt-lg-0'>
+        <div className='d-flex flex-column flex-md-row flex-lg-column flex-xl-row mb-s mb-lg-0'>
           <CuratorsAvatars
             S
             curators={program?.curators}

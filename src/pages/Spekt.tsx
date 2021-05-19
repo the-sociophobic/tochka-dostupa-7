@@ -24,6 +24,7 @@ import {
 } from '../components/buttons'
 import Dropdown from '../components/Dropdown'
 import Error404 from '../components/Error404'
+import Link from '../components/Link'
 
 import camelize from '../utils/camelize'
 import radarioProps from '../utils/radarioProps'
@@ -205,13 +206,14 @@ class Spekt extends React.Component<Props, State> {
                           <div className='Spekt__show__line'>
                             {show.offline ? <Offline /> : <Online />}
                           </div>
-                          <button
+                          <Link
+                            to={`#event/${show.event_id || 765096}`}
+                            data-accent-color='#b33d26'
                             className='Spekt__show__buy'
                             disabled={false}
-                            {...radarioProps()}
                           >
                             <FormattedMessage id={show.offline ? 'Schedule.buy' : 'Schedule.register'} />
-                          </button>
+                          </Link>
                         </div>
                     ))
                   }

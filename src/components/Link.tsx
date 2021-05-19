@@ -46,7 +46,7 @@ const _Link : React.FunctionComponent<Props> = ({
       {children}
     </span>
     :
-    to.match(/http*|tel:*|mailto:*/) ?
+    to.match(/http*|tel:*|mailto:*|\#[a-zA-Z]+/) ?
       <a
         className={`Link ${className}`}
         style={style}
