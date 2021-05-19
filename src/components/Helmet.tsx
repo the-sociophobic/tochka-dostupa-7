@@ -41,6 +41,11 @@ class Helmet extends React.Component<RouteComponentProps<PathParamsType>> {
                 ''
           }
         </title>
+        
+        <script
+          data-class="radarioButtonScript"
+          src="//radario.ru/scripts/widget/buy-button-widget.js"
+        ></script>
       </ReactHelmet>
     )
   }
