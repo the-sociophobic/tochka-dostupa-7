@@ -107,7 +107,7 @@ class HorizontalShowcase extends React.Component<Props, {}> {
               />
             )}
           </div>
-          {this.state.index < (this?.props?.items?.length || 0) - 2 &&
+          {(this.props.arrows && this.state.index < (this?.props?.items?.length || 0) - 2) &&
             <div
               className='HorizontalShowcase__scroll__corner'
               onClick={() => this.move(1)}
