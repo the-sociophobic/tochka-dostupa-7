@@ -93,6 +93,7 @@ class HorizontalShowcase extends React.Component<Props, {}> {
           <div className="HorizontalShowcase__scroll__container">
             {this.props.items?.map((item, index) =>
               <ItemComp
+                key={item.id || index}
                 index={index}
                 className={`
                   HorizontalShowcase__item

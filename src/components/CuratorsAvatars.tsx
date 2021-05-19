@@ -26,7 +26,10 @@ class CuratorsAvatars extends React.Component<Props, {}> {
       {this.props?.curators
         ?.slice(0, 2)
         ?.map((curator: Person) =>
-          <div className='CuratorsAvatars__item'>
+          <div
+            key={curator.id}
+            className='CuratorsAvatars__item'
+          >
             <Img
               className='CuratorsAvatars__item__avatar'
               file={curator?.avatar}
