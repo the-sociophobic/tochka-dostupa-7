@@ -150,12 +150,12 @@ class Schedule extends React.Component<{}, State> {
   renderDays = () => {
     let indexOfCurrentFestivalFirstDay = -1
 
-    Object.keys(this.context?.mappedDays)
+    Object.keys(this.context?.contentful?.mappedDays)
       .forEach((dayKey, index) =>
         (dayKey.localeCompare(currentFestivalFirstDay) === 1 && indexOfCurrentFestivalFirstDay === -1)
           && (indexOfCurrentFestivalFirstDay = index))
   
-    let filteredDays: Days = Object.keys(this.context?.mappedDays)
+    let filteredDays: Days = Object.keys(this.context?.contentful?.mappedDays)
       .slice(
         Math.max(0,
           indexOfCurrentFestivalFirstDay === -1 || (this.state.from.length > 0 && this.state.to.length > 0) ?
@@ -164,7 +164,7 @@ class Schedule extends React.Component<{}, State> {
             indexOfCurrentFestivalFirstDay - this.state.showPrev * loadAdditionalNumber))
       .map((dayKey: string): Days =>
         ({ [dayKey]: 
-          (this.context?.mappedDays[dayKey] || [])
+          (this.context?.contentful?.mappedDays[dayKey] || [])
             .filter((show: MappedShow) =>
               (!this.state.online && !this.state.offline) || (
                 (this.state.online && show.online)
