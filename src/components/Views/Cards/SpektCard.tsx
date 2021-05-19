@@ -24,6 +24,7 @@ interface Props extends Spekt {
   avatarsL?: boolean
   avatarsM?: boolean
   avatarsS?: boolean
+  style?: object
 }
 
 
@@ -34,6 +35,7 @@ const SpektCard: React.FunctionComponent<Props> = (spekt: Props) =>
     className={`SpektCard ${spekt.className}`}
     disabled={spekt.linkDisabled}
     onClick={() => spekt.onClick?.()}
+    style={spekt.style}
   >
     <div className="SpektCard__name">
       {spekt.name}

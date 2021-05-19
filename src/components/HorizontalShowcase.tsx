@@ -31,20 +31,31 @@ type Props = {
 
 class HorizontalShowcase extends React.Component<Props, {}> {
 
+  state = {
+    index: 0
+  }
+
   static contextType = Context
 
   resizeObs: any
 
-  itemsRefs: React.RefObject<HTMLInputElement>[] | undefined =
-    this.props.arrows && this.props.items ?
-      this.props.items.map(item => React.createRef())
-      :
-      undefined
+  scrollRef: React.RefObject<HTMLInputElement> = React.createRef()
 
+  move = (offset: number) =>
+    this.setState({
+      index: this.state.index + offset})
+    
   renderArrows = (className?: string) =>
     <div className={className}>
-      <Left className='mr-3' />
-      <Right />
+      <Left
+        className='mr-3'
+        onClick={() => this.move(-1)}
+        disabled={this.state.index <= 0}
+      />
+      <Right
+        onClick={() => this.move(1)}
+        disabled={this.state.index >= (this?.props?.items?.length || 0) - 1}
+      />
     </div>
 
   render = () => {
@@ -75,11 +86,13 @@ class HorizontalShowcase extends React.Component<Props, {}> {
           </div>
         }
 
-        <div className="HorizontalShowcase__scroll">
+        <div
+          ref={this.scrollRef}
+          className={`HorizontalShowcase__scroll ${this.props.arrows && 'overflow-hidden'}`}
+        >
           <div className="HorizontalShowcase__scroll__container">
             {this.props.items?.map((item, index) =>
               <ItemComp
-                ref={this?.itemsRefs?.[index]}
                 index={index}
                 className={`
                   HorizontalShowcase__item
@@ -88,11 +101,18 @@ class HorizontalShowcase extends React.Component<Props, {}> {
                   ${this.props.L && 'HorizontalShowcase__item--L'}
                   ${this.props.M && 'HorizontalShowcase__item--M'}
                   ${this.props.S && 'HorizontalShowcase__item--S'}
+                  ${index < this.state.index && 'HorizontalShowcase__item--moved'}
                 `}
                 {...item}
               />
             )}
           </div>
+          {this.state.index < (this?.props?.items?.length || 0) - 2 &&
+            <div
+              className='HorizontalShowcase__scroll__corner'
+              onClick={() => this.move(1)}
+            />
+          }
         </div>
 
         {this.props.bottomLink &&
