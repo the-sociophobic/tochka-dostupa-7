@@ -25,6 +25,7 @@ import { getMessage } from '../components/Store/locale'
 import DatePicker from '../components/DatePicker'
 import Link from '../components/Link'
 import camelize from '../utils/camelize'
+import _ from 'lodash'
 
 
 type FilterState = {
@@ -203,71 +204,76 @@ class Schedule extends React.Component<{}, State> {
               <FormattedMessage id='Schedule.loadPrev' />
             </div>
         }
-        {Object.keys(filteredDays)
-          .map((dayKey: string) =>
-            <div
-              key={dayKey}
-              className='Schedule__day'
-            >
-              <h2 className='h2 h2--underline pb-1 pb-md-2 mb-3'>
-                {format(
-                  new Date(dayKey),
-                  `d MMMM / ${dayKey.includes('2021') ? 'EEEE' : ' yyyy'}`,
-                  { locale: this.context.locale === 'rus' ? ru : enUS }
-                )}
-              </h2>
-              {filteredDays[dayKey]
-                ?.sort((a: MappedShow, b: MappedShow) => a.datetime.localeCompare(b.datetime))
-                ?.map((show: MappedShow, index: number) =>
-                  <div
-                    key={index}
-                    className='Schedule__day__show'
-                  >
-                    <div className='col-4 col-md-1 col-lg-3'>
-                      <p className='p p--l'>
-                        {format(show.dateObj, 'HH:mm')} <FormattedMessage id='Schedule.msk' />
-                      </p>
-                    </div>
-                    <Link
-                      to={`spekt/${show.link}`}
-                      className='Schedule__day__show__info'
+        {_.isEmpty(filteredDays) ?
+          <div className='text-center my-m p p--xl'>
+            <FormattedMessage id='Schedule.nothing' />
+          </div>
+          :
+          Object.keys(filteredDays)
+            .map((dayKey: string) =>
+              <div
+                key={dayKey}
+                className='Schedule__day'
+              >
+                <h2 className='h2 h2--underline pb-1 pb-md-2 mb-3'>
+                  {format(
+                    new Date(dayKey),
+                    `d MMMM / ${dayKey.includes('2021') ? 'EEEE' : ' yyyy'}`,
+                    { locale: this.context.locale === 'rus' ? ru : enUS }
+                  )}
+                </h2>
+                {filteredDays[dayKey]
+                  ?.sort((a: MappedShow, b: MappedShow) => a.datetime.localeCompare(b.datetime))
+                  ?.map((show: MappedShow, index: number) =>
+                    <div
+                      key={index}
+                      className='Schedule__day__show'
                     >
-                      <h3 className='h3 mb-0'>
-                        {show.name}
-                      </h3>
-                      <p className='p p--xl font-spectral mb-xs'>
-                        {show.persons}
-                      </p>
-                      <div className='w-100 d-flex flex-row flex-wrap mb-xs mb-md-0'>
-                        {show.program &&
-                          <Program
-                            text={show.program.name}
-                            className='mr-2 mb-2'
-                          />}
-                        {show.offline &&
-                          <Offline className='mr-2 mb-2' />}
-                        {show.online &&
-                          <Online className='mr-2 mb-2' />}
-                        {show.age &&
-                          <Age
-                            text={show.age}
-                            className='mr-2 mb-2'
-                          />}
+                      <div className='col-4 col-md-1 col-lg-3'>
+                        <p className='p p--l'>
+                          {format(show.dateObj, 'HH:mm')} <FormattedMessage id='Schedule.msk' />
+                        </p>
                       </div>
-                    </Link>
-                    <div className='col-4 col-md-2 col-lg-3'>
-                      <button
-                        className='Schedule__day__show__button'
-                        // onClick
-                        disabled={isBefore(show.dateObj, endOfToday())}
+                      <Link
+                        to={`spekt/${show.link}`}
+                        className='Schedule__day__show__info'
                       >
-                        <FormattedMessage id={show.online ? 'Schedule.register' : 'Schedule.buy'} />
-                      </button>
-                    </div>
-                  </div>)
-              }
-            </div>
-          )
+                        <h3 className='h3 mb-0'>
+                          {show.name}
+                        </h3>
+                        <p className='p p--xl font-spectral mb-xs'>
+                          {show.persons}
+                        </p>
+                        <div className='w-100 d-flex flex-row flex-wrap mb-xs mb-md-0'>
+                          {show.program &&
+                            <Program
+                              text={show.program.name}
+                              className='mr-2 mb-2'
+                            />}
+                          {show.offline &&
+                            <Offline className='mr-2 mb-2' />}
+                          {show.online &&
+                            <Online className='mr-2 mb-2' />}
+                          {show.age &&
+                            <Age
+                              text={show.age}
+                              className='mr-2 mb-2'
+                            />}
+                        </div>
+                      </Link>
+                      <div className='col-4 col-md-2 col-lg-3'>
+                        <button
+                          className='Schedule__day__show__button'
+                          // onClick
+                          disabled={isBefore(show.dateObj, endOfToday())}
+                        >
+                          <FormattedMessage id={show.online ? 'Schedule.register' : 'Schedule.buy'} />
+                        </button>
+                      </div>
+                    </div>)
+                }
+              </div>
+            )
         }
       </div>
     )
