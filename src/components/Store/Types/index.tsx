@@ -40,6 +40,7 @@ interface Spekt extends ContentfulItem {
   eventCreators: string
   shortDesc: string
   cover: File
+  videoCover: string
   persons: string
   personsObj?: Person[]
   age?: string | number
@@ -137,6 +138,8 @@ type Days = {
 type StateType = {
   locale: string
   user: object
+  ready: boolean
+
   messages?: object
   sessionToken?: string
 
@@ -164,6 +167,7 @@ type StateType = {
 const initialState = {
   locale: "rus",
   user: {},
+  ready: false,
 
   shows: [],
   festivals: [],

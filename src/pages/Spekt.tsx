@@ -2,10 +2,17 @@ import React from 'react'
 
 import { withRouter } from 'react-router-dom'
 import { RouteComponentProps } from 'react-router'
+import _ from 'lodash'
+import { format } from 'date-fns'
+import { ru, enUS } from 'date-fns/locale'
 
 import { Context } from '../components/Store'
 import FormattedMessage from '../components/FormattedMessage'
-import { Spekt as SpektType, Sponsor } from '../components/Store/Types'
+import {
+  Spekt as SpektType,
+  Sponsor,
+  MappedShow
+} from '../components/Store/Types'
 import {
   Program,
   Online,
@@ -14,39 +21,50 @@ import {
 } from '../components/buttons'
 import Dropdown from '../components/Dropdown'
 import Error404 from '../components/Error404'
-import Loader from '../components/Loader'
+import camelize from '../utils/camelize'
 
 
-type PathParamsType = {
+type Props = RouteComponentProps<{
   param1: string
-}
+}>
 
 type State = {
   currentOpened: number
 }
 
 
-class Spekt extends React.Component<RouteComponentProps<PathParamsType>, State> {
+class Spekt extends React.Component<Props, State> {
 
   state: State = {
-    currentOpened: 0
+    currentOpened: 0,
   }
 
   static contextType = Context
 
   render = () => {
-    const spekt = this.context?.contentful?.spekts
+    if (!this?.context?.ready)
+      return ''
+
+    let spekt = this.context?.contentful?.spekts
       ?.find((spekt: SpektType) =>
         spekt.link === this.props.location.pathname.replace('/spekt/', ''))
 
+    if (!spekt)
+      return <Error404 />
+      
+    spekt = {
+      ...spekt,
+      shows: _.values(this?.context?.mappedDays || {})
+        .map((day: MappedShow[]) =>
+          day.filter((show: MappedShow) =>
+            show.name === spekt.name))
+        .filter((day: MappedShow[]) =>
+          day.length > 0)
+    }
+
     console.log(spekt)
 
-    return !spekt ?
-      this.context?.contentful ?
-        <Error404 />
-        :
-        <Loader />
-      :
+    return (
       <div className='Spekt'>
         <div className='container'>
 
@@ -150,36 +168,34 @@ class Spekt extends React.Component<RouteComponentProps<PathParamsType>, State> 
                       0
                   })}
               >
-                {[
-                  {
-                    dateTime: '17.06 / Понедельник / 17:00 мск',
-                    offline: false,
-                  },
-                  {
-                    dateTime: '18.06 / Вторник / 17:00 мск',
-                    offline: true,
-                  },
-                  {
-                    dateTime: '19.06 / Среда / 17:00 мск',
-                    offline: false,
-                  },
-                  {
-                    dateTime: '17.06 / Понедельник / 17:00 мск',
-                    offline: false,
-                  },
-                ].map(show =>
-                  <div className='Spekt__show'>
-                    <div className='Spekt__show__date-time'>
-                      {show.dateTime}
-                    </div>
-                    <div className='Spekt__show__line'>
-                      {show.offline ? <Offline /> : <Online />}
-                    </div>
-                    <div className='Spekt__show__buy'>
-                      Купить билет
-                    </div>
-                  </div>
-                )}
+                {spekt.shows
+                  .map((day: MappedShow[]) =>
+                    day?.map((show: MappedShow) =>
+                      <div className='Spekt__show'>
+                        <div className='Spekt__show__date-time'>
+                          {(() => {
+                            const dateTime = format(
+                              show.dateObj,
+                              'dd.MM / iiii / HH:mm ',
+                              { locale: this.context.locale === 'rus' ? ru : enUS })
+                            const dateTimeSplitted = dateTime.split(' / ')
+
+                            return dateTimeSplitted[0] + ' / ' + camelize(dateTimeSplitted[1]) + ' / ' + dateTimeSplitted[2]
+                          })()}
+                          <FormattedMessage id='Schedule.msk' />
+                        </div>
+                        <div className='Spekt__show__line'>
+                          {show.offline ? <Offline /> : <Online />}
+                        </div>
+                        <button
+                          className='Spekt__show__buy'
+                          onClick={() => {}}
+                          disabled={false}
+                        >
+                          <FormattedMessage id={show.offline ? 'Schedule.buy' : 'Schedule.register'} />
+                        </button>
+                      </div>
+                ))}
               </Dropdown>
 
               {['howToOnline', 'howToOffline', 'instructions']
@@ -214,6 +230,7 @@ class Spekt extends React.Component<RouteComponentProps<PathParamsType>, State> 
 
         </div>
       </div>
+    )
   }
 }
 

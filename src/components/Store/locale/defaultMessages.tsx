@@ -116,7 +116,7 @@ const defaultMessages: Messages = {
     cleanFilter: ['Очистить фильтр', 'Clear filter'],
     loadPrev: ['Загрузить предыдущие', 'Load older events'],
     apply: ['Применить', 'Apply'],
-    msk: ['мск', 'moscow-time'],
+    msk: ['мск', '(GMT+3)'],
     register: ['Регистрация', 'Register'],
     buy: ['Купить билет', 'Buy ticket'],
     nothing: ['Событий в выбранный промежуток нет', 'No events during this dates'],

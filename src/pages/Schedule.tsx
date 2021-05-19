@@ -280,8 +280,9 @@ class Schedule extends React.Component<{}, State> {
   }
 
   render = () =>
-    !this.context?.contentful ? '' :
+    !this?.context?.ready ? '' :
       <div className="container mt-s mt-md-m mt-lg-l mb-m mb-md-l mb-lg-xl">
+        {/* {(() => console.log(this.context))()} */}
         <div className='row d-flex d-lg-none mb-xs mb-md-s position-relative'>
           <div className='col-4'>
             <FormattedMessage
