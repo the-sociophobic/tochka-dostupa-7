@@ -15,6 +15,7 @@ type PathParamsType = {
 type Props = RouteComponentProps<PathParamsType> & {
   className?: string
   activeClassName?: string
+  style?: object
   to: string
   sameTab?: boolean
   children?: any
@@ -27,6 +28,7 @@ type Props = RouteComponentProps<PathParamsType> & {
 const _Link : React.FunctionComponent<Props> = ({
   className,
   activeClassName,
+  style,
   to,
   sameTab,
   children,
@@ -38,6 +40,7 @@ const _Link : React.FunctionComponent<Props> = ({
   disabled || !to ?
     <span
       className={`Link Link--disabled ${className}`}
+      style={style}
       onClick={() => onClick?.()}
     >
       {children}
@@ -46,6 +49,7 @@ const _Link : React.FunctionComponent<Props> = ({
     to.match(/http*|tel:*|mailto:*/) ?
       <a
         className={`Link ${className}`}
+        style={style}
         href={to}
         target={sameTab ? "" : "_blank"}
         rel="noopener noreferrer"
@@ -60,6 +64,7 @@ const _Link : React.FunctionComponent<Props> = ({
           to={to + location.search}
           className={`Link ${className}`}
           activeClassName={`Link--active ${activeClassName}`}
+          style={style}
           onClick={() => onClick?.()}
         >
           {children}
@@ -68,6 +73,7 @@ const _Link : React.FunctionComponent<Props> = ({
         <Link
           to={to + location.search}
           className={`Link ${className}`}
+          style={style}
           onClick={() => onClick?.()}
         >
           {children}

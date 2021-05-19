@@ -560,6 +560,7 @@
     width: 100%
     overflow-x: scroll
     @extend .no-scrollbar
+    position: relative
     &__container
       @extend .d-inline-flex
       @extend .flex-row
@@ -579,7 +580,23 @@
       @include media-breakpoint-down(xs)
         padding-left: calc((100vw - #{get-breakpoints('xs')} + #{$grid-gutter-width}) / 2)
         padding-right: calc((100vw - #{get-breakpoints('xs')} + #{$grid-gutter-width}) / 2)
+    &__corner
+      position: absolute
+      top: 0
+      right: 0
+      height: 100%
+      width: 20%
+      cursor: url(./img/arrow-right.svg), auto
   &__item
+    &--L,
+    &--M,
+    &--S
+      &.HorizontalShowcase__item--moved
+        margin-left: calc(-#{get-breakpoints('xs')} / 5 * 4)
+        @include media-breakpoint-up(sm)
+          margin-left: calc(-#{get-breakpoints('sm')} / 5 * 4)
+        @include media-breakpoint-up(md)
+          margin-left: calc(-#{get-breakpoints('md')} / 7 * 3)
     &--XXL
       width: calc(#{get-breakpoints('xs')} / 5 * 4.5 - #{$grid-gutter-width})
       @include media-breakpoint-up(sm)
@@ -590,6 +607,16 @@
         width: calc(#{get-breakpoints('lg')} / 12 * 8 - #{$grid-gutter-width})
       @include media-breakpoint-up(xl)
         width: calc(#{get-breakpoints('xl')} / 13 * 9 - #{$grid-gutter-width})
+      &.HorizontalShowcase__item--moved
+        margin-left: calc(-#{get-breakpoints('xs')} / 5 * 4.5)
+        @include media-breakpoint-up(sm)
+          margin-left: calc(-#{get-breakpoints('sm')} / 5 * 4.5)
+        @include media-breakpoint-up(md)
+          margin-left: calc(-#{get-breakpoints('md')} / 6 * 5)
+        @include media-breakpoint-up(lg)
+          margin-left: calc(-#{get-breakpoints('lg')} / 12 * 8)
+        @include media-breakpoint-up(xl)
+          margin-left: calc(-#{get-breakpoints('xl')} / 13 * 9)
     &--XL
       width: calc(#{get-breakpoints('xs')} / 4 * 3 - #{$grid-gutter-width})
       @include media-breakpoint-up(sm)
@@ -600,25 +627,53 @@
         width: calc(#{get-breakpoints('lg')} / 12 * 10 - #{$grid-gutter-width})
       @include media-breakpoint-up(xl)
         width: calc(#{get-breakpoints('xl')} / 12 * 10 - #{$grid-gutter-width})
+      &.HorizontalShowcase__item--moved
+        margin-left: calc(-#{get-breakpoints('xs')} / 4 * 3)
+        @include media-breakpoint-up(sm)
+          margin-left: calc(-#{get-breakpoints('sm')} / 4 * 3)
+        @include media-breakpoint-up(md)
+          margin-left: calc(-#{get-breakpoints('md')} / 6 * 5)
+        @include media-breakpoint-up(lg)
+          margin-left: calc(-#{get-breakpoints('lg')} / 12 * 10)
+        @include media-breakpoint-up(xl)
+          margin-left: calc(-#{get-breakpoints('xl')} / 12 * 10)
     &--L
       @include media-breakpoint-up(lg)
         width: calc(#{get-breakpoints('lg')} / 13 * 6 - #{$grid-gutter-width})
       @include media-breakpoint-up(xl)
         width: calc(#{get-breakpoints('xl')} / 13 * 6 - #{$grid-gutter-width})
+      &.HorizontalShowcase__item--moved
+        @include media-breakpoint-up(lg)
+          margin-left: calc(-#{get-breakpoints('lg')} / 13 * 6)
+        @include media-breakpoint-up(xl)
+          margin-left: calc(-#{get-breakpoints('xl')} / 13 * 6)
     &--M
       @include media-breakpoint-up(lg)
         width: calc(#{get-breakpoints('lg')} / 13 * 4 - #{$grid-gutter-width})
       @include media-breakpoint-up(xl)
         width: calc(#{get-breakpoints('xl')} / 13 * 4 - #{$grid-gutter-width})
+      &.HorizontalShowcase__item--moved
+        @include media-breakpoint-up(lg)
+          margin-left: calc(-#{get-breakpoints('lg')} / 13 * 4)
+        @include media-breakpoint-up(xl)
+          margin-left: calc(-#{get-breakpoints('xl')} / 13 * 4)
     &--S
       @include media-breakpoint-up(lg)
         width: calc(#{get-breakpoints('lg')} / 13 * 3 - #{$grid-gutter-width})
       @include media-breakpoint-up(xl)
         width: calc(#{get-breakpoints('xl')} / 13 * 3 - #{$grid-gutter-width})
+      &.HorizontalShowcase__item--moved
+        @include media-breakpoint-up(lg)
+          margin-left: calc(-#{get-breakpoints('lg')} / 13 * 3)
+        @include media-breakpoint-up(xl)
+          margin-left: calc(-#{get-breakpoints('xl')} / 13 * 3)
 
 .SpektCard
   cursor: pointer
   margin-right: $grid-gutter-width
+  transition: margin-left $menu-transition
+  &:not(&--Program)
+    background-color: $background
   @extend .d-flex
   @extend .flex-column
   @include media-breakpoint-down(md)
