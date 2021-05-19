@@ -118,7 +118,7 @@ class Home extends React.Component<{}, {}> {
 
           {page
             ?.sponsorsTypes?.map((sponsorType: SponsorType, index: number) =>
-              <>
+              <React.Fragment key={sponsorType.name}>
                 <div className='row mb-xxs mb-md-s mb-lg-xs'>
                   <div className='col'>
                     <h2 className='p p--xxl'>
@@ -129,7 +129,10 @@ class Home extends React.Component<{}, {}> {
                 <div className='row mb-xxs mb-md-s mb-lg-m'>
                   {sponsorType?.sponsors
                     ?.map((partner: Sponsor) =>
-                      <div className={index === 0 ? 'col-4 col-md-3' : 'col-2 col-md-2 col-lg-2'}>
+                      <div
+                        key={partner.id}
+                        className={index === 0 ? 'col-4 col-md-3' : 'col-2 col-md-2 col-lg-2'}
+                      >
                         <Img
                           file={partner.logo[0]}
                           className='w-100'
@@ -138,7 +141,7 @@ class Home extends React.Component<{}, {}> {
                       </div>
                   )}
                 </div>
-              </>
+              </React.Fragment>
           )}
 
         </div>
