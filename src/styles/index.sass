@@ -884,10 +884,17 @@
       @include media-breakpoint-down(sm)
         margin-bottom: rem(13)
     &__buy
-      width: 30%
+      @extend .button
+      @extend .ml-auto
+      border: none
       text-align: right
       @include media-breakpoint-down(sm)
         text-align: left
+      cursor: pointer
+      &:hover
+        text-decoration: underline
+        text-underline-offset: .25rem
+        text-decoration-thickness: from-font
     &__date-time,
     &__line,
     &__buy

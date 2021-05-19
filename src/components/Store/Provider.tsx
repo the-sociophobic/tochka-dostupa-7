@@ -106,6 +106,8 @@ class Provider extends React.Component<Props, StateType> {
   }
 
   updateContentful = async (update: boolean = true) => {
+    this.setState({ ready: false })
+
     const contentfulData = (await axios.post('https://api.tochkadostupa.spb.ru/contentful', { update: update })).data
     const parsedContentfulData = [
       await parseContentfulItems(contentfulData.contentfulData[0]),
@@ -119,12 +121,14 @@ class Provider extends React.Component<Props, StateType> {
     console.log(`contentful data last updated ${contentfulData.date}`)
 
     this.mappedDays = [
-      this.initializeMappedDays(parsedContentfulData[0].spekts),
-      this.initializeMappedDays(parsedContentfulData[1].spekts),
+      await this.initializeMappedDays(parsedContentfulData[0].spekts),
+      await this.initializeMappedDays(parsedContentfulData[1].spekts),
     ]
 
+    this.setState({ ready: true })
+
     update &&
-      this.callInitializeCallbacks()
+      this.callInitializeCallbacks()    
   }
 
   registerInitializeCallback = (fn: Function) => {
@@ -140,81 +144,88 @@ class Provider extends React.Component<Props, StateType> {
       , 100
     )
 
-  initializeMappedDays = (spekts: Spekt[]): Days => {
-    let mappedDays: Days = {}
+  initializeMappedDays = async (spekts: Spekt[]) =>
+    new Promise<Days>((res, rej) => {
+      let mappedDays: Days = {}
 
-    spekts
-      ?.map((spekt: Spekt): MappedShow[] | undefined =>
-        spekt?.ticketsAndSchedule?.tickets
-          .map((place: Place): MappedShow[] | undefined =>
-            place?.tickets
-              .map((show: Show): MappedShow => ({
-                ...show,
-                name: spekt.name,
-                persons: spekt.persons,
-                dateObj: new Date(show.datetime),
-                datetime: show.datetime,
-                program: spekt.program,
-                offline: show.offline || !show.online,
-                link: spekt.link,
-                age: spekt.age,
-              })))
-          .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
-            [...(a || []), ...(b || [])])
-      )
-      ?.reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
-        [...(a || []), ...(b || [])])
-      ?.filter((show: MappedShow) =>
-        show.datetime.length > 0
-      )
-      ?.forEach((show: MappedShow) => {
-        const day = show.datetime.split('T')[0]
-        
-        mappedDays.hasOwnProperty(day) ?
-          mappedDays[day]?.push(show)
-          :
-          mappedDays[day] = [show]
+      spekts
+        ?.map((spekt: Spekt): MappedShow[] | undefined =>
+          spekt?.ticketsAndSchedule?.tickets
+            .map((place: Place): MappedShow[] | undefined =>
+              place?.tickets
+                .map((show: Show): MappedShow => ({
+                  ...show,
+                  name: spekt.name,
+                  persons: spekt.persons,
+                  dateObj: new Date(show.datetime),
+                  datetime: show.datetime,
+                  program: spekt.program,
+                  offline: show.offline || !show.online,
+                  link: spekt.link,
+                  age: spekt.age,
+                })))
+            .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
+              [...(a || []), ...(b || [])])
+        )
+        ?.reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
+          [...(a || []), ...(b || [])])
+        ?.filter((show: MappedShow) =>
+          show.datetime.length > 0)
+        ?.forEach((show: MappedShow) => {
+          const day = show.datetime.split('T')[0]
+          
+          mappedDays.hasOwnProperty(day) ?
+            mappedDays[day]?.push(show)
+            :
+            mappedDays[day] = [show]
+        })
+          
+      mappedDays = Object.keys(mappedDays)
+        .sort()
+        .map((dayKey: string): {[key: string]: MappedShow[] | undefined} => ({[dayKey]: mappedDays[dayKey]}))
+        ?.reduce((a, b) => ({...a, ...b}), {})
+
+      res(mappedDays)
+      rej({})
+    })
+
+  stateAndSetters = () => {
+    const nonState = {
+      cookies: this.cookies,
+      checkUser: this.checkUser,
+      logout: this.logout,
+      setState: (obj: any) => _setState(this, obj),
+      setLocale: (_locale: string) =>
+        this.setState({
+          locale: _locale
+        }),
+      toggleLocale: () => {
+        this.props.history.push({
+          search: this.state.locale === 'rus' ? '?en' : ''
+        })
+        this.setState({
+          locale: this.state.locale === "rus" ? "eng" : "rus"
+        })
+      },
+  
+      openPopup: () =>
+        document.body.classList.add('overflow-hidden'),
+      closePopup: () =>
+        document.body.classList.remove('overflow-hidden'),
+  
+      contentful: this.state.contentfulData?.[this.state.locale === "rus" ? 0 : 1],
+      updateContentful: this.updateContentful,
+  
+      registerInitializeCallback: this.registerInitializeCallback,
+  
+      mappedDays: this.mappedDays?.[this.state.locale === "rus" ? 0 : 1],
+    }
+
+    return ({
+        ...(this.state.ready ? this.state : initialState),
+        ...nonState
       })
-        
-    mappedDays = Object.keys(mappedDays)
-      .sort()
-      .map((dayKey: string): {[key: string]: MappedShow[] | undefined} => ({[dayKey]: mappedDays[dayKey]}))
-      ?.reduce((a, b) => ({...a, ...b}), {})
-
-    return mappedDays
   }
-
-  stateAndSetters = () => ({
-    ...this.state,
-    cookies: this.cookies,
-    checkUser: this.checkUser,
-    logout: this.logout,
-    setState: (obj: any) => _setState(this, obj),
-    setLocale: (_locale: string) =>
-      this.setState({
-        locale: _locale
-      }),
-    toggleLocale: () => {
-      this.props.history.push({
-        search: this.state.locale === 'rus' ? '?en' : ''
-      })
-      this.setState({
-        locale: this.state.locale === "rus" ? "eng" : "rus"
-      })
-    },
-
-    openPopup: () =>
-      document.body.classList.add('overflow-hidden'),
-    closePopup: () =>
-      document.body.classList.remove('overflow-hidden'),
-
-    contentful: this.state.contentfulData?.[this.state.locale === "rus" ? 0 : 1],
-    updateContentful: this.updateContentful,
-
-    registerInitializeCallback: this.registerInitializeCallback,
-
-    mappedDays: this.mappedDays?.[this.state.locale === "rus" ? 0 : 1],
-  })
 
   render = () =>
     <Context.Provider value={this.stateAndSetters()}>
