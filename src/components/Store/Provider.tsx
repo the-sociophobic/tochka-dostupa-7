@@ -10,11 +10,6 @@ import { RouteComponentProps } from 'react-router'
 import {
   StateType,
   initialState,
-  Days,
-  Spekt,
-  Place,
-  Show,
-  MappedShow,
 } from './Types'
 import Context from './Context'
 import { post } from '../../utils/API'
@@ -23,7 +18,7 @@ import {
   createContentfulClient
 } from '../../utils/contentful'
 import isProd from '../../utils/isProd'
-
+import parseData from './parseData'
 
 type Props = RouteComponentProps<{
   param1: string,
@@ -45,7 +40,6 @@ class Provider extends React.Component<Props, StateType> {
 
   cookies = new Cookies()
   initializeCallBacks: Function[] = []
-  mappedDays: Days[] = []
 
   componentDidMount = () => {
     this.checkUser()
@@ -110,8 +104,8 @@ class Provider extends React.Component<Props, StateType> {
 
     const contentfulData = (await axios.post('https://api.tochkadostupa.spb.ru/contentful', { update: update })).data
     const parsedContentfulData = [
-      await parseContentfulItems(contentfulData.contentfulData[0]),
-      await parseContentfulItems(contentfulData.contentfulData[1])
+      await parseData(await parseContentfulItems(contentfulData.contentfulData[0])),
+      await parseData(await parseContentfulItems(contentfulData.contentfulData[1])),
     ]
     
     this.setState({
@@ -119,11 +113,6 @@ class Provider extends React.Component<Props, StateType> {
     })
 
     console.log(`contentful data last updated ${contentfulData.date}`)
-
-    this.mappedDays = [
-      await this.initializeMappedDays(parsedContentfulData[0].spekts),
-      await this.initializeMappedDays(parsedContentfulData[1].spekts),
-    ]
 
     this.setState({ ready: true })
 
@@ -143,51 +132,6 @@ class Provider extends React.Component<Props, StateType> {
           callback())
       , 100
     )
-
-  initializeMappedDays = async (spekts: Spekt[]) =>
-    new Promise<Days>((res, rej) => {
-      let mappedDays: Days = {}
-
-      spekts
-        ?.map((spekt: Spekt): MappedShow[] | undefined =>
-          spekt?.ticketsAndSchedule?.tickets
-            .map((place: Place): MappedShow[] | undefined =>
-              place?.tickets
-                .map((show: Show): MappedShow => ({
-                  ...show,
-                  name: spekt.name,
-                  persons: spekt.persons,
-                  dateObj: new Date(show.datetime),
-                  datetime: show.datetime,
-                  program: spekt.program,
-                  offline: show.offline || !show.online,
-                  link: spekt.link,
-                  age: spekt.age,
-                })))
-            .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
-              [...(a || []), ...(b || [])])
-        )
-        ?.reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
-          [...(a || []), ...(b || [])])
-        ?.filter((show: MappedShow) =>
-          show.datetime.length > 0)
-        ?.forEach((show: MappedShow) => {
-          const day = show.datetime.split('T')[0]
-          
-          mappedDays.hasOwnProperty(day) ?
-            mappedDays[day]?.push(show)
-            :
-            mappedDays[day] = [show]
-        })
-          
-      mappedDays = Object.keys(mappedDays)
-        .sort()
-        .map((dayKey: string): {[key: string]: MappedShow[] | undefined} => ({[dayKey]: mappedDays[dayKey]}))
-        ?.reduce((a, b) => ({...a, ...b}), {})
-
-      res(mappedDays)
-      rej({})
-    })
 
   stateAndSetters = () => {
     const nonState = {
@@ -217,8 +161,6 @@ class Provider extends React.Component<Props, StateType> {
       updateContentful: this.updateContentful,
   
       registerInitializeCallback: this.registerInitializeCallback,
-  
-      mappedDays: this.mappedDays?.[this.state.locale === "rus" ? 0 : 1],
     }
 
     return ({

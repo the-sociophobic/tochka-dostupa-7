@@ -59,7 +59,7 @@ class Spekt extends React.Component<Props, State> {
       
     spekt = {
       ...spekt,
-      shows: _.values(this?.context?.mappedDays || {})
+      shows: _.values(this?.context?.contentful?.mappedDays || {})
         .map((day: MappedShow[]) =>
           day.filter((show: MappedShow) =>
             show.name === spekt.name && isAfter(show.dateObj, endOfYesterday())))
@@ -91,19 +91,22 @@ class Spekt extends React.Component<Props, State> {
               <div className='h1 font-weight-normal font-spectral mb-xs'>
                 {spekt?.persons}
               </div>
-              <div className='d-flex flex-row'>
+              <div className='d-flex flex-row flex-wrap'>
                 <Program
                   text={spekt?.program?.name}
-                  className='mr-1'
+                  className='mr-2 mb-2'
                 />
                 {spekt?.online &&
-                  <Online className='mr-1' />
+                  <Online className='mr-2 mb-2' />
                 }
                 {spekt?.offline &&
-                  <Offline className='mr-1' />
+                  <Offline className='mr-2 mb-2' />
                 }
                 {spekt?.age &&
-                  <Age text={spekt?.age} />
+                  <Age
+                    text={spekt?.age}
+                    className='mr-2 mb-2'
+                  />
                 }
               </div>
             </div>
