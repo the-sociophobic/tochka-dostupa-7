@@ -119,6 +119,7 @@ const defaultMessages: Messages = {
     msk: ['мск', 'moscow-time'],
     register: ['Регистрация', 'Register'],
     buy: ['Купить билет', 'Buy ticket'],
+    nothing: ['Событий в выбранный промежуток нет', 'No events during this dates'],
     a: ['', ''],
   },
   Festival: {

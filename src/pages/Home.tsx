@@ -5,7 +5,10 @@ import HorizontalShowcase from '../components/HorizontalShowcase'
 import SpektCard from '../components/Views/Cards/SpektCard'
 import Link from '../components/Link'
 import { Context } from '../components/Store'
-import { Sponsor } from '../components/Store/Types'
+import {
+  Sponsor,
+  SponsorType,
+} from '../components/Store/Types'
 import FestivalPass from '../components/FestivalPass'
 import Subscribe from '../components/Subscribe'
 import Img from '../components/Img'
@@ -113,43 +116,30 @@ class Home extends React.Component<{}, {}> {
             </div>
           </div>
 
-          <div className='row mb-xxs mb-md-s mb-lg-xs'>
-            <div className='col'>
-              <h2 className='p p--xxl'>
-                {page.partners0title}
-              </h2>
-            </div>
-          </div>
-          <div className='row mb-xxs mb-md-s mb-lg-m'>
-            {page.partners0?.map((partner: Sponsor) =>
-              <div className='col-4 col-md-3'>
-                <Img
-                  file={partner.logo[0]}
-                  className='w-100'
-                  noCrop
-                />
-              </div>
-            )}
-          </div>
-          
-          <div className='row mb-xxs mb-md-s mb-lg-xs'>
-            <div className='col'>
-              <h2 className='p p--xxl'>
-                {page.partners1title}
-              </h2>
-            </div>
-          </div>
-          <div className='row mb-xxs mb-md-s mb-lg-m'>
-            {page.partners1?.map((partner: Sponsor) =>
-              <div className='col-2 col-md-2 col-lg-2'>
-                <Img
-                  file={partner.logo[0]}
-                  className='w-100'
-                  noCrop
-                />
-              </div>
-            )}
-          </div>
+          {page
+            ?.sponsorsTypes?.map((sponsorType: SponsorType, index: number) =>
+              <>
+                <div className='row mb-xxs mb-md-s mb-lg-xs'>
+                  <div className='col'>
+                    <h2 className='p p--xxl'>
+                      {sponsorType.name}
+                    </h2>
+                  </div>
+                </div>
+                <div className='row mb-xxs mb-md-s mb-lg-m'>
+                  {sponsorType?.sponsors
+                    ?.map((partner: Sponsor) =>
+                      <div className={index === 0 ? 'col-4 col-md-3' : 'col-2 col-md-2 col-lg-2'}>
+                        <Img
+                          file={partner.logo[0]}
+                          className='w-100'
+                          noCrop
+                        />
+                      </div>
+                  )}
+                </div>
+              </>
+          )}
 
         </div>
         

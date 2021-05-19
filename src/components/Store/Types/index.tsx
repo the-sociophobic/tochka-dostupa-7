@@ -83,6 +83,12 @@ interface Program extends ContentfulItem {
 interface Sponsor extends ContentfulItem {
   name: string
   logo: File[]
+  link: string
+}
+
+interface SponsorType extends ContentfulItem {
+  name: string
+  sponsors: Sponsor[]
 }
 
 interface QandAsection extends ContentfulItem {
@@ -189,6 +195,7 @@ export type {
   Show,
   Program,
   Sponsor,
+  SponsorType,
   File,
   QandAsection,
   QandAitem,
