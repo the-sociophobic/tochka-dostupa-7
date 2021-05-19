@@ -7,6 +7,7 @@ import endOfToday from 'date-fns/endOfToday'
 import isWithinInterval from 'date-fns/isWithinInterval'
 import { ru, enUS } from 'date-fns/locale'
 // import ReactPDF, { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer'
+import _ from 'lodash'
 
 
 import FormattedMessage from '../components/FormattedMessage'
@@ -25,7 +26,7 @@ import { getMessage } from '../components/Store/locale'
 import DatePicker from '../components/DatePicker'
 import Link from '../components/Link'
 import camelize from '../utils/camelize'
-import _ from 'lodash'
+import radarioProps from '../utils/radarioProps'
 
 
 type FilterState = {
@@ -264,8 +265,8 @@ class Schedule extends React.Component<{}, State> {
                       <div className='col-4 col-md-2 col-lg-3'>
                         <button
                           className='Schedule__day__show__button'
-                          // onClick
                           disabled={isBefore(show.dateObj, endOfToday())}
+                          {...radarioProps()}
                         >
                           <FormattedMessage id={show.online ? 'Schedule.register' : 'Schedule.buy'} />
                         </button>

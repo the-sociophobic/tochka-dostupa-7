@@ -41,6 +41,9 @@ interface Spekt extends ContentfulItem {
   shortDesc: string
   cover: File
   videoCover: string
+  howToOnline: JSX.Element
+  howToOffline: JSX.Element
+  instructions: JSX.Element
   persons: string
   personsObj?: Person[]
   age?: string | number

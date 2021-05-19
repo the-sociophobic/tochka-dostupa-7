@@ -5,13 +5,16 @@ import { RouteComponentProps } from 'react-router'
 import _ from 'lodash'
 import { format } from 'date-fns'
 import { ru, enUS } from 'date-fns/locale'
+import endOfYesterday from 'date-fns/endOfYesterday'
+import isAfter from 'date-fns/isAfter'
 
 import { Context } from '../components/Store'
 import FormattedMessage from '../components/FormattedMessage'
 import {
   Spekt as SpektType,
   Sponsor,
-  MappedShow
+  MappedShow,
+  Place
 } from '../components/Store/Types'
 import {
   Program,
@@ -21,7 +24,9 @@ import {
 } from '../components/buttons'
 import Dropdown from '../components/Dropdown'
 import Error404 from '../components/Error404'
+
 import camelize from '../utils/camelize'
+import radarioProps from '../utils/radarioProps'
 
 
 type Props = RouteComponentProps<{
@@ -57,7 +62,7 @@ class Spekt extends React.Component<Props, State> {
       shows: _.values(this?.context?.mappedDays || {})
         .map((day: MappedShow[]) =>
           day.filter((show: MappedShow) =>
-            show.name === spekt.name))
+            show.name === spekt.name && isAfter(show.dateObj, endOfYesterday())))
         .filter((day: MappedShow[]) =>
           day.length > 0)
     }
@@ -119,14 +124,19 @@ class Spekt extends React.Component<Props, State> {
                     </h3>
                   </div>
                 }
-                <div className='col-4 col-md-2 col-lg-12'>
+                <div className='col-4 col-md-2 col-lg-8'>
                   <FormattedMessage
                     id='Spekt.stage'
                     className='p p--s'
                   />
-                  <h3 className='h3 h3--l mb-s'>
-                    {/* TODO */}
-                  </h3>
+                  {spekt?.ticketsAndSchedule?.tickets?.map((stage: Place, index: number) =>
+                    <h3
+                      key={index}
+                      className='h3 h3--l mb-s'
+                    >
+                      {this.context.locale === 'rus' ? stage.venue : stage.venueEn}
+                    </h3>
+                  )}
                 </div>
                 {spekt?.sponsors?.length > 0 &&
                   <div className='col-4 col-md-2 col-lg-12 d-flex flex-column'>
@@ -136,6 +146,7 @@ class Spekt extends React.Component<Props, State> {
                     />
                     {spekt?.sponsors?.map((sponsor: Sponsor) =>
                       <img
+                        key={sponsor?.logo?.[0].file?.url}
                         src={sponsor?.logo?.[0].file?.url}
                         alt={sponsor?.logo?.[0].file?.fileName}
                         className='w-50 w-md-100 w-lg-50 h-auto'
@@ -151,59 +162,66 @@ class Spekt extends React.Component<Props, State> {
                 {spekt.mainDesc}
               </div>
 
-              <Dropdown
-                spekt
-                className='mb-2 mb-md-3'
-                title={
-                  <FormattedMessage
-                    id='Spekt.buy'
-                    className='h3 mb-0'
-                  />}
-                opened={this.state.currentOpened === 0}
-                toggleOpened={() =>
-                  this.setState({
-                    currentOpened: this.state.currentOpened === 0 ?
-                      -1
-                      :
-                      0
-                  })}
-              >
-                {spekt.shows
-                  .map((day: MappedShow[]) =>
-                    day?.map((show: MappedShow) =>
-                      <div className='Spekt__show'>
-                        <div className='Spekt__show__date-time'>
-                          {(() => {
-                            const dateTime = format(
-                              show.dateObj,
-                              'dd.MM / iiii / HH:mm ',
-                              { locale: this.context.locale === 'rus' ? ru : enUS })
-                            const dateTimeSplitted = dateTime.split(' / ')
-
-                            return dateTimeSplitted[0] + ' / ' + camelize(dateTimeSplitted[1]) + ' / ' + dateTimeSplitted[2]
-                          })()}
-                          <FormattedMessage id='Schedule.msk' />
-                        </div>
-                        <div className='Spekt__show__line'>
-                          {show.offline ? <Offline /> : <Online />}
-                        </div>
-                        <button
-                          className='Spekt__show__buy'
-                          onClick={() => {}}
-                          disabled={false}
+              {spekt.shows.length > 0 &&
+                <Dropdown
+                  spekt
+                  className='mb-2 mb-md-3'
+                  title={
+                    <FormattedMessage
+                      id='Spekt.buy'
+                      className='h3 mb-0'
+                    />}
+                  opened={this.state.currentOpened === 0}
+                  toggleOpened={() =>
+                    this.setState({
+                      currentOpened: this.state.currentOpened === 0 ?
+                        -1
+                        :
+                        0
+                    })}
+                >
+                  {spekt.shows
+                    .map((day: MappedShow[]) =>
+                      day?.map((show: MappedShow) =>
+                        <div
+                          key={show.id}
+                          className='Spekt__show'
                         >
-                          <FormattedMessage id={show.offline ? 'Schedule.buy' : 'Schedule.register'} />
-                        </button>
-                      </div>
-                ))}
-              </Dropdown>
+                          <div className='Spekt__show__date-time'>
+                            {(() => {
+                              const dateTime = format(
+                                show.dateObj,
+                                'dd.MM / iiii / HH:mm ',
+                                { locale: this.context.locale === 'rus' ? ru : enUS })
+                              const dateTimeSplitted = dateTime.split(' / ')
+
+                              return dateTimeSplitted[0] + ' / ' + camelize(dateTimeSplitted[1]) + ' / ' + dateTimeSplitted[2]
+                            })()}
+                            <FormattedMessage id='Schedule.msk' />
+                          </div>
+                          <div className='Spekt__show__line'>
+                            {show.offline ? <Offline /> : <Online />}
+                          </div>
+                          <button
+                            className='Spekt__show__buy'
+                            disabled={false}
+                            {...radarioProps()}
+                          >
+                            <FormattedMessage id={show.offline ? 'Schedule.buy' : 'Schedule.register'} />
+                          </button>
+                        </div>
+                    ))
+                  }
+                </Dropdown>
+              }
 
               {['howToOnline', 'howToOffline', 'instructions']
                 .map((dropdown, index) =>
                   !spekt[dropdown] ?
-                    ""
+                    ''
                     :
                     <Dropdown
+                      key={dropdown}
                       spekt
                       className='mb-2 mb-md-3'
                       title={
