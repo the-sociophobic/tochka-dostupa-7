@@ -205,23 +205,37 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
       </button>
       
       {!_.isEmpty(this.context.user) ?
+        <>
           <div
-          className={`
-            Header__controls__item
-            Header__controls__item--user
-            ${this.state.secondaryLinks.length === 4 && 'Header__controls__item--user--hover'}
-            ${this.props.history.location.pathname.includes('/user/')
-              && 'Header__controls__item--active'}
-          `}
-          onMouseEnter={() => {
-            this.breakHideSecondaryLinksTimeout()
-            this.updateSecondaryLinks('/user')
-          }}
-          onMouseLeave={this.initHideSecondaryLinksTimeout}
-        >
-          <UserLineIcon className="Header__controls__item__icon" />
-          {this.context.user.name}
-        </div>
+            className={`
+              d-none d-lg-block
+              Header__controls__item
+              Header__controls__item--user
+              ${this.state.secondaryLinks.length === 4 && 'Header__controls__item--user--hover'}
+              ${this.props.history.location.pathname.includes('/user/')
+                && 'Header__controls__item--active'}
+            `}
+            onMouseEnter={() => {
+              this.breakHideSecondaryLinksTimeout()
+              this.updateSecondaryLinks('/user')
+            }}
+            onMouseLeave={this.initHideSecondaryLinksTimeout}
+          >
+            <UserLineIcon className="Header__controls__item__icon" />
+            {this.context.user.name}
+          </div>
+          <Link
+            to='/user/tickets'
+            className={`
+              d-lg-none
+              Header__controls__item
+              Header__controls__item--user
+            `}
+          >
+            <UserLineIcon className="Header__controls__item__icon" />
+            {this.context.user.name}
+          </Link>
+        </>
         :
         <Link
           to="/login"
