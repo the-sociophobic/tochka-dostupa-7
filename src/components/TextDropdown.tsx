@@ -84,7 +84,7 @@ class TextDropdown extends React.Component<Props, {}> {
           </div>
         </div>
         <Link
-          className='TextDropdown__toggle'
+          className={`TextDropdown__toggle p--arrow p--arrow--${this.state.opened ? 'left' : 'right'}`}
           // onClick={() => this.toggleOpened()}
           to={this.props.link}
         >
