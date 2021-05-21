@@ -13,6 +13,7 @@ const APIlink = () =>
     "https://api.tochkadostupa.spb.ru"
     :
     "http://localhost:3070"
+    // "https://api.tochkadostupa.spb.ru"
 
 const post = async (path: string, data: any) =>
   (await axios.post(

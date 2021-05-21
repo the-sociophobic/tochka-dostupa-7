@@ -123,8 +123,8 @@
   &--cross
     @extend .d-flex
     @extend .align-items-end
+    &::before,
     &::after
-      content: ''
       @extend .d-inline-block
       width: rem(28)
       height: rem(28)
@@ -139,24 +139,28 @@
   &--arrow
     &--right
       &::after
+        content: ''
         background-image: url(./img/arrow-right.svg)
         transition: transform $menu-transition
       &:hover
         &::after
           transform: translateX(5px)
     &--left
-      &::after
+      &::before
+        content: ''
         background-image: url(./img/arrow-right.svg)
         transition: transform $menu-transition
         transform: translate(-7px) rotate(180deg)
       &:hover
-        &::after
+        &::before
           transform: translateX(-12px) rotate(180deg)
     &--up-right
       &::after
+        content: ''
         background-image: url(./img/arrow-up-right.svg)
     &--down
       &::after
+        content: ''
         background-image: url(./img/arrow-right.svg)
         transform: rotate(90deg)
   &--cross

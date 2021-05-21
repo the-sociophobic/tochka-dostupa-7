@@ -2,7 +2,7 @@ import React from 'react'
 
 import _ from 'lodash'
 import { createClient } from 'contentful'
-import { BLOCKS, INLINES } from '@contentful/rich-text-types'
+import { BLOCKS } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 
