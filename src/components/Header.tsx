@@ -205,8 +205,6 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
       </button>
       
       {!_.isEmpty(this.context.user) ?
-        <>
-          <div className='d-none d-lg-block'>
             <div
               className={`
                 Header__controls__item
@@ -220,25 +218,16 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
                 this.updateSecondaryLinks('/user')
               }}
               onMouseLeave={this.initHideSecondaryLinksTimeout}
+              onClick={() => {
+                if (this.state.opened && window.innerWidth) {
+                  this.setState({ opened: false })
+                  this.props.history.push('/user/tickets')
+                }
+              }}
             >
               <UserLineIcon className="Header__controls__item__icon" />
               {this.context.user.name}
             </div>
-          </div>
-          <div className='d-lg-none'>
-            <Link
-              to='/user/tickets'
-              onClick={() => this.setState({ opened: false })}
-              className={`
-                Header__controls__item
-                Header__controls__item--user
-              `}
-            >
-              <UserLineIcon className="Header__controls__item__icon" />
-              {this.context.user.name}
-            </Link>
-          </div>
-        </>
         :
         <Link
           to="/login"

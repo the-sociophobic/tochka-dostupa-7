@@ -109,10 +109,28 @@
       @include font-params(14, 20)
   &--m
     @include font-params(16, 24)
+    &.p--arrow,
+    &.p--cross
+      &::before,
+      &::after
+        width: rem(24)
+        height: rem(24)
   &--s
     @include font-params(14, 20)
+    &.p--arrow,
+    &.p--cross
+      &::before,
+      &::after
+        width: rem(20)
+        height: rem(20)
     @include media-breakpoint-down(md)
       @include font-params(12, 16)
+      &.p--arrow,
+      &.p--cross
+        &::before,
+        &::after
+          width: rem(16)
+          height: rem(16)
   &--xs
     @include font-params(12, 16)
     @include media-breakpoint-down(md)
@@ -125,7 +143,9 @@
     @extend .align-items-end
     &::before,
     &::after
+      @extend .def-img
       @extend .d-inline-block
+      margin-left: rem(8)
       width: rem(28)
       height: rem(28)
       @include media-breakpoint-down(md)
@@ -134,8 +154,7 @@
       @include media-breakpoint-down(sm)
         width: rem(20)
         height: rem(20)
-      @extend .def-img
-      margin-left: rem(8)
+
   &--arrow
     &--right
       &::after
@@ -163,6 +182,7 @@
         content: ''
         background-image: url(./img/arrow-right.svg)
         transform: rotate(90deg)
+
   &--cross
     &::after
       background-image: url(./img/cross.svg)
