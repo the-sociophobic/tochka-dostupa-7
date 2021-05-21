@@ -208,12 +208,12 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
         <>
           <div
             className={`
-              d-none d-lg-block
               Header__controls__item
               Header__controls__item--user
               ${this.state.secondaryLinks.length === 4 && 'Header__controls__item--user--hover'}
               ${this.props.history.location.pathname.includes('/user/')
                 && 'Header__controls__item--active'}
+              d-none d-lg-block
             `}
             onMouseEnter={() => {
               this.breakHideSecondaryLinksTimeout()
@@ -226,6 +226,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           </div>
           <Link
             to='/user/tickets'
+            onClick={() => this.setState({ opened: false })}
             className={`
               d-lg-none
               Header__controls__item
