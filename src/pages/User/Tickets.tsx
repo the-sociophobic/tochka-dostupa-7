@@ -10,6 +10,7 @@ import { Context } from '../../components/Store'
 import { getRandomValues } from '../../utils/getRandom'
 import { MappedShow } from '../../components/Store/Types'
 import ShowCard from '../../components/Views/Cards/ShowCard'
+import ShowPage from '../../components/Views/ShowPage'
 
 
 type Props = RouteComponentProps<{
@@ -17,17 +18,32 @@ type Props = RouteComponentProps<{
 }>
 
 type State = {
-  currentEvent: string
+  currentShow: MappedShow | undefined
 }
 
 
 class Tickets extends React.Component<Props, State> {
 
   state: State = {
-    currentEvent: ''
+    currentShow: undefined
   }
   
   static contextType = Context
+
+  // shows: MappedShow[] = []
+
+  // componentDidMount = () =>
+  //   this?.context?.registerInitializeCallback(() => {
+  //     const { mappedDays } = this?.context?.contentful
+
+  //     this.shows = [
+  //       ...getRandomValues(this?.context?.contentful?.mappedDays, 6),
+  //       mappedDays?.[Object.keys(mappedDays)[Object.keys(mappedDays).length - 1]]
+  //     ]
+  //       .map((day: MappedShow[]) => day[0])
+
+  //     this.setState({ currentShow: this.shows[this.shows.length - 1]})
+  //   })
 
   render = () => {
     if (!this?.context?.ready || !this?.context?.contentful?.mappedDays)
@@ -38,13 +54,18 @@ class Tickets extends React.Component<Props, State> {
 
     const page = this?.context?.contentful?.accountPages?.[0]
     const { mappedDays } = this?.context?.contentful
-    const events = [
+    const shows = [
       ...getRandomValues(this?.context?.contentful?.mappedDays, 6),
       mappedDays?.[Object.keys(mappedDays)[Object.keys(mappedDays).length - 1]]
     ]
       .map((day: MappedShow[]) => day[0])
 
-    return (
+    return typeof this.state.currentShow !== 'undefined' ?
+      <ShowPage
+        show={this.state.currentShow}
+        back={() => this.setState({ currentShow: undefined })}
+      />
+      :
       <div className="Tickets">
         <div className="container">
           <div className='row mb-s mb-lg-xl'>
@@ -62,15 +83,15 @@ class Tickets extends React.Component<Props, State> {
             </div>
           </div>
           <div className='row d-flex flex-column flex-md-row flex-wrap align-items-stretch'>
-            {events
-              .filter((event: MappedShow) =>
-                !isBefore(event.dateObj, startOfToday()))
-              .map((event: MappedShow) =>
+            {shows
+              .filter((show: MappedShow) =>
+                !isBefore(show.dateObj, startOfToday()))
+              .map((show: MappedShow) =>
                 <ShowCard
-                  show={event}
+                  show={show}
                   past={false}
                   page={page}
-                  setEvent={() => this.setState({ currentEvent: event.id })}
+                  openShow={() => this.setState({ currentShow: show })}
                   locale={this.context.locale}
                 />
             )}
@@ -84,22 +105,21 @@ class Tickets extends React.Component<Props, State> {
             </div>
           </div>
           <div className='row d-flex flex-column flex-md-row flex-wrap align-items-stretch'>
-            {events
-              .filter((event: MappedShow) =>
-                isBefore(event.dateObj, startOfToday()))
-              .map((event: MappedShow) =>
+            {shows
+              .filter((show: MappedShow) =>
+                isBefore(show.dateObj, startOfToday()))
+              .map((show: MappedShow) =>
                 <ShowCard
-                  show={event}
+                  show={show}
                   past={true}
                   page={page}
-                  setEvent={() => this.setState({ currentEvent: event.id })}
+                  openShow={() => this.setState({ currentShow: show })}
                   locale={this.context.locale}
                 />
             )}
           </div>
         </div>
       </div>
-    )
   }
 }
 

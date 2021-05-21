@@ -17,7 +17,7 @@ type Props = {
   show: MappedShow
   past: boolean
   page: any
-  setEvent: Function
+  openShow: Function
   locale: string
 }
 
@@ -26,7 +26,7 @@ const ShowCard: React.FunctionComponent<Props> = ({
   show,
   past,
   page,
-  setEvent,
+  openShow,
   locale
 }) =>
   <div className='col-4 col-md-3 col-lg-4 mb-xxs'>
@@ -78,7 +78,7 @@ const ShowCard: React.FunctionComponent<Props> = ({
         :
         <div
           className='cursor-pointer p p--s p--arrow p--arrow--right'
-          onClick={() => setEvent(show.id)}
+          onClick={() => openShow()}
         >
           {page.details}
         </div>

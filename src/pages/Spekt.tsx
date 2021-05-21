@@ -27,7 +27,6 @@ import Error404 from '../components/Error404'
 import Link from '../components/Link'
 
 import camelize from '../utils/camelize'
-import radarioProps from '../utils/radarioProps'
 
 
 type Props = RouteComponentProps<{

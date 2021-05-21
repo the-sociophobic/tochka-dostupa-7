@@ -27,6 +27,9 @@ const parseMappedDays = async (spekts: Spekt[]) =>
                 link: spekt.link,
                 age: spekt.age,
                 shortDesc: spekt.shortDesc,
+                stage: place.venue,
+                stageEn: place.venueEn,
+                length: spekt.length,
               })))
           .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
             [...(a || []), ...(b || [])])

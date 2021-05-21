@@ -46,6 +46,7 @@ interface Spekt extends ContentfulItem {
   instructions: JSX.Element
   persons: string
   personsObj?: Person[]
+  length?: string
   age?: string | number
   online: boolean
   offline: boolean
@@ -132,6 +133,9 @@ interface MappedShow extends Show {
   offline?: boolean | undefined
   age?: string | number
   shortDesc?: string
+  stage?: string
+  stageEn?: string
+  length?: string
 }
 
 type Days = {
