@@ -225,18 +225,19 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
               {this.context.user.name}
             </div>
           </div>
-          <Link
-            to='/user/tickets'
-            onClick={() => this.setState({ opened: false })}
-            className={`
-              d-lg-none
-              Header__controls__item
-              Header__controls__item--user
-            `}
-          >
-            <UserLineIcon className="Header__controls__item__icon" />
-            {this.context.user.name}
-          </Link>
+          <div className='d-lg-none'>
+            <Link
+              to='/user/tickets'
+              onClick={() => this.setState({ opened: false })}
+              className={`
+                Header__controls__item
+                Header__controls__item--user
+              `}
+            >
+              <UserLineIcon className="Header__controls__item__icon" />
+              {this.context.user.name}
+            </Link>
+          </div>
         </>
         :
         <Link
