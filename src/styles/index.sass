@@ -1268,7 +1268,6 @@
     @include media-breakpoint-down(md)
       text-transform: lowercase
       text-align: center
-  &__submit
 
 
 .FestivalPass
@@ -1348,12 +1347,11 @@
       filter: blur(2px)
       @include media-breakpoint-down(md)
         filter: blur(1px)
-  &__text
 
 
 
 .Tickets
-  &__event
+  &__show
     @extend .d-flex
     @extend .flex-column
     @extend .h-100
@@ -1393,6 +1391,6 @@
       color: $button-disabled-text
       *
         color: $button-disabled-text
-      .Tickets__event__delimeter
+      .Tickets__show__delimeter
         background-color: $button-disabled-fill
       border: 1px solid $button-disabled-text
