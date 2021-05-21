@@ -3,20 +3,13 @@ import React from 'react'
 import _ from 'lodash'
 import { withRouter } from 'react-router-dom'
 import { RouteComponentProps } from 'react-router'
-import { format } from 'date-fns'
-import { ru, enUS } from 'date-fns/locale'
 import isBefore from 'date-fns/isBefore'
 import startOfToday from 'date-fns/startOfToday'
 
 import { Context } from '../../components/Store'
 import { getRandomValues } from '../../utils/getRandom'
 import { MappedShow } from '../../components/Store/Types'
-import {
-  Program,
-  Online,
-  Offline,
-  Age,
-} from '../../components/buttons'
+import ShowCard from '../../components/Views/Cards/ShowCard'
 
 
 type Props = RouteComponentProps<{
@@ -36,65 +29,6 @@ class Tickets extends React.Component<Props, State> {
   
   static contextType = Context
 
-  renderEvent = (event: MappedShow, past: boolean, page: any) =>
-    <div className='col-4 col-md-3 col-lg-4 mb-xxs'>
-      <div className={`Tickets__event ${past && 'Tickets__event--past'}`}>
-        <div className='d-flex flex-row justify-content-between'>
-          <div className='p p--l'>
-            {format(
-              event.dateObj,
-              'dd.MM / HH:mm ',
-              { locale: this.context.locale === 'rus' ? ru : enUS })}
-          </div>
-          <div className='p p--xl font-spectral'>
-            2 билета
-          </div>
-        </div>
-        <div className='Tickets__event__delimeter' />
-        <div className='Tickets__event__name'>
-          {event.name}
-        </div>
-        <div className='Tickets__event__persons'>
-          {event.persons}
-        </div>
-        <div className='p p--s mb-xxs'>
-          {event.shortDesc}
-        </div>
-        <div className='d-flex flex-row mt-auto mb-xxs'>
-          <Program
-            text={event.program?.name}
-            className='mr-2 mb-2'
-          />
-          {event.offline &&
-            <Offline
-              className='mr-2 mb-2'
-            />}
-          {event.online &&
-            <Online
-              className='mr-2 mb-2'
-            />}
-          {event.age &&
-            <Age
-              text={event.age}
-              className='mr-2 mb-2'
-            />}
-        </div>
-        {past ?
-          <div className='p p--s'>
-            {page.eventIsOver}
-          </div>
-          :
-          <div
-            className='cursor-pointer p p--s p--arrow p--arrow--right'
-            onClick={() => this.setState({ currentEvent: event.id })}
-          >
-            {page.details}
-          </div>
-        }
-      </div>
-    </div>
-
-
   render = () => {
     if (!this?.context?.ready || !this?.context?.contentful?.mappedDays)
       return ''
@@ -104,7 +38,6 @@ class Tickets extends React.Component<Props, State> {
 
     const page = this?.context?.contentful?.accountPages?.[0]
     const { mappedDays } = this?.context?.contentful
-
     const events = [
       ...getRandomValues(this?.context?.contentful?.mappedDays, 6),
       mappedDays?.[Object.keys(mappedDays)[Object.keys(mappedDays).length - 1]]
@@ -133,7 +66,14 @@ class Tickets extends React.Component<Props, State> {
               .filter((event: MappedShow) =>
                 !isBefore(event.dateObj, startOfToday()))
               .map((event: MappedShow) =>
-                this.renderEvent(event, false, page))}
+                <ShowCard
+                  show={event}
+                  past={false}
+                  page={page}
+                  setEvent={() => this.setState({ currentEvent: event.id })}
+                  locale={this.context.locale}
+                />
+            )}
           </div>
 
           <div className='row mt-m mt-lg-l'>
@@ -148,7 +88,14 @@ class Tickets extends React.Component<Props, State> {
               .filter((event: MappedShow) =>
                 isBefore(event.dateObj, startOfToday()))
               .map((event: MappedShow) =>
-                this.renderEvent(event, true, page))}
+                <ShowCard
+                  show={event}
+                  past={true}
+                  page={page}
+                  setEvent={() => this.setState({ currentEvent: event.id })}
+                  locale={this.context.locale}
+                />
+            )}
           </div>
         </div>
       </div>
