@@ -131,6 +131,7 @@ interface MappedShow extends Show {
   online?: boolean | undefined
   offline?: boolean | undefined
   age?: string | number
+  shortDesc?: string
 }
 
 type Days = {
