@@ -119,7 +119,7 @@ class Login extends React.Component<Props, State> {
             className={`Login__input ${this.state.higlightError && 'Login__input--error'}`}
             value={this.state.emailPhoneInputString}
             onChange={e => this.setState({
-              emailPhoneInputString: e.target.value.replace(/[^(A-Z|a-z|0-9\.\@\+)]+/g, ''),
+              emailPhoneInputString: e.target.value.replace(/[^(A-Z|a-z|0-9.@+)]+/g, ''),
               higlightError: false,
             })}
             placeholder={page.loginPlaceholder}

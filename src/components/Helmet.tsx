@@ -19,9 +19,6 @@ class Helmet extends React.Component<RouteComponentProps<PathParamsType>> {
 
   static contextType = Context
 
-  // componentDidMount = () =>
-  //   window?.['radario']?.Widgets?.setDefaultParams({accentColor: '#b33d26'})
-
   render = () => {
     const subTitles = pathToIds(this.props.location.pathname)
       .map((section: string | undefined) =>
@@ -44,8 +41,6 @@ class Helmet extends React.Component<RouteComponentProps<PathParamsType>> {
                 ''
           }
         </title>
-        
-        <script src="//radario.ru/frontend/src/api/openapi/openapi.js"></script>
       </ReactHelmet>
     )
   }

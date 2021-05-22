@@ -40,12 +40,12 @@ class About extends React.Component<{}, {}> {
               >
                 <FormattedMessage id='Festival.pages.About.pages.Projects.name' />
               </Link>
-              <Link
+              {/* <Link
                 to='/festival/about/reviews'
                 className='p p--arrow p--arrow--right mb-s mb-md-l mb-xl-0'
               >
                 <FormattedMessage id='Festival.pages.About.pages.Reviews.name' />
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className='row'>

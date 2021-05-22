@@ -766,7 +766,11 @@
         text-decoration-thickness: from-font
   &__short-desc
     @extend .p--s
-    margin-bottom: rem(28)
+    margin-bottom: rem(20)
+    @include media-breakpoint-down(md)
+      margin-bottom: rem(24)
+    *
+      @extend .mb-0
   &__buttons
     @extend .d-flex
     @extend .flex-row
@@ -783,22 +787,24 @@
       border-radius: rem(10)
     @include media-breakpoint-down(sm)
       border-radius: rem(12)
+  .HorizontalShowcase__item--L &__cover
+    height: rem(356)
+    @include media-breakpoint-down(lg)
+      height: rem(260)
+  .HorizontalShowcase__item--M &__cover,
+  .HorizontalShowcase__item--S &__cover
+    height: rem(232)
+    @include media-breakpoint-down(lg)
+      height: rem(168)
   .HorizontalShowcase__item--L &__cover,
   .HorizontalShowcase__item--M &__cover,
   .HorizontalShowcase__item--S &__cover
-    height: rem(279)
-    @include media-breakpoint-down(lg)
-      height: rem(232)
     @include media-breakpoint-down(md)
       height: rem(176)
     @include media-breakpoint-down(sm)
       height: rem(260)
     @include media-breakpoint-down(xs)
       height: calc(((100vw - #{$grid-gutter-width} * 5) / 5 * 4 + #{$grid-gutter-width} * 3) / 236 * 144)
-  .HorizontalShowcase__item--L &__cover
-    height: rem(356)
-    @include media-breakpoint-down(lg)
-      height: rem(260)
   &--Program
     @extend .mr-0
     @extend .w-100
