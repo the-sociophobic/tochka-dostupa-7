@@ -263,6 +263,7 @@ class Schedule extends React.Component<{}, State> {
                       </Link>
                       <div className='col-4 col-md-2 col-lg-3'>
                         <Link
+                          sameTab
                           to={`#event/${show.event_id || 765096}`}
                           data-accent-color='#b33d26'
                           className='Schedule__day__show__button'

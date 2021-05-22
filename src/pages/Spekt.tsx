@@ -206,6 +206,7 @@ class Spekt extends React.Component<Props, State> {
                             {show.offline ? <Offline /> : <Online />}
                           </div>
                           <Link
+                            sameTab
                             to={`#event/${show.event_id || 765096}`}
                             data-accent-color='#b33d26'
                             className='Spekt__show__buy'
