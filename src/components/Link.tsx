@@ -22,6 +22,7 @@ type Props = RouteComponentProps<PathParamsType> & {
   onClick?: Function
   disabled?: boolean
   exact?: boolean
+  outerRef?: any
 }
 
 
@@ -35,46 +36,53 @@ const _Link : React.FunctionComponent<Props> = ({
   onClick,
   disabled,
   exact,
-  location
+  location,
+  outerRef,
 }) =>
   disabled || !to ?
     <span
+      ref={outerRef}
       className={`Link Link--disabled ${className}`}
       style={style}
-      onClick={() => onClick?.()}
+      onClick={(e: any) => onClick?.(e)}
     >
       {children}
     </span>
     :
     to.match(/http*|tel:*|mailto:*|#[a-zA-Z0-9]+/) ?
       <a
+        ref={outerRef}
         className={`Link ${className}`}
         style={style}
         href={to}
         target={sameTab ? "" : "_blank"}
-        rel="noopener noreferrer"
-        onClick={() => onClick?.()}
+        // rel="noopener nouterReferrer"
+        // rel={sameTab ? '' : 'noreferrer'}
+        rel='noreferrer'
+        onClick={(e: any) => onClick?.(e)}
       >
         {children}
       </a>
       :
       activeClassName ?
         <NavLink
+          ref={outerRef}
           exact={typeof exact !== 'undefined' ? exact : true}
           to={to + location.search}
           className={`Link ${className}`}
           activeClassName={`Link--active ${activeClassName}`}
           style={style}
-          onClick={() => onClick?.()}
+          onClick={(e: any) => onClick?.(e)}
         >
           {children}
         </NavLink>
         :
         <Link
+          ref={outerRef}
           to={to + location.search}
           className={`Link ${className}`}
           style={style}
-          onClick={() => onClick?.()}
+          onClick={(e: any) => onClick?.(e)}
         >
           {children}
         </Link>

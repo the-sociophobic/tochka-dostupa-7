@@ -18,23 +18,25 @@ import FormattedMessage from '../../FormattedMessage'
 
 
 interface Props extends Spekt {
-  onClick?(): void
+  onClick?(e: any): void
   className?: string
   linkDisabled?: boolean
   avatarsL?: boolean
   avatarsM?: boolean
   avatarsS?: boolean
   style?: object
+  outerRef?: any
 }
 
 
 const SpektCard: React.FunctionComponent<Props> = (spekt: Props) =>
   <Link
+    outerRef={spekt.outerRef}
     // to={spekt.link}
     to={`/spekt/${spekt.link}`}
     className={`SpektCard ${spekt.className}`}
     disabled={spekt.linkDisabled}
-    onClick={() => spekt.onClick?.()}
+    onClick={(e: any) => spekt.onClick?.(e)}
     style={spekt.style}
   >
     <div className="SpektCard__name">
