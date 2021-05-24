@@ -78,7 +78,7 @@ class HorizontalShowcase extends React.Component<Props, State> {
     .map(ref => React.createRef())
 
   componentDidMount = () => {
-    if (this.props.arrows) {
+    if (this.props.arrows && (this.props?.items?.length || 0) !== 0) {
       this.scrollRef?.current?.addEventListener('scroll', this.handleScroll)
       this.resizeObs = new ResizeObserver(this.handleResize.bind(this))
         .observe(this.scrollRef.current)
@@ -91,7 +91,7 @@ class HorizontalShowcase extends React.Component<Props, State> {
   }
     
   componentWillUnmount = () => {
-    if (this.props.arrows) {
+    if (this.props.arrows && (this.props?.items?.length || 0) !== 0) {
       this.scrollRef?.current?.removeEventListener('scroll', this.handleScroll)
       // this.scrollRef?.current?.removeEventListener("touchend", this.scrollStop, false)
       this.scrollbarRef?.current?.removeEventListener("mousedown", this.scrollbarClickStart, false)
@@ -251,7 +251,7 @@ class HorizontalShowcase extends React.Component<Props, State> {
   render = () => {
     const { ItemComp } = this.props
 
-    return (
+    return !this.props.items || this.props?.items?.length === 0 ? '' : (
       <div className={`HorizontalShowcase ${this.props.className}`}>
 
         {this.props.title &&
