@@ -18,12 +18,12 @@ class CuratorsAvatars extends React.Component<Props, {}> {
 
   getSideSize = () =>
     this.props.S ?
-      80
+      160
       :
       this.props.M ?
-        140
+        280
         :
-        192
+        384
 
   render = () =>
     <div className={`
