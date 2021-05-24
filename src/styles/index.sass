@@ -601,6 +601,14 @@
       padding: rem(62) 0 rem(96)
     @include media-breakpoint-down(md)
       padding: rem(46) 0 rem(64)
+  &__scrollbar
+    cursor: pointer
+    position: absolute
+    bottom: rem(-24)
+    height: rem(8)
+    background-color: $black-primary
+    @include media-breakpoint-down(sm)
+      display: none
   &__scroll
     width: 100%
     overflow-x: scroll
@@ -626,12 +634,9 @@
         padding-left: calc((100vw - #{get-breakpoints('xs')} + #{$grid-gutter-width}) / 2)
         padding-right: calc((100vw - #{get-breakpoints('xs')} + #{$grid-gutter-width}) / 2)
     &__corner
-      position: absolute
-      top: 0
-      right: 0
-      height: 100%
-      width: 20%
-      cursor: url(./img/arrow-right.svg), auto
+      cursor: url(./img/arrow-right.svg), auto !important
+      *
+        cursor: url(./img/arrow-right.svg), auto !important
   &__item
     &--L,
     &--M,
