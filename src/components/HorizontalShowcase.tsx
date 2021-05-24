@@ -83,7 +83,7 @@ class HorizontalShowcase extends React.Component<Props, State> {
       this.resizeObs = new ResizeObserver(this.handleResize.bind(this))
         .observe(this.scrollRef.current)
 
-      this.scrollRef?.current?.addEventListener("touchend", this.scrollStop, false)
+      // this.scrollRef?.current?.addEventListener("touchend", this.scrollStop, false)
       this.scrollbarRef?.current?.addEventListener("mousedown", this.scrollbarClickStart, false)
       window.addEventListener("mouseup", this.scrollbarClickEnd, false)
       window.addEventListener('mousemove', this.scrollbarMouseMove)
@@ -93,7 +93,7 @@ class HorizontalShowcase extends React.Component<Props, State> {
   componentWillUnmount = () => {
     if (this.props.arrows) {
       this.scrollRef?.current?.removeEventListener('scroll', this.handleScroll)
-      this.scrollRef?.current?.removeEventListener("touchend", this.scrollStop, false)
+      // this.scrollRef?.current?.removeEventListener("touchend", this.scrollStop, false)
       this.scrollbarRef?.current?.removeEventListener("mousedown", this.scrollbarClickStart, false)
       window.removeEventListener("mouseup", this.scrollbarClickEnd, false)
       window.removeEventListener('mousemove', this.scrollbarMouseMove)
