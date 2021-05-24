@@ -87,7 +87,7 @@ const SpektCard: React.FunctionComponent<Props> = (spekt: Props) =>
       />
       :
       <Img
-        src={spekt?.cover?.file?.url}
+        src={`${spekt?.cover?.file?.url}?fit=fill&w=587&h=356`}
         className="SpektCard__cover"
       />
     }

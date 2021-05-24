@@ -78,7 +78,10 @@ class About extends React.Component<{}, {}> {
               .map((person: Person) =>              
                 <div className='About__person'>
                   <div className='About__person__avatar'>
-                    <Img file={person.avatar} />
+                    <Img
+                      file={person.avatar}
+                      urlParams='?fit=fill&w=192&h=192'
+                    />
                   </div>
                   <div className='About__person__name'>
                     {person.name} {person.surname}

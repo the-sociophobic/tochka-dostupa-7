@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Person } from './Store/Types'
 import Img from './Img'
+import encodeUrlParams from '../utils/encodeUrlParams'
 
 
 type Props = {
@@ -14,6 +15,15 @@ type Props = {
 
 
 class CuratorsAvatars extends React.Component<Props, {}> {
+
+  getSideSize = () =>
+    this.props.S ?
+      80
+      :
+      this.props.M ?
+        140
+        :
+        192
 
   render = () =>
     <div className={`
@@ -33,6 +43,10 @@ class CuratorsAvatars extends React.Component<Props, {}> {
             <Img
               className='CuratorsAvatars__item__avatar'
               file={curator?.avatar}
+              urlParams={`?fit=fill&${encodeUrlParams({
+                w: this.getSideSize(),
+                h: this.getSideSize()
+              })}`}
             />
           </div>
         )}
