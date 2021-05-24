@@ -11,6 +11,7 @@ type Props = {
   file?: File | undefined
   alt?: string
   noCrop?: boolean
+  urlParams?: string
 }
 
 type State = {
@@ -51,7 +52,7 @@ class Img extends React.Component<Props, State> {
       <img
         ref={this.imgRef}
         alt={this.props.alt || this.props?.file?.file?.fileName || ''}
-        src={this.props.src || this.props?.file?.file?.url || ''}
+        src={`${this.props.src || this.props?.file?.file?.url || ''}${this.props.urlParams || ''}`}
         className={`Img__img Img__img--${!this.props.noCrop && (this.state.portrait ? "portrait" : "landscape")}`}
         onLoad={this.setOrientation}
       />

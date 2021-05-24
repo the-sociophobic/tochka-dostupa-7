@@ -77,7 +77,7 @@ class Spekt extends React.Component<Props, State> {
             <div className='col-4 col-md-6 col-lg-8 order-lg-2'>
               <div className='w-100 Spekt__cover-container'>
                 <img
-                  src={spekt?.cover?.file?.url}
+                  src={`${spekt?.cover?.file?.url}?fit=fill&w=860&h=520`}
                   alt={spekt?.cover?.file?.fileName}
                   className='w-100 h-auto'
                 />
