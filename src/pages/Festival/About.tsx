@@ -15,7 +15,7 @@ class About extends React.Component<{}, {}> {
 
   render = () => {
 
-    const page = this.context?.contentful?.aboutPages[0]
+    const page = this.context?.contentful?.aboutPages?.[0]
 
     return !page ? '' :
       <div className="About">

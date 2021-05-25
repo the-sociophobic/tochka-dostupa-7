@@ -1,18 +1,9 @@
 import React from 'react'
 
-import {
-  Link,
-  NavLink,
-  withRouter
-} from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { Link } from 'gatsby'
+// import { useQueryParam, BooleanParam } from 'use-query-params'
 
-
-type PathParamsType = {
-  param1: string,
-}
-
-type Props = RouteComponentProps<PathParamsType> & {
+type Props = {
   className?: string
   activeClassName?: string
   style?: object
@@ -36,10 +27,13 @@ const _Link : React.FunctionComponent<Props> = ({
   onClick,
   disabled,
   exact,
-  location,
+  // location,
   outerRef,
-}) =>
-  disabled || !to ?
+}) => {
+  // const [en, setEn] = useQueryParam('en', BooleanParam)
+  const en = false
+
+  return disabled || !to ?
     <span
       ref={outerRef}
       className={`Link Link--disabled ${className}`}
@@ -64,28 +58,18 @@ const _Link : React.FunctionComponent<Props> = ({
         {children}
       </a>
       :
-      activeClassName ?
-        <NavLink
-          ref={outerRef}
-          exact={typeof exact !== 'undefined' ? exact : true}
-          to={to + location.search}
-          className={`Link ${className}`}
-          activeClassName={`Link--active ${activeClassName}`}
-          style={style}
-          onClick={(e: any) => onClick?.(e)}
-        >
-          {children}
-        </NavLink>
-        :
-        <Link
-          ref={outerRef}
-          to={to + location.search}
-          className={`Link ${className}`}
-          style={style}
-          onClick={(e: any) => onClick?.(e)}
-        >
-          {children}
-        </Link>
+      <Link
+        ref={outerRef}
+        partiallyActive={typeof exact !== 'undefined' ? !exact : false}
+        to={to + en ? '?en' : ''}
+        className={`Link ${className}`}
+        activeClassName={`Link--active ${activeClassName}`}
+        style={style}
+        onClick={(e: any) => onClick?.(e)}
+      >
+        {children}
+      </Link>
+}
 
 
-export default withRouter(_Link)
+export default _Link

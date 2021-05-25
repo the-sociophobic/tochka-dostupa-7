@@ -1,16 +1,14 @@
 import React from 'react'
 
-import { withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { Location } from '@reach/router'
 
 
 type Props = {
-  param1: string
   location: any
 }
 
 
-class ScrollToTop extends React.Component<RouteComponentProps<Props>> {
+class ScrollToTop extends React.Component<Props> {
 
   componentDidUpdate = (prevProps: { location: any }) =>
     this.props.location !== prevProps.location &&
@@ -21,4 +19,12 @@ class ScrollToTop extends React.Component<RouteComponentProps<Props>> {
 }
 
 
-export default withRouter(ScrollToTop)
+const ScrollToTopWithLocation = () =>
+  <Location>
+    {({location}) =>
+      <ScrollToTop location={location} />
+    }
+  </Location>
+
+
+export default ScrollToTopWithLocation

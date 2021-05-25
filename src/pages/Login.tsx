@@ -1,8 +1,8 @@
 import React from 'react'
 
 import _ from 'lodash'
-import { withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { Location } from '@reach/router'
+import { navigate } from 'gatsby'
 
 import Link from '../components/Link'
 import { Context } from '../components/Store'
@@ -11,9 +11,9 @@ import validatePhone from '../utils/validatePhone'
 import validateEmail from '../utils/validateEmail'
 
 
-type Props = RouteComponentProps<{
-  param1: string,
-}>
+type Props = {
+  location: any
+}
 
 type State = {
   emailPhoneInputString: string
@@ -54,7 +54,7 @@ class Login extends React.Component<Props, State> {
       if (!_.isEmpty(this.context.user) || tries > 10) {
         clearInterval(this.checkInterval)
         // if (this.props.history.location.pathname === '/login')
-          this.props.history.push('/user/tickets')
+          navigate('/user/tickets')
       }
       this.context.checkUser()
       tries++
@@ -222,4 +222,12 @@ class Login extends React.Component<Props, State> {
 }
 
 
-export default withRouter(Login)
+const LoginWithLocation = () =>
+  <Location>
+    {({location}) =>
+      <Login location={location} />
+    }
+  </Location>
+
+
+export default LoginWithLocation

@@ -1,8 +1,8 @@
 import React from 'react'
 
 import _ from 'lodash'
-import { withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { Location } from '@reach/router'
+import { navigate } from 'gatsby'
 import isBefore from 'date-fns/isBefore'
 import startOfToday from 'date-fns/startOfToday'
 
@@ -13,9 +13,9 @@ import ShowCard from '../../components/Views/Cards/ShowCard'
 import ShowPage from '../../components/Views/ShowPage'
 
 
-type Props = RouteComponentProps<{
-  param1: string,
-}>
+type Props = {
+  location: any
+}
 
 type State = {
   currentShow: MappedShow | undefined
@@ -50,7 +50,7 @@ class Tickets extends React.Component<Props, State> {
       return ''
 
     if (_.isEmpty(this.context.user))
-      this.props.history.push('/login')
+      navigate('/login')
 
     const page = this?.context?.contentful?.accountPages?.[0]
     const { mappedDays } = this?.context?.contentful
@@ -124,4 +124,12 @@ class Tickets extends React.Component<Props, State> {
 }
 
 
-export default withRouter(Tickets)
+const TicketsWithLocation = () =>
+  <Location>
+    {({location}) =>
+      <Tickets location={location} />
+    }
+  </Location>
+
+
+export default TicketsWithLocation

@@ -1,24 +1,25 @@
 import React from 'react'
 
 import _ from 'lodash'
-
-import { withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { Location } from '@reach/router'
+import { navigate } from 'gatsby'
 
 import LogoWithText from './LogoWithText'
 import FormattedMessage from './FormattedMessage'
 import { Context } from './Store'
 import Link from './Link'
-import { ReactComponent as LocaleIcon } from '../styles/img/locale.svg'
-import { ReactComponent as UserLineIcon } from '../styles/img/user-line.svg'
+// import { ReactComponent as LocaleIcon } from '../styles/img/locale.svg'
+// import { ReactComponent as UserLineIcon } from '../styles/img/user-line.svg'
+// import LocaleIcon from '../styles/img/locale.svg'
+// import UserLineIcon from '../styles/img/user-line.svg'
 import HorizontalShowcase from './HorizontalShowcase'
 import { getSubLinks } from '../utils/routeUtils'
 import { getMessage } from './Store/locale'
 import camelize from '../utils/camelize'
 
 
-type PathParamsType = {
-  param1: string,
+type Props = {
+  location: any
 }
 
 const mobileHeaderLinks = [
@@ -55,7 +56,7 @@ const mobileHeaderLinks = [
     </Link>)
 
 
-class Header extends React.Component<RouteComponentProps<PathParamsType>> {
+class Header extends React.Component<Props> {
   state = {
     opened: false,
     scrollingUp: false,
@@ -73,8 +74,8 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
     this.prev = window.scrollY
     window.addEventListener('scroll', e => this.handleScroll(e))
     this.updateSecondaryLinks()
-    if (this.props.history.location.pathname.match(/\/user*/) && _.isEmpty(this.context.user))
-      setTimeout(() => this.updateSecondaryLinks(), 500)
+    // if (this.props.history.location.pathname.match(/\/user*/) && _.isEmpty(this.context.user))
+    //   setTimeout(() => this.updateSecondaryLinks(), 500)
   }
 
   componentWillUnmount = () =>
@@ -98,7 +99,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           :
           getSubLinks(path)
             .filter(link => !link.to.match(/\/festival\/projects|\/festival\/reviews/))
-      )(pathToShow || this.props.history.location.pathname)
+      )(pathToShow || this.props.location.pathname)
     })
 
   initHideSecondaryLinksTimeout = () =>
@@ -200,41 +201,41 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
         className="Header__controls__item Header__controls__item--locale"
         onClick={this.context.toggleLocale}
       >
-        <LocaleIcon className="Header__controls__item__icon" />
+        {/* <LocaleIcon className="Header__controls__item__icon" /> */}
         <FormattedMessage id={this.context.locale === "rus" ? "locale.eng" : "locale.rus"} />
       </button>
       
       {!_.isEmpty(this.context.user) ?
-            <div
-              className={`
-                Header__controls__item
-                Header__controls__item--user
-                ${this.state.secondaryLinks.length === 4 && 'Header__controls__item--user--hover'}
-                ${this.props.history.location.pathname.includes('/user/')
-                  && 'Header__controls__item--active'}
-              `}
-              onMouseEnter={() => {
-                this.breakHideSecondaryLinksTimeout()
-                this.updateSecondaryLinks('/user')
-              }}
-              onMouseLeave={this.initHideSecondaryLinksTimeout}
-              onClick={() => {
-                if (this.state.opened && window.innerWidth) {
-                  this.setState({ opened: false })
-                  this.props.history.push('/user/tickets')
-                }
-              }}
-            >
-              <UserLineIcon className="Header__controls__item__icon" />
-              {this.context.user.name}
-            </div>
+        <div
+          className={`
+            Header__controls__item
+            Header__controls__item--user
+            ${this.state.secondaryLinks.length === 4 && 'Header__controls__item--user--hover'}
+            ${this.props.location.pathname.includes('/user/')
+              && 'Header__controls__item--active'}
+          `}
+          onMouseEnter={() => {
+            this.breakHideSecondaryLinksTimeout()
+            this.updateSecondaryLinks('/user')
+          }}
+          onMouseLeave={this.initHideSecondaryLinksTimeout}
+          onClick={() => {
+            if (this.state.opened && window.innerWidth) {
+              this.setState({ opened: false })
+              navigate('/user/tickets')
+            }
+          }}
+        >
+          {/* <UserLineIcon className="Header__controls__item__icon" /> */}
+          {this.context.user.name}
+        </div>
         :
         <Link
           to="/login"
           className='Header__controls__item'
           activeClassName='Header__controls__item--active'
         >
-          <UserLineIcon className="Header__controls__item__icon" />
+          {/* <UserLineIcon className="Header__controls__item__icon" /> */}
           <FormattedMessage id="login" />
         </Link>
       }
@@ -258,7 +259,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
               className="Header__links__item Header__links__item--exit"
               onClick={() => {
                 this.context.logout()
-                this.props.history.push('/login')
+                navigate('/login')
               }}
             >
               <FormattedMessage id="User.pages.logout" />
@@ -335,4 +336,12 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
 }
 
 
-export default withRouter(Header)
+const HeaderWithLocation = () =>
+  <Location>
+    {({location}) =>
+      <Header location={location} />
+    }
+  </Location>
+
+
+export default HeaderWithLocation

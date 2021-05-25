@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { Location } from '@reach/router'
+import { navigate } from 'gatsby'
 
 import Link from '../../components/Link'
 import { Context } from '../../components/Store'
@@ -13,15 +13,15 @@ import Dropdown from '../../components/Dropdown'
 import HorizontalShowcase from '../../components/HorizontalShowcase'
 
 
-type PathParamsType = {
-  param1: string,
+type Props = {
+  location: any,
 }
 
 type State = {
   currentOpened: number
 }
 
-class QandA extends React.Component<RouteComponentProps<PathParamsType>, State> {
+class QandA extends React.Component<Props, State> {
   
   state: State = {
     currentOpened: 0
@@ -35,7 +35,7 @@ class QandA extends React.Component<RouteComponentProps<PathParamsType>, State> 
     
     if (page && currentSectionURL === '') {
       currentSectionURL = page?.sections?.[0].url
-      this.props.history.replace({ pathname: `/festival/q&a/${currentSectionURL}` })
+      navigate(`/festival/q&a/${currentSectionURL}`, { replace: true })
     }
 
     return page?.sections
@@ -107,4 +107,12 @@ class QandA extends React.Component<RouteComponentProps<PathParamsType>, State> 
 }
 
 
-export default withRouter(QandA)
+const QandAWithLocation = () =>
+  <Location>
+    {({location}) =>
+      <QandA location={location} />
+    }
+  </Location>
+
+
+export default QandAWithLocation

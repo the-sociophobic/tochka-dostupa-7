@@ -1,12 +1,11 @@
 import React from 'react'
 
-import { withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
 import _ from 'lodash'
 import { format } from 'date-fns'
 import { ru, enUS } from 'date-fns/locale'
 import endOfYesterday from 'date-fns/endOfYesterday'
 import isAfter from 'date-fns/isAfter'
+import { Location } from '@reach/router'
 
 import { Context } from '../components/Store'
 import FormattedMessage from '../components/FormattedMessage'
@@ -29,9 +28,9 @@ import Link from '../components/Link'
 import camelize from '../utils/camelize'
 
 
-type Props = RouteComponentProps<{
-  param1: string
-}>
+type Props = {
+  location: any
+}
 
 type State = {
   currentOpened: number
@@ -258,4 +257,12 @@ class Spekt extends React.Component<Props, State> {
 }
 
 
-export default withRouter(Spekt)
+const SpektWithLocation = () =>
+  <Location>
+    {({location}) =>
+      <Spekt location={location} />
+    }
+  </Location>
+
+
+export default SpektWithLocation

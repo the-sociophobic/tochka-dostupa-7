@@ -1,18 +1,19 @@
 import React from 'react'
 
 import _ from 'lodash'
-import { createClient } from 'contentful'
+// import { createClient } from 'contentful'
 import { BLOCKS } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 
 const createContentfulClient = () =>
-  createClient({
-    space: 'ib2cfqvkayep',
-    accessToken: 'wnUB9eqGpeeAGROQfPQpcPjEI_aUajinG38PJsQ-1II',
-    host: 'cdn.contentful.com',
-    // basePath: '/locales'
-  })
+  // createClient({
+  //   space: 'ib2cfqvkayep',
+  //   accessToken: 'wnUB9eqGpeeAGROQfPQpcPjEI_aUajinG38PJsQ-1II',
+  //   host: 'cdn.contentful.com',
+  //   // basePath: '/locales'
+  // })
+  ''
 
 const parseContentfulItems = async (items: any[]) => {
   let itemsByType: {[key: string]: any} = {};

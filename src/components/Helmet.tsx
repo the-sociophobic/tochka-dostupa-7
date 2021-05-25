@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { Location } from '@reach/router'
 import { Helmet as ReactHelmet } from 'react-helmet'
 
 import { Context } from './Store'
@@ -10,41 +9,46 @@ import { Spekt } from './Store/Types'
 import { pathToIds } from '../utils/routeUtils'
 
 
-type PathParamsType = {
-  param1: string,
-}
+type Props = {}
 
 
-class Helmet extends React.Component<RouteComponentProps<PathParamsType>> {
+class Helmet extends React.Component<Props> {
 
   static contextType = Context
 
   render = () => {
-    const subTitles = pathToIds(this.props.location.pathname)
-      .map((section: string | undefined) =>
-        ` / ${getMessage(this, section || '')}`)
 
     return (
-      <ReactHelmet>
-        <title>
-          {getMessage(this, 'AccessPoint')} VII {
-            this.props.location.pathname.match(/\/spekt\/*/) ?
-              ' / ' + (this?.context?.contentful?.spekts
-                ?.find((spekt: Spekt) =>
-                  spekt.link === this.props.location.pathname.replace('/spekt/', ''))
-                ?.name
-                || (this?.context?.contentful ? 404 : ''))
-              :
-              subTitles.length > 0 ?
-                subTitles.reduce((a, b) => a + b)
-                :
-                ''
-          }
-        </title>
-      </ReactHelmet>
+      <Location>
+        {({location}) => {
+          const subTitles = pathToIds(location.pathname)
+            .map((section: string | undefined) =>
+              ` / ${getMessage(this, section || '')}`)
+              
+          return (
+            <ReactHelmet>
+              <title>
+                {getMessage(this, 'AccessPoint')} VII {
+                  location.pathname.match(/\/spekt\/*/) ?
+                    ' / ' + (this?.context?.contentful?.spekts
+                      ?.find((spekt: Spekt) =>
+                        spekt.link === location.pathname.replace('/spekt/', ''))
+                      ?.name
+                      || (this?.context?.contentful ? 404 : ''))
+                    :
+                    subTitles.length > 0 ?
+                      subTitles.reduce((a, b) => a + b)
+                      :
+                      ''
+                }
+              </title>
+            </ReactHelmet>
+          )
+        }}
+      </Location>
     )
   }
 }
 
 
-export default withRouter(Helmet)
+export default Helmet

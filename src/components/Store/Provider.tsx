@@ -4,8 +4,7 @@ import axios from 'axios'
 import _ from 'lodash'
 import Cookies from 'universal-cookie'
 import { deviceDetect } from 'react-device-detect'
-import { withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { navigate } from 'gatsby'
 
 import {
   StateType,
@@ -20,9 +19,9 @@ import {
 import isProd from '../../utils/isProd'
 import parseData from './parseData'
 
-type Props = RouteComponentProps<{
-  param1: string,
-}>
+type Props = {
+  location: any
+}
 
 
 const _setState = (_this: any, obj: any) => {
@@ -81,18 +80,18 @@ class Provider extends React.Component<Props, StateType> {
   }
 
   loadContentful = async () => {
-    if (isProd() || true) {
+    // if (isProd() || true) {
       await this.updateContentful(false)
-    } else {
-      const client = createContentfulClient()
+    // } else {
+    //   const client = createContentfulClient()
 
-      this.setState({
-        contentfulData: [
-          await parseContentfulItems((await client.getEntries({ limit: 200, })).items),
-          await parseContentfulItems((await client.getEntries({ limit: 200, locale: 'en-US' })).items)
-        ]
-      })      
-    }
+    //   this.setState({
+    //     contentfulData: [
+    //       await parseContentfulItems((await client.getEntries({ limit: 200, })).items),
+    //       await parseContentfulItems((await client.getEntries({ limit: 200, locale: 'en-US' })).items)
+    //     ]
+    //   })      
+    // }
 
     console.log(this.state.contentfulData[0])
 
@@ -144,9 +143,10 @@ class Provider extends React.Component<Props, StateType> {
           locale: _locale
         }),
       toggleLocale: () => {
-        this.props.history.push({
-          search: this.state.locale === 'rus' ? '?en' : ''
-        })
+        // navigate({search: this.state.locale === 'rus' ? '?en' : ''})
+        // this.props.history.push({
+        //   search: this.state.locale === 'rus' ? '?en' : ''
+        // })
         this.setState({
           locale: this.state.locale === "rus" ? "eng" : "rus"
         })
@@ -176,4 +176,4 @@ class Provider extends React.Component<Props, StateType> {
 }
 
 
-export default withRouter(Provider)
+export default Provider
