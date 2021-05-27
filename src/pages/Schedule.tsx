@@ -232,7 +232,15 @@ class Schedule extends React.Component<{}, State> {
                     >
                       <div className='col-4 col-md-1 col-lg-3'>
                         <p className='p p--l'>
-                          {format(show.dateObj, 'HH:mm')} <FormattedMessage id='Schedule.msk' />
+                          {this.context.locale === 'rus' ?
+                            show.scheduleCust
+                            ||
+                            <>{format(show.dateObj, 'HH:mm')} <FormattedMessage id='Schedule.msk' /></>
+                            :
+                            show.scheduleCustEn
+                            ||
+                            <>{format(show.dateObj, 'HH:mm')} <FormattedMessage id='Schedule.msk' /></>
+                          }
                         </p>
                       </div>
                       <Link
@@ -245,6 +253,16 @@ class Schedule extends React.Component<{}, State> {
                         <p className='p p--xl font-spectral mb-xs'>
                           {show.persons}
                         </p>
+                        {(this.context.locale === 'rus' && show.disclaimer) &&
+                          <p className='p p--s'>
+                            {show.disclaimer}
+                          </p>
+                        }
+                        {(this.context.locale === 'eng' && show.disclaimerEn) &&
+                          <p className='p p--s'>
+                            {show.disclaimerEn}
+                          </p>
+                        }
                         <div className='w-100 d-flex flex-row flex-wrap mb-xs mb-md-0'>
                           {show.program &&
                             <Program

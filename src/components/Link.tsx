@@ -38,6 +38,7 @@ const _Link : React.FunctionComponent<Props> = ({
   exact,
   location,
   outerRef,
+  ...other
 }) =>
   disabled || !to ?
     <span
@@ -45,6 +46,7 @@ const _Link : React.FunctionComponent<Props> = ({
       className={`Link Link--disabled ${className}`}
       style={style}
       onClick={(e: any) => onClick?.(e)}
+      {...other}
     >
       {children}
     </span>
@@ -60,6 +62,7 @@ const _Link : React.FunctionComponent<Props> = ({
         // rel={sameTab ? '' : 'noreferrer'}
         rel='noreferrer'
         onClick={(e: any) => onClick?.(e)}
+        {...other}
       >
         {children}
       </a>
@@ -73,6 +76,7 @@ const _Link : React.FunctionComponent<Props> = ({
           activeClassName={`Link--active ${activeClassName}`}
           style={style}
           onClick={(e: any) => onClick?.(e)}
+          {...other}
         >
           {children}
         </NavLink>
@@ -83,6 +87,7 @@ const _Link : React.FunctionComponent<Props> = ({
           className={`Link ${className}`}
           style={style}
           onClick={(e: any) => onClick?.(e)}
+          {...other}
         >
           {children}
         </Link>

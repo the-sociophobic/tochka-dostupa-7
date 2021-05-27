@@ -84,7 +84,7 @@ interface Show extends ContentfulItem {
   scheduleCustEn?: string
 
   disclaimer?: string
-  disclamerEn?: string
+  disclaimerEn?: string
 
   buttonNameCust?: string
   buttonNameCustEn?: string

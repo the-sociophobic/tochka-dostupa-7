@@ -29,6 +29,7 @@ import Link from '../components/Link'
 import camelize from '../utils/camelize'
 import radarioProps from '../utils/radarioProps'
 import copyToClipboard from '../utils/copyToClipboard'
+import { getMessage } from '../components/Store/locale'
 
 
 type Props = RouteComponentProps<{
@@ -216,15 +217,21 @@ class Spekt extends React.Component<Props, State> {
                       >
                         <div className='Spekt__show__date-time'>
                           {(() => {
+                            if (this.context.locale === 'rus')
+                              if (show.datetimeCust)
+                                return show.datetimeCust
+                            else
+                              if (show.datetimeCustEn)
+                                return show.datetimeCustEn
+
                             const dateTime = format(
                               show.dateObj,
                               'dd.MM / iiii / HH:mm ',
                               { locale: this.context.locale === 'rus' ? ru : enUS })
                             const dateTimeSplitted = dateTime.split(' / ')
 
-                            return dateTimeSplitted[0] + ' / ' + camelize(dateTimeSplitted[1]) + ' / ' + dateTimeSplitted[2]
+                            return `${dateTimeSplitted[0]} / ${camelize(dateTimeSplitted[1])} / ${dateTimeSplitted[2]} ${getMessage(this, 'Schedule.msk')}`
                           })()}
-                          <FormattedMessage id='Schedule.msk' />
                         </div>
                         <div className='Spekt__show__line'>
                           {show.offline ? <Offline /> : <Online />}
@@ -242,7 +249,7 @@ class Spekt extends React.Component<Props, State> {
                       </div>
                     )
                   }
-                  {!this.state.showAllShows &&
+                  {(!this.state.showAllShows && spekt.shows.length > maxShownShows) &&
                     <div
                       className='p p--m cursor-pointer mt-3'
                       onClick={() => this.setState({ showAllShows: true })}
