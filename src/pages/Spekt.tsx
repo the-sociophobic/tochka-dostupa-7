@@ -232,6 +232,11 @@ class Spekt extends React.Component<Props, State> {
 
                             return `${dateTimeSplitted[0]} / ${camelize(dateTimeSplitted[1])} / ${dateTimeSplitted[2]} ${getMessage(this, 'Schedule.msk')}`
                           })()}
+                          {this.context.locale === 'rus' ?
+                            show.disclaimer ? <div className='w-100 p p--s my-2'>{show.disclaimer}</div> : ''
+                            :
+                            show.disclaimerEn ? <div className='w-100 p p--s my-2'>{show.disclaimerEn}</div> : ''
+                          }
                         </div>
                         <div className='Spekt__show__line'>
                           {show.offline ? <Offline /> : <Online />}
