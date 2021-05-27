@@ -67,11 +67,27 @@ interface Place extends ContentfulItem {
 }
 
 interface Show extends ContentfulItem {
-  link: string
-  datetime: string
+  ticketsId?: string
+  ticketsGroupId?: string
+  url?: string
+  
   online?: boolean | undefined
   offline?: boolean | undefined
-  event_id: number
+  soldOut?: boolean
+
+  datetime: string
+  datetimeEnd?: string
+  datetimeCust?: string
+  datetimeCustEn?: string
+
+  scheduleCust?: string
+  scheduleCustEn?: string
+
+  disclaimer?: string
+  disclamerEn?: string
+
+  buttonNameCust?: string
+  buttonNameCustEn?: string
 }
 
 interface Program extends ContentfulItem {
@@ -124,13 +140,11 @@ interface FeedbackPreview extends ContentfulItem {
 }
 
 interface MappedShow extends Show {
+  link: string
   name: string
   persons: string
   dateObj: any
-  datetime: string
   program: Program | undefined
-  online?: boolean | undefined
-  offline?: boolean | undefined
   age?: string | number
   shortDesc?: string
   stage?: string

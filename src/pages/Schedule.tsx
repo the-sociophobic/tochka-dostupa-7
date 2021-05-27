@@ -26,6 +26,7 @@ import { getMessage } from '../components/Store/locale'
 import DatePicker from '../components/DatePicker'
 import Link from '../components/Link'
 import camelize from '../utils/camelize'
+import radarioProps from '../utils/radarioProps'
 
 
 type FilterState = {
@@ -263,13 +264,15 @@ class Schedule extends React.Component<{}, State> {
                       </Link>
                       <div className='col-4 col-md-2 col-lg-3'>
                         <Link
-                          sameTab
-                          to={`#event/${show.event_id || 765096}`}
-                          data-accent-color='#b33d26'
-                          className='Schedule__day__show__button'
                           disabled={isBefore(show.dateObj, endOfToday())}
+                          className='Schedule__day__show__button'
+                          {...radarioProps(show)}
                         >
-                          <FormattedMessage id={show.online ? 'Schedule.register' : 'Schedule.buy'} />
+                          {this.context.locale === 'rus' ?
+                            show.buttonNameCust || <FormattedMessage id='Schedule.buy' />
+                            :
+                            show.buttonNameCustEn || <FormattedMessage id='Schedule.buy' />
+                          }
                         </Link>
                       </div>
                     </div>)

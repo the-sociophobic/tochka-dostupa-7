@@ -128,7 +128,7 @@ class Footer extends React.Component {
             </div>
           </div>
           <div className="Footer__disclaimer">
-            <div className='p--xs col-12 pb-xs'>
+            <div className='p p--xs col-12 pb-xs'>
               {footer?.disclaimer}
             </div>
           </div>

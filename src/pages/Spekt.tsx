@@ -27,6 +27,7 @@ import Error404 from '../components/Error404'
 import Link from '../components/Link'
 
 import camelize from '../utils/camelize'
+import radarioProps from '../utils/radarioProps'
 
 
 type Props = RouteComponentProps<{
@@ -206,13 +207,14 @@ class Spekt extends React.Component<Props, State> {
                             {show.offline ? <Offline /> : <Online />}
                           </div>
                           <Link
-                            sameTab
-                            to={`#event/${show.event_id || 765096}`}
-                            data-accent-color='#b33d26'
                             className='Spekt__show__buy'
-                            disabled={false}
+                            {...radarioProps(show)}
                           >
-                            <FormattedMessage id={show.offline ? 'Schedule.buy' : 'Schedule.register'} />
+                            {this.context.locale === 'rus' ?
+                              show.buttonNameCust || <FormattedMessage id='Schedule.buy' />
+                              :
+                              show.buttonNameCustEn || <FormattedMessage id='Schedule.buy' />
+                            }
                           </Link>
                         </div>
                     ))

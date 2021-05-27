@@ -18,13 +18,12 @@ const parseMappedDays = async (spekts: Spekt[]) =>
             place?.tickets
               .map((show: Show): MappedShow => ({
                 ...show,
+                link: spekt.link,
                 name: spekt.name,
                 persons: spekt.persons,
                 dateObj: new Date(show.datetime),
-                datetime: show.datetime,
                 program: spekt.program,
-                offline: show.offline || !show.online,
-                link: spekt.link,
+                offline: show.offline || (!show.online && !show.offline),
                 age: spekt.age,
                 shortDesc: spekt.shortDesc,
                 stage: place.venue,
