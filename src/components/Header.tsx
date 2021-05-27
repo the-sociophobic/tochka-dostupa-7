@@ -116,7 +116,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
 
     if (this.prev > window.scrollY && window.scrollY > window.innerHeight) {
       this.setState({ scrollingUp: true })
-    } else if (this.prev < window.scrollY) {
+    } else {
       this.setState({ scrollingUp: false })
     }
     this.prev = window.scrollY

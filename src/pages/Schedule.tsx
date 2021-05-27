@@ -125,7 +125,7 @@ class Schedule extends React.Component<{}, State> {
         setDateB={(value: string) => this.setState({ to: value })}
       />
 
-      <div
+      {/* <div
         onClick={this.savePDF}
         className='p p--l p--arrow p--arrow--down mb-1 cursor-pointer'
       >
@@ -133,7 +133,7 @@ class Schedule extends React.Component<{}, State> {
       </div>
       <div className='p p--s mb-xxs mb-lg-xs color-button-disabled-text'>
         <FormattedMessage id='Schedule.downloadDesc' />
-      </div>
+      </div> */}
       {!Object.keys(filterInitialState)
         .every(key => filterInitialState[key] === this.state[key])
           &&

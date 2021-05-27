@@ -75,7 +75,7 @@ const defaultMessages: Messages = {
   Home: {
     subscribe: {
       newsletter: ['рассылка', 'newsletter'],
-      desc: ['ненавязчиво расскажем о важном на фестивале и в современном театре', ''],
+      desc: ['ненавязчиво расскажем о важном на фестивале и в современном театре', 'learn everything about contemporary theatre'],
       placeholder: ['Ваш email', 'Your email'],
       submit: ['подписаться', 'subscribe'],
       submitLoading: ['подписываем', 'subscribing'],
