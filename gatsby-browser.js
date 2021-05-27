@@ -7,3 +7,4 @@
 // import 'bootstrap/js/dist/dropdown'
 
 import './src/styles/index.sass'
+import 'bootstrap/dist/js/bootstrap.min.js'
