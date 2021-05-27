@@ -188,6 +188,10 @@ const defaultMessages: Messages = {
     performanceTeam: ['Команда проекта', 'Project team'],
     buy: ['Купить билет', 'Tickets'],
     showAllShows: ['Показать ещё...', 'More shows...'],
+    FestivalPass: {
+      desc: ['Скидка 35% на все билеты по промокоду', '35% discount with promocode'],
+      more: ['Подробнее', 'Learn more'],
+    }
   },
 
   DatePicker: {

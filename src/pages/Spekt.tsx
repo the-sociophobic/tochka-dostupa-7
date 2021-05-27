@@ -28,6 +28,7 @@ import Link from '../components/Link'
 
 import camelize from '../utils/camelize'
 import radarioProps from '../utils/radarioProps'
+import copyToClipboard from '../utils/copyToClipboard'
 
 
 type Props = RouteComponentProps<{
@@ -170,6 +171,21 @@ class Spekt extends React.Component<Props, State> {
             <div className='col-4 col-md-6 col-lg-8'>
               <div className='p p--l mb-m mb-lg-l'>
                 {spekt.mainDesc}
+              </div>
+
+              <div className='Spekt__FestivalPass'>
+                <b className='mb-3 mb-md-0'>
+                  <FormattedMessage id='Spekt.FestivalPass.desc' /> <div
+                    className='p p--copy d-inline-block cursor-pointer'
+                    onClick={() => copyToClipboard('ТОЧКАДОСТУПА35')}
+                  ><u>ТОЧКАДОСТУПА35</u></div>
+                </b>
+                <Link
+                  to='https://special.tochkadostupa.spb.ru/atonement'
+                  className='p p--m p--arrow p--arrow--right'
+                >
+                  <FormattedMessage id='Spekt.FestivalPass.more' />
+                </Link>
               </div>
 
               {spekt.shows.length > 0 &&

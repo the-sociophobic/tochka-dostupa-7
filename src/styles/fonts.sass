@@ -144,7 +144,8 @@
     @include media-breakpoint-down(xs)
       @include font-params(10, 14)
   &--arrow,
-  &--cross
+  &--cross,
+  &--copy
     @extend .d-flex
     @extend .align-items-end
     &::before,
@@ -191,7 +192,15 @@
 
   &--cross
     &::after
+      content: ''
       background-image: url(./img/cross.svg)
+
+  &--copy
+    &::after
+      content: ''
+      background-image: url(./img/copy.svg)
+      width: rem(20)
+      height: rem(20)
 
 
 
