@@ -586,6 +586,19 @@
       height: rem(512)
     @include media-breakpoint-down(md)
       height: rem(460)
+  &__Laba
+    background-color: $background
+    &__Img
+      border-radius: rem(12)
+      overflow: hidden
+      width: 100%
+      height: calc((100vw - #{$grid-gutter-width}) / 300 * 204)
+      @include media-breakpoint-up(md)
+        height: rem(237)
+      @include media-breakpoint-up(lg)
+        height: rem(328)
+      @include media-breakpoint-up(xl)
+        height: rem(430)
 
 
 

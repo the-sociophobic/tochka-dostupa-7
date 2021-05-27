@@ -182,7 +182,7 @@ class Spekt extends React.Component<Props, State> {
                   ><u>ТОЧКАДОСТУПА35</u></div>
                 </b>
                 <Link
-                  to='https://special.tochkadostupa.spb.ru/atonement'
+                  to='https://special.tochkadostupa.spb.ru/abonement'
                   className='p p--m p--arrow p--arrow--right'
                 >
                   <FormattedMessage id='Spekt.FestivalPass.more' />

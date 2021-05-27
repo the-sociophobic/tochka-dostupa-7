@@ -89,6 +89,10 @@ const defaultMessages: Messages = {
       desc: ['Один билет на все онлайн-спектакли фестиваля', 'Single ticket for all online-events'],
       price: ['1000 рублей', '1000 roubles'],
       buy: ['купить', 'buy'],
+    },
+    Laba: {
+      name: ['Лаборатория', 'Laboratory'],
+      datetime: ['Ивангород / 5-11 июня 2021', 'Ivangorod / 5-11 June 2021'],
     }
   },
 

@@ -26,7 +26,7 @@ class FestivalPass extends React.Component<{}, {}> {
   render = () =>
     <Link
       outerRef={this.elementRef}
-      to='https://special.tochkadostupa.spb.ru/atonement'
+      to='https://special.tochkadostupa.spb.ru/abonement'
       className='FestivalPass mb-m mb-md-l mb-lg-xl pt-0 pb-3 pt-md-2 pb-md-xs pt-lg-2 pb-lg-m'
     >
       <div className='FestivalPass__content'>
