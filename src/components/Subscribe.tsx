@@ -11,6 +11,7 @@ import validateEmail from '../utils/validateEmail'
 type State = {
   input: string
   buttonStatus: string
+  scroll: number
 }
 
 
@@ -18,13 +19,27 @@ class Subscribe extends React.Component<{}, State> {
 
   state: State = {
     input: '',
-    buttonStatus: ''
+    buttonStatus: '',
+    scroll: 0,
   }
+
+  elementRef: any = React.createRef()
 
   clearFieldsTimeout: any
 
   static contextType = Context
 
+  componentDidMount = () =>
+    window.addEventListener('scroll', () => this.updateScroll())
+
+  componentWillUnmount = () =>
+    window.removeEventListener('scroll', () => this.updateScroll())
+
+  updateScroll = () =>
+    this.setState({
+      scroll: Math.floor(this.elementRef?.current?.getBoundingClientRect().bottom / 3)
+    })
+    
   post = async () => {
     if (!validateEmail(this.state.input)) {
       this.setState({ buttonStatus: 'Error' })
@@ -52,9 +67,17 @@ class Subscribe extends React.Component<{}, State> {
   }
 
   render = () =>
-    <div className='Subscribe mb-m mb-md-l mb-lg-xl pt-0 pb-3 pt-md-2 pb-md-xs pt-lg-2 pb-lg-m'>
+    <div
+      ref={this.elementRef}
+      className='Subscribe mb-m mb-md-l mb-lg-xl pt-0 pb-3 pt-md-2 pb-md-xs pt-lg-2 pb-lg-m'
+    >
       <div className='Subscribe__content'>
-        <div className='Subscribe__content__container'>
+        <div
+          className='Subscribe__content__container'
+          style={{
+            left: `-${window.innerWidth >= 768 ? this.state.scroll : 55}px`
+          }}
+        >
           <div className='d-flex flex-row d-sm-none py-2'>
             <div className='p p--xxxl mr-2'><FormattedMessage id='Home.subscribe.newsletter' /></div>
             <div className='p p--xxxl mr-2'><FormattedMessage id='Home.subscribe.newsletter' /></div>
@@ -107,11 +130,11 @@ class Subscribe extends React.Component<{}, State> {
           </div>
           <div className='col-4 col-md-2 col-lg-5 col-xl-4'>
             <button
-              className='Subscribe__submit'
+              className={`Subscribe__submit Subscribe__submit--${this.state.buttonStatus}`}
               onClick={this.post}
               disabled={this.state.buttonStatus !== ''}
             >
-              <FormattedMessage id={`Home.subscribe.submit${this.state.buttonStatus}`} />
+              <FormattedMessage id={`Home.subscribe.submit`} />
             </button>
           </div>
         </div>

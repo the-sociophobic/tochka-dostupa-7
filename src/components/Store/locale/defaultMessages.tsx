@@ -82,6 +82,13 @@ const defaultMessages: Messages = {
       submitDone: ['готово!', 'done!'],
       submitError: ['ошибка((', 'error(('],
       // submitWrong: ['ошибка((', 'error(('],
+    },
+    festivalPass: {
+      1: ['festival pass', 'фестиваль пасс'],
+      2: ['фестиваль пасс', 'festival pass'],
+      desc: ['Один билет на все онлайн-спектакли фестиваля', 'Single ticket for all online-events'],
+      price: ['1000 рублей', '1000 roubles'],
+      buy: ['купить', 'buy'],
     }
   },
 
@@ -178,7 +185,7 @@ const defaultMessages: Messages = {
     howToOnline: ['Как это будет онлайн?', 'Tickets'],
     howToOffline: ['Как это будет офлайн?', 'Tickets'],
     instructions: ['Инструкция для зрителей', 'Instructions'],
-    persons: ['Команда проекта', 'Project team'],
+    performanceTeam: ['Команда проекта', 'Project team'],
     buy: ['Купить билет', 'Tickets'],
     showAllShows: ['Показать ещё...', 'More shows...'],
   },

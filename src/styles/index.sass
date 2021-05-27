@@ -1284,22 +1284,85 @@
     @include media-breakpoint-up(lg)
       height: rem(88)
       @include font-params(46, 46)
+    &--Error
+      border-color: $danger
+      *
+        color: $danger
+    &--Done
+      border-color: $online-primary
+      *
+        color: $online-primary
   &__input
     padding-left: rem(20)
     @include media-breakpoint-down(md)
       text-transform: lowercase
       text-align: center
 
-
 .FestivalPass
   background-color: $online-primary
-  @extend .py-s
-  &__h1
-    @include font-params(32, 48)
-    @include media-breakpoint-up(md)
-      @include font-params(72, 80)
+  cursor: pointer
+  *
+    background-color: $online-primary
+    color: $black-primary
+  .FormattedMessage
+    background-color: transparent
+  &__content
+    width: 100%
+    overflow: hidden
+    position: relative
+    &__container
+      @extend .d-flex
+      @extend .flex-row
+      @extend .align-items-center
+      position: relative
+      width: 300%
+      left: rem(-55)
+      top: 0
+      &--1
+        @include media-breakpoint-down(md)
+          left: -100px !important
+      &--2
+        @include media-breakpoint-down(md)
+          left: -100px !important
+      &--3
+        @include media-breakpoint-down(sm)
+          display: none !important
+  &__desc
+    @extend .p
+    @extend .p--l
+    @extend .mr-2
+    width: rem(162)
+    @include media-breakpoint-up(sm)
+      width: rem(204)
     @include media-breakpoint-up(lg)
-      @include font-params(120, 120)
+      width: rem(246)
+  &__h1
+    white-space: nowrap
+    @extend .mr-5
+    @include font-params(120, 120)
+    @include media-breakpoint-down(md)
+      @include font-params(72, 80)
+    @include media-breakpoint-down(xs)
+      @include font-params(32, 48)
+  &__buy
+    @extend .mr-5
+    border: 3px solid $black-primary
+    outline: none
+    width: 30vw
+    text-align: center
+    @include font-params(24, 44)
+    height: rem(48)
+    @include media-breakpoint-up(md)
+      transform: translateY(10px)
+      height: rem(66)
+      @include font-params(28, 56)
+    @include media-breakpoint-up(lg)
+      height: rem(88)
+      @include font-params(46, 78)
+    .FestivalPass:hover &
+      background-color: $black-primary
+      *
+        color: $online-primary
 
 
 

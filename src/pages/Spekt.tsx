@@ -236,7 +236,7 @@ class Spekt extends React.Component<Props, State> {
                 </Dropdown>
               }
 
-              {['howToOnline', 'howToOffline', 'persons', 'instructions']
+              {['howToOnline', 'howToOffline', 'performanceTeam', 'instructions']
                 .map((dropdown, index) =>
                   !spekt[dropdown] ?
                     ''
