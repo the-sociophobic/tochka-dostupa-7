@@ -52,7 +52,7 @@ const ShowCard: React.FunctionComponent<Props> = ({
       <div className='p p--s mb-xxs'>
         {show.shortDesc}
       </div>
-      <div className='d-flex flex-row mt-auto mb-xxs'>
+      <div className='d-flex flex-row mt-auto mb-xxs flex-wrap'>
         <Program
           text={show.program?.name}
           className='mr-2 mb-2'

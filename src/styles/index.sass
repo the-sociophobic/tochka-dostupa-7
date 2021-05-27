@@ -1303,6 +1303,11 @@
     @include media-breakpoint-up(lg)
       height: rem(88)
       @include font-params(46, 46)
+  &__input
+    padding-left: rem(20)
+    @include media-breakpoint-down(md)
+      text-transform: lowercase
+      text-align: center
     &--Error
       border-color: $danger
       *
@@ -1311,11 +1316,6 @@
       border-color: $online-primary
       *
         color: $online-primary
-  &__input
-    padding-left: rem(20)
-    @include media-breakpoint-down(md)
-      text-transform: lowercase
-      text-align: center
 
 .FestivalPass
   background-color: $online-primary

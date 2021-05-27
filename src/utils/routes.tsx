@@ -109,6 +109,11 @@ const routes: Route[] = [
     Comp: <Template programId='6OfzgvjCzzT1xhlwDH2AfQ' />
   },
   {
+    exact: true,
+    to: '/program/friends',
+    Comp: <Template programId='4NkckPWZ7vHmJtzrwwoERP' />
+  },
+  {
     to: '/program/main/text',
     Comp: <Template text programId='7fOwCkT7nOXh3C81toLoSs' />
   },

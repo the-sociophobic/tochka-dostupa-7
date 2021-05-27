@@ -106,6 +106,9 @@ const defaultMessages: Messages = {
       Educational: {
         name: ["Просветительская", "Educational"],
       },
+      Friends: {
+        name: ["Проекты друзей", "Friends projects"],
+      },
     },
 
     readText: ["Читать текст", "Read text"],

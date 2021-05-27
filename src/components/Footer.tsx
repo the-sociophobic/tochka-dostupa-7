@@ -83,16 +83,16 @@ class Footer extends React.Component {
                 id='Program.name'
                 className='Footer__link Footer__link--title'
               />
-              {mappedLinks.slice(0, 3)}
+              {mappedLinks.slice(0, 4)}
               <div className="Footer__link Footer__link--regular" />
-              {mappedLinks[3]}
+              {mappedLinks[4]}
             </div>
             <div className="Footer__links__3">
               <FormattedMessage
                 id='Festival.name'
                 className='Footer__link Footer__link--title'
               />
-              {mappedLinks.slice(4, 10)}
+              {mappedLinks.slice(5, 11)}
             </div>
             <div className="Footer__links__divider" />
             <div className="Footer__links__4">
@@ -100,7 +100,7 @@ class Footer extends React.Component {
                 id='Footer.media'
                 className='Footer__link Footer__link--title'
               />
-              {mappedLinks.slice(10, 14)}
+              {mappedLinks.slice(11, 15)}
             </div>
           </div>
           <div className="Footer__contacts">
@@ -120,11 +120,11 @@ class Footer extends React.Component {
             </div>
             <div className="Footer__contacts__divider" />
             <div className="Footer__contacts__3">
-              {mappedLinks[14]}
+              {mappedLinks[15]}
             </div>
             <div className="Footer__contacts__divider" />
             <div className="Footer__contacts__4">
-              {mappedLinks[15]}
+              {mappedLinks[16]}
             </div>
           </div>
           <div className="Footer__disclaimer">

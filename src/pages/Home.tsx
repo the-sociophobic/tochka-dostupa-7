@@ -106,6 +106,18 @@ class Home extends React.Component<{}, {}> {
         {page.showSubscribe &&
           <Subscribe />
         }
+        <HorizontalShowcase
+          className='HorizontalShowcase--Home pb-m pb-md-l pb-lg-xl'
+          S
+          arrows
+          title={
+            <>
+              <FormattedMessage id={`Program.pages.Friends.name`} />
+            </>
+          }
+          ItemComp={SpektCard}
+          items={page.friends}
+        />
 
         <div className='container'>
           <div className='row mb-0 mb-md-3 mb-lg-0'>

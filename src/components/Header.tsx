@@ -295,10 +295,10 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           </div>
           <div className='row'>
             <div className='col-4 px-4'>
-              {mobileHeaderLinks.slice(0, 3)}
+              {mobileHeaderLinks.slice(0, 4)}
               <br />
               <br />
-              {mobileHeaderLinks[3]}
+              {mobileHeaderLinks[4]}
             </div>
           </div>
           <div className='row'>
@@ -308,18 +308,18 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           </div>
           <div className='row mb-auto'>
             <div className='col-4 col-md-6 px-4'>
-              {mobileHeaderLinks.slice(4, 8)}
+              {mobileHeaderLinks.slice(5, 9)}
               <br className='d-block d-md-none' />
-              {mobileHeaderLinks[8]}
+              {mobileHeaderLinks[9]}
             </div>
           </div>
 
           <div className='row'>
             <div className='col-4 col-md-6 flex-nowrap px-4'>
-              {mobileHeaderLinks.slice(9, 11)}
+              {mobileHeaderLinks.slice(10, 12)}
               <br className='d-block d-md-none' />
               <br className='d-block d-md-none' />
-              {mobileHeaderLinks.slice(11)}
+              {mobileHeaderLinks.slice(12)}
             </div>
           </div>
         </div>

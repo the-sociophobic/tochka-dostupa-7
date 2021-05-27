@@ -116,7 +116,7 @@ class Subscribe extends React.Component<{}, State> {
         <div className='row d-flex flex-column flex-md-row'>
           <div className='col-4 col-md-4 col-lg-7 col-xl-8'>
             <input
-              className='Subscribe__input mb-2 mb-md-0'
+              className={`Subscribe__input Subscribe__input--${this.state.buttonStatus} mb-2 mb-md-0`}
               value={this.state.input}
               onChange={e => {
                 this.setState({
@@ -130,7 +130,7 @@ class Subscribe extends React.Component<{}, State> {
           </div>
           <div className='col-4 col-md-2 col-lg-5 col-xl-4'>
             <button
-              className={`Subscribe__submit Subscribe__submit--${this.state.buttonStatus}`}
+              className='Subscribe__submit'
               onClick={this.post}
               disabled={this.state.buttonStatus !== ''}
             >
