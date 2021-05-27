@@ -21,6 +21,7 @@ class Dropdown extends React.Component<Props, {}> {
     contentHeight: 0,
   }
 
+  titleRef: any = React.createRef()
   contentRef: any = React.createRef()
   resizeObs: any
 
@@ -38,20 +39,31 @@ class Dropdown extends React.Component<Props, {}> {
       contentHeight: this.contentRef?.current?.clientHeight
     })
 
-  toggleOpened = () =>
+  toggleOpened = () => {
+    if (!this.state.opened)
+      setTimeout(() => window.scroll({
+        top: this.titleRef?.current?.getBoundingClientRect()?.top + window.scrollY - 200,
+        behavior: 'smooth'
+      }), 250)
+      
+
     this.props.toggleOpened ?
       this.props.toggleOpened()
       :
       this.setState({ opened: !this.state.opened })
+  }
 
   render = () =>
     this.props.children &&
-      <div className={`
-        Dropdown
-        ${this.state.opened && "Dropdown--opened"}
-        ${this.props.spekt && 'Dropdown--spekt'}
-        ${this.props.className}
-      `}>
+      <div
+        ref={this.titleRef}
+        className={`
+          Dropdown
+          ${this.state.opened && "Dropdown--opened"}
+          ${this.props.spekt && 'Dropdown--spekt'}
+          ${this.props.className}
+        `}
+      >
         <div
           className='Dropdown__title'
           onClick={() => this.props.spekt && this.toggleOpened()}

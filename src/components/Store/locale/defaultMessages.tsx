@@ -178,7 +178,9 @@ const defaultMessages: Messages = {
     howToOnline: ['Как это будет онлайн?', 'Tickets'],
     howToOffline: ['Как это будет офлайн?', 'Tickets'],
     instructions: ['Инструкция для зрителей', 'Instructions'],
+    persons: ['Команда проекта', 'Project team'],
     buy: ['Купить билет', 'Tickets'],
+    showAllShows: ['Показать ещё...', 'More shows...'],
   },
 
   DatePicker: {

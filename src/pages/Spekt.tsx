@@ -36,13 +36,18 @@ type Props = RouteComponentProps<{
 
 type State = {
   currentOpened: number
+  showAllShows: boolean
 }
+
+
+const maxShownShows = 5
 
 
 class Spekt extends React.Component<Props, State> {
 
   state: State = {
     currentOpened: 0,
+    showAllShows: false,
   }
 
   static contextType = Context
@@ -66,6 +71,7 @@ class Spekt extends React.Component<Props, State> {
             show.name === spekt.name && isAfter(show.dateObj, endOfYesterday())))
         .filter((day: MappedShow[]) =>
           day.length > 0)
+        .reduce((a: MappedShow[], b: MappedShow[]) => [...a, ...b], [])
     }
 
     console.log(spekt)
@@ -185,44 +191,52 @@ class Spekt extends React.Component<Props, State> {
                     })}
                 >
                   {spekt.shows
-                    .map((day: MappedShow[]) =>
-                      day?.map((show: MappedShow) =>
-                        <div
-                          key={show.id}
-                          className='Spekt__show'
-                        >
-                          <div className='Spekt__show__date-time'>
-                            {(() => {
-                              const dateTime = format(
-                                show.dateObj,
-                                'dd.MM / iiii / HH:mm ',
-                                { locale: this.context.locale === 'rus' ? ru : enUS })
-                              const dateTimeSplitted = dateTime.split(' / ')
+                    .filter((show: MappedShow, index: number) =>
+                      this.state.showAllShows || index < maxShownShows)
+                    ?.map((show: MappedShow) =>
+                      <div
+                        key={show.id}
+                        className='Spekt__show'
+                      >
+                        <div className='Spekt__show__date-time'>
+                          {(() => {
+                            const dateTime = format(
+                              show.dateObj,
+                              'dd.MM / iiii / HH:mm ',
+                              { locale: this.context.locale === 'rus' ? ru : enUS })
+                            const dateTimeSplitted = dateTime.split(' / ')
 
-                              return dateTimeSplitted[0] + ' / ' + camelize(dateTimeSplitted[1]) + ' / ' + dateTimeSplitted[2]
-                            })()}
-                            <FormattedMessage id='Schedule.msk' />
-                          </div>
-                          <div className='Spekt__show__line'>
-                            {show.offline ? <Offline /> : <Online />}
-                          </div>
-                          <Link
-                            className='Spekt__show__buy'
-                            {...radarioProps(show)}
-                          >
-                            {this.context.locale === 'rus' ?
-                              show.buttonNameCust || <FormattedMessage id='Schedule.buy' />
-                              :
-                              show.buttonNameCustEn || <FormattedMessage id='Schedule.buy' />
-                            }
-                          </Link>
+                            return dateTimeSplitted[0] + ' / ' + camelize(dateTimeSplitted[1]) + ' / ' + dateTimeSplitted[2]
+                          })()}
+                          <FormattedMessage id='Schedule.msk' />
                         </div>
-                    ))
+                        <div className='Spekt__show__line'>
+                          {show.offline ? <Offline /> : <Online />}
+                        </div>
+                        <Link
+                          className='Spekt__show__buy'
+                          {...radarioProps(show)}
+                        >
+                          {this.context.locale === 'rus' ?
+                            show.buttonNameCust || <FormattedMessage id='Schedule.buy' />
+                            :
+                            show.buttonNameCustEn || <FormattedMessage id='Schedule.buy' />
+                          }
+                        </Link>
+                      </div>
+                    )
                   }
+                  {!this.state.showAllShows &&
+                    <div
+                      className='p p--m cursor-pointer mt-3'
+                      onClick={() => this.setState({ showAllShows: true })}
+                    >
+                      <FormattedMessage id='Spekt.showAllShows' />
+                    </div>}
                 </Dropdown>
               }
 
-              {['howToOnline', 'howToOffline', 'instructions']
+              {['howToOnline', 'howToOffline', 'persons', 'instructions']
                 .map((dropdown, index) =>
                   !spekt[dropdown] ?
                     ''
