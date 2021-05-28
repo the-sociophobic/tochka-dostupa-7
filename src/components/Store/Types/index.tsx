@@ -113,6 +113,12 @@ interface SponsorType extends ContentfulItem {
   sponsors: Sponsor[]
 }
 
+interface SponsorTypeLine extends ContentfulItem {
+  name: string
+  sponsorTypes: SponsorType[]
+  L: boolean
+}
+
 interface QandAsection extends ContentfulItem {
   name: string
   url: string
@@ -223,6 +229,7 @@ export type {
   Program,
   Sponsor,
   SponsorType,
+  SponsorTypeLine,
   File,
   QandAsection,
   QandAitem,
