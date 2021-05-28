@@ -46,6 +46,10 @@ const mobileHeaderLinks = [
       to: 'https://www.youtube.com/channel/UCcDBr-1T4dsTQO5xYmaalYg',
       id: 'Youtube'
     },
+    {
+      to: '/spekt/laboratoriagranits',
+      id: 'Home.Laba.name'
+    }
   ].map(link =>
     <Link
       key={link.to}
@@ -98,6 +102,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           :
           getSubLinks(path)
             .filter(link => !link.to.match(/\/festival\/projects|\/festival\/reviews/))
+            .filter(link => link.to !== '/program/friends')
       )(pathToShow || this.props.history.location.pathname)
     })
 
@@ -295,7 +300,8 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           </div>
           <div className='row'>
             <div className='col-4 px-4'>
-              {mobileHeaderLinks.slice(0, 4)}
+              {mobileHeaderLinks.slice(0, 3)}
+              {mobileHeaderLinks[14]}
               <br />
               <br />
               {mobileHeaderLinks[4]}
@@ -319,7 +325,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
               {mobileHeaderLinks.slice(10, 12)}
               <br className='d-block d-md-none' />
               <br className='d-block d-md-none' />
-              {mobileHeaderLinks.slice(12)}
+              {mobileHeaderLinks.slice(12, 14)}
             </div>
           </div>
         </div>

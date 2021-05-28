@@ -101,10 +101,12 @@ class Spekt extends React.Component<Props, State> {
                 {spekt?.persons}
               </div>
               <div className='d-flex flex-row flex-wrap'>
-                <Program
-                  text={spekt?.program?.name}
-                  className='mr-2 mb-2'
-                />
+                {spekt?.program?.name &&
+                  <Program
+                    text={spekt?.program?.name}
+                    className='mr-2 mb-2'
+                  />
+                }
                 {spekt?.online &&
                   <Online className='mr-2 mb-2' />
                 }

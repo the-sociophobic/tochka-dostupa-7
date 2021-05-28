@@ -3,7 +3,7 @@ interface Messages {
 }
 
 const defaultMessages: Messages = {
-  AccessPoint: ["Точка Доступа", "Access Point"],
+  AccessPoint: ["Точка доступа", "Access point"],
   
   locale: {
     rus: ["Rus", "Rus"],
