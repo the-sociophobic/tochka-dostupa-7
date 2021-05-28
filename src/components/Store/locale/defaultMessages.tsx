@@ -193,7 +193,7 @@ const defaultMessages: Messages = {
     howToOffline: ['Как это будет офлайн?', 'Tickets'],
     instructions: ['Инструкция для зрителей', 'Instructions'],
     performanceTeam: ['Команда проекта', 'Project team'],
-    buy: ['Купить билет', 'Tickets'],
+    buy: ['Расписание', 'Tickets'],
     showAllShows: ['Показать ещё...', 'More shows...'],
     FestivalPass: {
       desc: ['Скидка 35% на все билеты по промокоду', '35% discount with promocode'],
