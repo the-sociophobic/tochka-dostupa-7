@@ -79,7 +79,7 @@ class Spekt extends React.Component<Props, State> {
     console.log(spekt)
 
     return (
-      <div className='Spekt'>
+      <div className={`Spekt ${spekt.link === 'laboratoriagranits' && 'opened-header'}`}>
         <div className='container'>
 
           <div className='row mt-s d-flex flex-column flex-lg-row mb-s mb-md-m mb-lg-l'>

@@ -2,13 +2,37 @@ import defaultMessages from '../components/Store/locale/defaultMessages'
 import camelize from './camelize'
 
 
-const getSubLinks = ( path: string ) =>
-  Object.keys(defaultMessages[camelize(path.split('/')[1])].pages)
-    .map(key => ({
-      to: `/${path.split('/')[1].toLowerCase()}/${key === 'QandA' ? 'q&a' : key.toLowerCase()}`,
-      id: `${camelize(path.split('/')[1])}.pages.${key}.name`,
-      exact: key.match(/QandA|About|Main|Open|Educational/) ? false : true,
-    }))
+type LinkObj = {
+  to: string
+  id: string
+  exact?: boolean
+}
+
+
+const getSubLinks = ( path: string ): LinkObj[] => {
+  if (path === '/spekt/laboratoriagranits')
+    return getSubLinks('/program')
+  
+  return [
+    ...Object.keys(defaultMessages[camelize(path.split('/')[1])].pages)
+      .map(key => ({
+        to: `/${path.split('/')[1].toLowerCase()}/${key === 'QandA' ? 'q&a' : key.toLowerCase()}`,
+        id: `${camelize(path.split('/')[1])}.pages.${key}.name`,
+        exact: key.match(/QandA|About|Main|Open|Educational/) ? false : true,
+      })),
+    ...(path.match(/\/program|\/spekt\/laboratoriagranits/) ?
+      [
+        {
+          to: '/spekt/laboratoriagranits',
+          id: 'Home.Laba.name',
+          exact: true
+        }
+      ]
+      :
+      []
+    )
+  ]
+}
 
 
 const pathToId = (path: string) => {

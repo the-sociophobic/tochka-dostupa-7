@@ -46,10 +46,6 @@ const mobileHeaderLinks = [
       to: 'https://www.youtube.com/channel/UCcDBr-1T4dsTQO5xYmaalYg',
       id: 'Youtube'
     },
-    {
-      to: '/spekt/laboratoriagranits',
-      id: 'Home.Laba.name'
-    }
   ].map(link =>
     <Link
       key={link.to}
@@ -96,7 +92,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
   updateSecondaryLinks = (pathToShow?: string) =>
     this.setState({
       secondaryLinks: (path =>
-        !path.match(/\/festival*|\/program|\/user*/)
+        !path.match(/\/festival*|\/program|\/user*|\/spekt\/laboratoriagranits/)
         || (path.match(/\/user*/) && _.isEmpty(this.context.user)) ?
           []
           :
@@ -145,7 +141,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
               className={`
                 Header__links__item Header__links__item--dropdown
                 ${this.state.secondaryLinks.length === 3 && 'Header__links__item--hover'}
-                ${this.props.location.pathname.includes('program') && 'Header__links__item--active'}
+                ${this.props.location.pathname.match(/\/program\/*|\/spekt\/laboratoriagranits/) && 'Header__links__item--active'}
               `}
               onMouseEnter={() => {
                 this.breakHideSecondaryLinksTimeout()
@@ -301,10 +297,10 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           <div className='row'>
             <div className='col-4 px-4'>
               {mobileHeaderLinks.slice(0, 3)}
-              {mobileHeaderLinks[14]}
-              <br />
-              <br />
               {mobileHeaderLinks[4]}
+              <br />
+              <br />
+              {mobileHeaderLinks[5]}
             </div>
           </div>
           <div className='row'>
@@ -314,18 +310,18 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           </div>
           <div className='row mb-auto'>
             <div className='col-4 col-md-6 px-4'>
-              {mobileHeaderLinks.slice(5, 9)}
+              {mobileHeaderLinks.slice(6, 10)}
               <br className='d-block d-md-none' />
-              {mobileHeaderLinks[9]}
+              {mobileHeaderLinks[10]}
             </div>
           </div>
 
           <div className='row'>
             <div className='col-4 col-md-6 flex-nowrap px-4'>
-              {mobileHeaderLinks.slice(10, 12)}
+              {mobileHeaderLinks.slice(11, 13)}
               <br className='d-block d-md-none' />
               <br className='d-block d-md-none' />
-              {mobileHeaderLinks.slice(12, 14)}
+              {mobileHeaderLinks.slice(13, 15)}
             </div>
           </div>
         </div>
