@@ -74,7 +74,7 @@ const defaultMessages: Messages = {
 
   Home: {
     keyvisual: {
-      name: ['Международный летний фестиваль искусств', 'International summer festival of arts'],
+      name: [<>Международный летний<br />фестиваль искусств</>, <>International summer<br />festival of arts</>],
       dates: ['8-26 июля 2021', 'June 8-26 2021'],
       tickets: ['билеты в продаже', 'tickets on sale'],
     },
@@ -201,8 +201,10 @@ const defaultMessages: Messages = {
     buy: ['Расписание', 'Tickets'],
     showAllShows: ['Показать ещё...', 'More shows...'],
     FestivalPass: {
-      desc: ['Скидка 35% на все билеты по промокоду', '35% discount with promocode'],
+      desc: [<>Скидка 35% на все билеты<br />по промокоду</>, <>35% discount with<br />promocode</>],
       more: ['Подробнее', 'Learn more'],
+      tooltip: ['промокод скопирован', 'promocode copied'],
+      noReturns: ['Вернуть билет, купленный по промокоду, можно только при отмене мероприятия и в случаях, предусмотренных законом', 'You can return a ticket purchased using a promotional code only if the event is canceled and in cases provided for by law']
     }
   },
 

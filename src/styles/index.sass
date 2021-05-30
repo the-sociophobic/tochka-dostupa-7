@@ -579,7 +579,7 @@
 .Home
   &__cover
     width: 100%
-    background-color: #FFDE00
+    // background-color: #FFDE00
     @extend .mb-s
     height: rem(684)
     @include media-breakpoint-down(lg)
@@ -1035,9 +1035,7 @@
     border-radius: rem(12)
     @extend .d-flex
     @extend .flex-column
-    @extend .flex-md-row
     @extend .align-items-start
-    @extend .align-items-md-center
     @extend .justify-content-between
     @extend .mb-3
     padding: rem(18) rem(16) rem(19)
@@ -1045,10 +1043,27 @@
       padding: rem(18) rem(24) rem(26)
     @include media-breakpoint-up(lg)
       padding: rem(23) rem(32) rem(25)
-    b
-      width: 100%
-      @include media-breakpoint-up(md)
-      width: 40%
+    &__text
+      font-weight: bold
+      @extend .mb-3
+      &__promocode
+        @extend .mx-2
+        @extend .p
+        @extend .p--copy
+        @extend .cursor-pointer
+      &__tooltip
+        font-weight: normal
+        @extend .d-inline-block
+        @extend .p
+        @extend .p--xs
+        text-transform: uppercase
+        color: $white
+        background-color: black
+        border-radius: rem(20)
+        line-height: inherit
+        // padding: rem(4) rem(12)
+
+
 
 
 
@@ -1157,6 +1172,9 @@
             text-decoration: underline
             text-underline-offset: .25rem
             text-decoration-thickness: from-font
+        &.Link--disabled
+          opacity: 1 !important
+          cursor: default
       &__button
         @extend .button
         @extend .button--main
@@ -1540,7 +1558,7 @@
 
 .KeyVisual
   @extend .w-100
-  overflow-y: hidden
+  overflow: hidden
   &__container
     position: relative
     top: 0
@@ -1559,12 +1577,15 @@
       width: rem(460)
       min-width: rem(460)
       height: rem(460)
+    @include media-breakpoint-down(sm)
+      width: rem(320)
+      min-width: rem(320)
+      height: rem(320)
     &__name
       @extend .p
       @extend .p--m
       @extend .text-uppercase
       @extend .mb-4
-      width: 40%
     &__dates
       @extend .font-spectral
       @include font-params(18, 20)

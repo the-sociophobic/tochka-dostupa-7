@@ -205,30 +205,30 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
         <FormattedMessage id={this.context.locale === "rus" ? "locale.eng" : "locale.rus"} />
       </button>
       
-      {!_.isEmpty(this.context.user) ?
-            <div
-              className={`
-                Header__controls__item
-                Header__controls__item--user
-                ${this.state.secondaryLinks.length === 4 && 'Header__controls__item--user--hover'}
-                ${this.props.history.location.pathname.includes('/user/')
-                  && 'Header__controls__item--active'}
-              `}
-              onMouseEnter={() => {
-                this.breakHideSecondaryLinksTimeout()
-                this.updateSecondaryLinks('/user')
-              }}
-              onMouseLeave={this.initHideSecondaryLinksTimeout}
-              onClick={() => {
-                if (this.state.opened && window.innerWidth) {
-                  this.setState({ opened: false })
-                  this.props.history.push('/user/tickets')
-                }
-              }}
-            >
-              <UserLineIcon className="Header__controls__item__icon" />
-              {this.context.user.name}
-            </div>
+      {/* {!_.isEmpty(this.context.user) ?
+        <div
+          className={`
+            Header__controls__item
+            Header__controls__item--user
+            ${this.state.secondaryLinks.length === 4 && 'Header__controls__item--user--hover'}
+            ${this.props.history.location.pathname.includes('/user/')
+              && 'Header__controls__item--active'}
+          `}
+          onMouseEnter={() => {
+            this.breakHideSecondaryLinksTimeout()
+            this.updateSecondaryLinks('/user')
+          }}
+          onMouseLeave={this.initHideSecondaryLinksTimeout}
+          onClick={() => {
+            if (this.state.opened && window.innerWidth) {
+              this.setState({ opened: false })
+              this.props.history.push('/user/tickets')
+            }
+          }}
+        >
+          <UserLineIcon className="Header__controls__item__icon" />
+          {this.context.user.name}
+        </div>
         :
         <Link
           to="/login"
@@ -238,7 +238,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
           <UserLineIcon className="Header__controls__item__icon" />
           <FormattedMessage id="login" />
         </Link>
-      }
+      } */}
     </div>
 
   renderSecondary = () =>

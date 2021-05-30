@@ -2,7 +2,6 @@ import React from 'react'
 
 import ResizeObserver from 'resize-observer-polyfill'
 
-import Img from '../components/Img'
 import { File } from '../components/Store/Types'
 import FormattedMessage from './FormattedMessage'
 import LogoWithText from './LogoWithText'
@@ -94,10 +93,13 @@ class KeyVisual extends React.Component<Props, State> {
           {this.context.ready && this.randomIndexes?.map((randomIndex: number) =>
             <>
               <div className='KeyVisual__block'>
-                <Img
-                  className='w-100'
-                  file={this.props.imgs[randomIndex]}
-                  urlParams={`?fit=fill&${encodeUrlParams({
+                <img
+                  style={{
+                    width: '100%',
+                    height: 'auto'
+                  }}
+                  alt={this.props.imgs[randomIndex].file.fileName}
+                  src={`${this.props.imgs[randomIndex].file.url}?fit=fill&${encodeUrlParams({
                     w: 684,
                     h: 684
                   })}`}

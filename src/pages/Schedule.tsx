@@ -245,6 +245,7 @@ class Schedule extends React.Component<{}, State> {
                       </div>
                       <Link
                         to={`spekt/${show.link}`}
+                        disabled={this.context.locale === 'eng'}
                         className='Schedule__day__show__info'
                       >
                         <h3 className='h3 mb-0'>

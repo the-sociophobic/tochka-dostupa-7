@@ -39,6 +39,7 @@ type Props = RouteComponentProps<{
 type State = {
   currentOpened: number
   showAllShows: boolean
+  showTooltip: boolean
 }
 
 
@@ -50,9 +51,29 @@ class Spekt extends React.Component<Props, State> {
   state: State = {
     currentOpened: 0,
     showAllShows: false,
+    showTooltip: false,
   }
 
   static contextType = Context
+
+  hideTooltipTimeout: any = -1
+
+  copyToClipboard = () => {
+    copyToClipboard('ТОЧКАДОСТУПА35')
+    
+    this.setState({
+      showTooltip: true
+    })
+    
+    if (this.hideTooltipTimeout !== -1)
+      clearTimeout(this.hideTooltipTimeout)
+    this.hideTooltipTimeout = setTimeout(
+      () => {
+        this.setState({ showTooltip: false})
+        this.hideTooltipTimeout = -1
+      }
+      , 2000)
+  }
 
   render = () => {
     if (!this?.context?.ready)
@@ -176,20 +197,27 @@ class Spekt extends React.Component<Props, State> {
                 {spekt.mainDesc}
               </div>
 
-              <div className='Spekt__FestivalPass'>
-                <b className='mb-3 mb-md-0'>
-                  <FormattedMessage id='Spekt.FestivalPass.desc' /> <div
-                    className='p p--copy d-inline-block cursor-pointer'
-                    onClick={() => copyToClipboard('ТОЧКАДОСТУПА35')}
-                  ><u>ТОЧКАДОСТУПА35</u></div>
-                </b>
-                <Link
-                  to='https://special.tochkadostupa.spb.ru/abonement'
-                  className='p p--m p--arrow p--arrow--right'
-                >
-                  <FormattedMessage id='Spekt.FestivalPass.more' />
-                </Link>
-              </div>
+              {spekt.showDiscount || true &&
+                <div className='Spekt__FestivalPass'>
+                  <div className='Spekt__FestivalPass__text'>
+                    <FormattedMessage id='Spekt.FestivalPass.desc' />
+                    <div
+                      className='Spekt__FestivalPass__text__promocode'
+                      onClick={() => this.copyToClipboard()}
+                    >
+                      <u>ТОЧКАДОСТУПА35</u>
+                    </div>
+                    {this.state.showTooltip &&
+                      <div className='Spekt__FestivalPass__text__tooltip'>
+                        <FormattedMessage id='Spekt.FestivalPass.tooltip' />
+                      </div>
+                    }
+                  </div>
+                  <div className='p p--s'>
+                    <FormattedMessage id='Spekt.FestivalPass.noReturns' />
+                  </div>
+                </div>
+              }
 
               {spekt.shows.length > 0 &&
                 <Dropdown

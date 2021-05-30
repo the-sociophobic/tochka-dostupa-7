@@ -51,6 +51,8 @@ interface Spekt extends ContentfulItem {
   online: boolean
   offline: boolean
   sponsors: Sponsor[]
+  showDiscount?: boolean
+  credits?: JSX.Element
 
   ticketsAndSchedule: {
     tickets: Place[]
