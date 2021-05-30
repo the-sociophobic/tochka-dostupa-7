@@ -30,6 +30,10 @@ type State = {
   current: string
   stringA: string
   stringB: string
+
+  presumedA: any
+  presumedB: any
+
   currentFocused: string | undefined
   [key: string]: any
 }
@@ -40,11 +44,18 @@ class DatePicker extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
 
+    const today = new Date()
+    const tommorow = addDays(today, 1)
+
     this.state = {
       opened: false,
       current: 'day',
       stringA: '',
       stringB: '',
+
+      presumedA: today,
+      presumedB: tommorow,
+
       currentFocused: undefined
     }
 
@@ -84,13 +95,27 @@ class DatePicker extends React.Component<Props, State> {
           })
         
   setStateAndPropsDate = (dateId: string | undefined, value: string) => {
-    if (!dateId || (dateId === 'B' && !isBefore(new Date(this.props.dateA), new Date(this.inputStringToDateReadableString(value)))))
+    if (!dateId
+      || value.length > 8
+    )
       return
 
-    if (!Number.isNaN((new Date(this.inputStringToDateReadableString(value))).getTime()))
-      this.props[`setDate${dateId}`](this.inputStringToDateReadableString(value))
-    if (value === '')
-      this.props[`setDate${dateId}`]('')
+    console.log(value)
+
+    if (
+      !Number.isNaN((new Date(this.inputStringToDateReadableString(value))).getTime())
+      || (dateId === 'A' && this.props.dateB.length > 0 && isBefore(new Date(this.inputStringToDateReadableString(value)), new Date(this.props.dateB)))
+      || (dateId === 'B' && this.props.dateA.length > 0 && isBefore(new Date(this.props.dateA), new Date(this.inputStringToDateReadableString(value))))
+    ) {
+      if (value === '') {
+        this.props[`setDate${dateId}`]('')
+        this.setState({ [`presumed${dateId}`]: addDays(new Date(), dateId === 'A' ? 0 : 1) })
+      }
+      else {
+        this.props[`setDate${dateId}`](this.inputStringToDateReadableString(value))
+        this.setState({ [`presumed${dateId}`]: new Date(this.inputStringToDateReadableString(value)) })
+      }
+    }
 
     this.setState({ [`string${dateId}`]: value })
 
@@ -116,8 +141,9 @@ class DatePicker extends React.Component<Props, State> {
 
   inputStringToDateReadableString = (string: string) =>
     string.length === 8 ?
-      `${string.slice(4).length === 2 ? `20${string.slice(4)}-${string.slice(2, 4)}-${string.slice(0, 2)}` : string.slice(4)}`
-      : 'error'
+      `${string.slice(4)}-${string.slice(2, 4)}-${string.slice(0, 2)}`
+      :
+      'error'
 
   propsDateToInputString = (propsDate: string) => {
     if (propsDate === '')
@@ -140,7 +166,7 @@ class DatePicker extends React.Component<Props, State> {
       onChange={e => {
         const value = (e.target as unknown as HTMLTextAreaElement).value
           .replace(/[^0-9]/g, '')
-          .slice(0, 8)
+          // .slice(0, 8)
 
         this.setStateAndPropsDate(dateId, value)
       }}
@@ -164,7 +190,7 @@ class DatePicker extends React.Component<Props, State> {
     const selectedDateStringName = `date${this.state.currentFocused}`
     const selectedDateString = this.props[selectedDateStringName]
     const selectedDate = new Date(selectedDateString)
-    const currentMonthDay = selectedDateString === '' ? new Date() : selectedDate
+    const currentMonthDay = this.state[`presumed${this.state.currentFocused}`]
 
     return (
       <div
@@ -196,15 +222,15 @@ class DatePicker extends React.Component<Props, State> {
             <div className='d-flex flex-row w-100 justify-content-between'>
               <div
                 className='p--arrow p--arrow--left cursor-pointer'
-                onClick={() => this.setStateAndPropsDate(
-                  this.state.currentFocused, format(addMonths(currentMonthDay, -1), 'ddMMyyyy')
-                )}
+                onClick={() => this.setState({
+                  [`presumed${this.state.currentFocused}`]: addMonths(currentMonthDay, -1)
+                })}
               />
               <div
                 className='p--arrow p--arrow--right cursor-pointer'
-                onClick={() => this.setStateAndPropsDate(
-                  this.state.currentFocused, format(addMonths(currentMonthDay, 1), 'ddMMyyyy')
-                )}
+                onClick={() => this.setState({
+                  [`presumed${this.state.currentFocused}`]: addMonths(currentMonthDay, 1)
+                })}
               />
             </div>
           </div>
@@ -222,15 +248,15 @@ class DatePicker extends React.Component<Props, State> {
             <div className='d-flex flex-row w-100 justify-content-between'>
               <div
                 className='p--arrow p--arrow--left cursor-pointer'
-                onClick={() => this.setStateAndPropsDate(
-                  this.state.currentFocused, format(addYears(currentMonthDay, -1), 'ddMMyyyy')
-                )}
+                onClick={() => this.setState({
+                  [`presumed${this.state.currentFocused}`]: addYears(currentMonthDay, -1)
+                })}
               />
               <div
                 className='p--arrow p--arrow--right cursor-pointer'
-                onClick={() => this.setStateAndPropsDate(
-                  this.state.currentFocused, format(addYears(currentMonthDay, 1), 'ddMMyyyy')
-                )}
+                onClick={() => this.setState({
+                  [`presumed${this.state.currentFocused}`]: addYears(currentMonthDay, 1)
+                })}
               />
             </div>
           </div>
@@ -245,12 +271,15 @@ class DatePicker extends React.Component<Props, State> {
   renderBody = () => {
     const selectedDateStringName = `date${this.state.currentFocused}`
     const selectedDateString = this.propsDateToInputString(this.props[selectedDateStringName])
-    const currentMonthDayString = selectedDateString === '' ? format(new Date(), 'ddMMyyyy') : selectedDateString
+    const currentMonthDayString = selectedDateString === '' ?
+      format(this.state[`presumed${this.state.currentFocused}`], 'ddMMyyyy')
+      :
+      selectedDateString
 
     switch (this.state.current) {
       case 'day':
-        const currentMonthDayStringParsed = this.inputStringToDateReadableString(currentMonthDayString)
-        const currentMonthFirstDate = setDate(new Date(currentMonthDayStringParsed), 1)
+        // const currentMonthDayStringParsed = this.inputStringToDateReadableString(currentMonthDayString)
+        const currentMonthFirstDate = setDate(this.state[`presumed${this.state.currentFocused}`], 1)
 
         return eachWeekOfInterval({
             start: currentMonthFirstDate,
@@ -262,9 +291,19 @@ class DatePicker extends React.Component<Props, State> {
               const dateA = new Date(this.props.dateA)
               const dateB = new Date(this.props.dateB)
               const selectedDate = this.state.currentFocused === 'A' ? dateA : dateB
-              const disabled = this.state.currentFocused === 'B'
-                && !Number.isNaN(dateA.getTime())
-                && compareAsc(dateA, thisDay) > 0
+              const disabled = (
+                (
+                  this.state.currentFocused === 'A'
+                  && !Number.isNaN(dateB.getTime())
+                  && isBefore(dateB, thisDay)
+                )
+                ||
+                (
+                  this.state.currentFocused === 'B'
+                  && !Number.isNaN(dateA.getTime())
+                  && isBefore(thisDay, dateA)
+                )
+              )
 
               return (
                 <div

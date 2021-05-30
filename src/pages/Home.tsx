@@ -10,6 +10,7 @@ import Subscribe from '../components/Subscribe'
 import Laba from '../components/Laba'
 import KeyVisual from '../components/KeyVisual'
 import Sponsors from '../components/Sponsors'
+import { Spekt } from '../components/Store/Types'
 
 
 class Home extends React.Component<{}, {}> {
@@ -62,7 +63,7 @@ class Home extends React.Component<{}, {}> {
             </>
           }
           ItemComp={SpektCard}
-          items={page.main}
+          items={page.main?.map((spekt: Spekt) => ({ ...spekt, linkDisabled: this.context.locale === 'eng'}))}
           bottomLink={{
             to: 'program/main',
             label: <FormattedMessage id='Program.full' />
@@ -81,7 +82,7 @@ class Home extends React.Component<{}, {}> {
             </>
           }
           ItemComp={SpektCard}
-          items={page.open}
+          items={page.open?.map((spekt: Spekt) => ({ ...spekt, linkDisabled: this.context.locale === 'eng'}))}
           bottomLink={{
             to: 'program/open',
             label: <FormattedMessage id='Program.full' />
@@ -97,7 +98,7 @@ class Home extends React.Component<{}, {}> {
             </>
           }
           ItemComp={SpektCard}
-          items={page.educational}
+          items={page.educational?.map((spekt: Spekt) => ({ ...spekt, linkDisabled: this.context.locale === 'eng'}))}
           bottomLink={{
             to: 'program/educational',
             label: <FormattedMessage id='Program.full' />
@@ -113,7 +114,7 @@ class Home extends React.Component<{}, {}> {
             </>
           }
           ItemComp={SpektCard}
-          items={page.friends}
+          items={page.friends?.map((spekt: Spekt) => ({ ...spekt, linkDisabled: this.context.locale === 'eng'}))}
         />
 
         <Laba />

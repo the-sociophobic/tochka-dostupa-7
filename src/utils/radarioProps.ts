@@ -8,7 +8,6 @@ const radarioProps = (show: MappedShow) => {
       sameTab: true,
       'data-accent-color': '#b33d26'
     })
-    console.log(show)
 
   if (show.ticketsGroupId)
     return ({

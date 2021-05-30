@@ -89,10 +89,10 @@ const defaultMessages: Messages = {
       // submitWrong: ['ошибка((', 'error(('],
     },
     festivalPass: {
-      1: ['festival pass', 'фестиваль пасс'],
-      2: ['фестиваль пасс', 'festival pass'],
+      1: ['abonement', 'абонемент'],
+      2: ['абонемент', 'abonement'],
       desc: ['Один билет на все онлайн-спектакли фестиваля', 'Single ticket for all online-events'],
-      price: ['1000 рублей', '1000 roubles'],
+      price: ['6000 рублей', '6000 roubles'],
       buy: ['купить', 'buy'],
     },
     Laba: {

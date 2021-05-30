@@ -845,6 +845,13 @@
         height: calc(#{get-breakpoints('sm') / 300 * 184})
       @include media-breakpoint-down(xs)
         height: calc((100vw - #{$grid-gutter-width}) / 300 * 184)
+  &.Link--disabled
+    opacity: 1
+    cursor: default
+    &:hover
+      *
+        text-decoration: none
+    
 
 
 .Loader
@@ -1175,6 +1182,8 @@
         &.Link--disabled
           opacity: 1 !important
           cursor: default
+          *
+            text-decoration: none !important
       &__button
         @extend .button
         @extend .button--main

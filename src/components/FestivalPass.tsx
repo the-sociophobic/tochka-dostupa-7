@@ -46,6 +46,12 @@ class FestivalPass extends React.Component<{}, {}> {
             <div className='FestivalPass__h1'>
               <FormattedMessage id='Home.festivalPass.1' />
             </div>
+            <div className='FestivalPass__desc'>
+              <FormattedMessage id='Home.festivalPass.desc' />
+            </div>
+            <div className='FestivalPass__h1'>
+              <FormattedMessage id='Home.festivalPass.1' />
+            </div>
           </div>
         </div>
         <div

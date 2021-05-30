@@ -244,8 +244,8 @@ class Schedule extends React.Component<{}, State> {
                         </p>
                       </div>
                       <Link
-                        to={`spekt/${show.link}`}
-                        disabled={this.context.locale === 'eng'}
+                        to={show.link?.includes?.('http') ? show.link : `spekt/${show.link}`}
+                        disabled={this.context.locale === 'eng' || typeof show.link === 'undefined'}
                         className='Schedule__day__show__info'
                       >
                         <h3 className='h3 mb-0'>

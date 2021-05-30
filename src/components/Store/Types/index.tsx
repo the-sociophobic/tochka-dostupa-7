@@ -98,7 +98,7 @@ interface Program extends ContentfulItem {
   curators?: Person[]
   curatorTitle?: string
   mainDesc: React.ReactElement<RichTextNode>[]
-  shortDesc: string
+  shortDesc: JSX.Element
   spekts: Spekt[]
   ogdescription?: string
   ogimageVkimage?: string

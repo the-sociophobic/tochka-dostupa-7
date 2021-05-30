@@ -13,7 +13,7 @@ type Props = {
   initialOpen?: boolean
   additionalContent: JSX.Element
   link: string
-  shortDesc: string
+  shortDesc: JSX.Element
 }
 
 class TextDropdown extends React.Component<Props, {}> {
