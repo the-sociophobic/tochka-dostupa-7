@@ -5,7 +5,6 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^14.1.2",
     "@contentful/rich-text-types": "^14.1.2",
-    "@react-pdf/renderer": "^2.0.12",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -61,10 +60,12 @@
     ]
   },
   "devDependencies": {
+    "@progress/kendo-drawing": "^1.10.1",
+    "@progress/kendo-licensing": "^1.1.4",
+    "@progress/kendo-react-pdf": "^4.6.0",
     "@types/capitalize": "^2.0.0",
     "@types/google-map-react": "^2.1.0",
     "@types/lodash": "^4.14.168",
-    "@types/react-datepicker": "^3.1.7",
     "@types/react-dates": "^21.8.2",
     "@types/react-helmet": "^6.1.0"
   }

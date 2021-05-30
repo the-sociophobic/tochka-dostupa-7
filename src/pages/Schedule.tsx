@@ -6,7 +6,7 @@ import isBefore from 'date-fns/isBefore'
 import endOfToday from 'date-fns/endOfToday'
 import isWithinInterval from 'date-fns/isWithinInterval'
 import { ru, enUS } from 'date-fns/locale'
-// import ReactPDF, { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer'
+import { savePDF } from '@progress/kendo-react-pdf'
 import _ from 'lodash'
 
 
@@ -42,6 +42,7 @@ type FilterState = {
 type State = FilterState & {
   showFilter: boolean
   showPrev: number
+  renderingPDF: boolean
 }
 
 
@@ -64,6 +65,7 @@ class Schedule extends React.Component<{}, State> {
     ...filterInitialState,
     showFilter: false,
     showPrev: 0,
+    renderingPDF: false
   }
 
   static contextType = Context
@@ -74,7 +76,15 @@ class Schedule extends React.Component<{}, State> {
     this.setState({ [attrib]: !this.state[attrib] })
 
   savePDF = () => {
-    
+    this.setState({ renderingPDF: true })
+
+    setTimeout(() =>
+      savePDF(
+        this.pdfRef.current,
+        { paperSize:  "A4" },
+        () => this.setState({ renderingPDF: false })
+      )
+    , 200)
   }
 
   renderFilter = (className?: string) =>
@@ -125,7 +135,7 @@ class Schedule extends React.Component<{}, State> {
         setDateB={(value: string) => this.setState({ to: value })}
       />
 
-      {/* <div
+      <div
         onClick={this.savePDF}
         className='p p--l p--arrow p--arrow--down mb-1 cursor-pointer'
       >
@@ -133,7 +143,8 @@ class Schedule extends React.Component<{}, State> {
       </div>
       <div className='p p--s mb-xxs mb-lg-xs color-button-disabled-text'>
         <FormattedMessage id='Schedule.downloadDesc' />
-      </div> */}
+      </div>
+
       {!Object.keys(filterInitialState)
         .every(key => filterInitialState[key] === this.state[key])
           &&
@@ -147,7 +158,7 @@ class Schedule extends React.Component<{}, State> {
 
     </div>
 
-  renderDays = () => {
+  renderDays = (forPDF: boolean = false) => {
     let indexOfCurrentFestivalFirstDay = -1
 
     Object.keys(this.context?.contentful?.mappedDays)
@@ -195,7 +206,10 @@ class Schedule extends React.Component<{}, State> {
       .reduce((a, b) => ({...a, ...b}), {})
 
     return (
-      <div className='col-4 col-md-6 col-lg-8'>
+      <div
+        ref={this.pdfRef}
+        className='col-4 col-md-6 col-lg-8'
+      >
         {indexOfCurrentFestivalFirstDay - this.state.showPrev * loadAdditionalNumber > 0
           && (this.state.from.length === 0 || this.state.to.length === 0) &&
             <div
@@ -251,7 +265,7 @@ class Schedule extends React.Component<{}, State> {
                         <h3 className='h3 mb-0'>
                           {show.name}
                         </h3>
-                        <p className='p p--xl font-spectral mb-xs'>
+                        <p className={`p p--xl mb-xs ${!forPDF && 'font-spectral'}`}>
                           {show.persons}
                         </p>
                         {(this.context.locale === 'rus' && show.disclaimer) &&
@@ -282,17 +296,19 @@ class Schedule extends React.Component<{}, State> {
                         </div>
                       </Link>
                       <div className='col-4 col-md-2 col-lg-3'>
-                        <Link
-                          disabled={isBefore(show.dateObj, endOfToday())}
-                          className='Schedule__day__show__button'
-                          {...radarioProps(show)}
-                        >
-                          {this.context.locale === 'rus' ?
-                            show.buttonNameCust || <FormattedMessage id='Schedule.buy' />
-                            :
-                            show.buttonNameCustEn || <FormattedMessage id='Schedule.buy' />
-                          }
-                        </Link>
+                        {!forPDF &&
+                          <Link
+                            disabled={isBefore(show.dateObj, endOfToday())}
+                            className='Schedule__day__show__button'
+                            {...radarioProps(show)}
+                          >
+                            {this.context.locale === 'rus' ?
+                              show.buttonNameCust || <FormattedMessage id='Schedule.buy' />
+                              :
+                              show.buttonNameCustEn || <FormattedMessage id='Schedule.buy' />
+                            }
+                          </Link>
+                        }
                       </div>
                     </div>)
                 }
@@ -306,7 +322,6 @@ class Schedule extends React.Component<{}, State> {
   render = () =>
     !this?.context?.ready ? '' :
       <div className="container mt-s mt-md-m mt-lg-l mb-m mb-md-l mb-lg-xl">
-        {/* {(() => console.log(this.context))()} */}
         <div className='row d-flex d-lg-none mb-xs mb-md-s position-relative'>
           <div className='col-4'>
             <FormattedMessage
@@ -353,7 +368,8 @@ class Schedule extends React.Component<{}, State> {
             {this.renderFilter()}
           </div>
 
-          {this.renderDays()}
+          {this.renderDays(this.state.renderingPDF)}
+
         </div>
       </div>
 }
