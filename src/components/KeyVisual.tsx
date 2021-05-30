@@ -32,14 +32,13 @@ class KeyVisual extends React.Component<Props, State> {
   }
 
   elementRef: any = React.createRef()
-  firstItemRef: any = React.createRef()
   resizeObs: any
   randomIndexes: number[] = []
 
   componentDidMount = () => {
     window.addEventListener('scroll', () => this.updateScroll())
     this.resizeObs = new ResizeObserver(this.updateContentHeight.bind(this))
-      .observe(this.firstItemRef.current)
+      .observe(this.elementRef.current)
   }
 
   componentWillUnmount = () =>
@@ -52,7 +51,7 @@ class KeyVisual extends React.Component<Props, State> {
 
   updateContentHeight = () =>
     this.setState({
-      blockHeight: this.firstItemRef?.current?.clientHeight
+      blockHeight: this.elementRef?.current?.clientHeight
     })
 
 
@@ -75,29 +74,26 @@ class KeyVisual extends React.Component<Props, State> {
     </div>
 
   render = () => {
-    if (!this.context.ready)
-      return ''
-
-    if (this.randomIndexes.length === 0)
+    if (this.context.ready && this.randomIndexes.length === 0)
       this.randomIndexes = this.props.imgs
         ?.sort(() => Math.random() - .5)
         ?.slice(3)
         ?.map((img: File, index: number) => index)
 
     return (
-      <div className='KeyVisual'>
+      <div
+        className='KeyVisual'
+        ref={this.elementRef}
+      >
         <div
           className='KeyVisual__container'
           style={{
             left: `-${(this.state.blockHeight / 2) + this.state.scroll / 1.5}px`
           }}
         >
-          {this.randomIndexes?.map((randomIndex: number, index: number) =>
+          {this.context.ready && this.randomIndexes?.map((randomIndex: number) =>
             <>
-              <div
-                ref={index === 0 && this.firstItemRef}
-                className='KeyVisual__block'
-              >
+              <div className='KeyVisual__block'>
                 <Img
                   className='w-100'
                   file={this.props.imgs[randomIndex]}
