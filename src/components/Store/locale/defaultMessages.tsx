@@ -73,6 +73,11 @@ const defaultMessages: Messages = {
   },
 
   Home: {
+    keyvisual: {
+      name: ['Международный летний фестиваль искусств', 'International summer festival of arts'],
+      dates: ['8-26 июля 2021', 'June 8-26 2021'],
+      tickets: ['билеты в продаже', 'tickets on sale'],
+    },
     subscribe: {
       newsletter: ['рассылка', 'newsletter'],
       desc: ['ненавязчиво расскажем о важном на фестивале и в современном театре', 'learn everything about contemporary theatre'],
@@ -111,7 +116,7 @@ const defaultMessages: Messages = {
         name: ["Просветительская", "Educational"],
       },
       Friends: {
-        name: ["Проекты друзей", "Friends projects"],
+        name: ["Проекты наших друзей", "Our friends projects"],
       },
     },
 

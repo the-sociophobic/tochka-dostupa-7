@@ -1535,3 +1535,64 @@
     height: rem(300)
     border-radius: rem(12)
     overflow: hidden
+
+
+
+.KeyVisual
+  @extend .w-100
+  overflow-y: hidden
+  &__container
+    position: relative
+    top: 0
+    @extend .d-flex
+    @extend .flex-row
+    transition: left .05
+  &__block
+    width: rem(684)
+    min-width: rem(684)
+    height: rem(684)
+    @include media-breakpoint-down(lg)
+      width: rem(512)
+      min-width: rem(512)
+      height: rem(512)
+    @include media-breakpoint-down(md)
+      width: rem(460)
+      min-width: rem(460)
+      height: rem(460)
+    &__name
+      @extend .p
+      @extend .p--m
+      @extend .text-uppercase
+      @extend .mb-4
+      width: 40%
+    &__dates
+      @extend .font-spectral
+      @include font-params(18, 20)
+      @include media-breakpoint-down(sm)
+        @include font-params(13, 14)
+    &__container
+      background-color: $background
+      width: 100%
+      height: 100%
+      @extend .d-flex
+      @extend .flex-column
+      @extend .p-xxs
+  .LogoWithText
+    &__img
+      width: rem(87)
+      height: rem(87)
+      @include media-breakpoint-down(md)
+        width: rem(71)
+        height: rem(71)
+      @include media-breakpoint-down(sm)
+        width: rem(51)
+        height: rem(51)
+    &__name
+      font-size: rem(40)
+      @include media-breakpoint-down(md)
+        font-size: rem(34)
+      @include media-breakpoint-down(sm)
+        font-size: rem(24)
+
+
+
