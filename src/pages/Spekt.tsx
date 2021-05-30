@@ -146,7 +146,7 @@ class Spekt extends React.Component<Props, State> {
 
 
           <div className='row mb-m mb-md-l mb-lg-xl'>
-            <div className='col-4 col-md-6 col-lg-4'>
+            <div className='col-4 col-md-6 col-lg-4 mb-m mb-md-l'>
               <div className='row d-flex flex-row flex-lg-column'>
                 {spekt?.length &&
                   <div className='col-4 col-md-2 col-lg-12'>
@@ -167,7 +167,7 @@ class Spekt extends React.Component<Props, State> {
                   {spekt?.ticketsAndSchedule?.tickets?.map((stage: Place, index: number) =>
                     <h3
                       key={index}
-                      className='h3 h3--l mb-s'
+                      className={`h3 h3--l mb-${spekt.ticketsAndSchedule.tickets.length > index + 1 ? '4' : 's'}`}
                     >
                       {this.context.locale === 'rus' ? stage.venue : stage.venueEn}
                     </h3>
@@ -208,7 +208,7 @@ class Spekt extends React.Component<Props, State> {
                 {spekt.mainDesc}
               </div>
 
-              {spekt.showDiscount || true &&
+              {spekt.showDiscount &&
                 <div className='Spekt__FestivalPass'>
                   <div className='Spekt__FestivalPass__text'>
                     <FormattedMessage id='Spekt.FestivalPass.desc' />
