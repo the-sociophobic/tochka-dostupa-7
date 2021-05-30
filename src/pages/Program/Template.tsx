@@ -59,6 +59,7 @@ class Template extends React.Component<Props, {}> {
   render = () => {
     const program: Program = this.context?.contentful?.programs
       ?.find((program: Program) => program.id === this.props.programId)
+    const homepage = this?.context?.contentful?.homepages?.[0]
 
     return !program ? '' :
       this.props.text ?
@@ -85,10 +86,11 @@ class Template extends React.Component<Props, {}> {
             {this.renderText(program, false)}
 
             <div className='row d-flex flex-row flex-wrap'>
-              {this.context?.contentful?.spekts
+              {/* {this.context?.contentful?.spekts
                 ?.filter((spekt: Spekt) =>
                   spekt?.program?.id === program.id
-                  && spekt?.festival?.name?.includes?.('VII'))
+                  && spekt?.festival?.name?.includes?.('VII')) */}
+              {homepage[program.link]
                 ?.map((spekt: Spekt) =>
                   <div className='Program__SpektCard-delimeter'>
                     <SpektCard

@@ -193,6 +193,7 @@ const defaultMessages: Messages = {
   Spekt: {
     length: ['Продолжительность', 'Length'],
     stage: ['Локация / платформа', 'Stage / location'],
+    credits: ['Содание проекта', 'Credits'],
     sponsor: ['При поддержке', 'Sponsor'],
     howToOnline: ['Как это будет онлайн?', 'Tickets'],
     howToOffline: ['Как это будет офлайн?', 'Tickets'],

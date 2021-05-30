@@ -173,6 +173,17 @@ class Spekt extends React.Component<Props, State> {
                     </h3>
                   )}
                 </div>
+                {spekt?.credits &&
+                  <div className='col-4 col-md-2 col-lg-12'>
+                    <FormattedMessage
+                      id='Spekt.credits'
+                      className='p p--s'
+                    />
+                    <h3 className='h3 h3--l mb-s'>
+                      {spekt?.credits}
+                    </h3>
+                  </div>
+                }
                 {spekt?.sponsors?.length > 0 &&
                   <div className='col-4 col-md-2 col-lg-12 d-flex flex-column'>
                     <FormattedMessage
