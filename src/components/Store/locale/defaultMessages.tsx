@@ -139,6 +139,7 @@ const defaultMessages: Messages = {
     register: ['Регистрация', 'Register'],
     buy: ['Купить билет', 'Buy ticket'],
     nothing: ['Событий в выбранный промежуток нет', 'No events during this dates'],
+    pdfFileName: ['Точка доступа расписание за', 'Access point 2021 schedule for'],
     a: ['', ''],
   },
   Festival: {
