@@ -35,10 +35,13 @@ const links = [
     to: '/privacy',
     id: 'Privacy.name'
   },
-
   {
     to: '/details',
     id: 'Details.name'
+  },
+  {
+    to: '/volunteers',
+    id: 'Volunteers.name'
   },
 ]
 const mappedLinks = [
@@ -94,6 +97,7 @@ class Footer extends React.Component {
                 className='Footer__link Footer__link--title'
               />
               {mappedLinks.slice(6, 12)}
+              {mappedLinks[18]}
             </div>
             <div className="Footer__links__divider" />
             <div className="Footer__links__4">
@@ -102,6 +106,10 @@ class Footer extends React.Component {
                 className='Footer__link Footer__link--title'
               />
               {mappedLinks.slice(12, 16)}
+              <div
+                className="apple-business-chat-banner-container"
+                data-apple-business-id="insert your business id here"
+              />
             </div>
           </div>
           <div className="Footer__contacts">

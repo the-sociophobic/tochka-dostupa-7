@@ -133,7 +133,11 @@ const routes: Route[] = [
   },
   {
     to: "/details",
-    Comp: <Redirect to='https://drive.google.com/file/d/1fHCRWr5t_DEUVkrQOFug3i7evZS1GV1r/view ' />
+    Comp: <Redirect to='https://drive.google.com/file/d/1fHCRWr5t_DEUVkrQOFug3i7evZS1GV1r/view' />
+  },
+  {
+    to: "/volunteers",
+    Comp: <Redirect to='https://special.tochkadostupa.spb.ru/opencall/volunteer' />
   },
 
   {

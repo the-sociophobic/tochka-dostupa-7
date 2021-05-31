@@ -182,6 +182,9 @@ const defaultMessages: Messages = {
   Details: {
     name: ["Реквизиты", "Details"],
   },
+  Volunteers: {
+    name: ["Волонтёры", "Volunteers"],
+  },
 
   
   Login: {
