@@ -33,12 +33,18 @@ class About extends React.Component<{}, {}> {
                 {page.desc}            
               </div>
             </div>
-            <div className='col-4 col-md-6 col-lg-12 col-xl-3'>
+            <div className='col-4 col-md-6 col-lg-12 col-xl-3 d-flex flex-column'>
               <Link
                 to='/festival/about/projects'
                 className='p p--arrow p--arrow--right mb-xxs'
               >
                 <FormattedMessage id='Festival.pages.About.pages.Projects.name' />
+              </Link>
+              <Link
+                to='/festival/archive'
+                className='p p--arrow p--arrow--right mb-xxs'
+              >
+                <FormattedMessage id='Festival.pages.Archive.name' />
               </Link>
               {/* <Link
                 to='/festival/about/reviews'
