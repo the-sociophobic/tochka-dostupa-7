@@ -8,7 +8,8 @@ import { RichTextNode } from './Store/Types/contentfulTypes'
 
 
 type Props = {
-  children: React.ReactElement<RichTextNode>[]
+  // children: React.ReactElement<RichTextNode>[]
+  children: any
   className?: string
   initialOpen?: boolean
   additionalContent: JSX.Element

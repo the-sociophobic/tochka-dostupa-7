@@ -92,7 +92,7 @@ class Template extends React.Component<Props, {}> {
             </div>
           }
         >
-          {program?.mainDesc}
+          {program?.mainDesc2}
         </TextDropdown>
       }
     </>
