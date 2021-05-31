@@ -1,8 +1,8 @@
 import React from 'react'
 
-
 import Link from '../../components/Link'
 import { Context } from '../../components/Store'
+import FormattedMessage from '../../components/FormattedMessage'
 
 
 class Contacts extends React.Component<{}, {}> {
@@ -92,10 +92,10 @@ class Contacts extends React.Component<{}, {}> {
                 {page.organiser}
               </div>
               <Link
-                to={page?.details?.file?.url}
-                className='p p--l p--arrow p--arrow--right'
+                to='https://drive.google.com/file/d/1fHCRWr5t_DEUVkrQOFug3i7evZS1GV1r/view'
+                className='p p--l p--arrow p--arrow--right mb-1 mb-md-2 mb-lg-3'
               >
-                {page?.details?.title}
+                <FormattedMessage id='Festival.pages.Accreditation.details' />
               </Link>
             </div>
           </div>

@@ -1,10 +1,9 @@
 import React from 'react'
 
-
 import Link from '../../components/Link'
 import { Context } from '../../components/Store'
 import { Person } from '../../components/Store/Types'
-import { File } from '../../components/Store/Types/contentfulTypes'
+import FormattedMessage from '../../components/FormattedMessage'
 
 
 class Accreditation extends React.Component<{}, {}> {
@@ -25,7 +24,7 @@ class Accreditation extends React.Component<{}, {}> {
             </div>
           </div>
           <div className='row d-flex flex-row justify-content-between'>
-            <div className='col-4'>
+            <div className='col-5'>
               <div className='p p--xl mb-s mb-md-m mb-lg-l'>
                 {page.desc}
               </div>
@@ -47,7 +46,7 @@ class Accreditation extends React.Component<{}, {}> {
               <h3 className='h3 mb-2'>
                 {page.materialsTitle}
               </h3>
-              {page.materials
+              {/* {page.materials
                 .map((material: File) =>
                   <Link
                     to={material.file.url}
@@ -55,7 +54,13 @@ class Accreditation extends React.Component<{}, {}> {
                   >
                     {material?.title}
                   </Link>
-              )}
+              )} */}
+              <Link
+                to='https://drive.google.com/drive/folders/1uFbYWruTAqEeDHf6Om-As5FKUQlIz6Pe?usp=sharing '
+                className='p p--l p--arrow p--arrow--right mb-1 mb-md-2 mb-lg-3'
+              >
+                <FormattedMessage id='Festival.pages.Accreditation.presskit' />
+              </Link>
             </div>
           </div>
         </div>

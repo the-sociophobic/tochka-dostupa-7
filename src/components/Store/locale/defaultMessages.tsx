@@ -162,6 +162,8 @@ const defaultMessages: Messages = {
       },
       Accreditation: {
         name: ["Аккредитация", "Accreditation"],
+        details: ['Скачать реквизиты', 'Download details'],
+        presskit: ['Пресс-кит', 'Press-kit']
       },
       Archive: {
         name: ["Архив", "Archive"],
