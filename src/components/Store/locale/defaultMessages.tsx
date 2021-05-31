@@ -89,10 +89,10 @@ const defaultMessages: Messages = {
       // submitWrong: ['ошибка((', 'error(('],
     },
     festivalPass: {
-      1: ['abonement', 'абонемент'],
+      1: ['абонемент', 'abonement'],
       2: ['абонемент', 'abonement'],
-      desc: ['Один билет на все онлайн-спектакли фестиваля', 'Single ticket for all online-events'],
-      price: ['6000 рублей', '6000 roubles'],
+      desc: ['Единый билет на события фестиваля', 'Single ticket for festival events'],
+      price: ['6 000 рублей', '6 000 roubles'],
       buy: ['купить', 'buy'],
     },
     Laba: {
@@ -193,7 +193,7 @@ const defaultMessages: Messages = {
   Spekt: {
     length: ['Продолжительность', 'Length'],
     stage: ['Локация / платформа', 'Stage / location'],
-    credits: ['Содание проекта', 'Credits'],
+    credits: ['Создание проекта', 'Credits'],
     sponsor: ['При поддержке', 'Sponsor'],
     howToOnline: ['Как это будет онлайн?', 'Tickets'],
     howToOffline: ['Как это будет офлайн?', 'Tickets'],

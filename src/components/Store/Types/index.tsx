@@ -95,10 +95,16 @@ interface Show extends ContentfulItem {
 interface Program extends ContentfulItem {
   link: string
   name: string
+
   curators?: Person[]
   curatorTitle?: string
   mainDesc: React.ReactElement<RichTextNode>[]
   shortDesc: JSX.Element
+  curators2?: Person[]
+  curatorTitle2?: string
+  mainDesc2?: JSX.Element
+  shortDesc2?: JSX.Element
+
   spekts: Spekt[]
   ogdescription?: string
   ogimageVkimage?: string

@@ -48,7 +48,7 @@ class TextDropdown extends React.Component<Props, {}> {
 
   cropChildren = () =>
     <>
-      {this.props?.shortDesc}..
+      {this.props?.shortDesc}
     </>
 
   toggleOpened = () =>

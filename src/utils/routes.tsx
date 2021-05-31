@@ -118,6 +118,10 @@ const routes: Route[] = [
     Comp: <Template text programId='7fOwCkT7nOXh3C81toLoSs' />
   },
   {
+    to: '/program/main/text2',
+    Comp: <Template text2 programId='7fOwCkT7nOXh3C81toLoSs' />
+  },
+  {
     to: '/program/open/text',
     Comp: <Template text programId='4qgsLo90by1TfShZwdyNhw' />
   },

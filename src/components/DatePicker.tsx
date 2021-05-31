@@ -85,9 +85,7 @@ class DatePicker extends React.Component<Props, State> {
         :
         !(this.calendarRef?.current === e.target
           || this.calendarRef?.current?.contains(e.target)
-          // || Array.from(this.calendarRef?.current?.children)
-          //   ?.some((child: any) =>
-          //     child === e.target || child.contains(e.target))
+          || e.target.className.includes('DatePicker')
         )
           && this.setState({
             opened: false,
@@ -343,12 +341,13 @@ class DatePicker extends React.Component<Props, State> {
           <div
             className='DatePicker__calendar__body__month'
             onClick={() => {
-              this.setStateAndPropsDate(
-                this.state.currentFocused,
-                currentMonthDayString.slice(0, 2) + (1 + index < 10 ? '0' : '') + (1 + index) + currentMonthDayString.slice(4)
-              )
+              // this.setStateAndPropsDate(
+              //   this.state.currentFocused,
+              //   currentMonthDayString.slice(0, 2) + (1 + index < 10 ? '0' : '') + (1 + index) + currentMonthDayString.slice(4)
+              // )
               this.setState({
                 current: 'day',
+                [`presumed${this.state.currentFocused}`]: new Date(this.inputStringToDateReadableString(currentMonthDayString.slice(0, 2) + (1 + index < 10 ? '0' : '') + (1 + index) + currentMonthDayString.slice(4)))
               })
             }}
           >
@@ -359,12 +358,13 @@ class DatePicker extends React.Component<Props, State> {
           <div
             className='DatePicker__calendar__body__year'
             onClick={() => {
-              this.setStateAndPropsDate(
-                this.state.currentFocused,
-                currentMonthDayString.slice(0, 4) + (2011 + index)
-              )
+              // this.setStateAndPropsDate(
+              //   this.state.currentFocused,
+              //   currentMonthDayString.slice(0, 4) + (2011 + index)
+              // )
               this.setState({
                 current: 'day',
+                [`presumed${this.state.currentFocused}`]: new Date(this.inputStringToDateReadableString(currentMonthDayString.slice(0, 4) + (2011 + index)))
               })
             }}
           >

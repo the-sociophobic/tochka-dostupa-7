@@ -49,16 +49,26 @@ class Contacts extends React.Component<{}, {}> {
           <div className='delimeter mb-s mb-md-m mb-lg-l' />
           <div className='row d-flex flex-row flex-wrap'>
             {page?.emails
-              .map((item: { email: string, title: string }) =>                
+              .map((item: { email: string, title: string, name: string, tel: string }) =>                
                 <div className='col-4 col-lg-6 mb-s mb-md-m mb-lg-l'>
                   <div className='p p--xxl font-weight-bold mb-2'>
                     {item.title}
                   </div>
+                  <div className='p p--l mb-0'>
+                    {item.name}
+                  </div>
                   <Link
                     to={`mailto:${item.email}`}
-                    className='p p--l'
+                    className='p p--l mb-2'
                   >
                     {item.email}
+                  </Link>
+                  <br />
+                  <Link
+                    to={`tel:${item.tel}`}
+                    className='p p--l mb-2'
+                  >
+                    {item.tel}
                   </Link>
                 </div>
             )}
