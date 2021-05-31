@@ -113,7 +113,8 @@ interface Program extends ContentfulItem {
 interface Sponsor extends ContentfulItem {
   name: string
   logo: File[]
-  link: string
+  link?: string
+  title?: string
 }
 
 interface SponsorType extends ContentfulItem {
