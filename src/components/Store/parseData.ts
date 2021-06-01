@@ -59,11 +59,11 @@ const parseSpekts = ((spekts: Spekt[]) =>
   spekts
     ?.map((spekt: Spekt) => ({
       ...spekt,
-      online: spekt.ticketsAndSchedule?.tickets
+      online: spekt.online || spekt.ticketsAndSchedule?.tickets
         ?.some((stage: Place) =>
           stage.tickets
             ?.some((show: Show) => show.online)),
-      offline: spekt.ticketsAndSchedule?.tickets
+      offline: spekt.offline || spekt.ticketsAndSchedule?.tickets
         ?.some((stage: Place) =>
           stage.tickets
             ?.some((show: Show) => !show.online)),

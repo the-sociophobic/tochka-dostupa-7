@@ -28,7 +28,7 @@ class Template extends React.Component<Props, {}> {
         <TextDropdown
           initialOpen={opened}
           link={opened ? `/program/${program.link}` : `/program/${program.link}/text`}
-          className='mb-s mb-md-l mb-lg-xl'
+          className={program.shortDesc2 ? '' : 'mb-s mb-md-l mb-lg-xl'}
           shortDesc={program.shortDesc}
           additionalContent={
             <div className='d-flex flex-column flex-md-row flex-lg-column flex-xl-row mb-s mb-lg-0'>

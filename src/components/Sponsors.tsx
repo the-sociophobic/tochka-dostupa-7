@@ -43,8 +43,6 @@ class Sponsors extends React.Component {
       sponsorsTypesLines: (SponsorTypeLine | SponsorTypeLine)[]
     } = this?.context?.contentful?.homepages?.[0]
 
-    console.log(page)
-
     return !page ? '' :
       <>
         <div className='container'>

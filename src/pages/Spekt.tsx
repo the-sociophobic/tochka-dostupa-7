@@ -186,10 +186,10 @@ class Spekt extends React.Component<Props, State> {
                 }
                 {spekt?.sponsors?.length > 0 &&
                   <div className='col-4 col-md-2 col-lg-12 d-flex flex-column'>
-                    <FormattedMessage
+                    {/* <FormattedMessage
                       id='Spekt.sponsor'
                       className='p p--s'
-                    />
+                    /> */}
                     {spekt?.sponsors?.map((sponsor: Sponsor) =>
                       <img
                         key={sponsor?.logo?.[0].file?.url}

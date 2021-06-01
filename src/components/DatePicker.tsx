@@ -85,7 +85,7 @@ class DatePicker extends React.Component<Props, State> {
         :
         !(this.calendarRef?.current === e.target
           || this.calendarRef?.current?.contains(e.target)
-          || e.target.className.includes('DatePicker')
+          || e?.target?.className?.includes?.('DatePicker')
         )
           && this.setState({
             opened: false,

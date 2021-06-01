@@ -35,7 +35,7 @@ class Provider extends React.Component<Props, StateType> {
 
   state = {
     ...initialState,
-    locale: this.props.location.search.includes('en') ? 'eng' : 'rus'
+    locale: (new URLSearchParams(this.props.location.search)).get('en') === '' ? 'eng' : 'rus'
   }
 
   cookies = new Cookies()
@@ -144,8 +144,17 @@ class Provider extends React.Component<Props, StateType> {
           locale: _locale
         }),
       toggleLocale: () => {
+        const params = new URLSearchParams(this.props.location.search)
+
+        if (this.state.locale === 'rus')
+          params.append('en', '')
+        else
+          params.delete('en')
+
+        const paramsString = params.toString()
+
         this.props.history.push({
-          search: this.state.locale === 'rus' ? '?en' : ''
+          search: paramsString.length === 0 ? '' : `?${paramsString}`
         })
         this.setState({
           locale: this.state.locale === "rus" ? "eng" : "rus"
