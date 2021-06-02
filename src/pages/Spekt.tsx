@@ -81,7 +81,7 @@ class Spekt extends React.Component<Props, State> {
 
     let spekt = this.context?.contentful?.spekts
       ?.find((spekt: SpektType) =>
-        spekt.link.replace('/', '') === this.props.location.pathname.replace('/spekt/', '').replace('/', ''))
+        spekt.link?.replace?.('/', '') === this.props.location.pathname.replace('/spekt/', '').replace('/', ''))
 
     if (!spekt)
       return <Error404 />
