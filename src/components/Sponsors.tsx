@@ -26,7 +26,7 @@ class Sponsors extends React.Component {
       <div className={`container ${className}`}>
         <div className='row d-flex flex-row flex-wrap'>
           {sponsorType?.sponsors?.map((sponsor: Sponsor) =>
-            <div className='col-2 col-md-2 col-lg-2 d-flex flex-column'>
+            <div className='col-2 col-md-2 col-lg-2 d-flex flex-column align-self-stretch justify-content-between'>
               {withTitles &&
                 <div className='p p--m mb-4 mb-md-xs'>
                   {sponsor.title}

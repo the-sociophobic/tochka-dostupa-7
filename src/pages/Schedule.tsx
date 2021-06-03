@@ -283,7 +283,7 @@ class Schedule extends React.Component<{}, State> {
                         <h3 className='h3 mb-0'>
                           {show.name}
                         </h3>
-                        <p className={`p p--xl mb-xs`}>
+                        <p className='p p--xl mb-xs font-spectral'>
                           {show.persons}
                         </p>
                         {(this.context.locale === 'rus' && show.disclaimer) &&

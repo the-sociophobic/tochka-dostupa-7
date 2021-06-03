@@ -106,10 +106,29 @@ class Footer extends React.Component {
                 className='Footer__link Footer__link--title'
               />
               {mappedLinks.slice(12, 16)}
+              {/* <div
+                // className="apple-business-chat-message-container"
+                // data-apple-business-id="ca0db090 8a22d77b-57a0-4f68-846e-e0b85b3655f2"
+                // data-apple-icon-color="#000000"
+                // data-apple-icon-background-color="#00FF19"
+                // data-apple-icon-scale="1.7"
+                // data-apple-icon-title="Style questions? We can help."
+                className="apple-business-chat-message-container"
+                data-apple-business-id="8a22d77b-57a0-4f68-846e-e0b85b3655f2"
+                data-apple-icon-color="#1B3F68"
+                data-apple-icon-background-color="#1B3F68"
+                data-apple-icon-scale="1.7"
+                data-apple-icon-title="Style questions? We can help."              />
+            </div> */}
               <div
-                className="apple-business-chat-banner-container"
-                data-apple-business-id="insert your business id here"
-              />
+                className="apple-business-chat-message-container"
+                data-apple-business-id="8a22d77b-57a0-4f68-846e-e0b85b3655f2"
+                data-apple-icon-color="#000000"
+                data-apple-icon-background-color="#00FF19"
+                data-apple-icon-scale="1"
+                data-apple-icon-title=''
+              ></div>
+
             </div>
           </div>
           <div className="Footer__contacts">
