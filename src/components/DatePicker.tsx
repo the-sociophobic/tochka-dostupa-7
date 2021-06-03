@@ -10,10 +10,8 @@ import isToday from 'date-fns/isToday'
 import isSameDay from 'date-fns/isSameDay'
 import isSameMonth from 'date-fns/isSameMonth'
 import isBefore from 'date-fns/isBefore'
-import compareAsc from 'date-fns/compareAsc'
 import { ru, enUS } from 'date-fns/locale'
 
-import FormattedMessage from './FormattedMessage'
 import { Context } from './Store'
 
 
@@ -185,7 +183,7 @@ class DatePicker extends React.Component<Props, State> {
       
     const selectedDateStringName = `date${this.state.currentFocused}`
     const selectedDateString = this.props[selectedDateStringName]
-    const selectedDate = new Date(selectedDateString)
+    // const selectedDate = new Date(selectedDateString)
     const currentMonthDay = this.state[`presumed${this.state.currentFocused}`]
 
     return (

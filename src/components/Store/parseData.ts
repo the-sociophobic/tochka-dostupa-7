@@ -1,3 +1,6 @@
+import { format } from 'date-fns'
+import subHours from 'date-fns/subHours'
+
 import {
   Days,
   Spekt,
@@ -16,20 +19,31 @@ const parseMappedDays = async (spekts: Spekt[]) =>
         spekt?.ticketsAndSchedule?.tickets
           .map((place: Place): MappedShow[] | undefined =>
             place?.tickets
-              .map((show: Show): MappedShow => ({
-                ...show,
-                link: spekt.link,
-                name: spekt.name,
-                persons: spekt.persons,
-                dateObj: new Date(show.datetime),
-                program: spekt.program,
-                offline: show.offline || (!show.online && !show.offline),
-                age: spekt.age,
-                shortDesc: spekt.shortDesc,
-                stage: place.venue,
-                stageEn: place.venueEn,
-                length: spekt.length,
-              })))
+              .map((show: Show): MappedShow => {
+                let datetime = show.datetime
+                let dateObj = datetime === '' ? null : new Date(datetime)
+
+                if (dateObj !== null && format(dateObj, 'HH') !== show.datetime.slice(11, 13)) {
+                  dateObj = subHours(dateObj, 3)
+                  datetime = format(dateObj, 'yyyy-MM-ddTHH:mm')
+                }
+
+                return ({
+                  ...show,
+                  link: spekt.link,
+                  name: spekt.name,
+                  persons: spekt.persons,
+                  datetime: datetime,
+                  dateObj: dateObj,
+                  program: spekt.program,
+                  offline: show.offline || (!show.online && !show.offline),
+                  age: spekt.age,
+                  shortDesc: spekt.shortDesc,
+                  stage: place.venue,
+                  stageEn: place.venueEn,
+                  length: spekt.length,
+                })
+              }))
           .reduce((a: MappedShow[] | undefined, b: MappedShow[] | undefined): MappedShow[] | undefined =>
             [...(a || []), ...(b || [])])
       )
