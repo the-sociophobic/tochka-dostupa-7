@@ -1,6 +1,6 @@
 import React from 'react'
 
-import _ from 'lodash'
+import _, { capitalize } from 'lodash'
 
 import { withRouter } from 'react-router-dom'
 import { RouteComponentProps } from 'react-router'
@@ -33,6 +33,10 @@ const mobileHeaderLinks = [
     {
       to: '/schedule',
       id: 'Schedule.name'
+    },    
+    {
+      to: 'https://special.tochkadostupa.spb.ru/abonement',
+      id: 'Home.festivalPass.1'
     },
     ...getSubLinks('/festival')
       .filter(link => !link.to.match(/\/festival\/projects|\/festival\/reviews/)),
@@ -53,13 +57,7 @@ const mobileHeaderLinks = [
       to: 'https://www.youtube.com/channel/UCcDBr-1T4dsTQO5xYmaalYg',
       id: 'Youtube'
     },
-  ].map(link =>
-    <Link
-      key={link.to}
-      {...link}
-    >
-      <FormattedMessage id={link.id} />
-    </Link>)
+  ]
 
 
 class Header extends React.Component<Props, State> {
@@ -303,55 +301,71 @@ class Header extends React.Component<Props, State> {
       />
     </div>
 
-  renderOpenedMobileHeader = () =>
-    <div className={`
-      Header--mobile__container
-      ${this.state.opened && 'Header--mobile__container--opened'}
-    `}>
-      {this.renderHeader('Header--mobile',
-        <div className='Header--mobile__children'>
-          <div className='row d-md-none'>
-            <div className='col-4 px-4'>
-              {this.renderControls()}
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-4 px-4 color-white'>
-              {camelize(getMessage(this, 'Program.name'))}
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-4 px-4'>
-              {mobileHeaderLinks.slice(0, 5)}
-              <br />
-              <br />
-              {mobileHeaderLinks[5]}
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-4 px-4'>
-              <FormattedMessage id='Festival.name' />
-            </div>
-          </div>
-          <div className='row mb-auto'>
-            <div className='col-4 col-md-6 px-4'>
-              {mobileHeaderLinks.slice(6, 10)}
-              <br className='d-block d-md-none' />
-              {mobileHeaderLinks[10]}
-            </div>
-          </div>
+  renderOpenedMobileHeader = () => {
+    const mappedMobileHeaderLinks = mobileHeaderLinks
+      .map(link =>
+        <Link
+          key={link.to}
+          {...link}
+        >
+          {link.id === 'Home.festivalPass.1' ?
+            camelize(getMessage(this, link.id))
+            :
+            <FormattedMessage id={link.id} />
+          }
+        </Link>)
 
-          <div className='row'>
-            <div className='col-4 col-md-6 flex-nowrap px-4'>
-              {mobileHeaderLinks.slice(11, 13)}
-              <br className='d-block d-md-none' />
-              <br className='d-block d-md-none' />
-              {mobileHeaderLinks.slice(13, 15)}
+    return (
+      <div className={`
+        Header--mobile__container
+        ${this.state.opened && 'Header--mobile__container--opened'}
+      `}>
+        {this.renderHeader('Header--mobile',
+          <div className='Header--mobile__children'>
+            <div className='row d-md-none'>
+              <div className='col-4 px-4'>
+                {this.renderControls()}
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-4 px-4 color-white'>
+                {camelize(getMessage(this, 'Program.name'))}
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-4 px-4'>
+                {mappedMobileHeaderLinks.slice(0, 5)}
+                <br />
+                <br />
+                {mappedMobileHeaderLinks[5]}
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-4 px-4'>
+                <FormattedMessage id='Festival.name' />
+              </div>
+            </div>
+            <div className='row mb-auto'>
+              <div className='col-4 col-md-6 px-4'>
+                {mappedMobileHeaderLinks.slice(6, 10)}
+                <br className='d-block d-md-none' />
+                {mappedMobileHeaderLinks[10]}
+              </div>
+            </div>
+
+            <div className='row'>
+              <div className='col-4 col-md-6 flex-nowrap px-4'>
+                {mappedMobileHeaderLinks.slice(12, 14)}
+                <br className='d-block d-md-none' />
+                <br className='d-block d-md-none' />
+                {mappedMobileHeaderLinks.slice(14, 16)}
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    )
+  }
 
   render = () =>
     <>
