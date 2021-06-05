@@ -104,6 +104,7 @@ const defaultMessages: Messages = {
   Program: {
     name: ['программа', 'program'],
     full: ['Вся программа', 'Full program'],
+    more: ['Подробнее', 'More details'],
 
     pages: {
       Main: {
@@ -140,6 +141,7 @@ const defaultMessages: Messages = {
     buy: ['Купить билет', 'Buy ticket'],
     nothing: ['Событий в выбранный промежуток нет', 'No events during this dates'],
     pdfFileName: ['Точка доступа расписание за', 'Access point 2021 schedule for'],
+    festivalPassDesc: ['Единый выгодный способ попасть на события фестиваля', 'Best way to visit all festival events'],
     a: ['', ''],
   },
   Festival: {

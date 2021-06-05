@@ -28,8 +28,8 @@ import Link from '../components/Link'
 
 import camelize from '../utils/camelize'
 import radarioProps from '../utils/radarioProps'
-import copyToClipboard from '../utils/copyToClipboard'
 import { getMessage } from '../components/Store/locale'
+import { FestivalPassSpekt } from '../components/FestivalPass'
 
 
 type Props = RouteComponentProps<{
@@ -39,7 +39,6 @@ type Props = RouteComponentProps<{
 type State = {
   currentOpened: number
   showAllShows: boolean
-  showTooltip: boolean
 }
 
 
@@ -51,29 +50,9 @@ class Spekt extends React.Component<Props, State> {
   state: State = {
     currentOpened: 0,
     showAllShows: false,
-    showTooltip: false,
   }
 
   static contextType = Context
-
-  hideTooltipTimeout: any = -1
-
-  copyToClipboard = () => {
-    copyToClipboard('ТОЧКАДОСТУПА35')
-    
-    this.setState({
-      showTooltip: true
-    })
-    
-    if (this.hideTooltipTimeout !== -1)
-      clearTimeout(this.hideTooltipTimeout)
-    this.hideTooltipTimeout = setTimeout(
-      () => {
-        this.setState({ showTooltip: false})
-        this.hideTooltipTimeout = -1
-      }
-      , 2000)
-  }
 
   render = () => {
     if (!this?.context?.ready)
@@ -209,26 +188,7 @@ class Spekt extends React.Component<Props, State> {
               </div>
 
               {spekt.showDiscount &&
-                <div className='Spekt__FestivalPass'>
-                  <div className='Spekt__FestivalPass__text'>
-                    <FormattedMessage id='Spekt.FestivalPass.desc' />
-                    <div
-                      className='Spekt__FestivalPass__text__promocode'
-                      onClick={() => this.copyToClipboard()}
-                    >
-                      <u>ТОЧКАДОСТУПА35</u>
-                    </div>
-                    {this.state.showTooltip &&
-                      <div className='Spekt__FestivalPass__text__tooltip'>
-                        <FormattedMessage id='Spekt.FestivalPass.tooltip' />
-                      </div>
-                    }
-                  </div>
-                  <div className='p p--s'>
-                    <FormattedMessage id='Spekt.FestivalPass.noReturns' />
-                  </div>
-                </div>
-              }
+                <FestivalPassSpekt />}
 
               {spekt.shows.length > 0 &&
                 <Dropdown

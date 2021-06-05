@@ -5,7 +5,7 @@ import HorizontalShowcase from '../components/HorizontalShowcase'
 import SpektCard from '../components/Views/Cards/SpektCard'
 import Link from '../components/Link'
 import { Context } from '../components/Store'
-import FestivalPass from '../components/FestivalPass'
+import { FestivalPass } from '../components/FestivalPass'
 import Subscribe from '../components/Subscribe'
 import Laba from '../components/Laba'
 import KeyVisual from '../components/KeyVisual'
@@ -115,6 +115,10 @@ class Home extends React.Component<{}, {}> {
           }
           ItemComp={SpektCard}
           items={page.friends?.map((spekt: Spekt) => ({ ...spekt, linkDisabled: this.context.locale === 'eng'}))}
+          bottomLink={{
+            to: 'program/friends',
+            label: <FormattedMessage id='Program.more' />
+          }}
         />
 
         <Laba />

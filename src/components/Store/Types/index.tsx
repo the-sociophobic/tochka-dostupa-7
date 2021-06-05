@@ -172,6 +172,13 @@ type Days = {
   [key: string]: MappedShow[] | undefined
 }
 
+type LinkObj = {
+  to: string
+  id: string
+  exact?: boolean
+}
+
+
 
 
 type StateType = {
@@ -247,6 +254,7 @@ export type {
   FeedbackPreview,
   MappedShow,
   Days,
+  LinkObj,
 
   StateType,
 }

@@ -15,11 +15,18 @@ import HorizontalShowcase from './HorizontalShowcase'
 import { getSubLinks } from '../utils/routeUtils'
 import { getMessage } from './Store/locale'
 import camelize from '../utils/camelize'
+import { LinkObj } from './Store/Types'
 
 
-type PathParamsType = {
+type Props = RouteComponentProps<{
   param1: string,
+}>
+type State = {
+  opened: boolean
+  scrollingUp: boolean
+  secondaryLinks: LinkObj[]
 }
+
 
 const mobileHeaderLinks = [
     ...getSubLinks('/program'),
@@ -55,8 +62,8 @@ const mobileHeaderLinks = [
     </Link>)
 
 
-class Header extends React.Component<RouteComponentProps<PathParamsType>> {
-  state = {
+class Header extends React.Component<Props, State> {
+  state: State = {
     opened: false,
     scrollingUp: false,
     secondaryLinks: [],
@@ -96,9 +103,20 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
         || (path.match(/\/user*/) && _.isEmpty(this.context.user)) ?
           []
           :
-          getSubLinks(path)
-            .filter(link => !link.to.match(/\/festival\/projects|\/festival\/reviews/))
-            .filter(link => link.to !== '/program/friends')
+          [
+            ...(path.includes('festival') ?
+              [
+                {
+                  to: 'https://special.tochkadostupa.spb.ru/abonement',
+                  id: 'Home.festivalPass.1'
+                }
+              ]
+              :
+              []
+            ),
+            ...getSubLinks(path)
+              .filter(link => !link.to.match(/\/festival\/projects|\/festival\/reviews/))
+          ]  
       )(pathToShow || this.props.history.location.pathname)
     })
 
@@ -140,7 +158,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
             <div
               className={`
                 Header__links__item Header__links__item--dropdown
-                ${this.state.secondaryLinks.length === 3 && 'Header__links__item--hover'}
+                ${this.state.secondaryLinks[0]?.to === '/program/home' && 'Header__links__item--hover'}
                 ${this.props.location.pathname.match(/\/program\/*|\/spekt\/laboratoriagranits/) && 'Header__links__item--active'}
               `}
               onMouseEnter={() => {
@@ -161,7 +179,7 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
             <div
               className={`
                 Header__links__item Header__links__item--dropdown
-                ${this.state.secondaryLinks.length === 5 && 'Header__links__item--hover'}
+                ${this.state.secondaryLinks[0]?.to === '/festival/about' && 'Header__links__item--hover'}
                 ${this.props.location.pathname.includes('festival') && 'Header__links__item--active'}
               `}
               onMouseEnter={() => {
@@ -268,10 +286,18 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
             <Link
               to={props.to}
               exact={props.exact}
-              className="Header__links__item"
+              className={`
+                Header__links__item
+                ${props.to === 'https://special.tochkadostupa.spb.ru/abonement' &&
+                  'Header__links__item--FestivalPass'}
+              `}
               activeClassName='button--navigation--hover'
             >
-              <FormattedMessage id={props.id} />
+              {props.to === 'https://special.tochkadostupa.spb.ru/abonement' ?
+                camelize(getMessage(this, props.id))
+                :
+                <FormattedMessage id={props.id} />
+              }
             </Link>
         }
       />
@@ -290,14 +316,13 @@ class Header extends React.Component<RouteComponentProps<PathParamsType>> {
             </div>
           </div>
           <div className='row'>
-            <div className='col-4 px-4'>
-              <FormattedMessage id='Program.name' />
+            <div className='col-4 px-4 color-white'>
+              {camelize(getMessage(this, 'Program.name'))}
             </div>
           </div>
           <div className='row'>
             <div className='col-4 px-4'>
-              {mobileHeaderLinks.slice(0, 3)}
-              {mobileHeaderLinks[4]}
+              {mobileHeaderLinks.slice(0, 5)}
               <br />
               <br />
               {mobileHeaderLinks[5]}

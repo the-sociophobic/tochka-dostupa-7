@@ -27,7 +27,8 @@ import DatePicker from '../components/DatePicker'
 import Link from '../components/Link'
 import camelize from '../utils/camelize'
 import radarioProps from '../utils/radarioProps'
-import Loader from '../components/Loader'
+import { FestivalPassSchedule } from '../components/FestivalPass'
+// import Loader from '../components/Loader'
 
 
 type FilterState = {
@@ -237,6 +238,7 @@ class Schedule extends React.Component<{}, State> {
               <FormattedMessage id='Schedule.loadPrev' />
             </div>
         }
+        <FestivalPassSchedule />
         {_.isEmpty(filteredDays) ?
           <div className='text-center my-m p p--xl'>
             <FormattedMessage id='Schedule.nothing' />

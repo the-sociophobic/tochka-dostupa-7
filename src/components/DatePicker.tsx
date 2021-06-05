@@ -161,8 +161,11 @@ class DatePicker extends React.Component<Props, State> {
         const value = (e.target as unknown as HTMLTextAreaElement).value
           .replace(/[^0-9]/g, '')
           // .slice(0, 8)
+        // const prevSelectionStart = e.target.selectionStart
 
         this.setStateAndPropsDate(dateId, value)
+
+        // e.target.selectionStart = 0
       }}
       value={this.inputStringToWrittenDateString(this.state[`string${dateId}`])}
       onFocus={() => this.setState({
