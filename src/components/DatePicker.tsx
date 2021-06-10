@@ -5,7 +5,9 @@ import eachWeekOfInterval from 'date-fns/eachWeekOfInterval'
 import setDate from 'date-fns/setDate'
 import addDays from 'date-fns/addDays'
 import addMonths from 'date-fns/addMonths'
+import subMonths from 'date-fns/subMonths'
 import addYears from 'date-fns/addYears'
+import subYears from 'date-fns/subYears'
 import isToday from 'date-fns/isToday'
 import isSameDay from 'date-fns/isSameDay'
 import isSameMonth from 'date-fns/isSameMonth'
@@ -221,7 +223,7 @@ class DatePicker extends React.Component<Props, State> {
               <div
                 className='p--arrow p--arrow--left cursor-pointer'
                 onClick={() => this.setState({
-                  [`presumed${this.state.currentFocused}`]: addMonths(currentMonthDay, -1)
+                  [`presumed${this.state.currentFocused}`]: subMonths(currentMonthDay, 1)
                 })}
               />
               <div
@@ -248,7 +250,7 @@ class DatePicker extends React.Component<Props, State> {
               <div
                 className='p--arrow p--arrow--left cursor-pointer'
                 onClick={() => this.setState({
-                  [`presumed${this.state.currentFocused}`]: addYears(currentMonthDay, -1)
+                  [`presumed${this.state.currentFocused}`]: subYears(currentMonthDay, 1)
                 })}
               />
               <div

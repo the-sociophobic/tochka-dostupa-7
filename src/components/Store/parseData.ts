@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import subHours from 'date-fns/subHours'
 
+
 import {
   Days,
   Spekt,
@@ -8,6 +9,7 @@ import {
   Show,
   MappedShow,
 } from './Types'
+import isValidDateString from '../../utils/isValidDateString'
 
 
 const parseMappedDays = async (spekts: Spekt[]) =>
@@ -19,17 +21,16 @@ const parseMappedDays = async (spekts: Spekt[]) =>
         spekt?.ticketsAndSchedule?.tickets
           .map((place: Place): MappedShow[] | undefined =>
             place?.tickets
+              .filter((show: Show) =>
+                isValidDateString(show.datetime))
               .map((show: Show): MappedShow => {
                 let datetime = show.datetime
-                let dateObj = datetime === '' ? new Date() : new Date(datetime)
+                let dateObj = new Date(datetime)
 
-                if (datetime === '')
-                  console.log(spekt, show)
-
-                // if (dateObj !== null && format(dateObj, 'HH') !== show.datetime.slice(11, 13)) {
-                //   dateObj = subHours(dateObj, 3)
-                //   datetime = format(dateObj, 'yyyy-MM-ddTHH:mm')
-                // }
+                if (format(dateObj, 'HH') !== show.datetime.slice(11, 13)) {
+                  dateObj = subHours(dateObj, 3)
+                  datetime = format(dateObj, 'yyyy-MM-ddTHH:mm')
+                }
 
                 return ({
                   ...show,
