@@ -21,7 +21,10 @@ const parseMappedDays = async (spekts: Spekt[]) =>
             place?.tickets
               .map((show: Show): MappedShow => {
                 let datetime = show.datetime
-                let dateObj = datetime === '' ? null : new Date(datetime)
+                let dateObj = datetime === '' ? new Date() : new Date(datetime)
+                
+                if (datetime === '')
+                  console.log(spekt, show)
 
                 if (dateObj !== null && format(dateObj, 'HH') !== show.datetime.slice(11, 13)) {
                   dateObj = subHours(dateObj, 3)
