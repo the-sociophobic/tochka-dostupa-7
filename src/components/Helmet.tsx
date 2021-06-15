@@ -36,6 +36,8 @@ class Helmet extends React.Component<RouteComponentProps<PathParamsType>> {
           :
           ''
     }`
+    const defaultDesc = 'Международный Летний фестиваль искусств «Точка доступа» — крупнейший форум сайт-специфического и иммерсивного искусства в России, он проводится в Петербурге с 2015 года. «Точка доступа» всегда исследует новые территории театра и предлагает зрителю новый опыт восприятия и коммуникации с пространством. Резиденты и гости «Точки доступа» — российские и зарубежные режиссеры — осваивают локации, обычно ничего общего с театром не имеющие, и одновременно знакомят зрителей с прогрессивным, смелым и актуальным искусством.'
+    const defaultImg = '/og-image.jpg'
     // const page = this?.context?.contentful?.[``][0]
 
     return (
@@ -45,8 +47,8 @@ class Helmet extends React.Component<RouteComponentProps<PathParamsType>> {
         </title>
         <meta property="og:url" content={`https://tochkadostupa.spb.ru${this.props.location.pathname}`} />
         <meta property="og:title" content={titleText} />
-        {/* <meta property="og:description" content={titleText} /> */}
-        <meta property="og:image" content="/og-image.jpg" />
+        <meta property="og:description" content={defaultDesc} />
+        <meta property="og:image" content={defaultImg} />
       </ReactHelmet>
     )
   }

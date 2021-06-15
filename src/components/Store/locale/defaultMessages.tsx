@@ -89,8 +89,8 @@ const defaultMessages: Messages = {
       // submitWrong: ['ошибка((', 'error(('],
     },
     festivalPass: {
-      1: ['абонемент', 'abonement'],
-      2: ['абонемент', 'abonement'],
+      1: ['абонемент', 'season ticket'],
+      2: ['абонемент', 'season ticket'],
       desc: ['Единый билет на события фестиваля', 'Single ticket for festival events'],
       price: ['6 000 рублей', '6 000 roubles'],
       buy: ['купить', 'buy'],
