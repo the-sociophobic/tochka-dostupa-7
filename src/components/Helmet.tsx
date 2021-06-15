@@ -23,24 +23,30 @@ class Helmet extends React.Component<RouteComponentProps<PathParamsType>> {
     const subTitles = pathToIds(this.props.location.pathname)
       .map((section: string | undefined) =>
         ` / ${getMessage(this, section || '')}`)
+    const titleText = `${getMessage(this, 'AccessPoint')} VII ${
+      this.props.location.pathname.match(/\/spekt\/*/) ?
+        ' / ' + (this?.context?.contentful?.spekts
+          ?.find((spekt: Spekt) =>
+            spekt.link === this.props.location.pathname.replace('/spekt/', ''))
+          ?.name
+          || (this?.context?.contentful ? 404 : ''))
+        :
+        subTitles.length > 0 ?
+          subTitles.reduce((a, b) => a + b)
+          :
+          ''
+    }`
+    // const page = this?.context?.contentful?.[``][0]
 
     return (
       <ReactHelmet>
         <title>
-          {getMessage(this, 'AccessPoint')} VII {
-            this.props.location.pathname.match(/\/spekt\/*/) ?
-              ' / ' + (this?.context?.contentful?.spekts
-                ?.find((spekt: Spekt) =>
-                  spekt.link === this.props.location.pathname.replace('/spekt/', ''))
-                ?.name
-                || (this?.context?.contentful ? 404 : ''))
-              :
-              subTitles.length > 0 ?
-                subTitles.reduce((a, b) => a + b)
-                :
-                ''
-          }
+          {titleText}
         </title>
+        <meta property="og:url" content={`https://tochkadostupa.spb.ru${this.props.location.pathname}`} />
+        <meta property="og:title" content={titleText} />
+        {/* <meta property="og:description" content={titleText} /> */}
+        <meta property="og:image" content="/og-image.jpg" />
       </ReactHelmet>
     )
   }
