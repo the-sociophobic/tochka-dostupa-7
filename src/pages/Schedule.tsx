@@ -8,7 +8,7 @@ import isWithinInterval from 'date-fns/isWithinInterval'
 import { ru, enUS } from 'date-fns/locale'
 import { savePDF } from '@progress/kendo-react-pdf'
 import _ from 'lodash'
-
+import ReactPixel from 'react-facebook-pixel'
 
 import FormattedMessage from '../components/FormattedMessage'
 import {
@@ -23,7 +23,7 @@ import {
   Days
 } from '../components/Store/Types'
 import { getMessage } from '../components/Store/locale'
-import DatePicker from '../components/DatePicker'
+import RangePicker from '../components/RangePicker'
 import Link from '../components/Link'
 import camelize from '../utils/camelize'
 import radarioProps from '../utils/radarioProps'
@@ -37,8 +37,8 @@ type FilterState = {
   educational: boolean
   online: boolean
   offline: boolean
-  from: string
-  to: string
+  from: Date | undefined
+  to: Date | undefined
   [key: string]: any
 }
 type State = FilterState & {
@@ -54,8 +54,8 @@ const filterInitialState: FilterState = {
   educational: false,
   online: false,
   offline: false,
-  from: '',
-  to: '',
+  from: undefined,
+  to: undefined,
 }
 const loadAdditionalNumber = 5
 const currentFestivalFirstDay = '2021-01-01'
@@ -82,7 +82,7 @@ class Schedule extends React.Component<{}, State> {
     // this.context.setState({ ready: false })
 
     const { from, to } = this.state
-    const datesSet = from.length > 0 && to.length > 0
+    const datesSet = from && to
     const datesRange = datesSet ? `${from} - ${to}` : `${currentFestivalFirstDay} - 2021.07.26`
 
     setTimeout(() =>
@@ -141,11 +141,14 @@ class Schedule extends React.Component<{}, State> {
         id='Schedule.dates'
         className='Schedule__filter__p'
       />
-      <DatePicker
+      <RangePicker
+        locale={this.context.locale}
         dateA={this.state.from}
         dateB={this.state.to}
-        setDateA={(value: string) => this.setState({ from: value })}
-        setDateB={(value: string) => this.setState({ to: value })}
+        setDateA={(value: Date | undefined) =>
+          this.setState({ from: value })}
+        setDateB={(value: Date | undefined) =>
+          this.setState({ to: value })}
       />
 
       <div
@@ -182,7 +185,7 @@ class Schedule extends React.Component<{}, State> {
     let filteredDays: Days = Object.keys(this.context?.contentful?.mappedDays)
       .slice(
         Math.max(0,
-          indexOfCurrentFestivalFirstDay === -1 || (this.state.from.length > 0 && this.state.to.length > 0) ?
+          indexOfCurrentFestivalFirstDay === -1 || (this.state.from && this.state.to) ?
             0
             :
             indexOfCurrentFestivalFirstDay - this.state.showPrev * loadAdditionalNumber))
@@ -203,10 +206,10 @@ class Schedule extends React.Component<{}, State> {
               )
             )
             .filter((show: MappedShow) => {
-              const fromDate = new Date(this.state.from)
-              const toDate = new Date(this.state.to)
+              const fromDate = this.state.from
+              const toDate = this.state.to
 
-              if (Number.isNaN(fromDate.getTime()) || Number.isNaN(toDate.getTime()))
+              if (!fromDate || !toDate)
                 return true
 
               return isWithinInterval(
@@ -230,7 +233,7 @@ class Schedule extends React.Component<{}, State> {
     return (
       <div className='col-4 col-md-6 col-lg-8'>
         {indexOfCurrentFestivalFirstDay - this.state.showPrev * loadAdditionalNumber > 0
-          && (this.state.from.length === 0 || this.state.to.length === 0) &&
+          && (typeof this.state.from === 'undefined' || typeof this.state.to === 'undefined') &&
             <div
               className='Schedule__load-prev'
               onClick={() => this.setState({ showPrev: this.state.showPrev + 1 })}
@@ -320,6 +323,9 @@ class Schedule extends React.Component<{}, State> {
                           disabled={isBefore(show.dateObj, endOfToday())}
                           className='Schedule__day__show__button'
                           {...radarioProps(show)}
+                          onClick={() =>
+                            ReactPixel.fbq('track', 'Lead', { content_name: 'micro'})
+                          }
                         >
                           {this.context.locale === 'rus' ?
                             show.buttonNameCust || <FormattedMessage id='Schedule.buy' />

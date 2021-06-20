@@ -297,36 +297,40 @@
 
 
 
-.DatePicker
+.RangePicker
   @extend .mb-s
   @extend .mb-lg-s
-  &__inputs
-    position: relative
-    @extend .d-inline-flex
-    @extend .flex-row
-    &__dash
-      @extend .mx-1
-      line-height: rem(40)
-      @include media-breakpoint-down(md)
-        line-height: rem(36)
-    &__item
-      @extend .d-inline-block
-      @extend .p
-      @extend .p--l
-      outline: none
-      border: $border
-      border-color: $line-secondary
-      border-radius: rem(100)
-      text-align: center
-      width: rem(120)
-      height: rem(40)
-      line-height: rem(40)
-      @include media-breakpoint-down(md)
-        width: rem(100)
-        height: rem(36)
-        line-height: rem(36)
-      &--focused
-        border-color: $line-primary
+  @extend .d-inline-flex
+  @extend .flex-row
+  position: relative
+  width: 260px
+  @include media-breakpoint-down(md)
+    width: 220px
+  &__dash
+    @extend .mx-1
+    line-height: rem(40)
+    @include media-breakpoint-down(md)
+      line-height: rem(36)
+      
+.DatePicker
+  &__input
+    @extend .d-inline-block
+    @extend .p
+    @extend .p--l
+    outline: none
+    border: $border
+    border-color: $line-secondary
+    border-radius: rem(100)
+    text-align: center
+    width: rem(120)
+    height: rem(40)
+    line-height: rem(40)
+    @include media-breakpoint-down(md)
+      width: rem(100)
+      height: rem(36)
+      line-height: rem(36)
+    &--focused
+      border-color: $line-primary
   &__calendar
     width: 100%
     position: absolute
