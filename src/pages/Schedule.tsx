@@ -8,7 +8,6 @@ import isWithinInterval from 'date-fns/isWithinInterval'
 import { ru, enUS } from 'date-fns/locale'
 import { savePDF } from '@progress/kendo-react-pdf'
 import _ from 'lodash'
-import ReactPixel from 'react-facebook-pixel'
 
 import FormattedMessage from '../components/FormattedMessage'
 import {
@@ -323,9 +322,6 @@ class Schedule extends React.Component<{}, State> {
                           disabled={isBefore(show.dateObj, endOfToday())}
                           className='Schedule__day__show__button'
                           {...radarioProps(show)}
-                          onClick={() =>
-                            ReactPixel.fbq('track', 'Lead', { content_name: 'micro'})
-                          }
                         >
                           {this.context.locale === 'rus' ?
                             show.buttonNameCust || <FormattedMessage id='Schedule.buy' />
