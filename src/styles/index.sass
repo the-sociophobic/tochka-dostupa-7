@@ -37,6 +37,8 @@
 .Header
   width: 100%
   background-color: $white
+  overflow-y: scroll
+  @extend .no-scrollbar
   &--fixed
     z-index: 100
     position: fixed
@@ -263,6 +265,9 @@
       padding: rem(90) 0 rem(120)
       @include media-breakpoint-down(sm)
         padding: rem(40) 0 rem(120)
+        min-height: 150vh
+        @media (orientation: landscape)
+          min-height: 250vh
       .Header__controls
         @extend .d-flex
         @extend .mr-0

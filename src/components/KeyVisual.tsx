@@ -4,6 +4,7 @@ import ResizeObserver from 'resize-observer-polyfill'
 
 import { File } from '../components/Store/Types'
 import FormattedMessage from './FormattedMessage'
+import Link from './Link'
 import LogoWithText from './LogoWithText'
 import encodeUrlParams from '../utils/encodeUrlParams'
 import { Context } from '../components/Store'
@@ -66,9 +67,11 @@ class KeyVisual extends React.Component<Props, State> {
         <div className='w-100 my-auto d-flex flex-row justify-content-center'>
           <LogoWithText />
         </div>
-        <div className='p p--m text-uppercase'>
-          <FormattedMessage id='Home.keyvisual.tickets' />
-        </div>
+        <Link to='/schedule'>
+          <div className='p p--m text-uppercase'>
+            <FormattedMessage id='Home.keyvisual.tickets' />
+          </div>
+        </Link>
       </div>
     </div>
 
