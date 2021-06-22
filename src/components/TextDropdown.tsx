@@ -13,7 +13,7 @@ type Props = {
   className?: string
   initialOpen?: boolean
   additionalContent: JSX.Element
-  link: string
+  link: string | undefined
   shortDesc: JSX.Element
 }
 
@@ -84,13 +84,19 @@ class TextDropdown extends React.Component<Props, {}> {
             {this.cropChildren()}
           </div>
         </div>
-        <Link
-          className={`TextDropdown__toggle p--arrow p--arrow--${this.state.opened ? 'left' : 'right'}`}
-          // onClick={() => this.toggleOpened()}
-          to={this.props.link}
-        >
-          <FormattedMessage id={this.state.opened ? 'Program.hideText' : 'Program.readText'} />
-        </Link>
+        {this.props.link &&
+          <Link
+            className={`
+              TextDropdown__toggle
+              p--arrow
+              p--arrow--${this.state.opened ? 'left' : 'right'}
+            `}
+            // onClick={() => this.toggleOpened()}
+            to={this.props.link}
+          >
+            <FormattedMessage id={this.state.opened ? 'Program.hideText' : 'Program.readText'} />
+          </Link>
+        }
       </div>
       <div className='TextDropdown__additional-content'>
         {this.props.additionalContent}
