@@ -53,6 +53,7 @@ class Spekt extends React.Component<Props, State> {
   }
 
   static contextType = Context
+  scheduleRef: any = React.createRef()
 
   render = () => {
     if (!this?.context?.ready)
@@ -124,16 +125,18 @@ class Spekt extends React.Component<Props, State> {
 
             {spekt.shows.length > 0 &&
               <div className='col-4 col-md-6 mt-xxs d-block d-lg-none'>
-                <a
-                  href='#tickets'
+                <div
                   className='button button--main'
                   onClick={() => {
                     this.setState({ currentOpened: 0 })
-                    
+                    setTimeout(() => window.scroll({
+                      top: this.scheduleRef?.current?.getBoundingClientRect()?.top + window.scrollY - 200,
+                      behavior: 'smooth'
+                    }), 250)
                   }}
                 >
                   <FormattedMessage id='Spekt.buyAnchor' />
-                </a>
+                </div>
               </div>
             }
           </div>
@@ -207,7 +210,7 @@ class Spekt extends React.Component<Props, State> {
 
               {spekt.shows.length > 0 &&
                 <>
-                  <div id='tickets' />
+                  <div ref={this.scheduleRef} />
                   <Dropdown
                     spekt
                     className='mb-2 mb-md-3'

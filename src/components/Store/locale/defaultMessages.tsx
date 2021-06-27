@@ -208,7 +208,7 @@ const defaultMessages: Messages = {
     instructions: ['Инструкция для зрителей', 'Instructions'],
     performanceTeam: ['Команда проекта', 'Project team'],
     buy: ['Расписание', 'Tickets'],
-    buyAnchor: ['Купить билеты', 'Buy tickets'],
+    buyAnchor: ['Билеты и расписание', 'Tickets & schedule'],
     showAllShows: ['Показать ещё...', 'More shows...'],
     FestivalPass: {
       desc: [<>Скидка 35% на все билеты<br />по промокоду</>, <>35% discount with<br />promocode</>],
