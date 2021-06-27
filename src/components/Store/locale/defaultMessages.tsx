@@ -208,12 +208,13 @@ const defaultMessages: Messages = {
     instructions: ['Инструкция для зрителей', 'Instructions'],
     performanceTeam: ['Команда проекта', 'Project team'],
     buy: ['Расписание', 'Tickets'],
+    buyAnchor: ['Купить билеты', 'Buy tickets'],
     showAllShows: ['Показать ещё...', 'More shows...'],
     FestivalPass: {
       desc: [<>Скидка 35% на все билеты<br />по промокоду</>, <>35% discount with<br />promocode</>],
       more: ['Подробнее', 'Learn more'],
       tooltip: ['промокод скопирован', 'promocode copied'],
-      noReturns: ['Вернуть билет, купленный по промокоду, можно только при отмене мероприятия и в случаях, предусмотренных законом', 'You can return a ticket purchased using a promotional code only if the event is canceled and in cases provided for by law']
+      noReturns: ['Вернуть билет, купленный по промокоду, можно только при отмене мероприятия, в случае болезни зрителя и в случаях, предусмотренных законом', 'You can return a ticket purchased using a promotional code only if the event is canceled and in cases provided for by law']
     }
   },
 

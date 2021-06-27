@@ -121,6 +121,21 @@ class Spekt extends React.Component<Props, State> {
                 }
               </div>
             </div>
+
+            {spekt.shows.length > 0 &&
+              <div className='col-4 col-md-6 mt-xxs d-block d-lg-none'>
+                <a
+                  href='#tickets'
+                  className='button button--main'
+                  onClick={() => {
+                    this.setState({ currentOpened: 0 })
+                    
+                  }}
+                >
+                  <FormattedMessage id='Spekt.buyAnchor' />
+                </a>
+              </div>
+            }
           </div>
 
 
@@ -191,78 +206,81 @@ class Spekt extends React.Component<Props, State> {
                 <FestivalPassSpekt />}
 
               {spekt.shows.length > 0 &&
-                <Dropdown
-                  spekt
-                  className='mb-2 mb-md-3'
-                  title={
-                    <FormattedMessage
-                      id='Spekt.buy'
-                      className='h3 mb-0'
-                    />}
-                  opened={this.state.currentOpened === 0}
-                  toggleOpened={() =>
-                    this.setState({
-                      currentOpened: this.state.currentOpened === 0 ?
-                        -1
-                        :
-                        0
-                    })}
-                >
-                  {spekt.shows
-                    .filter((show: MappedShow, index: number) =>
-                      this.state.showAllShows || index < maxShownShows)
-                    ?.map((show: MappedShow) =>
-                      <div
-                        key={show.id}
-                        className='Spekt__show'
-                      >
-                        <div className='Spekt__show__date-time'>
-                          {(() => {
-                            if (this.context.locale === 'rus')
-                              if (show.datetimeCust)
-                                return show.datetimeCust
-                            else
-                              if (show.datetimeCustEn)
-                                return show.datetimeCustEn
-
-                            const dateTime = format(
-                              show.dateObj,
-                              'dd.MM / iiii / HH:mm ',
-                              { locale: this.context.locale === 'rus' ? ru : enUS })
-                            const dateTimeSplitted = dateTime.split(' / ')
-
-                            return `${dateTimeSplitted[0]} / ${camelize(dateTimeSplitted[1])} / ${dateTimeSplitted[2]} ${getMessage(this, 'Schedule.msk')}`
-                          })()}
-                          {this.context.locale === 'rus' ?
-                            show.disclaimer ? <div className='w-100 p p--s my-2'>{show.disclaimer}</div> : ''
-                            :
-                            show.disclaimerEn ? <div className='w-100 p p--s my-2'>{show.disclaimerEn}</div> : ''
-                          }
-                        </div>
-                        <div className='Spekt__show__line'>
-                          {show.offline ? <Offline /> : <Online />}
-                        </div>
-                        <Link
-                          className='Spekt__show__buy'
-                          {...radarioProps(show)}
+                <>
+                  <div id='tickets' />
+                  <Dropdown
+                    spekt
+                    className='mb-2 mb-md-3'
+                    title={
+                      <FormattedMessage
+                        id='Spekt.buy'
+                        className='h3 mb-0'
+                      />}
+                    opened={this.state.currentOpened === 0}
+                    toggleOpened={() =>
+                      this.setState({
+                        currentOpened: this.state.currentOpened === 0 ?
+                          -1
+                          :
+                          0
+                      })}
+                  >
+                    {spekt.shows
+                      .filter((show: MappedShow, index: number) =>
+                        this.state.showAllShows || index < maxShownShows)
+                      ?.map((show: MappedShow) =>
+                        <div
+                          key={show.id}
+                          className='Spekt__show'
                         >
-                          {this.context.locale === 'rus' ?
-                            show.buttonNameCust || <FormattedMessage id='Schedule.buy' />
-                            :
-                            show.buttonNameCustEn || <FormattedMessage id='Schedule.buy' />
-                          }
-                        </Link>
-                      </div>
-                    )
-                  }
-                  {(!this.state.showAllShows && spekt.shows.length > maxShownShows) &&
-                    <div
-                      className='p p--m cursor-pointer mt-3'
-                      onClick={() => this.setState({ showAllShows: true })}
-                    >
-                      <FormattedMessage id='Spekt.showAllShows' />
-                    </div>}
-                </Dropdown>
+                          <div className='Spekt__show__date-time'>
+                            {(() => {
+                              if (this.context.locale === 'rus')
+                                if (show.datetimeCust)
+                                  return show.datetimeCust
+                              else
+                                if (show.datetimeCustEn)
+                                  return show.datetimeCustEn
+
+                              const dateTime = format(
+                                show.dateObj,
+                                'dd.MM / iiii / HH:mm ',
+                                { locale: this.context.locale === 'rus' ? ru : enUS })
+                              const dateTimeSplitted = dateTime.split(' / ')
+
+                              return `${dateTimeSplitted[0]} / ${camelize(dateTimeSplitted[1])} / ${dateTimeSplitted[2]} ${getMessage(this, 'Schedule.msk')}`
+                            })()}
+                            {this.context.locale === 'rus' ?
+                              show.disclaimer ? <div className='w-100 p p--s my-2'>{show.disclaimer}</div> : ''
+                              :
+                              show.disclaimerEn ? <div className='w-100 p p--s my-2'>{show.disclaimerEn}</div> : ''
+                            }
+                          </div>
+                          <div className='Spekt__show__line'>
+                            {show.offline ? <Offline /> : <Online />}
+                          </div>
+                          <Link
+                            className='Spekt__show__buy'
+                            {...radarioProps(show)}
+                          >
+                            {this.context.locale === 'rus' ?
+                              show.buttonNameCust || <FormattedMessage id='Schedule.buy' />
+                              :
+                              show.buttonNameCustEn || <FormattedMessage id='Schedule.buy' />
+                            }
+                          </Link>
+                        </div>
+                      )
+                    }
+                    {(!this.state.showAllShows && spekt.shows.length > maxShownShows) &&
+                      <div
+                        className='p p--m cursor-pointer mt-3'
+                        onClick={() => this.setState({ showAllShows: true })}
+                      >
+                        <FormattedMessage id='Spekt.showAllShows' />
+                      </div>}
+                  </Dropdown>
+                </>
               }
 
               {['howToOnline', 'howToOffline', 'performanceTeam', 'instructions']
