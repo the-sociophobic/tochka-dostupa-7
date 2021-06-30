@@ -161,10 +161,12 @@ class Footer extends React.Component {
               {footer?.disclaimer}
             </div>
             <div className='col-3 col-md-3 col-lg-3 mx-auto mx-lg-0'>
-              <Img
-                file={footer?.covidImg}
-                className='w-100'
-              />
+              <Link to={footer?.covidLink}>
+                <Img
+                  file={footer?.covidImg}
+                  className='w-100'
+                />
+              </Link>
             </div>
           </div>
         </div>
