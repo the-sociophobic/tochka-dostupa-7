@@ -2,6 +2,7 @@ import React from 'react'
 
 import FormattedMessage from './FormattedMessage'
 import Link from './Link'
+import Img from './Img'
 import { getSubLinks } from '../utils/routeUtils'
 import { Context } from './Store'
 
@@ -156,8 +157,14 @@ class Footer extends React.Component {
             </div>
           </div>
           <div className="Footer__disclaimer">
-            <div className='p p--xs col-12 pb-xs'>
+            <div className='p p--xs col-4 col-md-6 col-lg-9 pb-xs'>
               {footer?.disclaimer}
+            </div>
+            <div className='col-3 col-md-3 col-lg-3 mx-auto mx-lg-0'>
+              <Img
+                file={footer?.covidImg}
+                className='w-100'
+              />
             </div>
           </div>
         </div>

@@ -94,7 +94,8 @@ class Login extends React.Component<Props, State> {
 
   loginWithCode = async () => {
     const res = await post('/login-with-code', {
-      phone: '',
+      [validatePhone(this.state.emailPhoneInputString) ? 'phone' : 'email']: this.state.emailPhoneInputString,
+      tmpCode: this.state.codeInputString,
       sessionToken: this?.context?.cookies?.get('sessionToken')
     })
 
