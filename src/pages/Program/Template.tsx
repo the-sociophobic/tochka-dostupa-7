@@ -9,6 +9,7 @@ import {
 import TextDropdown from '../../components/TextDropdown'
 import CuratorsAvatars from '../../components/CuratorsAvatars'
 import SpektCard from '../../components/Views/Cards/SpektCard'
+import Img from '../../components/Img'
 
 
 type Props = {
@@ -105,7 +106,7 @@ class Template extends React.Component<Props, {}> {
       ?.find((program: Program) => program.id === this.props.programId)
     const homepage = this?.context?.contentful?.homepages?.[0]
 
-    return !program ? '' :
+    return (!program || !homepage) ? '' :
       this.props.text ?
         <div className="Program">
           <div className='container'>
@@ -140,11 +141,34 @@ class Template extends React.Component<Props, {}> {
 
               {this.renderText(program, false, false)}
 
+              {this.props.programId === '7fOwCkT7nOXh3C81toLoSs' &&
+                <>
+                  <div className='container'>
+                    <div className='row'>
+                      <div className='col-4 col-md-5 col-lg-8'>
+                        <div className='p p--xl'>
+                          {homepage.sponsorsTypesLines?.[1]?.name}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='container mb-s mb-md-m'>
+                    <div className='row d-flex flex-row flex-wrap'>
+                      <div className='col-2 col-md-3 col-lg-4'>
+                        {homepage.sponsorsTypesLines?.[1]?.sponsors?.[0] &&
+                          <Img
+                            file={homepage.sponsorsTypesLines?.[1]?.sponsors?.[0].logo[0]}
+                            className='w-100'
+                            noCrop
+                          />
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </>
+              }
+
               <div className='row d-flex flex-row flex-wrap'>
-                {/* {this.context?.contentful?.spekts
-                  ?.filter((spekt: Spekt) =>
-                    spekt?.program?.id === program.id
-                    && spekt?.festival?.name?.includes?.('VII')) */}
                 {homepage[program.link]
                   ?.map((spekt: Spekt) =>
                     <div className='Program__SpektCard-delimeter'>

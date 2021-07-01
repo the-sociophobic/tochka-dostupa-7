@@ -55,58 +55,6 @@ class Sponsors extends React.Component {
           </div>
         </div>
 
-        {/* {page
-          ?.sponsorsTypesLines?.map((sponsorTypeLine: SponsorTypeLine, index: number) =>
-            <div
-              key={index}
-              className='container'
-            >
-              <div className='row mb-xxs mb-md-s mb-lg-xs'>
-                <div className='col-4 col-md-6 col-lg-6 d-flex flex-column'>
-                  <p className='p p--xxl mb-xxs'>
-                    {sponsorTypeLine.sponsorTypes[0].name}
-                  </p>
-                  <div className='row d-flex flex-column flex-md-row mb-xxs mb-md-s mb-lg-m'>
-                    {sponsorTypeLine.sponsorTypes[0].sponsors
-                      ?.map((partner: Sponsor) =>
-                        <div
-                          key={partner.id}
-                          className={sponsorTypeLine.L ? 'col-4 col-md-3 col-lg-6' : 'col-2 col-md-2 col-lg-4'}
-                        >
-                          <Img
-                            file={partner.logo}
-                            className='w-100'
-                            noCrop
-                          />
-                        </div>
-                    )}
-                  </div>
-                </div>
-                <div className='col-4 col-md-6 col-lg-6 d-flex flex-column'>
-                  <p className='p p--xxl mb-xxs'>
-                    {sponsorTypeLine.sponsorTypes[1].name}
-                  </p>
-                  <div className='row d-flex flex-column flex-md-row mb-xxs mb-md-s mb-lg-m'>
-                    {sponsorTypeLine.sponsorTypes[1].sponsors
-                      ?.map((partner: Sponsor) =>
-                        <div
-                          key={partner.id}
-                          className={sponsorTypeLine.L ? 'col-4 col-md-3 col-lg-6' : 'col-2 col-md-2 col-lg-4'}
-                        >
-                          <Img
-                            file={partner.logo}
-                            className='w-100'
-                            noCrop
-                          />
-                        </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-        )} */}
-
         <div className='container mb-s mb-md-m'>
           <div className='row d-flex flex-row flex-wrap'>
             {page.sponsorsTypesLines?.[0]?.sponsors?.map((sponsor: Sponsor) =>
@@ -117,7 +65,7 @@ class Sponsors extends React.Component {
           </div>
         </div>
 
-        <div className='container mb-4 mb-md-s'>
+        <div className='container'>
           <div className='row'>
             <div className='col-4 col-md-5 col-lg-8'>
               <div className='p p--xl'>
@@ -126,10 +74,27 @@ class Sponsors extends React.Component {
             </div>
           </div>
         </div>
-        <div className='container'>
+        <div className='container mb-s mb-md-m'>
           <div className='row d-flex flex-row flex-wrap'>
             <div className='col-2 col-md-3 col-lg-4'>
               {this.renderImg(page.sponsorsTypesLines?.[1]?.sponsors?.[0])}
+            </div>
+          </div>
+        </div>
+
+        <div className='container mb-4 mb-md-s'>
+          <div className='row'>
+            <div className='col-4 col-md-5 col-lg-8'>
+              <div className='p p--xl'>
+                {page.sponsorsTypesLines?.[2]?.name}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='container'>
+          <div className='row d-flex flex-row flex-wrap'>
+            <div className='col-2 col-md-3 col-lg-4'>
+              {this.renderImg(page.sponsorsTypesLines?.[2]?.sponsors?.[0])}
             </div>
           </div>
         </div>
@@ -141,8 +106,8 @@ class Sponsors extends React.Component {
           </div>
         </div>
 
-        {this.render6(page.sponsorsTypesLines?.[2], true, 'mb-s mb-md-m')}
         {this.render6(page.sponsorsTypesLines?.[3], true, 'mb-s mb-md-m')}
+        {this.render6(page.sponsorsTypesLines?.[4], true, 'mb-s mb-md-m')}
         <div className='container mb-s mb-md-m'>
           <div className='row'>
             <div className='col'>
@@ -155,12 +120,12 @@ class Sponsors extends React.Component {
           <div className='row'>
             <div className='col-4 col-md-5 col-lg-8'>
               <div className='p p--xl'>
-                {page.sponsorsTypesLines?.[4]?.name}
+                {page.sponsorsTypesLines?.[5]?.name}
               </div>
             </div>
           </div>
         </div>
-        {this.render6(page.sponsorsTypesLines?.[4], false, 'mb-s mb-md-m')}
+        {this.render6(page.sponsorsTypesLines?.[5], false, 'mb-s mb-md-m')}
         <div className='container mb-s mb-md-m'>
           <div className='row'>
             <div className='col'>
@@ -171,7 +136,7 @@ class Sponsors extends React.Component {
 
         <div className='container mb-s mb-md-m'>
           <div className='row'>
-            {page.sponsorsTypesLines?.[5]?.sponsorTypes?.map((sponsorType: SponsorType) =>
+            {page.sponsorsTypesLines?.[6]?.sponsorTypes?.map((sponsorType: SponsorType) =>
               <div className='col-2 col-md-3 col-lg-6'>
                 <div className='row mb-4 mb-lg-xs'>
                   <div className='col'>
@@ -194,12 +159,12 @@ class Sponsors extends React.Component {
           <div className='row'>
             <div className='col'>
               <div className='p p--xl'>
-                {page.sponsorsTypesLines?.[6]?.name}
+                {page.sponsorsTypesLines?.[7]?.name}
               </div>
             </div>
           </div>
         </div>
-        {this.render6(page.sponsorsTypesLines?.[6], false, '')}
+        {this.render6(page.sponsorsTypesLines?.[7], false, '')}
 
       </>
   }
