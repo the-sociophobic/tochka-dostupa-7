@@ -1036,11 +1036,14 @@
       @extend .ml-auto
       border: none
       text-align: right
+      text-decoration: underline
+      text-underline-offset: .25rem
+      text-decoration-thickness: from-font
       @include media-breakpoint-down(sm)
         text-align: left
       cursor: pointer
       &:hover
-        text-decoration: underline
+        text-decoration: none
         text-underline-offset: .25rem
         text-decoration-thickness: from-font
       &.Link--disabled
