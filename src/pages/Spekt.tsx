@@ -71,7 +71,8 @@ class Spekt extends React.Component<Props, State> {
       shows: _.values(this?.context?.contentful?.mappedDays || {})
         .map((day: MappedShow[]) =>
           day.filter((show: MappedShow) =>
-            show.name === spekt.name && isAfter(show.dateObj, endOfYesterday())))
+            show.name === spekt.name// && isAfter(show.dateObj, endOfYesterday())
+          ))
         .filter((day: MappedShow[]) =>
           day.length > 0)
         .reduce((a: MappedShow[], b: MappedShow[]) => [...a, ...b], [])

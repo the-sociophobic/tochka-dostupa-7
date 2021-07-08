@@ -3,7 +3,7 @@ import React from 'react'
 import capitalize from 'capitalize'
 import { format } from 'date-fns'
 import isBefore from 'date-fns/isBefore'
-import endOfToday from 'date-fns/endOfToday'
+import endOfYesterday from 'date-fns/endOfYesterday'
 import isWithinInterval from 'date-fns/isWithinInterval'
 import { ru, enUS } from 'date-fns/locale'
 import { savePDF } from '@progress/kendo-react-pdf'
@@ -319,7 +319,7 @@ class Schedule extends React.Component<{}, State> {
                       </Link>
                       <div className='col-4 col-md-2 col-lg-3'>
                         <Link
-                          disabled={isBefore(show.dateObj, endOfToday())}
+                          disabled={isBefore(show.dateObj, endOfYesterday())}
                           className='Schedule__day__show__button'
                           {...radarioProps(show)}
                         >
