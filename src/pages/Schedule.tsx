@@ -319,7 +319,9 @@ class Schedule extends React.Component<{}, State> {
                       </Link>
                       <div className='col-4 col-md-2 col-lg-3'>
                         <Link
-                          disabled={isBefore(show.dateObj, endOfYesterday())}
+                          disabled={
+                            isBefore(show.dateObj, endOfYesterday())
+                              && !((show.scheduleCust?.includes('с ') || show.scheduleCust?.includes('Доступен всегда')) && !show.scheduleCust?.includes('мск'))}
                           className='Schedule__day__show__button'
                           {...radarioProps(show)}
                         >
