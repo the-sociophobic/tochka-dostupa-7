@@ -1003,12 +1003,23 @@
 
 .Spekt
   &__cover-container
+    position: relative
+    @extend .w-100
     overflow: hidden
     border-radius: rem(12)
     @include media-breakpoint-down(md)
       border-radius: rem(10)
     @include media-breakpoint-down(sm)
       border-radius: rem(8)
+    &:not(&--video)
+      height: 100%
+    &--video
+      padding-top: calc(240 / 426 * 100%)
+    &__video
+      @extend .abs-cover
+      border: none
+      top: 0
+      left: 0
   &__show
     @extend .d-flex
     @extend .flex-column

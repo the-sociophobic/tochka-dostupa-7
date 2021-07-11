@@ -86,12 +86,21 @@ class Spekt extends React.Component<Props, State> {
 
           <div className='row mt-s d-flex flex-column flex-lg-row mb-s mb-md-m mb-lg-l'>
             <div className='col-4 col-md-6 col-lg-8 order-lg-2'>
-              <div className='w-100 Spekt__cover-container'>
-                <img
-                  src={`${spekt?.cover?.file?.url}?fit=fill&w=860&h=520`}
-                  alt={spekt?.cover?.file?.fileName}
-                  className='w-100 h-auto'
-                />
+              <div className={`Spekt__cover-container ${spekt?.videoCover && 'Spekt__cover-container--video'}`}>
+                {spekt?.videoCover ?
+                  <iframe
+                    src={spekt?.videoCover}
+                    className='Spekt__cover-container__video'
+                    frameBorder="0"
+                    allowFullScreen
+                  />
+                  :
+                  <img
+                    src={`${spekt?.cover?.file?.url}?fit=fill&w=860&h=520`}
+                    alt={spekt?.cover?.file?.fileName}
+                    className='w-100 h-auto'
+                  />
+                }
               </div>
             </div>
 
