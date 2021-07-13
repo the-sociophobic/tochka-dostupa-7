@@ -247,6 +247,8 @@ class Schedule extends React.Component<{}, State> {
           </div>
           :
           Object.keys(filteredDays)
+            .filter((dayKey: string) =>
+              !isNaN(Date.parse(dayKey)))
             .map((dayKey: string) =>
               <div
                 key={dayKey}
@@ -255,7 +257,7 @@ class Schedule extends React.Component<{}, State> {
                 <h2 className='h2 h2--underline pb-1 pb-md-2 mb-3'>
                   {format(
                     new Date(dayKey),
-                    `d MMMM / ${dayKey.includes('2021') ? 'EEEE' : ' yyyy'}`,
+                    `d MMMM / ${dayKey?.includes('2021') ? 'EEEE' : ' yyyy'}`,
                     { locale: this.context.locale === 'rus' ? ru : enUS }
                   )}
                 </h2>
@@ -371,6 +373,8 @@ class Schedule extends React.Component<{}, State> {
             </div>
             :
             Object.keys(filteredDays)
+              .filter((dayKey: string) =>
+                !isNaN(Date.parse(dayKey)))
               .map((dayKey: string) =>
                 <div
                   key={dayKey}
@@ -383,7 +387,7 @@ class Schedule extends React.Component<{}, State> {
                     <h2 className='p p--s p--underline font-weight-bold pb-1 pb-md-2 mb-3'>
                       {format(
                         new Date(dayKey),
-                        `d MMMM / ${dayKey.includes('2021') ? 'EEEE' : ' yyyy'}`,
+                        `d MMMM / ${dayKey?.includes('2021') ? 'EEEE' : ' yyyy'}`,
                         { locale: this.context.locale === 'rus' ? ru : enUS }
                       )}
                     </h2>
