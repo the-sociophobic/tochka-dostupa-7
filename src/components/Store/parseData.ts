@@ -56,7 +56,8 @@ const parseMappedDays = async (spekts: Spekt[]) =>
       ?.filter((show: MappedShow) =>
         show.datetime.length > 0)
       ?.forEach((show: MappedShow) => {
-        const day = show.datetime.split('T')[0]
+        // const day = show.datetime.split('T')[0]
+        const day = show.datetime.slice(0, 10)
         
         mappedDays.hasOwnProperty(day) ?
           mappedDays[day]?.push(show)
