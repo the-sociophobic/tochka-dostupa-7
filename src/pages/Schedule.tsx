@@ -254,6 +254,7 @@ class Schedule extends React.Component<{}, State> {
                 className='Schedule__day'
               >
                 <h2 className='h2 h2--underline pb-1 pb-md-2 mb-3'>
+                  {(() => console.log(dayKey))()}
                   {format(
                     new Date(dayKey),
                     `d MMMM / ${dayKey?.includes('2021') ? 'EEEE' : ' yyyy'}`,
