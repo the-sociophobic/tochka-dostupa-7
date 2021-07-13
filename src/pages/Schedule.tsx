@@ -27,6 +27,7 @@ import Link from '../components/Link'
 import camelize from '../utils/camelize'
 import radarioProps from '../utils/radarioProps'
 import { FestivalPassSchedule } from '../components/FestivalPass'
+import isValidDate from '../utils/isValidDate'
 // import Loader from '../components/Loader'
 
 
@@ -208,7 +209,7 @@ class Schedule extends React.Component<{}, State> {
               const fromDate = this.state.from
               const toDate = this.state.to
 
-              if (!fromDate || !toDate)
+              if (!fromDate || !toDate || !isValidDate(fromDate) || !isValidDate(toDate))
                 return true
 
               return isWithinInterval(
@@ -247,8 +248,6 @@ class Schedule extends React.Component<{}, State> {
           </div>
           :
           Object.keys(filteredDays)
-            .filter((dayKey: string) =>
-              !isNaN(Date.parse(dayKey)))
             .map((dayKey: string) =>
               <div
                 key={dayKey}
@@ -373,8 +372,6 @@ class Schedule extends React.Component<{}, State> {
             </div>
             :
             Object.keys(filteredDays)
-              .filter((dayKey: string) =>
-                !isNaN(Date.parse(dayKey)))
               .map((dayKey: string) =>
                 <div
                   key={dayKey}

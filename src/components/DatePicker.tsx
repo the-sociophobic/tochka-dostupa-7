@@ -13,6 +13,8 @@ import isSameDay from 'date-fns/isSameDay'
 import isSameMonth from 'date-fns/isSameMonth'
 import { ru, enUS } from 'date-fns/locale'
 
+import isValidDateString from '../utils/isValidDateString'
+
 
 export type DatePickerProps = {
 	value: Date | undefined
@@ -269,9 +271,6 @@ const inputStringToDateReadableString = (string: string) =>
 
 const dateToInputString = (date: Date | undefined) =>
 	(typeof date === 'undefined' ? '' : format(date, 'ddMMyyyy'))
-
-const isValidDateString = (string: string) =>
-	!Number.isNaN(new Date(string).getTime())
 
 const isValidDate = (date: Date | undefined) =>
 	typeof date !== 'undefined' && !Number.isNaN(date.getTime())
