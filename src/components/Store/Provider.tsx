@@ -86,9 +86,14 @@ class Provider extends React.Component<Props, StateType> {
     this.setState({ ready: false })
 
     this.setState({
-      contentfulData: contentfulDataJSON
+      contentfulData: contentfulDataJSON as any
+      // contentfulData: [
+      //   await parseData(contentfulDataJSON[0] as any),
+      //   await parseData(contentfulDataJSON[1] as any)
+      // ]
     })
- 
+
+    console.log(this.state.contentfulData)
     this.setState({ ready: true })
 
     this.callInitializeCallbacks()
@@ -104,8 +109,8 @@ class Provider extends React.Component<Props, StateType> {
 
     this.setState({
       contentfulData: [
-        await parseContentfulItems((await client.getEntries({ limit: 200, })).items),
-        await parseContentfulItems((await client.getEntries({ limit: 200, locale: 'en-US' })).items)
+        await parseData(await parseContentfulItems((await client.getEntries({ limit: 200, })).items)),
+        await parseData(await parseContentfulItems((await client.getEntries({ limit: 200, locale: 'en-US' })).items))
       ]
     })
     // }
