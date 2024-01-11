@@ -19,6 +19,8 @@ import {
 } from '../../utils/contentful'
 import isProd from '../../utils/isProd'
 import parseData from './parseData'
+import contentfulDataJSON from './contentfulData.json'
+
 
 type Props = RouteComponentProps<{
   param1: string,
@@ -66,7 +68,7 @@ class Provider extends React.Component<Props, StateType> {
   logout = async () => {
     if (_.isEmpty(this.state.user))
       return
-      
+
     const res = await post('/logout', {
       sessionToken: this.cookies.get('sessionToken'),
       deviceInfo: JSON.stringify(deviceDetect())
@@ -80,21 +82,35 @@ class Provider extends React.Component<Props, StateType> {
     })
   }
 
+  loadContentfulJSON = async () => {
+    this.setState({ ready: false })
+
+    this.setState({
+      contentfulData: contentfulDataJSON
+    })
+ 
+    this.setState({ ready: true })
+
+    this.callInitializeCallbacks()
+  }
+
   loadContentful = async () => {
-    if (isProd() || true) {
-      await this.updateContentful(false)
-    } else {
-      const client = createContentfulClient()
+    // if (isProd() || true) {
+    //   await this.updateContentful(false)
+    // } else {
+    this.setState({ ready: false })
 
-      this.setState({
-        contentfulData: [
-          await parseContentfulItems((await client.getEntries({ limit: 200, })).items),
-          await parseContentfulItems((await client.getEntries({ limit: 200, locale: 'en-US' })).items)
-        ]
-      })      
-    }
+    const client = createContentfulClient()
 
-    console.log(this.state.contentfulData[0])
+    this.setState({
+      contentfulData: [
+        await parseContentfulItems((await client.getEntries({ limit: 200, })).items),
+        await parseContentfulItems((await client.getEntries({ limit: 200, locale: 'en-US' })).items)
+      ]
+    })
+    // }
+
+    this.setState({ ready: true })
 
     this.callInitializeCallbacks()
   }
@@ -107,7 +123,7 @@ class Provider extends React.Component<Props, StateType> {
       await parseData(await parseContentfulItems(contentfulData.contentfulData[0])),
       await parseData(await parseContentfulItems(contentfulData.contentfulData[1])),
     ]
-    
+
     this.setState({
       contentfulData: parsedContentfulData
     })
@@ -117,14 +133,14 @@ class Provider extends React.Component<Props, StateType> {
     this.setState({ ready: true })
 
     update &&
-      this.callInitializeCallbacks()    
+      this.callInitializeCallbacks()
   }
 
   registerInitializeCallback = (fn: Function) => {
     this.initializeCallBacks.push(fn)
     this.state.contentfulData.length > 0 && fn()
   }
-  
+
   callInitializeCallbacks = () =>
     setTimeout(() =>
       this.initializeCallBacks
@@ -160,22 +176,22 @@ class Provider extends React.Component<Props, StateType> {
           locale: this.state.locale === "rus" ? "eng" : "rus"
         })
       },
-  
+
       openPopup: () =>
         document.body.classList.add('overflow-hidden'),
       closePopup: () =>
         document.body.classList.remove('overflow-hidden'),
-  
+
       contentful: this.state.contentfulData?.[this.state.locale === "rus" ? 0 : 1],
       updateContentful: this.updateContentful,
-  
+
       registerInitializeCallback: this.registerInitializeCallback,
     }
 
     return ({
-        ...(this.state.ready ? this.state : initialState),
-        ...nonState
-      })
+      ...(this.state.ready ? this.state : initialState),
+      ...nonState
+    })
   }
 
   render = () =>
